@@ -54,6 +54,16 @@ This pattern isn't useful in the following situations:
 - The source data changes very quickly, or can be accessed without using a view. In these cases, you should avoid the processing overhead of creating views.
 - Consistency is a high priority. The views might not always be fully consistent with the original data.
 
+## Workload design
+
+An architect should evaluate how the Materialized View pattern can be used in their workload's design to address the goals and principles covered in the [Azure Well-Architected Framework pillars](/azure/well-architected/pillars). For example:
+
+| Pillar | How this pattern supports pillar goals |
+| :----- | :------------------------------------- |
+| [Performance Efficiency](/azure/well-architected/performance-efficiency/checklist) helps your workload **efficiently meet demands** through optimizations in scaling, data, code. | The materialized views store the results of complex computations or queries without requiring the database engine or client to recompute for every request. This design reduces overall resource consumption.<br/><br/> - [PE:08 Data performance](/azure/well-architected/performance-efficiency/optimize-data-performance) |
+
+As with any design decision, consider any tradeoffs against the goals of the other pillars that might be introduced with this pattern.
+
 ## Example
 
 The following figure shows an example of using the Materialized View pattern to generate a summary of sales. Data in the Order, OrderItem, and Customer tables in separate partitions in an Azure storage account are combined to generate a view containing the total sales value for each product in the Electronics category, along with a count of the number of customers who made purchases of each item.
@@ -72,6 +82,6 @@ Creating this materialized view requires complex queries. However, by exposing t
 
 The following patterns might also be relevant when implementing this pattern:
 
-- [Command and Query Responsibility Segregation (CQRS) pattern](./cqrs.yml). Use to update the information in a materialized view by responding to events that occur when the underlying data values change.
+- [Command and Query Responsibility Segregation (CQRS) pattern](./cqrs.md). Use to update the information in a materialized view by responding to events that occur when the underlying data values change.
 - [Event Sourcing pattern](./event-sourcing.yml). Use in conjunction with the CQRS pattern to maintain the information in a materialized view. When the data values a materialized view is based on are changed, the system can raise events that describe these changes and save them in an event store.
 - [Index Table pattern](./index-table.yml). The data in a materialized view is typically organized by a primary key, but queries might need to retrieve information from this view by examining data in other fields. Use to create secondary indexes over data sets for data stores that don't support native secondary indexes.
