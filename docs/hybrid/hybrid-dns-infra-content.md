@@ -39,9 +39,9 @@ The architecture consists of the following components:
 - [Azure Firewall][azfw/overview]. An Azure Firewall inspects network traffic and only allows legitimate flows. Azure Firewall can be configured as DNS proxy, which enables Fully-Qualified Domain Name (FQDN) network rules and DNS logging. See [Azure Firewall DNS Proxy Details[azfw/dns] for more information about this functionality.
 - [Azure Private DNS Zone][dns/overview]. Azure Private DNS Zone provide DNS resolution for Azure workloads. Virtual machines can be autorregistered and integration with private link endpoints can be automated. Azure workloads can use private DNS zones if they are located in a virtual network linked to a specific zone by means of a DNS virtual network link.
 - [Azure DNS Private Resolver][dns/resolver/overview]. Azure DNS Private Resolver is a managed service that provides DNS resolution in Azure, including conditional forwarding of DNS requests to other DNS servers. Since it is a Microsoft-managed service, Azure administrators do not need to manage the operating system and can focus on the configuration of DNS functionality.
-> [!NOTE]
-> If you already have DNS servers such as Windows Server virtual machines acting as Active Directory Domain Controllers (ADDC) you would not need Azure DNS Private Resolver, and your ADDCs would replace Azure DNS Private Resolver in this architecture.
 - [DNS forwarding ruleset][dns/resolver/rulesets]. DNS forwarding rulesets contain definitions of which name domains should be forwarded to which external DNS server. Forwarding rulesets can be linked to virtual networks to provide external DNS resolution.
+> [!NOTE]
+> If you already have DNS servers such as Windows Server virtual machines acting as Active Directory Domain Controllers (ADDC) you would not need Azure DNS Private Resolver, and your ADDCs would replace Azure DNS Private Resolver and the DNS forwarding rulesets in this architecture.
 
 ## Hybrid resolution flows
 
@@ -58,11 +58,11 @@ Azure virtual machines might need to access on-premises systems such as database
 3. If Azure DNS Private Resolver finds a match in the rulesets associated to its outbound endpoints, it will forward the DNS request to the target specified in the rule, which should be the on-premises DNS servers.
 4. One of the on-premises DNS servers resolves the DNS query.
 
-The model described above of using the inbound endpoint's IP address as custom DNS server is referred to as "Centralized DNS architecture" in [Private Resolver architecture][dns/resolver/architecture]. Azure DNS Private Resolver also offers external DNS resolution by linking DNS forwarding rulesets to virtual networks, which is called "Distributed DNS architecture". If you link the forwarding ruleset to the hub virtual network, Azure Firewall's DNS server should be configured as Azure DNS, represented in Azure by the IP address 168.63.129.16. For more details about both ways to provide external resolution 
+The model described above of using the inbound endpoint's IP address as custom DNS server is referred to as "Centralized DNS architecture" in [Private Resolver architecture][dns/resolver/architecture]. Azure DNS Private Resolver also offers external DNS resolution by linking DNS forwarding rulesets to virtual networks, which is called "Distributed DNS architecture". If you link the forwarding ruleset to the hub virtual network, Azure Firewall's DNS server should be configured as Azure DNS, represented in Azure by the IP address 168.63.129.16.
 
 ### On-premises
 
-On-premises systems might need name resolution for workloads deployed in Azure or for private endpoints of Azure PaaS services, and they will follow this workflow:
+On-premises systems might need name resolution for workloads deployed in Azure or for private endpoints of Azure PaaS services. This name resolution will follow this workflow:
 
 1. The on-premises workload will send a DNS request to the on-premises DNS server.
 2. The on-premises DNS server will look into its configured forwarding rules, which should have Azure Firewall configured as DNS destination.
@@ -138,10 +138,6 @@ Learn more about the component technologies:
 - [What is Azure DNS?][dns/overview]
 - [What is Azure DNS Private Resolver?][dns/resolver/overview]
 - [What is Azure Virtual Network?][vnet/overview]
-
-## Related resource
-
-[Azure enterprise cloud file share](./azure-files-private.yml)
 
 [architectural-diagram-visio-source]: https://arch-center.azureedge.net/hybrid-dns-infra.vsdx
 [waf]: /azure/well-architected/
