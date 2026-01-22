@@ -159,7 +159,7 @@ Learn more about the component technologies:
 [dns/pricing]: https://azure.microsoft.com/pricing/details/dns/
 [dns/protect]: /azure/dns/dns-protect-private-zones-recordsets
 [dns/dnssec]: /azure/dns/dnssec
-[dns/securitybaseline]: /azure/baselines/azure-dns-security-baseline
+[dns/securitybaseline]: /security/benchmark/azure/baselines/azure-dns-security-baseline
 [dns/securitypolicy]: /azure/dns/dns-security-policy
 [dns/azpolicy]: /azure/cloud-adoption-framework/ready/azure-best-practices/private-link-and-dns-integration-at-scale
 [privatelink/dnsintegration]: /azure/private-link/private-endpoint-dns-integration
