@@ -41,7 +41,7 @@ The architecture consists of the following components:
 - [Azure DNS Private Resolver][dns/resolver/overview]. Azure DNS Private Resolver is a managed service that provides DNS resolution in Azure, including conditional forwarding of DNS requests to other DNS servers. Since it is a Microsoft-managed service, Azure administrators do not need to manage the operating system and can focus on the configuration of DNS functionality.
 > [!NOTE]
 > If you already have DNS servers such as Windows Server virtual machines acting as Active Directory Domain Controllers (ADDC) you would not need Azure DNS Private Resolver, and your ADDCs would replace Azure DNS Private Resolver in this architecture.
-- [DNS forwarding ruleset]. DNS forwarding rulesets contain definitions of which name domains should be forwarded to which external DNS server. Forwarding rulesets can be linked to virtual networks to provide external DNS resolution.
+- [DNS forwarding ruleset][dns/resolver/rulesets]. DNS forwarding rulesets contain definitions of which name domains should be forwarded to which external DNS server. Forwarding rulesets can be linked to virtual networks to provide external DNS resolution.
 
 ## Hybrid resolution flows
 
