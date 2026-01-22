@@ -15,16 +15,16 @@ The architecture consists of the following components:
 > [!NOTE]
 > If you use Active Directory Domain Controllers (ADDC) as DNS servers, these resources are considered to be more related to identity than to connectivity, and will therefore be usually deployed in the identity subscription as described in [Landing zone identity and access management][alz/identity].
   - **Hub virtual network**. The hub [virtual network][vnet/overview] contains connectivity resources such as Azure Virtual Network Gateways, Azure Firewall, Software-Defined WAN Network Virtual Appliances (NVA) and firewall NVAs.
+    - **Gateway subnet**. The gateway subnet hosts the Azure VPN or ExpressRoute gateway that's used to provide connectivity back to the on-premises datacenter. See [Gateway subnet] for recommendations about the size of the Gateway subnet.
+    - **Azure Firewall subnet**. The Azure Firewall subnet hosts the Azure Firewall to filter traffic and provide DNS proxy services. Its network mask should be /26, for more details see [Why does Azure Firewall need a /26 subnet size?][azfw/subnet].
   > [!NOTE]
   > The hub virtual network can be substituted with a [virtual wide area network (VWAN)][vwan/overview] hub. In both cases, the recommended best practice is hosting Azure DNS Private Resolver or your DNS servers in a different virtual network (VNet).
-    - **Gateway subnet**. The gateway subnet hosts the Azure VPN or ExpressRoute gateway that's used to provide connectivity back to the on-premises datacenter.
   - **Shared services virtual network**. The shared services virtual network hosts resources that additional services to workload subscriptions, such as DNS servers. If using a self-managed hub-and-spoke architecture you can move shared services to the hub vitual network to reduce the number of virtual network peering hops between workloads and shared services, but extra care should be taken with user-defined routes in the spokes to avoid asymmetric routing when firewalls are involved (see [Hub virtual network workload][azfw/hubworkloads] for more details).
   > [!NOTE]
   > If the DNS servers are going to be Active Directory Domain Controllers, these would typically be deployed in an identity subscription. Consequently, they would be in their own virtual network, since virtual networks cannot span multiple subscriptions. This architecture guide focuses on using Azure DNS Private Resolver.
     - **Virtual network peering**. This component is a [peering][vnet/peering] connection back to the hub VNet. This connection allows connectivity to the rest of the environment. It needs to be configured to use the hub's virtual network gateway (VPN or ExpressRoute) so that the workload IP prefixes are advertised to on-premises via VPN or ExpressRoute.
-    - **Azure DNS Private Resolver**: managed Azure service that provides DNS resolution and conditional forwarding of DNS requests to external servers.
     - **Inbound endpoint subnet**. DNS requests to Azure Private Resolver must be sent to the IP address of its inbound endpoint. This address will be configured in the forwarding rules of the on-premises DNS servers and as DNS server for Azure Firewall.
-    - **Outbound endpoint subnet**. When Azure DNS Private Resolver needs to forward DNS requests to external servers based on forwarding rules, those requests will be sourced from this subnet.
+    - **Outbound endpoint subnet**. When Azure DNS Private Resolver needs to forward DNS requests to external servers based on forwarding rules, those requests will be sourced from this subnet. The minimum size for inbound and outbound endpoint subnets is /28, but in this architecture we configured /26 for further flexibility in case the limits change. You can find more information in [Subnet restrictions][dns/resolver/subnets].
     - **Forwarding rulesets**. Rules that define which domains will be forwarded to which external DNS servers. These rules should contain all the name domains hosted on-premises and the IP addresses of the on-premises DNS servers as forwarding targets. The diagram above reflects the [centralized DNS architecture][dns/resolver/architecture] for external name resolution with Azure DNS Private Resolver, which requires that the forwarding ruleset is linked to the virtual network where the private resolver is deployed (the shared services virtual network in this architecture).
 - **Workload subscription**. The connected subscription represents a collection of workloads that require a virtual network and connectivity back to the on-premises network.
   - **Virtual network peering**. This component is a [peering][vnet/peering] connection back to the hub VNet. This connection allows connectivity from the spoke virtual network to other resources reachable from the hub, such as the on-premises network or the DNS Private Resolver. It needs to be configured to use the hub's virtual network gateway (VPN or ExpressRoute) so that the workload IP prefixes are advertised to on-premises via VPN or ExpressRoute.
@@ -154,6 +154,7 @@ Learn more about the component technologies:
 [dns/resolver/limits]: /azure/azure-resource-manager/management/azure-subscription-service-limits#dns-private-resolver1
 [dns/resolver/rulesets]: /azure/dns/private-resolver-endpoints-rulesets#dns-forwarding-rulesets
 [dns/resolver/architecture]: /azure/dns/private-resolver-architecture
+[dns/resolver/subnets]: /azure/dns/dns-private-resolver-overview#subnet-restrictions
 [dns/overview]: /azure/dns/private-dns-overview
 [dns/autoregistration]: /azure/dns/private-dns-autoregistration
 [dns/pricing]: https://azure.microsoft.com/pricing/details/dns/
@@ -169,6 +170,7 @@ Learn more about the component technologies:
 [azfw/dns]: /azure/firewall/dns-details
 [azfw/dnslogs]: /azure/azure-monitor/reference/tables/azfwdnsquery
 [azfw/hubworkloads]: /azure/firewall/firewall-multi-hub-spoke#hub-virtual-network-workloads
+[azfw/subnet]: /azure/firewall/firewall-faq#why-does-azure-firewall-need-a--26-subnet-size
 [vnet/overview]: /azure/virtual-network/virtual-networks-overview
 [vnet/waf-sg]: /azure/well-architected/service-guides/virtual-network
 [vnet/customdns]: /azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
@@ -178,6 +180,7 @@ Learn more about the component technologies:
 [vmss/overview]: /azure/virtual-machine-scale-sets/overview
 [vm/overview]: /azure/virtual-machines/overview
 [vpngw/about]: /azure/vpn-gateway/vpn-gateway-about-vpngateways
+[vpngw/subnet]: /azure/vpn-gateway/vpn-gateway-about-vpn-gateway-settings#gwsub
 [ergw/about]: /azure/expressroute/expressroute-about-virtual-network-gateways
 [er/overview]: /azure/expressroute/expressroute-introduction
 [calculator]: https://azure.microsoft.com/pricing/calculator/
