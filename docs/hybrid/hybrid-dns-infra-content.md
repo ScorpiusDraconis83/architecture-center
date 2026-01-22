@@ -8,23 +8,22 @@ This reference architecture illustrates how to design a hybrid Domain Name Syste
 
 The architecture consists of the following components:
 
-- **On-premises network**. The on-premises network represents a single datacenter that's connected to Azure over an [Azure ExpressRoute][1] or [virtual private network (VPN)][2] connection. In this scenario, the following components make up the on-premises network:
+- **On-premises network**. The on-premises network represents a single datacenter that's connected to Azure over an [Azure ExpressRoute][expressroute/overview] or [virtual private network (VPN)][vpn/design] connection. In this scenario, the following components make up the on-premises network:
   - **DNS** servers. These servers represent two servers with DNS service installed that are acting as resolver/forwarder. These DNS servers are used for all computers in the on-premises network as DNS servers. Records must be created on these servers for all endpoints in Azure and on-premises.
-  - **Gateway**. The [gateway][3] represents either a VPN device or an ExpressRoute connection that's used to connect to Azure.
-- **Platform subscription**. The hub subscription represents an Azure subscription that's used to identity, connectivity and management resources that are shared across multiple Azure-hosted workloads. These resources can be broken down into multiple subscriptions, as described in the [enterprise-scale architecture.][4]
+  - **On-premises gateway**. The on-premises gateway represents either a VPN termination device or a router connected to Azure ExpressRoute.
+- **Platform subscription**. The hub subscription represents an Azure subscription that's used to identity, connectivity and management resources that are shared across multiple Azure-hosted workloads. These resources can be broken down into multiple subscriptions, as described in [Landing zone identity and access management][alz/identity].
   - **Hub virtual network**. The hub virtual network contains connectivity resources such as Azure Virtual Network Gateways, Azure Firewall, Software-Defined WAN Network Virtual Appliances (NVA) or firewall NVAs.
   > [!NOTE]
-  > The hub virtual network can be substituted with a [virtual wide area network (WAN)][5] hub. In both cases, the DNS servers should have to be hosted in a different [Azure virtual network (VNet)][6]. In the Enterprise-scale architecture, that VNet can be maintained in its own subscription entitled the **Identity subscription** if the DNS servers are Windows Server Active Directory Domain Controllers, otherwise it would normally be in the Connectivity subscription.
+  > The hub virtual network can be substituted with a [virtual wide area network (WAN)][vwan/overview] hub. In both cases, the DNS servers should have to be hosted in a different [Azure virtual network (VNet)][vnet/overview]. In the Enterprise-scale architecture, that VNet can be maintained in its own subscription entitled the **Identity subscription** if the DNS servers are Windows Server Active Directory Domain Controllers, otherwise it would normally be in the Connectivity subscription.
     - **Gateway subnet**. The gateway subnet hosts the Azure VPN, or ExpressRoute, gateway that's used to provide connectivity back to the on-premises datacenter.
   - **Shared services virtual network**. The shared services virtual network hosts resources that additional services to workload subscriptions, such as DNS servers. If using a self-managed hub-and-spoke architecture you can move shared services to the hub vitual network to reduce the number of virtual network peering hops between workloads and shared services, but extra care should be taken with user-defined routes in the spokes to avoid asymmetric routing when firewalls are involved.
   > [!NOTE]
   > If the DNS servers are going to be Active Directory Domain Controllers, these would typically be deployed in an identity subscription. Consequently, they would be in their own virtual network, since virtual networks cannot span multiple subscriptions.
     - **DNS subnet**. The DNS servers or Azure Private DNS resolver will be located here. If using Azure Private DNS Resolver,
 - **Workload subscription**. The connected subscription represents a collection of workloads that require a virtual network and connectivity back to the on-premises network.
-  - **Virtual network peering**. This component is a [peering][7] connection back to the hub VNet. This connection allows connectivity from the on-premises network to the spoke and back through the hub VNet.
+  - **Virtual network peering**. This component is a [peering][vnet/peering] connection back to the hub VNet. This connection allows connectivity from the spoke virtual network to other resources reachable from the hub, such as the on-premises network or the DNS Private Resolver. 
   - **Workload subnet**. The default subnet contains a sample workload.
-    - **web-vmss**. This sample [virtual machine scale set][8] hosts a workload in Azure that can be accessed from on-premises, Azure, and the public internet.
-    - **Load balancer**. The [load balancer][9] provides access to a workload that a series of VMs host. The IP address of this load balancer in the **default** subnet must be used to access the workload from Azure and from the on-premises datacenter.
+    - **Workload**. In this example a [virtual machine scale set][vmss/overview] or a collection of individual [virtual machines][vm/overview] hosts a workload in Azure that can be accessed from on-premises, Azure, and the public internet.
 
 ## Components
 
@@ -98,7 +97,7 @@ These considerations implement the pillars of the Azure Well-Architected Framewo
 ### Availability
 
 - Deploy all Azure resources across availability zones.
-- If using virtual machines as DNS servers, you should have at least two DNS servers spread over availability zones. You can either use an Azure Load Balancer to provide a single IP address to your DNS clients, or configure all IP addresses in your DNS clients. An Azure Load Balancer provides simplified client configuration and easier migrations, but can generate additional costs.
+- If using virtual machines as DNS servers, you should have at least two DNS servers spread over availability zones. You can either use an [Azure Load Balancer][alb/overview] to provide a single IP address to your DNS clients, or configure all IP addresses in your DNS clients. An Azure Load Balancer provides simplified client configuration and easier migrations, but can generate additional costs.
 - DNS servers should be placed close to the users and systems that need access to them. You should consider providing DNS resolution in each Azure region.
 
 ### Manageability
@@ -120,7 +119,7 @@ These considerations implement the pillars of the Azure Well-Architected Framewo
 
 ### Cost Optimization
 
-Cost Optimization is about looking at ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
+Cost Optimization is about looking at ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization][waf/cost].
 
 - Azure DNS zone costs are based on the number of DNS zones hosted in Azure and the number of received DNS queries.
 - The cost of the Azure DNS Private Resolver is based on the number of inbound and outbound endpoints and the forwarding rulesets.
@@ -143,7 +142,11 @@ Learn more about the component technologies:
 
 [architectural-diagram-visio-source]: https://arch-center.azureedge.net/hybrid-dns-infra.vsdx
 [waf]: /azure/well-architected/
+[waf/cost]: /azure/well-architected/cost-optimization/checklist
+[alz/identity]: /azure/cloud-adoption-framework/ready/landing-zone/design-area/identity-access-landing-zones
 [bind]: https://www.isc.org/bind/
+[expressroute/overview]: /azure/expressroute/expressroute-introduction
+[vpn/design]: /azure/vpn-gateway/design
 [dns/resolver/overview]: /azure/dns/dns-private-resolver-overview
 [dns/resolver/limits]: /azure/azure-resource-manager/management/azure-subscription-service-limits#dns-private-resolver1
 [dns/overview]: /azure/dns/private-dns-overview
@@ -160,6 +163,11 @@ Learn more about the component technologies:
 [vnet/overview]: /azure/virtual-network/virtual-networks-overview
 [vnet/waf-sg]: /azure/well-architected/service-guides/virtual-network
 [vnet/customdns]: /azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
+[vnet/peering]: /azure/virtual-network/virtual-network-peering-overview
+[alb/overview]: /azure/load-balancer/load-balancer-overview
+[vwan/overview]: /azure/virtual-wan/virtual-wan-about
+[vmss/overview]: /azure/virtual-machine-scale-sets/overview
+[vm/overview]: /virtual-machines/overview
 [vpngw/about]: /azure/vpn-gateway/vpn-gateway-about-vpngateways
 [ergw/about]: /azure/expressroute/expressroute-about-virtual-network-gateways
 [er/overview]: /azure/expressroute/expressroute-introduction
