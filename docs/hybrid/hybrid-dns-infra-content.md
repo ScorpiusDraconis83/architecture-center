@@ -2,9 +2,7 @@ This reference architecture illustrates how to design a hybrid Domain Name Syste
 
 ## Architecture
 
-:::image type="content" source="./images/hybrid-dns-infra.svg" alt-text="Diagram showing a Hybrid Domain Name System (DNS)." border="false" lightbox="./images/hybrid-dns-infra.svg" :::
-
-*Download a [Visio file][architectural-diagram-visio-source] of this architecture.*
+:::image type="content" source="./images/hybrid-dns-infra.png" alt-text="Diagram showing a Hybrid Domain Name System (DNS)." border="false" lightbox="./images/hybrid-dns-infra.svg" :::
 
 ### Workflow
 
@@ -13,135 +11,111 @@ The architecture consists of the following components:
 - **On-premises network**. The on-premises network represents a single datacenter that's connected to Azure over an [Azure ExpressRoute][1] or [virtual private network (VPN)][2] connection. In this scenario, the following components make up the on-premises network:
   - **DNS** servers. These servers represent two servers with DNS service installed that are acting as resolver/forwarder. These DNS servers are used for all computers in the on-premises network as DNS servers. Records must be created on these servers for all endpoints in Azure and on-premises.
   - **Gateway**. The [gateway][3] represents either a VPN device or an ExpressRoute connection that's used to connect to Azure.
-- **Hub subscription**. The hub subscription represents an Azure subscription that's used to host connectivity, management, and networking resources that are shared across multiple Azure-hosted workloads. These resources can be broken down into multiple subscriptions, as described in the [enterprise-scale architecture.][4]
+- **Platform subscription**. The hub subscription represents an Azure subscription that's used to identity, connectivity and management resources that are shared across multiple Azure-hosted workloads. These resources can be broken down into multiple subscriptions, as described in the [enterprise-scale architecture.][4]
+  - **Hub virtual network**. The hub virtual network contains connectivity resources such as Azure Virtual Network Gateways, Azure Firewall, Software-Defined WAN Network Virtual Appliances (NVA) or firewall NVAs.
   > [!NOTE]
-  > The hub virtual network can be substituted with a [virtual wide area network (WAN)][5] hub. In both cases, the DNS servers should have to be hosted in a different [Azure virtual network (VNet)][6]. In the Enterprise-scale architecture, that VNet can be maintained in its own subscription entitled the **Identity subscription** if the DNS servers are Windows Server Active Directory Domain Controllers, otherwise it would normally be in the Connectivity subscription. Having the DNS servers inside of the hub virtual network is also supported, but extra care should be taken with user-defined routes in the spokes to avoid asymmetric routing when firewalls are involved.
-  - **Azure Bastion subnet**. The Azure Bastion service in the hub virtual network is used for remoting to virtual machines (VMs) in the hub and spoke VNets from the public internet for maintenance purposes.
-  - **Private endpoint subnet**. The private endpoint subnet hosts private endpoints for Azure-hosted workloads in VNets that aren't peered to the hub. With this type of disconnected VNet, its IP addresses can clash with other IP addresses that are used in Azure and on-premises.
-  - **Gateway subnet**. The gateway subnet hosts the Azure VPN, or ExpressRoute, gateway that's used to provide connectivity back to the on-premises datacenter.
-  - **Shared services subnet**. The shared services subnet hosts services that are shared among multiple Azure workloads. In this scenario, this subnet hosts virtual machines running Windows or Linux that are also used as DNS servers. These DNS servers host the same DNS zones as the on-premises servers.
-- **Connected subscription**. The connected subscription represents a collection of workloads that require a virtual network and connectivity back to the on-premises network.
-  - **VNet peering**. This component is a [peering][7] connection back to the hub VNet. This connection allows connectivity from the on-premises network to the spoke and back through the hub VNet.
-  - **Default subnet**. The default subnet contains a sample workload.
+  > The hub virtual network can be substituted with a [virtual wide area network (WAN)][5] hub. In both cases, the DNS servers should have to be hosted in a different [Azure virtual network (VNet)][6]. In the Enterprise-scale architecture, that VNet can be maintained in its own subscription entitled the **Identity subscription** if the DNS servers are Windows Server Active Directory Domain Controllers, otherwise it would normally be in the Connectivity subscription.
+    - **Gateway subnet**. The gateway subnet hosts the Azure VPN, or ExpressRoute, gateway that's used to provide connectivity back to the on-premises datacenter.
+  - **Shared services virtual network**. The shared services virtual network hosts resources that additional services to workload subscriptions, such as DNS servers. If using a self-managed hub-and-spoke architecture you can move shared services to the hub vitual network to reduce the number of virtual network peering hops between workloads and shared services, but extra care should be taken with user-defined routes in the spokes to avoid asymmetric routing when firewalls are involved.
+  > [!NOTE]
+  > If the DNS servers are going to be Active Directory Domain Controllers, these would typically be deployed in an identity subscription. Consequently, they would be in their own virtual network, since virtual networks cannot span multiple subscriptions.
+    - **DNS subnet**. The DNS servers or Azure Private DNS resolver will be located here. If using Azure Private DNS Resolver,
+- **Workload subscription**. The connected subscription represents a collection of workloads that require a virtual network and connectivity back to the on-premises network.
+  - **Virtual network peering**. This component is a [peering][7] connection back to the hub VNet. This connection allows connectivity from the on-premises network to the spoke and back through the hub VNet.
+  - **Workload subnet**. The default subnet contains a sample workload.
     - **web-vmss**. This sample [virtual machine scale set][8] hosts a workload in Azure that can be accessed from on-premises, Azure, and the public internet.
     - **Load balancer**. The [load balancer][9] provides access to a workload that a series of VMs host. The IP address of this load balancer in the **default** subnet must be used to access the workload from Azure and from the on-premises datacenter.
-  - **AppGateway subnet**. This subnet is the required subnet for the Azure Application Gateway service.
-    - **AppGateway**. [Application Gateway][10] provides access to the sample workload in the **default** subnet to users from the public internet.
-    - **wkld1-pip**. This address is the public IP address that's used to access the sample workload from the public internet.
-- **Disconnected subscription**. The disconnected subscription represents a collection of workloads that don't require connectivity back to the on-premises datacenter and that use the [private link service][11].
-  - **PLSSubnet**. The private link service subnet (PLSSubnet) contains one or more private link service resources that provide connectivity to workloads hosted in the **Connected subscription**.
-  - **Default subnet**. The default subnet contains a sample workload.
-    - **web-vmss**. This sample virtual machine scale set hosts a workload in Azure that can be accessed from on-premises, Azure, and the public internet.
-    - **Load balancer**. The load balancer provides access to a workload that a series of VMs host. This load balancer is connected to the private link service to provide access for users that are coming from Azure and the on-premises datacenter.
-  - **AppGateway subnet**. This subnet is the required subnet for the Application Gateway service.
-    - **AppGateway**. Application Gateway provides access to the sample workload in the **default** subnet to users from the public internet.
-    - **wkld2-pip**. This address is the public IP address that's used to access the sample workload from the public internet.
-  - **Azure Bastion subnet**. The Azure Bastion service in the disconnected virtual network is used for remoting to VMs in the hub and spoke VNets from the public internet for maintenance purposes.
 
 ## Components
 
-- [Virtual Network](/azure/well-architected/service-guides/virtual-network). Azure Virtual Network (VNet) is the fundamental building block for your private network in Azure. VNet enables many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
+- [Virtual Network][vnet/waf-sg]. Azure Virtual Networks (VNet) are the fundamental building blocks for your private network in Azure. VNets can provide connectivity to many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
 
-- [Azure Bastion](/azure/bastion/bastion-overview). Azure Bastion is a fully managed service that provides more secure Remote Desktop Protocol (RDP) and Secure Shell Protocol (SSH) access to virtual machines (VMs) without any exposure through public IP addresses.
+- [VPN Gateway][vpngw/about]. A VPN Gateway sends encrypted traffic between an Azure virtual network and an on-premises location over the public Internet. You can also use VPN Gateway to send encrypted traffic between Azure virtual networks over the Microsoft network. A VPN gateway is a specific type of virtual network gateway.
 
-- [VPN Gateway](/azure/vpn-gateway/vpn-gateway-about-vpngateways). VPN Gateway sends encrypted traffic between an Azure virtual network and an on-premises location over the public Internet. You can also use VPN Gateway to send encrypted traffic between Azure virtual networks over the Microsoft network. A VPN gateway is a specific type of virtual network gateway.
+- [ExpressRoute Gateway][ergw/about]. An ExpressRoute Gateway connects a virtual network with an ExpressRoute circuit, which is a dedicated line with guaranteed bandwidth between Microsoft and your on-premises environment. An ExpressRoute gateway is a specific type of virtual network gateway.
 
-- [Private Link](/azure/private-link/private-link-overview). Azure Private Link provides private connectivity from a virtual network to Azure platform as a service (PaaS), customer-owned, or Microsoft partner services. It simplifies the network architecture and secures the connection between endpoints in Azure by eliminating data exposure to the public internet.
+- [Azure Private DNS Zone][dns/overview]. Azure Private DNS Zone provide DNS resolution for Azure workloads. Virtual machines can be autorregistered and integration with private link endpoints can be automated. Azure workloads can use private DNS zones if they are located in a virtual network linked to a specific zone by means of a DNS virtual network link.
 
-- [Application Gateway](/azure/well-architected/service-guides/azure-application-gateway). Azure Application Gateway is a web traffic load balancer that enables you to manage traffic to your web applications. Traditional load balancers operate at the transport layer (OSI layer 4 - TCP and UDP) and route traffic based on source IP address and port, to a destination IP address and port.
+- [Azure DNS Private Resolver][dns/resolver/overview]. Azure DNS Private Resolver is a managed service that provides DNS resolution in Azure, including conditional forwarding of DNS requests to other DNS servers. Since it is a Microsoft-managed service, Azure administrators do not need to manage the operating system and can focus on the configuration of DNS functionality.
+> [!NOTE]
+> If you already have DNS servers such as Windows Server virtual machines acting as Active Directory Domain Controllers (ADDC) you would not need Azure DNS Private Resolver, and your ADDCs would replace Azure DNS Private Resolver in this architecture.
+
+## Hybrid resolution flows
+
+This section explains how hybrid resolution flows work. There are two main cases to be explored:
+- An Azure workload tries to resolve a domain name for a system hosted on-premises.
+- An on-premises workload tries to resolve a domain name for a system hosted in Azure.
+
+### Azure to on-premises
+
+Azure virtual machines might need to access on-premises systems such as database or monitoring applications. There are different scenarios for this flow:
+
+- If you are using Azure DNS Private Resolver, you can associate the DNS forwarding ruleset to specific virtual networks with ruleset virtual network links, so that DNS requests sent by virtual machines in those virtual networks are forwarded to the DNS servers defined in the ruleset.
+- Alternatively, you can configure the inbound endpoint of the Azure DNS Private Resolver as custom DNS server for a virtual network or for a Network Interface Card (NIC). See [Specify DNS Servers][vnet/customdns] for more information. When the DNS requests arrive to the Azure DNS Private Resolver, it will forward it according to its forwarding rulesets.
+- Finally, if you are using your own DNS servers running on Azure virtual machines instead of Azure DNS Private Resolver, you should configure the IP addresses of your DNS virtual machines as custom DNS servers on the virtual networks. You will need to configure DNS conditional forwarding yourself following the documentation of your DNS software.
+
+### On-premises
+
+On-premises systems might need name resolution for workloads deployed in Azure or for private endpoints of Azure PaaS services. The on-premises workload will send a DNS request to an on-premises DNS server, and this server will have a forwarding rule for the domain pointing to the inbound endpoint of Azure DNS Private Resolver.
+
+Azure Private Resolver will use Azure DNS for name resolution, so it will be able to resolve any domain matching the private DNS zones linked to the virtual network where it has been deployed.
 
 ## Recommendations
 
 The following recommendations apply for most scenarios. Follow these recommendations unless you have a specific requirement that overrides them.
 
-> [!NOTE]
-> For the following recommendations, we'll refer to **Workload 1** as a connected workload and **Workload 2** as a disconnected workload. We'll also refer to users and systems that access those workloads as **on-premises users**, **internet users**, and **Azure systems**.
-
 ### Extend AD DS to Azure (optional)
 
-Use integrated DNS zones in AD DS to host DNS records for your on-premises datacenter and Azure. In this scenario, there are two sets of AD DS DNS servers: one on-premises and one in the hub VNet.
-
-We recommend extending your AD DS domain to Azure. We also recommend configuring the hub and spoke VNets to use the AD DS DNS servers in the hub VNet for all the VMs in Azure.
-
-> [!NOTE]
-> This recommendation is applicable only for organizations that use Active Directory Integrated DNS zone for name resolution. Others can consider implementing DNS servers that act as resolver/forwarder.
+If your organization uses Active Directory integrated DNS zones for name resolution, you should extend your Active Directory domain to Azure. This implies having an additional set of Active Directory Domain Controllers running in an Azure virtual network, ideally in the identity subscription.
 
 ### Configure split-brain DNS
 
-Make sure that split-brain DNS is in place to allow Azure systems, on-premises users, and internet users to access workloads based on where they're connecting from.
-
-For both connected and disconnected workloads, we recommend the following components for DNS resolution:
-
-- [Azure DNS zones][13] for internet users.
-- DNS servers for on-premises users and Azure systems.
-- [Azure private DNS zones][14] for resolution between Azure VNets.
-
-To better understand this split-brain recommendation, consider **Workload 1**, for which we'll use the **wkld1.contoso.com** fully qualified domain name (FQDN).
-
-In this scenario, internet users must resolve that name to the public IP address that Application Gateway exposes through **Wkld1-pip**. This resolution is done by creating an address record (A record) in Azure DNS for the connected subscription.
-
-On-premises users must resolve the same name to the internal IP address for the load balancer in the connected subscription. This resolution is done by creating an A record in the DNS servers in the hub subscription.
-
-Azure systems can resolve the same name to an internal IP address for the load balancer in the connected subscription either by creating an A record in the DNS server in the hub subscription, or by using private DNS zones. When you're using private DNS zones, either manually create an A record in the private DNS zone or enable autoregistration.
+If you have applications that should be accessed internally and externally over the public Internet depending on where users are located, you can configure split-brain DNS. Split-brain consists in offering different name resolution for the same fully-qualified domain name (FQDN) to on-premises and Internet users. Internet users would resolve the application FQDN using publicly available Azure DNS zones, while internal users would be directed to private DNS zones, hosted either on your on-premises environment or in Azure with Azure Private DNS Zones.
 
 ### Use private DNS zones for a private link
 
-In our scenario, **Workload 2** is hosted in a disconnected subscription, and access to this workload for on-premises users and connected Azure systems is possible through a private endpoint in the hub VNet. However, there's a third connection possibility for this workload: Azure systems in the same VNet as **Workload 2**.
+[Private Link][privatelink/overview] endpoints provide private connectivity to many Azure Platform-as-a-Service (PaaS) resources and it makes heavy use of DNS. It is a particular implementation of the split-brain DNS implementation described in the previous section, with the difference that the public resolution is provided automatically by Microsoft. When a user resolves the FQDN of an Azure PaaS resource that has any private endpoint configured, Microsoft's resolution will redirect the name resolution to a new zone name. For example, storage accounts with private endpoints will be redirected from "blob.core.windows.net" to "privatelink.blob.core.windows.net". You can find the zone name for each service in [Azure Private Endpoint private DNS zone values][privatelink/dnszones].
 
-To better understand the DNS recommendations for **Workload 2**, we'll use the **wkld2.contoso.com** FQDN and discuss the individual recommendations.
+This mechanism allows you to control name resolution by deploying an Azure private DNS zone for that "privatelink" domain. Users with access to domain resolution by the private zone will get the Azure PaaS FQDN resolved to a private IP address. Otherwise, Microsoft also provides public resolution for the "privatelink" domains, and the PaaS service's public IP address will be provided to any users without access to the private DNS zone.
 
-In this scenario, internet users must resolve that name to the public IP address that Application Gateway exposes through **Wkld2-pip**. This resolution is done by creating an A record in Azure DNS for the connected subscription.
-
-On-premises users and Azure systems that are connected to the hub VNet and spoke VNets must resolve the same name to the internal IP address for the private endpoint in the Hub VNet. This resolution is done by creating an A record in the DNS servers in the hub subscription.
-
-Azure systems in the same VNet as **Workload 2** must resolve the name to the IP address of the load balancer in the disconnected subscription. This resolution is done by using a private DNS zone in Azure DNS in that subscription.
-
-Azure systems in different VNets can still resolve the IP address of the **Workload 2** if you link those VNets with private DNS zone that is hosting the A record for **Workload 2**.
+The interaction between private link and DNS can be complex, you can find further details in [Azure Private Endpoint DNS integration Scenarios][privatelink/dnsintegration]
 
 ### Enable autoregistration
 
-When you configure a VNet link with a private DNS zone, you can optionally configure autoregistration [autoregistration for all the virtual machines][15].
+When you configure a virtual network link with a private DNS zone, you can optionally configure autoregistration [autoregistration for all the virtual machines][dns/autoregistration]. Virtual machines created in virtual networks linked to a private DNS zone with autorregistration will automatically create DNS A records in that zone, so that other systems in Azure and on-premises can resolve their names.
 
-> [!NOTE]
-> Autoregistration works only for virtual machines. For all other resources that are configured with IP address from the VNet, you have to create DNS records manually in the private DNS zone.
-
-If you're using AD DS DNS server, configure Windows VMs can use dynamic updates for Windows computers to keep your own DNS records up to date in the AD DS DNS servers. We recommend enabling dynamic updates and configuring the DNS servers to only allow secure updates.
-
-Linux VMs do **not** support secure dynamic updates. For on-premises Linux computers, use Dynamic Host Configuration Protocol (DHCP) to register DNS records to the AD DS DNS servers.
-
-For [Linux VMs in Azure][16], use an automated process.
+Azure Private DNS zone autoregistration is especially useful for Linux virtual machines, since Linux doesn't provide out-of-the-box mechanisms for auto-registering in a DNS server. However, if you have Windows virtual machines joined with Active Directory Domain Services, name resolution for those VMs will be automatically provided by the domain controllers.
 
 ## Considerations
 
-These considerations implement the pillars of the Azure Well-Architected Framework, which is a set of guiding tenets that can be used to improve the quality of a workload. For more information, see [Microsoft Azure Well-Architected Framework](/azure/well-architected/).
+These considerations implement the pillars of the Azure Well-Architected Framework, which is a set of guiding tenets that can be used to improve the quality of a workload. For more information, see [Microsoft Azure Well-Architected Framework][waf].
 
 ### Scalability
 
-- Per Azure region or on-premises datacenters, consider using at least two DNS servers each.
-- Notice how that's done in the previous scenario, with DNS servers on-premises and in the hub virtual network.
+- If you use Azure DNS Private Resolver, verify that your architecture will stay within the [Azure DNS Private Resolver documented limits][dns/resolver/limits].
+- If you use virtual machines as DNS servers instead of Azure DNS Private Resolver, consider using at least two DNS servers distributed across availability zones for better resiliency and scalability.
 
 ### Availability
 
-- Consider placement of DNS servers. As described in the scalability considerations section, DNS servers should be placed close to the users and systems that need access to them.
-  - Per Azure region. Each Azure region has its own hub VNet or vWAN hub. This is where your DNS servers must be deployed.
-  - Per on-premises datacenter. You should also have a pair of DNS servers per on-premises datacenter for users and systems in those locations.
-  - For isolated (disconnected) workloads, host a private DNS zone and a public DNS zone for each subscription to manage split-brain DNS records.
+- Deploy all Azure resources across availability zones.
+- If using virtual machines as DNS servers, you should have at least two DNS servers spread over availability zones. You can either use an Azure Load Balancer to provide a single IP address to your DNS clients, or configure all IP addresses in your DNS clients. An Azure Load Balancer provides simplified client configuration and easier migrations, but can generate additional costs.
+- DNS servers should be placed close to the users and systems that need access to them. You should consider providing DNS resolution in each Azure region.
 
 ### Manageability
 
-- Consider the need for DNS records for platform as a service (PaaS) services.
-- You also must consider DNS resolution for PaaS services that use a private endpoint. Use a private DNS zone for that and use your DevOps pipeline to create records in the DNS servers.
+- Use Azure DNS Private Resolver instead of custom DNS server software such as [BIND][bind] to lower management overhead costs.
+- Implement integration between private endpoints and private DNS zones using Azure Policy. You can find more information about this in [Private Link and DNS integration at scale][dns/azpolicy]
 
 ### Security
 
-Security provides assurances against deliberate attacks and the abuse of your valuable data and systems. For more information, see [Design review checklist for Security](/azure/well-architected/security/checklist).
-
-- If you require the use of DNSSEC, consider that Azure DNS has [support in preview](/azure/dns/dnssec). Alternatively, for DNSSEC validation, deploy a custom DNS server and enable DNSSEC validation.
-- [Azure DDoS Protection](/azure/ddos-protection/ddos-protection-overview), combined with application-design best practices, provides enhanced DDoS mitigation features to provide more defense against DDoS attacks. You should enable [Azure DDOS Protection](/azure/ddos-protection/ddos-protection-overview) on any perimeter virtual network.
+- Consider [protecting private DNS zones and records][dns/protect]. You should restrict administrative access to DNS, since DNS disruptions caused by misconfigurations such as accidental deletion of private zones can potentially have a broad impact radius.
+- If using public DNS, consider using [DNSSEC][dns/dnssec].
+- Configure [Azure DNS Security Policies][dns/securitypolicy] for additional security in Azure DNS.
+- See the [Azure security baseline for Azure DNS][dns/securitybaseline] for further details.
 
 ### DevOps
 
-- Automate configuration of this architecture by combining Azure Resource Manager templates for configuration of all the resources. Both private and public DNS zones support full management from Azure CLI, PowerShell, .NET, and REST API.
+- Automate configuration of this architecture by with Azure Resource Manager (ARM), bicep or Terraform templates for configuration of all the resources. If you prefer using scripts or Software Development Kits (SDKs), both private and public DNS zones support full management from Azure CLI, PowerShell, .NET, and REST API.
 - If you're using a continuous integration and continuous development (CI/CD) pipeline to deploy and maintain workloads in Azure and on-premises, you can also configure autoregistration of DNS records.
 
 ### Cost Optimization
@@ -149,39 +123,44 @@ Security provides assurances against deliberate attacks and the abuse of your va
 Cost Optimization is about looking at ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
 
 - Azure DNS zone costs are based on the number of DNS zones hosted in Azure and the number of received DNS queries.
-- Use the [Azure pricing calculator][17] to estimate costs. Pricing models for Azure DNS is explained [here](https://azure.microsoft.com/pricing/details/dns/).
-- The billing model for [Azure ExpressRoute][18] is based either on metered data, which charges you per gigabyte for outbound data transfer, or unlimited data, which charges a monthly fee including all data transfer.
-- If you're using VPN, instead of ExpressRoute, the cost is dependent on the SKU of the [virtual network gateway][19] and is charged per hour.
+- The cost of the Azure DNS Private Resolver is based on the number of inbound and outbound endpoints and the forwarding rulesets.
+- If you configure your Azure DNS Private resolver or your DNS servers in your hub virtual network, DNS resolutions will traverse fewer VNet peerings and this traffic will be cheaper. However, consider that DNS requests are usually not bandwidth-intensive, so the cost savings you can achieve with this optimization are limited. Besides, this integration is not possible if you are using Virtual WAN or if your DNS servers should be located in a different subscription.
+- Use the [Azure pricing calculator][calculator] to estimate costs. Pricing models for Azure DNS, Azure Private DNS and Azure DNS Private Resolver is documented in [Azure DNS Pricing][dns/pricing].
+
 
 ## Next steps
 
 Learn more about the component technologies:
 
-- [What is Azure DNS?](/azure/dns/dns-overview)
-- [What is Azure Virtual Network?](/azure/virtual-network/virtual-networks-overview)
-- [What is Azure ExpressRoute?](/azure/expressroute/expressroute-introduction)
-- [What is Azure Bastion?](/azure/bastion/bastion-overview)
+- [What is Azure DNS?][dns/overview]
+- [What is Azure DNS Private Resolver?][dns/resolver/overview]
+- [What is Azure Virtual Network?][vnet/overview]
+- [What is Azure ExpressRoute?][er/overview]
 
 ## Related resource
 
 [Azure enterprise cloud file share](./azure-files-private.yml)
 
 [architectural-diagram-visio-source]: https://arch-center.azureedge.net/hybrid-dns-infra.vsdx
-[1]: /azure/expressroute/expressroute-introduction
-[2]: /azure/vpn-gateway/vpn-gateway-howto-site-to-site-resource-manager-portal
-[3]: /azure/vpn-gateway/vpn-gateway-about-vpngateways#whatis
-[4]: /azure/cloud-adoption-framework/ready/enterprise-scale/
-[5]: /azure/virtual-wan/virtual-wan-about
-[6]: /azure/virtual-network/virtual-networks-overview
-[7]: /azure/virtual-network/virtual-network-peering-overview
-[8]: /azure/virtual-machine-scale-sets/overview
-[9]: /azure/load-balancer/load-balancer-overview
-[10]: /azure/application-gateway/overview
-[11]: /azure/private-link/private-link-service-overview
-[13]: /azure/dns/dns-zones-records
-[14]: /azure/dns/private-dns-overview
-[15]: /azure/dns/private-dns-autoregistration
-[16]: /azure/virtual-machines/linux/azure-dns
-[17]: https://azure.microsoft.com/pricing/calculator/
-[18]: https://azure.microsoft.com/pricing/details/expressroute/
-[19]: https://azure.microsoft.com/pricing/details/vpn-gateway/
+[waf]: /azure/well-architected/
+[bind]: https://www.isc.org/bind/
+[dns/resolver/overview]: /azure/dns/dns-private-resolver-overview
+[dns/resolver/limits]: /azure/azure-resource-manager/management/azure-subscription-service-limits#dns-private-resolver1
+[dns/overview]: /azure/dns/private-dns-overview
+[dns/autoregistration]: /azure/dns/private-dns-autoregistration
+[dns/pricing]: https://azure.microsoft.com/pricing/details/dns/
+[dns/protect]: /azure/dns/dns-protect-private-zones-recordsets
+[dns/dnssec]: /azure/dns/dnssec
+[dns/securitybaseline]: /azure/baselines/azure-dns-security-baseline
+[dns/securitypolicy]: azure/dns/dns-security-policy
+[dns/azpolicy]: /azure/cloud-adoption-framework/ready/azure-best-practices/private-link-and-dns-integration-at-scale
+[privatelink/dnsintegration]: /azure/private-link/private-endpoint-dns-integration
+[privatelink/overview]: /azure/private-link/private-link-overview
+[privatelink/dnszones]: /azure/private-link/private-endpoint-dns
+[vnet/overview]: /azure/virtual-network/virtual-networks-overview
+[vnet/waf-sg]: /azure/well-architected/service-guides/virtual-network
+[vnet/customdns]: /azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
+[vpngw/about]: /azure/vpn-gateway/vpn-gateway-about-vpngateways
+[ergw/about]: /azure/expressroute/expressroute-about-virtual-network-gateways
+[er/overview]: /azure/expressroute/expressroute-introduction
+[calculator]: https://azure.microsoft.com/pricing/calculator/
