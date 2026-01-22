@@ -28,13 +28,10 @@ The architecture consists of the following components:
 ## Components
 
 - [Virtual Network][vnet/waf-sg]. Azure Virtual Networks (VNet) are the fundamental building blocks for your private network in Azure. VNets can provide connectivity to many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
-
 - [VPN Gateway][vpngw/about]. A VPN Gateway sends encrypted traffic between an Azure virtual network and an on-premises location over the public Internet. You can also use VPN Gateway to send encrypted traffic between Azure virtual networks over the Microsoft network. A VPN gateway is a specific type of virtual network gateway.
-
 - [ExpressRoute Gateway][ergw/about]. An ExpressRoute Gateway connects a virtual network with an ExpressRoute circuit, which is a dedicated line with guaranteed bandwidth between Microsoft and your on-premises environment. An ExpressRoute gateway is a specific type of virtual network gateway.
-
+- [Azure Firewall][azfw/overview]. An Azure Firewall inspects network traffic and only allows legitimate flows. Azure Firewall can be configured as DNS proxy, which enables Fully-Qualified Domain Name (FQDN) network rules and DNS logging. See [Azure Firewall DNS Proxy Details[azfw/dns] for more information about this functionality.
 - [Azure Private DNS Zone][dns/overview]. Azure Private DNS Zone provide DNS resolution for Azure workloads. Virtual machines can be autorregistered and integration with private link endpoints can be automated. Azure workloads can use private DNS zones if they are located in a virtual network linked to a specific zone by means of a DNS virtual network link.
-
 - [Azure DNS Private Resolver][dns/resolver/overview]. Azure DNS Private Resolver is a managed service that provides DNS resolution in Azure, including conditional forwarding of DNS requests to other DNS servers. Since it is a Microsoft-managed service, Azure administrators do not need to manage the operating system and can focus on the configuration of DNS functionality.
 > [!NOTE]
 > If you already have DNS servers such as Windows Server virtual machines acting as Active Directory Domain Controllers (ADDC) you would not need Azure DNS Private Resolver, and your ADDCs would replace Azure DNS Private Resolver in this architecture.
@@ -103,7 +100,10 @@ These considerations implement the pillars of the Azure Well-Architected Framewo
 ### Manageability
 
 - Use Azure DNS Private Resolver instead of custom DNS server software such as [BIND][bind] to lower management overhead costs.
-- Implement integration between private endpoints and private DNS zones using Azure Policy. You can find more information about this in [Private Link and DNS integration at scale][dns/azpolicy]
+- Use static IP address for Azure DNS Private Resolver's inbound and outbound endpoints, so that they are predictable and stay constant across deployments.
+- Implement integration between private endpoints and private DNS zones using Azure Policy. You can find more information about this in [Private Link and DNS integration at scale][dns/azpolicy].
+- Configure DNS logging in the Azure Firewall diagnostic settings. See [AZFWDNSQuery][azfw/dnslogs] for details about the format of Azure Firewall DNS logs.
+- Configure [Azure DNS Security Policies][dns/securitypolicy] with diagnostic settings for logging at the Azure DNS level.
 
 ### Security
 
@@ -134,7 +134,6 @@ Learn more about the component technologies:
 - [What is Azure DNS?][dns/overview]
 - [What is Azure DNS Private Resolver?][dns/resolver/overview]
 - [What is Azure Virtual Network?][vnet/overview]
-- [What is Azure ExpressRoute?][er/overview]
 
 ## Related resource
 
@@ -160,6 +159,9 @@ Learn more about the component technologies:
 [privatelink/dnsintegration]: /azure/private-link/private-endpoint-dns-integration
 [privatelink/overview]: /azure/private-link/private-link-overview
 [privatelink/dnszones]: /azure/private-link/private-endpoint-dns
+[azfw/overview]: /azure/firewall/overview
+[azfw/dns]: /azure/firewall/dns-details
+[azfw/dnslogs]: /azure/azure-monitor/reference/tables/azfwdnsquery
 [vnet/overview]: /azure/virtual-network/virtual-networks-overview
 [vnet/waf-sg]: /azure/well-architected/service-guides/virtual-network
 [vnet/customdns]: /azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances
