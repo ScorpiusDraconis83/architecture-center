@@ -176,7 +176,7 @@ Learn more about the component technologies:
 [alb/overview]: /azure/load-balancer/load-balancer-overview
 [vwan/overview]: /azure/virtual-wan/virtual-wan-about
 [vmss/overview]: /azure/virtual-machine-scale-sets/overview
-[vm/overview]: /virtual-machines/overview
+[vm/overview]: /azure/virtual-machines/overview
 [vpngw/about]: /azure/vpn-gateway/vpn-gateway-about-vpngateways
 [ergw/about]: /azure/expressroute/expressroute-about-virtual-network-gateways
 [er/overview]: /azure/expressroute/expressroute-introduction
