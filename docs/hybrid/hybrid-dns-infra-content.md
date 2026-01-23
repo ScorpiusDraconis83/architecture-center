@@ -43,6 +43,14 @@ The architecture consists of the following components:
 > [!NOTE]
 > If you already have DNS servers such as Windows Server virtual machines acting as Active Directory Domain Controllers (ADDC) you would not need Azure DNS Private Resolver, and your ADDCs would replace Azure DNS Private Resolver and the DNS forwarding rulesets in this architecture.
 
+## Alternatives
+
+The topology described in this article can be modified and be adapted to your specific requirements. This section illustrates some of the most common variations:
+
+- Use [Virtual WAN][vwan/overview] instead of a self-managed hub-and-spoke solution. In this case the hub virtual network is replaced by a virtual hub. A virtual hub is a Microsoft-managed virtual network where only specific resource types are supported: firewalls (Azure Firewall and third-party), virtual network gateways for VPN and ExpressRoute, and SDWAN network virtual appliances (NVA), please see [Third-party integrations with Virtual WAN Hub][vwan/nva] for more details.
+- Consolidate the shared resources and the hub virtual networks. You can deploy your Azure DNS Private Resolver, DNS servers or any other shared resources such as Azure Bastion or files shares inside of the hub virtual network. This approach only works if not using virtual WAN. If you also have an Azure Firewall in your hub virtual network you need to be careful with routing from the spoke virtual networks to the shared services subnet, and configure only the shared services subnet prefix (and not the whole hub virtual network range) in your user-defined routes (UDR). You can find more information in [Hub virtual network workloads][azfw/hubworkloads].
+- You can use custom DNS server software such as [BIND][bind] running on virtual machines instead of Azure DNS Private Resolver. Although this option incurs in more management overhead, it offers more flexibility. For example, you can use Active Directory Domain Controllers as DNS servers extending your on-premises Active Directory domain to Azure, or if your organization is already familiar with open-source servers such as BIND you can leverage the same technology in Azure as well.
+
 ## Hybrid resolution flows
 
 This section explains how hybrid resolution flows work. There are two main cases to be explored:
@@ -99,15 +107,11 @@ Azure Private DNS zone autoregistration is especially useful for Linux virtual m
 
 These considerations implement the pillars of the Azure Well-Architected Framework, which is a set of guiding tenets that can be used to improve the quality of a workload. For more information, see [Microsoft Azure Well-Architected Framework][waf].
 
-### Scalability
+### Scalability and availability
 
 - If you use Azure DNS Private Resolver, verify that your architecture will stay within the [Azure DNS Private Resolver documented limits][dns/resolver/limits].
-- If you use virtual machines as DNS servers instead of Azure DNS Private Resolver, consider using at least two DNS servers distributed across availability zones for better resiliency and scalability.
-
-### Availability
-
-- Deploy all Azure resources across availability zones.
-- If using virtual machines as DNS servers, you should have at least two DNS servers spread over availability zones. You can either use an [Azure Load Balancer][alb/overview] to provide a single IP address to your DNS clients, or configure all DNS server IP addresses in your DNS clients. An Azure Load Balancer provides simplified client configuration and easier migrations, but can generate additional costs.
+- Deploy all Azure resources across availability zones. If you use virtual machines as DNS servers instead of Azure DNS Private Resolver, consider using at least two DNS servers distributed across availability zones for better resiliency and scalability.
+- If using virtual machines as DNS servers, you should deploy at least two. You can either use an [Azure Load Balancer][alb/overview] to provide a single IP address to your DNS clients, or configure all DNS server IP addresses in your DNS clients. An Azure Load Balancer provides simplified client configuration and easier migrations, but it can generate additional costs.
 - DNS servers should be placed close to the users and systems that need access to them. You should consider providing DNS resolution in each Azure region.
 
 ### Operational excellence
@@ -173,6 +177,7 @@ Learn more about the component technologies:
 [vnet/peering]: /azure/virtual-network/virtual-network-peering-overview
 [alb/overview]: /azure/load-balancer/load-balancer-overview
 [vwan/overview]: /azure/virtual-wan/virtual-wan-about
+[vwan/nva]: /azure/virtual-wan/third-party-integrations
 [vmss/overview]: /azure/virtual-machine-scale-sets/overview
 [vm/overview]: /azure/virtual-machines/overview
 [vpngw/about]: /azure/vpn-gateway/vpn-gateway-about-vpngateways
