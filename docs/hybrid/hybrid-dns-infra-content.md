@@ -2,7 +2,7 @@ This reference architecture illustrates how to design a hybrid Domain Name Syste
 
 ## Architecture
 
-:::image type="content" source="./images/hybrid-dns-infra.png" alt-text="Diagram showing a Hybrid Domain Name System (DNS)." border="false" lightbox="./images/hybrid-dns-infra.svg" :::
+:::image type="content" source="./images/hybrid-dns-infra.png" alt-text="Diagram showing a Hybrid Domain Name System (DNS)." border="false" lightbox="./images/hybrid-dns-infra.png" :::
 
 ### Workflow
 
@@ -61,6 +61,8 @@ This section explains how hybrid resolution flows work. There are two main cases
 
 Azure virtual machines might need to access on-premises systems such as database or monitoring applications and they would have to be able to resolve name domains for which the authoritative servers are the on-premises DNS servers. There are different scenarios for this flow:
 
+:::image type="content" source="./images/hybrid-dns-infra-outbound.png" alt-text="Diagram showing hybrid resolution from Azure to on-premises." border="false" lightbox="./images/hybrid-dns-infra-outbound.png" :::
+
 1. The workload virtual networks are configured to use Azure Firewall as custom DNS server (see [Specify DNS Servers][vnet/customdns] for more information about custom DNS servers in Azure).
 2. Azure Firewall is configured to used Azure DNS Private Resolver's inbound endpoint as DNS server
 3. If Azure DNS Private Resolver finds a match in the rulesets associated to its outbound endpoints, it will forward the DNS request to the target specified in the rule, which should be the on-premises DNS servers.
@@ -71,6 +73,8 @@ The model described above of using the inbound endpoint's IP address as custom D
 ### On-premises
 
 On-premises systems might need name resolution for workloads deployed in Azure or for private endpoints of Azure PaaS services. This name resolution will follow this workflow:
+
+:::image type="content" source="./images/hybrid-dns-infra-inbound.png" alt-text="Diagram showing hybrid resolution from on-premises to Azure." border="false" lightbox="./images/hybrid-dns-infra-inbound.png" :::
 
 1. The on-premises workload will send a DNS request to the on-premises DNS server.
 2. The on-premises DNS server will look into its configured forwarding rules, which should have Azure Firewall configured as DNS destination.
