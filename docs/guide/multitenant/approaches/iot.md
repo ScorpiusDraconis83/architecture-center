@@ -3,7 +3,7 @@ title: IoT Hub-based Multitenant Solution Architectural Approaches
 description: Learn about architectural approaches for Azure IoT Hub-based multitenant solutions to build scalable, secure, and efficient solutions.
 author: MikeBazMSFT
 ms.author: micbaz
-ms.date: 12/13/2024
+ms.date: 01/26/2026
 ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.custom:
@@ -13,7 +13,7 @@ ms.custom:
 
 # Architectural approaches for IoT Hub-based multitenant solutions
 
-This article describes several approaches commonly used to solve multitenancy considerations for Azure IoT Hub-based solutions. Multitenant IoT Hub-based solutions come in many different flavors and sizes. You might have many requirements and constraints, ranging from infrastructure ownership, to customer data isolation, to compliance. It can be challenging to define a pattern that meets all of these design constraints, and doing so often requires considering multiple dimensions. 
+This article describes several approaches commonly used to solve multitenancy considerations for Azure IoT Hub-based solutions. Multitenant IoT Hub-based solutions come in many different flavors and sizes. You might have many requirements and constraints, ranging from infrastructure ownership, to customer data isolation, to compliance. It can be challenging to define a pattern that meets all of these design constraints, and doing so often requires considering multiple dimensions.
 
 ## Key considerations and requirements
 
@@ -59,9 +59,9 @@ IoT solutions tend to be data-intensive, both when streaming and at rest. For mo
 
 ### Security
 
-IoT solutions often have security considerations at multiple layers, especially in solutions that are deployed in a cloud-modified [Purdue Enterprise Reference Architecture](https://en.wikipedia.org/wiki/Purdue_Enterprise_Reference_Architecture) or [Industry 4.0](https://techcommunity.microsoft.com/t5/azure-infrastructure-blog/extending-operational-technology-to-azure/ba-p/3265466) solutions. The design approach you select affects what network layers and boundaries exist; after you select the physical design, you can select the security implementation. You can use the following tools in any approach:
+IoT solutions often have security considerations at multiple layers, especially in solutions that are deployed in a cloud-modified [Purdue Enterprise Reference Architecture](https://en.wikipedia.org/wiki/Purdue_Enterprise_Reference_Architecture) or [Industry 4.0](https://techcommunity.microsoft.com/blog/azureinfrastructureblog/extending-operational-technology-to-azure/3265466) solutions. The design approach you select affects what network layers and boundaries exist; after you select the physical design, you can select the security implementation. You can use the following tools in any approach:
 
-* [Microsoft Defender for IoT](/azure/defender-for-iot/), a comprehensive IoT monitoring solution you should consider that offers a [per-device EIoT license](https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-iot-pricing) and [OT site licenses](https://www.microsoft.com/en-us/security/business/endpoint-security/microsoft-defender-iot-pricing#x4519c378078344d5a4dd2f5f3c2b5247) for each customer device and/or site. Depending on the approach selected from later in this article, the Microsoft 365 named user licensing scenario might not be possible. In that case, the per-device and site license options are available, which are license options independent of Microsoft 365 tenant licenses.
+* [Microsoft Defender for IoT](/azure/defender-for-iot/), a comprehensive IoT monitoring solution that offers [per-device EIoT licenses and OT site licenses](https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-iot-pricing) for each customer device or site. Depending on the approach you select, the Microsoft 365 named user licensing scenario might not be possible. In that case, the per-device and site license options are available, which are independent of Microsoft 365 tenant licenses.
 
 * [Azure Firewall](/azure/firewall/) or a non-Microsoft firewall appliance, which you should consider for isolating the network layers and monitoring network traffic. The exact choice of approach determines where workloads have network isolation versus a shared network, as addressed later in this article.
 
@@ -97,7 +97,7 @@ In the previous diagram, the tenants share an IoT Central environment, Azure Dat
 
 This approach is generally the fastest way to get a solution to market. It's a high scale service that supports multitenancy by using [organizations](/azure/iot-central/core/howto-create-organizations).
 
-It's important to understand that because IoT Central is an aPaaS offering, there are certain decisions that are outside of the  control of the implementer. These decisions include:
+Because IoT Central is an aPaaS offering, certain decisions are outside of your control as the implementer. These decisions include:
 
 * IoT Central uses Microsoft Entra ID as its identity provider.
 * IoT Central deployments are achieved using both control and data plane operations, which combine declarative documents with imperative code.
@@ -119,6 +119,17 @@ A PaaS-based approach might use the following Azure services:
 In the previous diagram, each tenant connects to a shared web app, which receives data from IoT Hubs and a function app. Devices connect to the Device Provisioning Service and to IoT Hubs.
 
 This approach requires more developer effort to create, deploy, and maintain the solution (versus an aPaaS approach). Fewer capabilities are prebuilt for the implementer's convenience. Therefore this approach also offers more control, because fewer assumptions are embedded in the underlying platform.
+
+### Concepts and considerations for edge-native solutions
+
+For scenarios that require advanced edge processing, protocol translation (such as OPC UA), or Kubernetes-based deployments, consider [Azure IoT Operations](/azure/iot-operations/overview-iot-operations). Azure IoT Operations is a unified data plane for the edge that runs on Azure Arc-enabled Kubernetes clusters. It includes an industrial-grade MQTT broker, connectors for OPC UA and other protocols, and data flows for transformation and routing.
+
+In a multitenant context, Azure IoT Operations can use Kubernetes-native isolation mechanisms:
+
+* **Namespace isolation**: Deploy separate Azure IoT Operations instances or workloads in distinct Kubernetes namespaces for each tenant, providing logical separation of resources and configurations.
+* **Azure Device Registry**: Use namespaces in the Azure Device Registry to organize assets and devices. Multiple Azure IoT Operations instances can share a single namespace, or each tenant can have a dedicated namespace.
+
+This approach is best suited for industrial IoT scenarios where you need fine-grained control over edge infrastructure, support for OT protocols, or integration with existing Kubernetes-based platforms. It requires more operational expertise compared to IoT Central or IoT Hub-based solutions.
 
 ## Root architecture patterns
 
@@ -209,7 +220,7 @@ Each tenant has their own IoT Central organization, which sends telemetry to a s
 
 #### Databases
 
-You might choose to partition the databases. Often it's the telemetry and device data stores that are partitioned. Frequently, multiple data stores are used for different specific purposes, such as warm versus archival storage, or for tenancy subscription status information. 
+You might choose to partition the databases. Often it's the telemetry and device data stores that are partitioned. Frequently, multiple data stores are used for different specific purposes, such as warm versus archival storage, or for tenancy subscription status information.
 
 Separate the databases for each tenant, for the following benefits:
 
@@ -222,7 +233,7 @@ Azure IoT Hub Device Provisioning Service, IoT Hub, and IoT Central applications
 
 This approach is often taken to enable the end customers to manage and control their own fleets of devices that are more directly and fully isolated.
 
-If the device communications plane is horizontally partitioned, telemetry data must be enriched with data identifying the source tenant. This enrichment lets the stream processor knows which tenant rules to apply to the data stream. For example, if a telemetry message generates a notification in the stream processor, the stream processor needs to determine the proper notification path for the associated tenant.
+If the device communications plane is horizontally partitioned, telemetry data must be enriched with data identifying the source tenant. This enrichment lets the stream processor know which tenant rules to apply to the data stream. For example, if a telemetry message generates a notification in the stream processor, the stream processor needs to determine the proper notification path for the associated tenant.
 
 #### Stream processing
 
@@ -272,15 +283,15 @@ When you expand the scale of a solution to large deployments, there are specific
 
 Principal authors:
 
-- [Michael C. Bazarewsky](https://www.linkedin.com/in/mikebaz) | Senior Customer Engineer, FastTrack for Azure
-- [David Crook](https://www.linkedin.com/in/drcrook) | Principal Customer Engineer, FastTrack for Azure
+* [Michael C. Bazarewsky](https://www.linkedin.com/in/mikebaz) | Senior Customer Engineer, FastTrack for Azure
+* [David Crook](https://www.linkedin.com/in/drcrook) | Principal Customer Engineer, FastTrack for Azure
 
 Other contributors:
 
-- [John Downs](https://www.linkedin.com/in/john-downs/) | Principal Software Engineer, Azure Patterns & Practices
-- [Arsen Vladimirskiy](https://www.linkedin.com/in/arsenv) | Principal Customer Engineer, FastTrack for Azure
+* [John Downs](https://www.linkedin.com/in/john-downs/) | Principal Software Engineer, Azure Patterns & Practices
+* [Arsen Vladimirskiy](https://www.linkedin.com/in/arsenv) | Principal Customer Engineer, FastTrack for Azure
 
 ## Next steps
 
-- Review guidance for [multitenancy and Azure Cosmos DB](../service/cosmos-db.md).
-- Learn about [hot, warm, and cold data paths with IoT on Azure](https://techcommunity.microsoft.com/blog/fasttrackforazureblog/hot-warm-and-cold-data-paths-with-iot-on-azure/2336035).
+* Review guidance for [multitenancy and Azure Cosmos DB](../service/cosmos-db.md).
+* Learn about [hot, warm, and cold data paths with IoT on Azure](https://techcommunity.microsoft.com/blog/fasttrackforazureblog/hot-warm-and-cold-data-paths-with-iot-on-azure/2336035).
