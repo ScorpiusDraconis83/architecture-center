@@ -61,7 +61,7 @@ IoT solutions tend to be data-intensive, both when streaming and at rest. For mo
 
 IoT solutions often have security considerations at multiple layers, especially in solutions that are deployed in a cloud-modified [Purdue Enterprise Reference Architecture](https://en.wikipedia.org/wiki/Purdue_Enterprise_Reference_Architecture) or [Industry 4.0](https://techcommunity.microsoft.com/t5/azure-infrastructure-blog/extending-operational-technology-to-azure/ba-p/3265466) solutions. The design approach you select affects what network layers and boundaries exist; after you select the physical design, you can select the security implementation. You can use the following tools in any approach:
 
-* [Microsoft Defender for IoT](/azure/defender-for-iot/), a comprehensive IoT monitoring solution you should consider that offers a [per-device EIoT license](https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-iot-pricing) and [OT site licenses](https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-iot-pricing#x99b0961a86984d6581c616046ffdb573) for each customer device and/or site. Depending on the approach selected from later in this article, the Microsoft 365 named user licensing scenario might not be possible. In that case, the per-device and site license options are available, which are license options independent of Microsoft 365 tenant licenses.
+* [Microsoft Defender for IoT](/azure/defender-for-iot/), a comprehensive IoT monitoring solution you should consider that offers a [per-device EIoT license](https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-iot-pricing) and [OT site licenses](https://www.microsoft.com/en-sg/security/business/endpoint-security/microsoft-defender-iot-pricing#xa3dc8b50ecf744cda67288365a85e2a4) for each customer device and/or site. Depending on the approach selected from later in this article, the Microsoft 365 named user licensing scenario might not be possible. In that case, the per-device and site license options are available, which are license options independent of Microsoft 365 tenant licenses.
 
 * [Azure Firewall](/azure/firewall/) or a non-Microsoft firewall appliance, which you should consider for isolating the network layers and monitoring network traffic. The exact choice of approach determines where workloads have network isolation versus a shared network, as addressed later in this article.
 
@@ -283,4 +283,4 @@ Other contributors:
 ## Next steps
 
 - Review guidance for [multitenancy and Azure Cosmos DB](../service/cosmos-db.md).
-- Learn about [hot, warm, and cold data paths with IoT on Azure](https://techcommunity.microsoft.com/t5/fasttrack-for-azure/hot-warm-and-cold-data-paths-with-iot-on-azure/ba-p/2336035).
+- Learn about [hot, warm, and cold data paths with IoT on Azure](https://techcommunity.microsoft.com/blog/fasttrackforazureblog/hot-warm-and-cold-data-paths-with-iot-on-azure/2336035).
