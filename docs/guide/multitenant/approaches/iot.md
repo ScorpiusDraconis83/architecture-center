@@ -120,17 +120,6 @@ In the previous diagram, each tenant connects to a shared web app, which receive
 
 This approach requires more developer effort to create, deploy, and maintain the solution (versus an aPaaS approach). Fewer capabilities are prebuilt for the implementer's convenience. Therefore this approach also offers more control, because fewer assumptions are embedded in the underlying platform.
 
-### Concepts and considerations for edge-native solutions
-
-For scenarios that require advanced edge processing, protocol translation (such as OPC UA), or Kubernetes-based deployments, consider [Azure IoT Operations](/azure/iot-operations/overview-iot-operations). Azure IoT Operations is a unified data plane for the edge that runs on Azure Arc-enabled Kubernetes clusters. It includes an industrial-grade MQTT broker, connectors for OPC UA and other protocols, and data flows for transformation and routing.
-
-In a multitenant context, Azure IoT Operations can use Kubernetes-native isolation mechanisms:
-
-* **Namespace isolation**: Deploy separate Azure IoT Operations instances or workloads in distinct Kubernetes namespaces for each tenant, providing logical separation of resources and configurations.
-* **Azure Device Registry**: Use namespaces in the Azure Device Registry to organize assets and devices. Multiple Azure IoT Operations instances can share a single namespace, or each tenant can have a dedicated namespace.
-
-This approach is best suited for industrial IoT scenarios where you need fine-grained control over edge infrastructure, support for OT protocols, or integration with existing Kubernetes-based platforms. It requires more operational expertise compared to IoT Central or IoT Hub-based solutions.
-
 ## Root architecture patterns
 
 The following table lists common patterns for multitenant IoT solutions. Each pattern includes the following information:
