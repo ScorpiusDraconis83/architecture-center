@@ -4,7 +4,7 @@ This reference architecture illustrates how to design a hybrid Domain Name Syste
 
 :::image type="content" source="./images/hybrid-dns-infra.png" alt-text="Diagram showing a Hybrid Domain Name System (DNS)." border="false" lightbox="./images/hybrid-dns-infra.png" :::
 
-### Workflow
+## Components
 
 The architecture consists of the following components:
 
