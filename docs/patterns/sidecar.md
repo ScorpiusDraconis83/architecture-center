@@ -1,3 +1,14 @@
+---
+title: Sidecar pattern
+description: Deploy supporting features of an application into a separate process or container with a shared lifecycle to provide modular abstraction and isolation of cross-cutting concerns.
+author: v-federicoar
+ms.author: v-federicoar
+ms.date: 03/02/2026
+ms.topic: design-pattern
+ms.subservice: azure-architecture-center
+---
+# Sidecar pattern
+
 Deploy components of an application into a separate process or container to provide isolation and encapsulation. This pattern can also enable applications to be composed of heterogeneous components and technologies.
 
 This pattern is named *Sidecar* because it resembles a sidecar attached to a motorcycle. In the pattern, the sidecar is attached to a parent application and provides supporting features for the application. The sidecar also shares the same lifecycle as the parent application, being created and retired alongside the parent. The sidecar pattern is sometimes referred to as the sidekick pattern and is a decomposition pattern.
@@ -30,7 +41,7 @@ Advantages of using a sidecar pattern include:
 
 The sidecar pattern is often used with containers and referred to as a sidecar container or sidekick container.
 
-## Issues and considerations
+## Problems and considerations
 
 - Consider the deployment and packaging format you will use to deploy services, processes, or containers. Containers are particularly well suited to the sidecar pattern.
 - When designing a sidecar service, carefully decide on the interprocess communication mechanism. Try to use language- or framework-agnostic technologies unless performance requirements make that impractical.
@@ -47,11 +58,12 @@ Use this pattern when:
 - You need a service that shares the overall lifecycle of your main application, but can be independently updated.
 - You need fine-grained control over resource limits for a particular resource or component. For example, you might want to restrict the amount of memory a specific component uses. You can deploy the component as a sidecar and manage memory usage independently of the main application.
 
-This pattern might not be suitable:
+This pattern might not be suitable when:
 
 - When interprocess communication needs to be optimized. Communication between a parent application and sidecar services includes some overhead, notably latency in the calls. This might not be an acceptable trade-off for chatty interfaces.
 - For small applications where the resource cost of deploying a sidecar service for each instance isn't worth the advantage of isolation.
 - When the service needs to scale differently than or independently from the main applications. If so, it might be better to deploy the feature as a separate service.
+- Avoid sidecars when the platform already offers equivalent functionality without colocated processes.
 
 ## Workload design
 
@@ -59,6 +71,7 @@ An architect should evaluate how the Sidecar pattern can be used in their worklo
 
 | Pillar | How this pattern supports pillar goals |
 | :----- | :------------------------------------- |
+| [Reliability](/azure/well-architected/reliability/checklist) design decisions help your workload become **resilient** to malfunction and ensure that it **recovers** to a fully functioning state after a failure occurs.  | A sidecar can provide localized resiliency behaviors—such as request mediation, retry scheduling, watchdog functions, or graceful fallback logic—without embedding these concerns into the main application. This enables resilient behavior even when the application does not natively support it.<br/><br/> - [RE:07 self-preservation](/azure/well-architected/reliability/self-preservation) |
 | [Security](/azure/well-architected/security/checklist) design decisions help ensure the **confidentiality**, **integrity**, and **availability** of your workload's data and systems. | By encapsulating these task and deploying them out-of-process, you can reduce the surface area of sensitive processes to only the code that's needed to accomplish the task. You can also use sidecars to add cross-cutting security controls to an application component that's not natively designed with that functionality.<br/><br/> - [SE:04 Segmentation](/azure/well-architected/security/segmentation)<br/> - [SE:07 Encryption](/azure/well-architected/security/encryption) |
 | [Operational Excellence](/azure/well-architected/operational-excellence/checklist) helps deliver **workload quality** through **standardized processes** and team cohesion. | This pattern provides an approach to implementing flexibility in tool integration that might enhance the application's observability without requiring the application to take direct implementation dependencies. It enables the sidecar functionality to evolve independently and be maintained independently of the application's lifecycle.<br/><br/> - [OE:04 Tools and processes](/azure/well-architected/operational-excellence/tools-processes)<br/> - [OE:07 Monitoring system](/azure/well-architected/operational-excellence/observability) |
 | [Performance Efficiency](/azure/well-architected/performance-efficiency/checklist) helps your workload **efficiently meet demands** through optimizations in scaling, data, code. | You can move cross-cutting tasks to a single process that can scale across multiple instances of the main process, which reduces the need to deploy duplicate functionality for each instance of the application.<br/><br/> - [PE:07 Code and infrastructure](/azure/well-architected/performance-efficiency/optimize-code-infrastructure) |
@@ -73,6 +86,13 @@ The sidecar pattern is applicable to many scenarios. Some common examples:
 - Manage NGINX/HAProxy. Deploy NGINX with a sidecar service that monitors environment state, then updates the NGINX configuration file and recycles the process when a change in state is needed.
 - Ambassador sidecar. Deploy an [ambassador](./ambassador.yml) service as a sidecar. The application calls through the ambassador, which handles request logging, routing, circuit breaking, and other connectivity related features.
 - Offload proxy. Place an NGINX proxy in front of a node.js service instance, to handle serving static file content for the service.
+- Protocol Adapters. A sidecar converts between incompatible protocols or data formats, enabling the application to use simpler or legacy interfaces.
+- Telemetry Enrichment. A sidecar preprocesses or enriches telemetry (metrics, logs, traces) before forwarding to external systems.
+
+## Next steps
+
+- [Microservice APIs powered by Dapr](/azure/container-apps/dapr-overview). Azure Container Apps provides APIs powered by Distributed Application Runtime (Dapr) that help you write and implement simple, portable, resilient, and secured microservices. It uses sidecar.
+- [Native sidecar mode for Istio-based service mesh add-on in Azure Kubernetes Service (AKS)](/azure/aks/istio-native-sidecar). Istio addresses the challenges developers and operators face with a distributed or microservices architecture. The Istio-based service mesh add-on provides an officially supported and tested integration for Azure Kubernetes Service (AKS).
 
 ## Related resources
 
