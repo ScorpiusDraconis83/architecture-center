@@ -76,6 +76,10 @@ A message broker helps ensure that messages aren't lost even if communication fa
 
 A message broker can add resiliency to the consumers in your system. If a consumer fails while processing a message, another instance of the consumer can process that message. The reprocessing is possible because the message persists in the broker.
 
+### Handling large messages
+
+If your payload size exceeds the message broker's limit or consumers only sometimes need to access large message payloads, use the [Claim-Check pattern](../../patterns/claim-check.yml). Store the large payload in an external store like Azure Blob Storage, and send a message containing a specific URL or token (the claim check) to the broker. The consumer uses the token to retrieve the payload, if required. This approach protects the broker and consumers from being overwhelmed with large datagrams.
+
 ## Technology choices for a message broker
 
 Azure provides several message broker services, each with a range of features. Before choosing a service, determine the intent and requirements of the message.
@@ -138,6 +142,8 @@ Service Bus supports the Publisher-Subscriber pattern through Service Bus topics
 
 This feature provides a way for the producer to broadcast messages to multiple consumers. When a topic receives a message, it's forwarded to all the subscribed consumers. Optionally, a subscription can have filter criteria that allows the consumer to get a subset of messages. Each consumer retrieves messages from a subscription in a similar way to a queue.
 
+Keep routing logic simple. Avoid embedding complex business rules in your subscription filters. Prefer the *smart endpoints and dumb pipes* approach. Use the broker for reliable transport and broad routing, but handle complex decision logic within the consuming service.
+
 For more information, see [Azure Service Bus topics](/azure/service-bus-messaging/service-bus-messaging-overview#topics).
 
 #### Protocols in Service Bus
@@ -196,6 +202,8 @@ In addition to the push model, Event Grid also supports [pull delivery with HTTP
 - aren't stable enough to receive real-time event push notifications
 - have network restrictions that require [private link](/private-link/private-endpoint-overview)
 - can't expose a push notification endpoint
+
+Even with pull delivery, Event Grid is optimized for high throughput distribution of discrete events. If your workload requires enterprise messaging features like strictly ordered processing (sessions), transactions, or duplicate detection, Azure Service Bus remains the preferred choice.
 
 #### Protocols in Event Grid
 
