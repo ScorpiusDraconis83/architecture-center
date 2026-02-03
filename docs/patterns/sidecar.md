@@ -5,7 +5,7 @@ author: v-federicoar
 ms.author: v-federicoar
 ms.date: 03/02/2026
 ms.topic: design-pattern
-ms.subservice: azure-architecture-center
+ms.subservice: design-pattern
 ---
 # Sidecar pattern
 
