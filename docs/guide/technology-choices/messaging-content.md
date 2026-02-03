@@ -114,7 +114,7 @@ Service bus queues support durable temporal decoupling. Even when a consumer isn
 
 Business transactions can run for a long time. Each operation in the transaction can have multiple messages. Use checkpointing to coordinate the workflow and provide resiliency in case a transaction fails.
 
-Service Bus queues allow checkpointing through the [session state capability](/azure/service-bus-messaging/message-sessions#message-session-state). State information is incrementally recorded in the queue ([`SetSessionStateAsync`](/dotnet/api/azure.messaging.servicebus.servicebussessionreceiver.setsessionstateasync)) for messages that belong to a session. For example, a consumer can track progress by checking the state ([`GetSessionStateAsync`](/dotnet/api/azure.messaging.servicebus.servicebussessionreceiver.getsessionstateasync)) every now and then. If a consumer fails, another consumer can use state information to determine the last known checkpoint to resume the session.
+Service Bus queues allow checkpointing through the [session state capability](/azure/service-bus-messaging/message-sessions#message-session-state). State information is incrementally recorded in the queue ([`SetSessionStateAsync`](/dotnet/api/azure.messaging.servicebus.servicebussessionreceiver.setsessionstateasync)) for messages that belong to a session. For example, a consumer can track progress by periodically checking the state ([`GetSessionStateAsync`](/dotnet/api/azure.messaging.servicebus.servicebussessionreceiver.getsessionstateasync)). If a consumer fails, another consumer can use state information to determine the last known checkpoint to resume the session.
 
 #### Dead-letter queue (DLQ)
 
@@ -154,7 +154,7 @@ For details of the message format schema, see [Messages, payloads, and serializa
 
 ### Azure Event Grid
 
-We recommend [Azure Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they're published to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and event handler that will process the events. Each event can have multiple subscriptions.
+Use [Azure Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they're published to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and an event handler that will process the events. Each event can have multiple subscriptions.
 
 #### Push model in Event Grid
 
@@ -196,7 +196,7 @@ Event Grid doesn't guarantee order for event delivery.
 
 #### Pull model in Event Grid
 
-In addition to the push model, Event Grid also supports [pull delivery with HTTP](/azure/event-grid/pull-delivery-overview) that uses queue-like semantics. You'd use this model when your event consumers:
+In addition to the push model, Event Grid also supports [pull delivery with HTTP](/azure/event-grid/pull-delivery-overview) that uses queue-like semantics. Use this model when your event consumers:
 
 - only process events at a certain time
 - aren't stable enough to receive real-time event push notifications
