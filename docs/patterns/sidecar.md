@@ -5,7 +5,7 @@ author: v-federicoar
 ms.author: v-federicoar
 ms.date: 03/02/2026
 ms.topic: design-pattern
-ms.subservice: design-pattern
+ms.subservice: cloud-fundamentals
 ---
 # Sidecar pattern
 
