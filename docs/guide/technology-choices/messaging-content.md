@@ -78,7 +78,7 @@ A message broker can add resiliency to the consumers in your system. If a consum
 
 ### Handling large messages
 
-If your payload size exceeds the message broker's limit or consumers only sometimes need to access large message payloads, use the [Claim-Check pattern](../../patterns/claim-check.yml). Store the large payload in an external store like Azure Blob Storage, and send a message containing a specific URL or token (the claim check) to the broker. The consumer uses the token to retrieve the payload, if required. This approach protects the broker and consumers from being overwhelmed with large datagrams.
+If your payload size exceeds the message broker's limit or consumers only sometimes need to access large message payloads, use the [Claim-Check pattern](../../patterns/claim-check.yml). Store the large payload in an external store like Azure Blob Storage, and send a message containing a pointer to the payload to the broker. The consumer uses the pointer to retrieve the payload, if necessary. This approach protects the broker and consumers from being overwhelmed with large datagrams.
 
 ## Technology choices for a message broker
 
@@ -98,7 +98,7 @@ Service Bus allows a consumer to *peek* at the queue and lock messages. This let
 
 It's the consumer's responsibility to report the message's processing status. Only when the consumer marks the message as consumed does Service Bus remove the message from the queue. If a failure, timeout, or crash occurs, Service Bus unlocks the message so that other consumers can retrieve it. This way, messages aren't lost in transfer.
 
-A producer might accidentally send the same message twice. For example, a producer instance fails after sending a message. Another producer replaces the original instance and sends the message again. Azure Service Bus queues provide a [built-in de-duping capability](/azure/service-bus-messaging/duplicate-detection) that detects and removes duplicate messages. There's still a chance that a message is delivered twice. For example, if a consumer fails while processing, the message is returned to the queue and is retrieved by the same or another consumer. The message-processing logic in the consumer should be idempotent so that even if the work is repeated, the state of the system isn't changed.
+A producer might accidentally send the same message twice. For example, a producer instance fails after sending a message. Another producer replaces the original instance and sends the message again. Azure Service Bus queues provide a [built-in deduping capability](/azure/service-bus-messaging/duplicate-detection) that detects and removes duplicate messages. There's still a chance that a message is delivered twice. For example, if a consumer fails while processing, the message is returned to the queue and is retrieved by the same or another consumer. The message-processing logic in the consumer should be idempotent so that even if the work is repeated, the state of the system isn't changed.
 
 #### Message ordering
 
@@ -154,7 +154,7 @@ For details of the message format schema, see [Messages, payloads, and serializa
 
 ### Azure Event Grid
 
-We recommend [Azure Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they're published to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and event handler that will process the events.  Each event can have multiple subscriptions.
+We recommend [Azure Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they're published to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and event handler that will process the events. Each event can have multiple subscriptions.
 
 #### Push model in Event Grid
 
@@ -200,7 +200,7 @@ In addition to the push model, Event Grid also supports [pull delivery with HTTP
 
 - only process events at a certain time
 - aren't stable enough to receive real-time event push notifications
-- have network restrictions that require [private link](/private-link/private-endpoint-overview)
+- have network restrictions that require [private link](/azure/event-grid/configure-private-endpoints)
 - can't expose a push notification endpoint
 
 Even with pull delivery, Event Grid is optimized for high throughput distribution of discrete events. If your workload requires enterprise messaging features like strictly ordered processing (sessions), transactions, or duplicate detection, Azure Service Bus remains the preferred choice.
@@ -210,7 +210,7 @@ Even with pull delivery, Event Grid is optimized for high throughput distributio
 Event Grid supports two event schemas:
 
 - **CloudEvents schema**: This is the recommended format schema for events. It's based on an [open specification](https://github.com/cloudevents/spec/blob/v1.0/spec.md) for describing event data and is highly interoperable between vendor systems.
-- **Event Grid schema**: This is a proprietary, nonextensible format schema for events. This schema is specific to Event Grid and should only be used when using the CloudEvents schema is not possible.
+- **Event Grid schema**: This is a proprietary, nonextensible format schema for events. This schema is specific to Event Grid and should only be used when using the CloudEvents schema isn't possible.
 
 Event Grid also supports two protocols for message broker interaction:
 
