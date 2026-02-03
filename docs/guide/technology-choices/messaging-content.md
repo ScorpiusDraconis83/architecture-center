@@ -182,7 +182,7 @@ For more information about filtering, see [Filter events for Event Grid](/azure/
 
 #### High throughput
 
-Event Grid has [tiers](/azure/event-grid/choose-right-tier#basic-and-standard-tiers) that enable it to be a high throughput service for high volume use cases. Not all tiers support the same features or throughput.
+Event Grid is available in multiple [tiers](/azure/event-grid/choose-right-tier#basic-and-standard-tiers) to support high‑throughput, high‑volume use cases. Feature availability and throughput vary by tier.
 
 #### Resilient delivery
 
@@ -227,7 +227,7 @@ Event Hubs is capable of ingesting millions of events per second. The events are
 
 #### Pull model in Event Hubs
 
-Event Hubs offers Publisher-Subscriber capabilities. A key difference between other queues and Event Hubs is in the way event data is made available to the subscribers. Event Hubs makes the data available in a pull model but instead of a traditional queue model Event Hubs appends events to a stream. A subscriber manages its cursor and can move forward and back in the stream, select a time offset, and replay a sequence at its pace.
+Event Hubs offers Publisher-Subscriber capabilities. A key difference between other queues and Event Hubs is in the way event data is made available to the subscribers. Event Hubs uses a pull‑based model in which events are appended to a stream rather than placed in a traditional queue. A subscriber manages its cursor and can move forward and back in the stream, select a time offset, and replay a sequence at its pace.
 
 Stream processors are subscribers that pull data from Event Hubs for the purposes of transformation and statistical analysis. Use [Azure Stream Analytics](../../reference-architectures/data/stream-processing-stream-analytics.yml) and [Apache Spark](https://spark.apache.org/) for complex processing such as aggregation over time windows or anomaly detection. Or [get data from Azure Event Hubs](/fabric/real-time-intelligence/get-data-event-hub) into your Eventhouse or as [an eventstream](/fabric/real-time-intelligence/event-streams/add-source-azure-event-hubs) in Microsoft Fabric.
 
