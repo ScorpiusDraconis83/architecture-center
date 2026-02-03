@@ -158,13 +158,13 @@ We recommend [Azure Event Grid](/azure/event-grid/) for discrete events. Event G
 
 #### Push model in Event Grid
 
-Event Grid can propagate messages to the subscribers in a durable push model. Suppose you have an Event Grid subscription with a webhook. When a new event arrives, Event Grid posts the event to the webhook endpoint. In this the push model, if there are no subscribers or the subscribers are repeatedly unavailable, the events are discarded.
+Event Grid can propagate messages to the subscribers in a durable push model. Suppose you have an Event Grid subscription with a webhook. When a new event arrives, Event Grid posts the event to the webhook endpoint. In the push model, if there are no subscribers or the subscribers are repeatedly unavailable, the events are discarded.
 
 You can build a custom endpoint to receive events, as long as it [follows the webhook specification](/azure/event-grid/end-point-validation-cloud-events-schema), or you can use built-in capabilities such as the [Azure Event Grid bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-grid).
 
 #### Integrated with Azure
 
-Choose Event Grid if you want to get notifications about Azure resources. Many Azure services act as [event sources](/azure/event-grid/overview#event-sources) that have built-in Event Grid topics. Event Grid also supports various Azure services that can be configured as [event handlers](/azure/event-grid/overview#event-handlers). You can subscribe to those topics to route events to event handlers of your choice. For example, you can use Event Grid to invoke an Azure Function when a blob storage is created or deleted.
+Choose Event Grid if you want to get notifications about Azure resources. Many Azure services act as [event sources](/azure/event-grid/overview#event-sources) that have built-in Event Grid topics. Event Grid also supports various Azure services that can be configured as [event handlers](/azure/event-grid/overview#event-handlers). You can subscribe to those topics to route events to event handlers of your choice. For example, you can use Event Grid to invoke an Azure Function when a storage blob is created or deleted.
 
 #### Custom topics
 
@@ -182,7 +182,7 @@ For more information about filtering, see [Filter events for Event Grid](/azure/
 
 #### High throughput
 
-Event Grid has [tiers](/azure/event-grid/choose-right-tier#basic-and-standard-tiers) that enable it to be high throughput service for high volume use cases. Not all tiers support the same features or throughput.
+Event Grid has [tiers](/azure/event-grid/choose-right-tier#basic-and-standard-tiers) that enable it to be a high throughput service for high volume use cases. Not all tiers support the same features or throughput.
 
 #### Resilient delivery
 
