@@ -41,23 +41,23 @@ If your workload consists of distinct compute components, evaluate each applicat
 
 If you're not familiar with the Azure service that you select in the previous section, see the following overview documentation:
 
+- [Azure Virtual Machines](/azure/virtual-machines) is a service where you deploy and manage VMs inside an Azure virtual network.
+
 - [Azure App Service](/azure/app-service) is a managed service for hosting web apps, mobile app back ends, RESTful APIs, or automated business processes.
-
-- [Azure Batch](/azure/batch/batch-technical-overview) is a managed service for running large-scale parallel and high-performance computing (HPC) applications.
-
-- [Azure Container Apps](/azure/container-apps) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment. It doesn't provide direct access to the underlying Kubernetes APIs. If you require access to the Kubernetes APIs and control plane, you should use Azure Kubernetes Service.
-
-- [Azure Container Instances](/azure/container-instances/container-instances-overview) is a service for running a single container or group of containers in Azure. Container Instances doesn't provide full container orchestration, but you can implement containers without having to provision virtual machines (VMs) or adopt a higher-level service.
 
 - [Azure Functions](/azure/azure-functions/functions-overview) is a service that provides managed functions that run based on various trigger types for event-driven applications.
 
 - [Azure Kubernetes Service (AKS)](/azure/aks/intro-kubernetes) is a managed Kubernetes service for running containerized applications. It provides direct access to the Kubernetes API and control plane.
 
+- [Azure Container Apps](/azure/container-apps) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment. It doesn't provide direct access to the underlying Kubernetes APIs. If you require access to the Kubernetes APIs and control plane, you should use Azure Kubernetes Service.
+
+- [Azure Container Instances](/azure/container-instances/container-instances-overview) is a service for running a single container or group of containers in Azure. Container Instances doesn't provide full container orchestration, but you can implement containers without having to provision virtual machines (VMs) or adopt a higher-level service.
+
 - [Azure Red Hat OpenShift](/azure/openshift) is a fully managed OpenShift cluster for running containers in production with Kubernetes.
 
-- [Azure VMware Solution](/azure/azure-vmware/introduction) is a managed service for running VMware workloads natively on Azure.
+- [Azure Batch](/azure/batch/batch-technical-overview) is a managed service for running large-scale parallel and high-performance computing (HPC) applications.
 
-- [Azure Virtual Machines](/azure/virtual-machines) is a service where you deploy and manage VMs inside an Azure virtual network.
+- [Azure VMware Solution](/azure/azure-vmware/introduction) is a managed service for running VMware workloads natively on Azure.
 
 ## Understand the hosting models
 
@@ -192,15 +192,15 @@ For guided learning on service guarantees, see [Azure architecture and service g
 
 Review and understand the available security controls and visibility for each of the following services:
 
-- [AKS](/azure/aks/security-baseline)
+- [Virtual Machines for Linux](/azure/virtual-machines/linux/security-baseline)
+- [Virtual Machines for Windows](/azure/virtual-machines/windows/security-baseline)
 - [App Service](/azure/app-service/overview-security)
 - [Azure Functions](/azure/azure-functions/security-baseline)
-- [Virtual Machines for Linux](/azure/virtual-machines/linux/security-baseline)
-- [Azure VMware Solution](/security/benchmark/azure/baselines/azure-vmware-solution-security-baseline)
-- [Virtual Machines for Windows](/azure/virtual-machines/windows/security-baseline)
-- [Batch](/azure/batch/security-baseline)
+- [AKS](/azure/aks/security-baseline)
 - [Container Apps](/security/benchmark/azure/baselines/azure-container-apps-security-baseline)
 - [Container Instances](/azure/container-instances/security-baseline)
+- [Batch](/azure/batch/security-baseline)
+- [Azure VMware Solution](/security/benchmark/azure/baselines/azure-vmware-solution-security-baseline)
 
 ## Other criteria
 
