@@ -90,7 +90,7 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 
 **Notes:**
 
-<sup>1</sup> <span id="note1">For Azure Functions, the Consumption plan is serverless. For an App Service plan, functions run on the VMs allocated for that plan. [Choose the correct service plan for Azure Functions][function-plans].</span>
+<sup>1</sup> <span id="note1">For Azure Functions, the [Consumption and Flex Consumption plans](/azure/azure-functions/flex-consumption-plan) are serverless. For an App Service plan, functions run on the VMs allocated for that plan. [Choose the correct service plan for Azure Functions][function-plans].</span>
 
 <sup>2</sup> <span id="note2">Higher service-level agreement (SLA) that has two or more instances.</span>
 
@@ -124,7 +124,7 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 
 <sup>2</sup> <span id="note2b">Use [App Service Hybrid Connections][app-service-hybrid].</span>
 
-<sup>3</sup> <span id="note3b">Requires an App Service plan or [Azure Functions Premium plan][func-premium].</span>
+<sup>3</sup> <span id="note3b">Requires an App Service plan, [Azure Functions Premium plan][func-premium], or [Azure Functions Flex Consumption plan](/azure/azure-functions/flex-consumption-plan#virtual-network-integration).</span>
 
 ## DevOps
 
@@ -150,9 +150,9 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 | :------ | :---------- | :------------ | :-------------------------------------------- |
 | Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
 | App Service | Built-in service | Integrated | 30 instances, 100 with App Service Environment |
-| Azure Functions | Built-in service | Integrated | 200 instances for each function app |
+| Azure Functions | Built-in service | Integrated | 200 instances (Consumption), 1,000 instances (Flex Consumption) |
 | AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [uptime SLA][uptime-sla] |
-| Container Apps | Scaling rules<a href="#note4d"><sup>4</sup></a> | Integrated | 15 environments for each region (default limit), unlimited container apps for each environment and replicas for each container app (depending on available cores) |
+| Container Apps | Scaling rules<a href="#note4d"><sup>4</sup></a> | Integrated | 1,000 replicas per revision, 15 environments per region |
 | Container Instances | Not supported | No built-in support | 100 container groups for each subscription (default limit) |
 | Azure Red Hat OpenShift | Pod autoscaling, cluster autoscaling | Load Balancer or Application Gateway | 250 nodes for each cluster (default limit) |
 | Batch | Not applicable | Load Balancer | Core limit of 900 dedicated and 100 low-priority (default limit) |
