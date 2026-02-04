@@ -104,6 +104,8 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 
 <sup>7</sup> <span id="note7">See [Hosts][azure-vmware-plans].</span>
 
+For detailed guidance on choosing between Azure container services, see [Choose an Azure container service](../choose-azure-container-service.md).
+
 ## Networking
 
 | Service | Virtual network integration | Hybrid connectivity |
@@ -143,6 +145,20 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 **Note:**
 
 <sup>1</sup> <span id="note1c">Options include IIS Express for ASP.NET or node.js (iisnode), PHP web server, Azure Toolkit for IntelliJ, and Azure Toolkit for Eclipse. App Service also supports remote debugging of deployed web apps.</span>
+
+## Team skills and operational overhead
+
+| Service | Required skills | Operational overhead | Best for teams with |
+| :------ | :-------------- | :------------------- | :------------------ |
+| Virtual Machines | OS administration, networking, security patching | High - full infrastructure management | Traditional IT operations experience |
+| App Service | Web development, application deployment | Low - platform handles infrastructure | Application developers focused on code |
+| Azure Functions | Event-driven programming, serverless patterns | Very low - serverless management | Developers building event-driven solutions |
+| AKS | Kubernetes administration, container orchestration | High - cluster management, upgrades, security | DevOps teams with Kubernetes expertise |
+| Container Apps | Container basics, cloud-native patterns | Low - abstracted Kubernetes management | Teams wanting modern patterns without Kubernetes complexity |
+| Container Instances | Container basics | Very low - no orchestration | Teams needing simple container execution |
+| Azure Red Hat OpenShift | OpenShift/Kubernetes administration | High - cluster management | Teams with OpenShift investment |
+| Batch | Job scheduling, parallel processing | Medium - job and pool management | Teams running HPC or batch workloads |
+| Azure VMware Solution | VMware administration | Medium - VMware-managed infrastructure | Teams with VMware platform requirements   |
 
 ## Scalability
 
