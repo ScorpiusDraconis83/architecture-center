@@ -45,13 +45,13 @@ If you're not familiar with the Azure service that you select in the previous se
 
 - [Azure Batch](/azure/batch/batch-technical-overview) is a managed service for running large-scale parallel and high-performance computing (HPC) applications.
 
-- [Azure Container Apps](/azure/container-apps) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment.
+- [Azure Container Apps](/azure/container-apps) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment. It doesn't provide direct access to the underlying Kubernetes APIs. If you require access to the Kubernetes APIs and control plane, you should use Azure Kubernetes Service.
 
 - [Azure Container Instances](/azure/container-instances/container-instances-overview) is a service for running a single container or group of containers in Azure. Container Instances doesn't provide full container orchestration, but you can implement containers without having to provision virtual machines (VMs) or adopt a higher-level service.
 
 - [Azure Functions](/azure/azure-functions/functions-overview) is a service that provides managed functions that run based on various trigger types for event-driven applications.
 
-- [Azure Kubernetes Service (AKS)](/azure/aks/intro-kubernetes) is a managed Kubernetes service for running containerized applications.
+- [Azure Kubernetes Service (AKS)](/azure/aks/intro-kubernetes) is a managed Kubernetes service for running containerized applications. It provides direct access to the Kubernetes API and control plane.
 
 - [Azure Red Hat OpenShift](/azure/openshift) is a fully managed OpenShift cluster for running containers in production with Kubernetes.
 
@@ -149,7 +149,7 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 | Service | Autoscaling | Load balancer | Scale limit<a href="#note3d"><sup>3</sup></a> |
 | :------ | :---------- | :------------ | :-------------------------------------------- |
 | Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
-| App Service | Built-in service | Integrated | 30 instances, 100 with App Service Environment |
+| App Service | Built-in service | Integrated | 30 instances, 200 with App Service Environment |
 | Azure Functions | Built-in service | Integrated | 200 instances (Consumption), 1,000 instances (Flex Consumption) |
 | AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [uptime SLA][uptime-sla] |
 | Container Apps | Scaling rules<a href="#note4d"><sup>4</sup></a> | Integrated | 1,000 replicas per revision, 15 environments per region |
