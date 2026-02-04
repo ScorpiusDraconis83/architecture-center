@@ -204,17 +204,17 @@ Review and understand the available security controls and visibility for each of
 
 ## Other criteria
 
-| Service | TLS | Cost | Suitable architecture styles |
-| :------ | :-- | :--- | :--------------------------- |
-| Virtual Machines | Configured in VM | [Windows][cost-windows-vm], [Linux][cost-linux-vm] | [N-tier][n-tier], [big compute][big-compute] (HPC) |
-| App Service | Supported | [App Service pricing][cost-app-service] | [Web-queue-worker][w-q-w] |
-| Azure Functions | Supported | [Azure Functions pricing][cost-functions] | [Microservices][microservices], [event-driven architecture][event-driven] |
-| AKS | [Ingress controller](/azure/aks/ingress) | [AKS pricing][cost-acs] | [Microservices][microservices], [event-driven architecture][event-driven] |
-| Container Apps |  [Ingress controller](/azure/container-apps/ingress) | [Container Apps pricing][cost-container-apps] | [Microservices][microservices], [event-driven architecture][event-driven] |
-| Container Instances | Use [sidecar](../../patterns/sidecar.yml) container | [Container Instances pricing](https://azure.microsoft.com/pricing/details/container-instances) | [Microservices][microservices], task automation, batch jobs |
-| Azure Red Hat OpenShift | Supported | [Azure Red Hat OpenShift pricing][cost-aro] | [Microservices][microservices], [event-driven architecture][event-driven] |
-| Batch | Supported | [Batch pricing][cost-batch] | [Big compute][big-compute] (HPC) |
-| Azure VMware Solution | Configured in VM | [Azure VMware Solution pricing][cost-avs] | VM workload based on VMware format |
+| Service | TLS | Cost | GPU support | Suitable architecture styles |
+| :------ | :-- | :--- | :--- | :--------------------------- |
+| Virtual Machines | Configured in VM | [Windows][cost-windows-vm], [Linux][cost-linux-vm] | [Supported](/azure/virtual-machines/sizes/overview#gpu-accelerated) | [N-tier][n-tier], [big compute][big-compute] (HPC) |
+| App Service | Supported | [App Service pricing][cost-app-service] | Not supported | [Web-queue-worker][w-q-w] |
+| Azure Functions | Supported | [Azure Functions pricing][cost-functions] | Not supported | [Microservices][microservices], [event-driven architecture][event-driven] |
+| AKS | [Ingress controller](/azure/aks/ingress) | [AKS pricing][cost-acs] | [Supported](/azure/aks/use-nvidia-gpu) | [Microservices][microservices], [event-driven architecture][event-driven] |
+| Container Apps | [Ingress controller](/azure/container-apps/ingress) | [Container Apps pricing][cost-container-apps] | [Supported](/azure/container-apps/gpu-serverless-overview) | [Microservices][microservices], [event-driven architecture][event-driven] |
+| Container Instances | Use [sidecar](../../patterns/sidecar.yml) container | [Container Instances pricing](https://azure.microsoft.com/pricing/details/container-instances) | [Not supported](/azure/container-instances/container-instances-gpu) | [Microservices][microservices], task automation, batch jobs |
+| Azure Red Hat OpenShift | Supported | [Azure Red Hat OpenShift pricing][cost-aro] | [Supported](/azure/openshift/howto-gpu-workloads) | [Microservices][microservices], [event-driven architecture][event-driven] |
+| Batch | Supported | [Batch pricing][cost-batch] | [Supported](/azure/batch/batch-pool-compute-intensive-sizes) | [Big compute][big-compute] (HPC) |
+| Azure VMware Solution | Configured in VM | [Azure VMware Solution pricing][cost-avs] | Not supported | VM workload based on VMware format |
 
 ## Consider limits and cost
 
