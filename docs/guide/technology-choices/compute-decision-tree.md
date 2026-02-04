@@ -21,8 +21,6 @@ Use the following flowchart to select a candidate compute service.
    The image shows a flowchart for selecting an appropriate Azure service based on whether the user is migrating an existing workload or building a new one. The flowchart begins with a Start node and splits into two primary branches labeled Migrate and Build new. The Migrate branch includes decision points that assess whether the application is optimized for the cloud and whether it can be lifted and shifted. Depending on the answers, the flow leads to services such as Azure App Service, Azure VMware Solution, or Virtual Machines. The Build new branch includes decision points that evaluate the need for full control, high-performance computing, event-driven workloads, managed web hosting, and orchestration requirements. These decisions guide the user toward services such as Virtual Machines, Azure Batch, Azure Functions, App Service, Azure Container Instances, Azure Red Hat OpenShift, Azure Kubernetes Service, or Azure Container Apps. A branching section for your own orchestration implementation on Virtual Machines includes VMware Tanzu on Virtual Machines, Kubernetes on Virtual Machines, and OpenShift on Virtual Machines. At the bottom of the image, two boxed sections list container-exclusive services and container-compatible services. The container-exclusive section includes Azure Container Instances, Azure Red Hat OpenShift, Kubernetes on Virtual Machines, OpenShift on Virtual Machines, and VMware Tanzu on Virtual Machines. The container-compatible section includes Azure Batch, Azure Functions, and App Service.
 :::image-end:::
 
-TODO: 86 SF
-
 *Download a [Visio file](https://arch-center.azureedge.net/compute-choices.vsdx) of this architecture.*
 
 The previous diagram refers to two migration strategies:
@@ -130,21 +128,23 @@ For detailed guidance on choosing between Azure container services, see [Choose 
 
 ## DevOps
 
-| Service | Local debugging | Programming model | Application update |
-| :------ | :-------------- | :---------------- | :----------------- |
-| Virtual Machines | Agnostic | Agnostic | No built-in support |
-| App Service | IIS Express, others <a href="#note1c"><sup>1</sup></a> | Web and API applications, WebJobs for background tasks | Deployment slots |
-| Azure Functions | Visual Studio or Azure Functions CLI | Serverless, event-driven | Deployment slots |
-| AKS | Minikube, Docker, others | Agnostic | Rolling update |
-| Container Apps | Local container runtime | Agnostic | Revision management |
-| Container Instances | Local container runtime | Agnostic | Not applicable |
-| Azure Red Hat OpenShift | Minikube, Docker, others | Agnostic | Rolling update |
-| Batch | Not supported | Command-line application | Not applicable |
-| Azure VMware Solution | Agnostic | Agnostic | No built-in support |
+| Service | Local debugging | Remote debugging | Programming model | Application update |
+| :------ | :-------------- | :--------------- | :---------------- | :----------------- |
+| Virtual Machines | Agnostic | [Remote Tools for Visual Studio](/visualstudio/debugger/remote-debugging) | Agnostic | No built-in support |
+| App Service | IIS Express, others <a href="#note1c"><sup>1</sup></a> | [Limited support](/visualstudio/debugger/remote-debugging-azure-app-service) | Web and API applications, WebJobs for background tasks | Deployment slots |
+| Azure Functions | [Visual Studio or Azure Functions Core Tools](/azure/azure-functions/functions-develop-local) | Not supported | Serverless, event-driven | Deployment slots |
+| AKS | Minikube, Docker, others | Third-party tools <a href="#note2c"><sup>2</sup></a> | Agnostic | Rolling update |
+| Container Apps | Local container runtime | [Debug console](/azure/container-apps/container-debug-console) | Agnostic | Revision management |
+| Container Instances | Local container runtime | Not supported | Agnostic | Not applicable |
+| Azure Red Hat OpenShift | Minikube, Docker, others | Third-party tools <a href="#note2c"><sup>2</sup></a> | Agnostic | Rolling update |
+| Batch | Not supported | Not applicable | Command-line application | Not applicable |
+| Azure VMware Solution | Agnostic | [Remote Tools for Visual Studio](/visualstudio/debugger/remote-debugging) | Agnostic | No built-in support |
 
-**Note:**
+**Notes:**
 
-<sup>1</sup> <span id="note1c">Options include IIS Express for ASP.NET or node.js (iisnode), PHP web server, Azure Toolkit for IntelliJ, and Azure Toolkit for Eclipse. App Service also supports remote debugging of deployed web apps.</span>
+<sup>1</sup> <span id="note1c">Options include IIS Express, Visual Studio Code, and other standard development tools based on your application stack.</span>
+
+<sup>2</sup> <span id="note2c">Use third-party tools like [Telepresence](/azure/aks/use-telepresence-aks) or [mirrord](https://metalbear.com/mirrord/) for local-to-cluster debugging.</span>
 
 ## Team skills and operational overhead
 
