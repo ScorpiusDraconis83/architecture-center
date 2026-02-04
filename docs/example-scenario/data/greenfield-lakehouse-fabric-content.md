@@ -22,7 +22,7 @@ The batch processing path handles the complete dataset, which ensures data consi
 
 #### Cold path for batch analytics
 
-A data warehouse relies on relational SQL semantics and serves as the conventional approach for historical data analysis. But this pattern has evolved, and a lakehouse now serves as the industry standard for batch data analysis. A lakehouse is built on top of open-source file formats. Unlike a traditional data warehouse, it supports structured, semistructured, and unstructured data. The compute layer in a lakehouse is typically built on top of the Apache Spark framework, which is the preferred engine for processing big data because of its distributed computing capability and high performance. Fabric provides a native lakehouse experience that's based on the open-source Delta Lake file format and a managed Spark runtime.
+A data warehouse relies on relational SQL semantics and serves as the conventional approach for historical data analysis. But this pattern evolved, and a lakehouse now serves as the industry standard for batch data analysis. A lakehouse is built on top of open-source file formats. Unlike a traditional data warehouse, it supports structured, semistructured, and unstructured data. The compute layer in a lakehouse is typically built on top of the Apache Spark framework, which is the preferred engine for processing big data because of its distributed computing capability and high performance. Fabric provides a native lakehouse experience that's based on the open-source Delta Lake file format and a managed Spark runtime.
 
 A lakehouse implementation typically uses the [medallion architecture](/azure/databricks/lakehouse/medallion). In this architecture, the bronze layer contains the raw data, the silver layer contains the validated and deduplicated data, and the gold layer contains highly refined data that's suitable for supporting business-facing use cases. This approach works across all organizations and industries. The medallion architecture is the standard approach, but you can adapt it for your specific needs. This architecture creates a lakehouse by using native Fabric components.
 
@@ -64,7 +64,7 @@ You create an eventstream, add event data sources to the stream, optionally add 
 
 To stream data in Real-Time Intelligence, use [Fabric Activator](/fabric/real-time-intelligence/data-activator/activator-introduction) or [eventhouses](/fabric/real-time-intelligence/eventhouse) depending on your use case.
 
-A Fabric activator is a component that enables real-time responses to specific data conditions as they occur. These responses can include sending notifications via email or Microsoft Teams, triggering custom workflows through Power Automate, or initiating any Fabric item directly from a activator. Activators are particularly useful for observability scenarios—for instance, they can be configured to respond to incoming streaming data in eventstreams.
+A Fabric activator is a component that enables real-time responses to specific data conditions as they occur. These responses can include sending notifications via email or Microsoft Teams, triggering custom workflows through Power Automate, or initiating any Fabric item directly from an activator. Activators are useful for observability scenarios—for instance, they can be configured to respond to incoming streaming data in eventstreams.
 
 An eventhouse is a collection of one or more Kusto Query Language (KQL) databases. KQL databases are engineered for time-based, streaming events of structured, semistructured, and unstructured data. Data is automatically indexed and partitioned based on ingestion time, which provides fast and complex analytic querying capabilities, even during real-time data ingestion. Fabric can make data stored in eventhouses available in OneLake for other Fabric processes to use. To query this data, use various code, low-code, or no-code options in Fabric, including native [KQL](/fabric/real-time-intelligence/kusto-query-set?tabs=kql-database) and T-SQL in the KQL queryset.
 
@@ -102,7 +102,7 @@ Fabric provides a rich API surface across its items. OneLake provides open acces
 
 ###### Power Automate
 
-Power Automate is a low-code application platform that you can use to automate repetitive tasks and also manipulate your data. The reflex item in Fabric supports Power Automate flows as a destination. This [integration](/activator-trigger-power-automate-flow/fabric/real-time-intelligence/data-activators) unlocks many use cases and allows you to trigger downstream actions by using a wide range of connectors, for both Microsoft and non-Microsoft systems.
+Power Automate is a low-code application platform that you can use to automate repetitive tasks and also manipulate your data. The reflex item in Fabric supports Power Automate flows as a destination. This [integration](/fabric/real-time-intelligence/data-activator/activator-trigger-power-automate-flows) unlocks many use cases and allows you to trigger downstream actions by using a wide range of connectors, for both Microsoft and non-Microsoft systems.
 
 ### Components
 
@@ -166,7 +166,7 @@ Fabric automatically replicates resources across availability zones without requ
 
 Security provides assurances against deliberate attacks and the misuse of your valuable data and systems. For more information, see [Design review checklist for Security](/azure/well-architected/security/checklist).
 
-You can use Fabric to manage, control, and audit your security settings according to your changing needs and demands. Consider the following key security recommendations:
+You can use Fabric to manage, control, and audit your security settings according to you're changing needs and demands. Consider the following key security recommendations:
 
 - **Authentication:** Configure single sign-on (SSO) in Microsoft Entra ID to provide access from various devices and locations.
 
