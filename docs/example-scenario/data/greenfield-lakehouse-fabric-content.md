@@ -62,9 +62,9 @@ You create an eventstream, add event data sources to the stream, optionally add 
 ##### Step 4: Real-time analytics
 
 
-To stream data in Real-Time Intelligence, use [Data Activator reflexes](/fabric/data-activator/data-activator-get-started) or [eventhouses](/fabric/real-time-intelligence/eventhouse) depending on your use case.
+To stream data in Real-Time Intelligence, use [Fabric Activator](/fabric/real-time-intelligence/data-activator/activator-introduction) or [eventhouses](/fabric/real-time-intelligence/eventhouse) depending on your use case.
 
-A reflex is a Fabric item that allows you to react to the occurrence of a data condition as it occurs. Reactions can include alert messages via email or Microsoft Teams, or custom actions triggered through Power Automate flows. You can also initiate any Fabric item from your reflexes. Reflexes support many observability use cases. For example, you can use them to react to streaming data as it arrives in eventstreams.
+A Fabric activator is a component that enables real-time responses to specific data conditions as they occur. These responses can include sending notifications via email or Microsoft Teams, triggering custom workflows through Power Automate, or initiating any Fabric item directly from a activator. Activators are particularly useful for observability scenarios—for instance, they can be configured to respond to incoming streaming data in eventstreams.
 
 An eventhouse is a collection of one or more Kusto Query Language (KQL) databases. KQL databases are engineered for time-based, streaming events of structured, semistructured, and unstructured data. Data is automatically indexed and partitioned based on ingestion time, which provides fast and complex analytic querying capabilities, even during real-time data ingestion. Fabric can make data stored in eventhouses available in OneLake for other Fabric processes to use. To query this data, use various code, low-code, or no-code options in Fabric, including native [KQL](/fabric/real-time-intelligence/kusto-query-set?tabs=kql-database) and T-SQL in the KQL queryset.
 
@@ -92,7 +92,7 @@ Direct Lake mode in Power BI provides significant benefits in performance and la
 
 - A semantic model has row-level security (RLS) applied.
 
-- A semantic model references views instead of direct OneLake tables.
+- A semantic model queries a view in the SQL analytics endpoint.
 
 To handle these fallback scenarios, use the SQL Analytics endpoint as the data source for Power BI. If you enable Direct Lake on the SQL Analytics endpoint, semantic model queries automatically [fall back](/fabric/fundamentals/direct-lake-overview#directquery-fallback) to Direct Query mode where Direct Lake isn't supported.
 
@@ -102,7 +102,7 @@ Fabric provides a rich API surface across its items. OneLake provides open acces
 
 ###### Power Automate
 
-Power Automate is a low-code application platform that you can use to automate repetitive tasks and also manipulate your data. The reflex item in Fabric supports Power Automate flows as a destination. This [integration](/fabric/real-time-intelligence/data-activator/activator-trigger-power-automate-flows) unlocks many use cases and allows you to trigger downstream actions by using a wide range of connectors, for both Microsoft and non-Microsoft systems.
+Power Automate is a low-code application platform that you can use to automate repetitive tasks and also manipulate your data. The reflex item in Fabric supports Power Automate flows as a destination. This [integration](/activator-trigger-power-automate-flow/fabric/real-time-intelligence/data-activators) unlocks many use cases and allows you to trigger downstream actions by using a wide range of connectors, for both Microsoft and non-Microsoft systems.
 
 ### Components
 
@@ -200,9 +200,9 @@ To maximize the utilization of your Fabric capacity, consider the following reco
 
 Also keep the following considerations in mind:
 
-- [Data Lake Storage](https://azure.microsoft.com/pricing/details/storage/data-lake/) pricing depends on the amount of data that you store and how often you use it. The sample pricing includes 1 terabyte (TB) of data stored and other transactional assumptions. The 1 TB refers to the size of the data lake, not the original legacy database size.
+- [Data Lake Storage pricing](https://azure.microsoft.com/pricing/details/storage/data-lake/) depends on the amount of data that you store and how often you use it. The sample pricing includes 1 terabyte (TB) of data stored and other transactional assumptions. The 1 TB refers to the size of the data lake, not the original legacy database size.
 
-- [Fabric](https://azure.microsoft.com/pricing/details/microsoft-fabric/) pricing is based on the Fabric F SKU capacity price or Premium per user price. Serverless capacities consume CPU and memory from purchased dedicated capacity.
+- [Fabric Pricing](https://azure.microsoft.com/pricing/details/microsoft-fabric/) is based on the Fabric F SKU capacity price or Premium per user price. Serverless capacities consume CPU and memory from purchased dedicated capacity.
 
 - [Event Hubs](https://azure.microsoft.com/pricing/details/event-hubs/) bills based on tier, provisioned throughput units, and received ingress traffic. The example assumes one throughput unit in the Standard tier over one million events for a month.
 
