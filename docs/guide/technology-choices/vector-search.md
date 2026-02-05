@@ -7,7 +7,7 @@ ms.reviewer: saitoyu
 ms.date: 02/05/2026
 ms.update-cycle: 180-days
 ms.subservice: architecture-guide
-ms.topic: concept-article
+ms.topic: conceptual
 ms.collection: ce-skilling-ai-copilot
 ms.custom: arb-aiml
 ---
