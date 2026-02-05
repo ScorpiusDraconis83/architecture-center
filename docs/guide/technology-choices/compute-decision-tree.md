@@ -158,7 +158,7 @@ For detailed guidance on choosing between Azure container services, see [Choose 
 | Container Instances | Container basics | Very low - no orchestration | Teams needing simple container execution |
 | Azure Red Hat OpenShift | OpenShift/Kubernetes administration | High - cluster management | Teams with OpenShift investment |
 | Batch | Job scheduling, parallel processing | Medium - job and pool management | Teams running HPC or batch workloads |
-| Azure VMware Solution | VMware administration | Medium - VMware-managed infrastructure | Teams with VMware platform requirements   |
+| Azure VMware Solution | VMware administration | Medium - VMware-managed infrastructure | Teams with VMware platform requirements |
 
 ## Scalability
 
