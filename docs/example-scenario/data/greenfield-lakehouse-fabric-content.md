@@ -166,7 +166,7 @@ Fabric automatically replicates resources across availability zones without requ
 
 Security provides assurances against deliberate attacks and the misuse of your valuable data and systems. For more information, see [Design review checklist for Security](/azure/well-architected/security/checklist).
 
-You can use Fabric to manage, control, and audit your security settings according to you're changing needs and demands. Consider the following key security recommendations:
+You can use Fabric to manage, control, and audit your security settings according to your changing needs and demands. Consider the following key security recommendations:
 
 - **Authentication:** Configure single sign-on (SSO) in Microsoft Entra ID to provide access from various devices and locations.
 
@@ -202,7 +202,7 @@ Also keep the following considerations in mind:
 
 - [Data Lake Storage pricing](https://azure.microsoft.com/pricing/details/storage/data-lake/) depends on the amount of data that you store and how often you use it. The sample pricing includes 1 terabyte (TB) of data stored and other transactional assumptions. The 1 TB refers to the size of the data lake, not the original legacy database size.
 
-- [Fabric Pricing](https://azure.microsoft.com/pricing/details/microsoft-fabric/) is based on the Fabric F SKU capacity price or Premium per user price. Serverless capacities consume CPU and memory from purchased dedicated capacity.
+- [Fabric pricing](https://azure.microsoft.com/pricing/details/microsoft-fabric/) is based on the Fabric F SKU capacity price or Premium per user price. Serverless capacities consume CPU and memory from purchased dedicated capacity.
 
 - [Event Hubs](https://azure.microsoft.com/pricing/details/event-hubs/) bills based on tier, provisioned throughput units, and received ingress traffic. The example assumes one throughput unit in the Standard tier over one million events for a month.
 
