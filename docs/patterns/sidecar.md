@@ -83,7 +83,10 @@ As with any design decision, consider any tradeoffs against the goals of the oth
 
 The sidecar pattern is applicable to many scenarios. Some common examples:
 
-- Infrastructure API. The infrastructure development team creates a service that's deployed alongside each application, instead of a language‑specific client library, to provide access to shared infrastructure capabilities. The service is loaded as a sidecar and exposes a consistent API for concerns such as logging, configuration, service discovery, state management, and health checks. This approach is exemplified by projects such as Dapr, which provide standardized APIs via a per‑application sidecar.
+- Dependency abstraction. A custom service that's deployed alongside each application, instead of a language-specific client library, to provide access to shared dependency capabilities. The service is loaded as a sidecar and exposes a consistent API for concerns such as logging, configuration, service discovery, state management, and health checks.
+
+  [Dapr sidecar](https://docs.dapr.io/concepts/dapr-services/sidecar/) is an example implementation of this use case.
+
 - Service mesh data plane. A sidecar proxy is injected alongside each service instance to handle cross‑cutting networking concerns such as traffic routing, retries, mTLS, policy enforcement, and telemetry. Service meshes such as Istio and Linkerd use sidecar proxies to implement these capabilities without requiring changes to application code.
 - Ambassador sidecar. Deploy an [ambassador](./ambassador.yml) service as a sidecar. The application calls through the ambassador, which handles request logging, routing, circuit breaking, and other connectivity related features. This pattern is commonly implemented using data‑plane proxies such as Envoy.
 - Protocol Adapters. A sidecar converts between incompatible protocols, data formats, or acts as a [message bridge](messaging-bridge.yml). This enables the application to use simpler or legacy interfaces.
