@@ -106,7 +106,7 @@ For detailed guidance on choosing between Azure container services, see [Choose 
 
 ## Networking
 
-Your application platform will likely need to interface with networks both as server for your applications and even sometimes as a client, such as for OS updates. You'll need to select a platform that supports both your east-west and north-south traffic requirements.
+Your application platform will likely need to interface with networks both as a server for your applications and as a client, for example to get OS updates. You'll need to select a platform that supports both your east-west and north-south traffic requirements.
 
 | Service | Virtual network integration | Hybrid connectivity |
 | :------ | :-------------------------- | :------------------ |
