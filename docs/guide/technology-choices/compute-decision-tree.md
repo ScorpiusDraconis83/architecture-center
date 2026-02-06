@@ -106,6 +106,8 @@ For detailed guidance on choosing between Azure container services, see [Choose 
 
 ## Networking
 
+Your application platform will likely need to interface with networks both as server for your applications and even sometimes as a client, such as for OS updates. You'll need to select a platform that supports both your east-west and north-south traffic requirements.
+
 | Service | Virtual network integration | Hybrid connectivity |
 | :------ | :-------------------------- | :------------------ |
 | Virtual Machines | Supported | Supported |
@@ -188,21 +190,21 @@ For detailed guidance on choosing between Azure container services, see [Choose 
 
 <sup>6</sup> <span id="note6d">See [VMware NSX](/azure/azure-vmware/configure-nsx-network-components-azure-portal)</span>
 
-## Availability
+## Built-in multi-region capabilities
 
-| Service | Multiregion failover option |
-| :------ | :-------------------------- |
-| Virtual Machines | Azure Traffic Manager, Azure Front Door, and cross-region Load Balancer |
-| App Service | Traffic Manager and Azure Front Door |
-| Azure Functions | Traffic Manager and Azure Front Door |
-| AKS | Traffic Manager, Azure Front Door, and Multiregion Cluster |
-| Container Apps | Traffic Manager and Azure Front Door |
-| Container Instances | Traffic Manager and Azure Front Door |
-| Azure Red Hat OpenShift | Traffic Manager and Azure Front Door |
-| Batch | Not applicable |
-| Azure VMware Solution | Not applicable |
+All of the application platforms addressed in this decision guide are regional. They require external routing to enable [multi-region, active-active topologies](/azure/architecture/high-availability/reference-architecture-traffic-manager-application-gateway) for resiliency and active-pass for recoverability. With multiple instances of the application platform deployed, at least one per region, then an external router or load balancer can direct traffic where needed, across regions.
 
-For guided learning on service guarantees, see [Azure architecture and service guarantees](/training/modules/explore-azure-infrastructure).
+| Service | Multiregion option |
+| :------ | :----------------- |
+| Virtual Machines | Single region only. <br><br> Must use external router combined with multiple VM deployments. |
+| App Service | Single region only. <br><br> Must use external router combined with multiple App Service Plan instances. |
+| Azure Functions | Single region only. <br><br> Must use external router combined with multiple host instances. |
+| AKS | Single region only. <br><br> Must use external router combined with [multiple clusters](/azure/architecture/reference-architectures/containers/aks-multi-region/aks-multi-cluster).  |
+| Container Apps | Single region only. <br><br> Must use external router combined with multiple Container Apps environments. |
+| Container Instances | Single region only. |
+| Azure Red Hat OpenShift | [Single region only.](/azure/openshift/openshift-faq#can-a-cluster-have-compute-nodes-across-multiple-azure-regions) <br><br> Must use external router combined with multiple clusters. |
+| Batch | Single region only. |
+| Azure VMware Solution | Single region only. <br><br> Must use external router combined with [multiple VMware Solution instances](/azure/cloud-adoption-framework/scenarios/azure-vmware/dual-region-virtual-wan-global-reach). |
 
 ## Security
 
