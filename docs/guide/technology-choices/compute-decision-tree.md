@@ -76,29 +76,29 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 
 | Service | Application composition | Density | Minimum number of nodes | State management | Web hosting |
 | :------ | :---------------------- | :------ | :---------------------- | :--------------- | :---------- |
-| Virtual Machines | Agnostic | Agnostic | 1 <a href="#note2"><sup>2</sup></a> | Stateless or stateful | Agnostic |
+| Virtual Machines | Agnostic | Agnostic | 1 <a href="#note1"><sup>1</sup></a> | Stateless or stateful | Agnostic |
 | App Service | Applications, containers | Multiple apps for each instance by using App Service plan | 1 | Stateless | Built-in |
-| Azure Functions | Functions, containers | Serverless <a href="#note1"><sup>1</sup></a> | Serverless <a href="#note1"><sup>1</sup></a> | Stateless or stateful <a href="#note6"><sup>6</sup></a> | Not applicable |
-| AKS | Containers | Multiple containers for each node | 3 <a href="#note3"><sup>3</sup></a> | Stateless or stateful | Agnostic |
+| Azure Functions | Functions, containers | Serverless <a href="#note2"><sup>2</sup></a> | Serverless <a href="#note2"><sup>2</sup></a> | Stateless or stateful <a href="#note3"><sup>3</sup></a> | Not applicable |
+| AKS | Containers | Multiple containers for each node | 6 <a href="#note4"><sup>4</sup></a> | Stateless or stateful | Agnostic |
 | Container Apps | Containers | Serverless | Serverless | Stateless or stateful | Agnostic |
 | Container Instances | Containers | No dedicated instances | No dedicated nodes | Stateless | Agnostic |
 | Azure Red Hat OpenShift | Containers | Multiple containers for each node | 6 <a href="#note5"><sup>5</sup></a> | Stateless or stateful | Agnostic |
-| Batch | Scheduled jobs | Multiple apps for each VM | 1 <a href="#note4"><sup>4</sup></a> | Stateless | No |
+| Batch | Scheduled jobs | Multiple apps for each VM | 1 <a href="#note6"><sup>6</sup></a> | Stateless | No |
 | Azure VMware Solution | Agnostic | Agnostic | 3 <a href="#note7"><sup>7</sup></a> | Stateless or stateful | Agnostic |
 
 **Notes:**
 
-<sup>1</sup> <span id="note1">For Azure Functions, the [Consumption and Flex Consumption plans](/azure/azure-functions/flex-consumption-plan) are serverless. For an App Service plan, functions run on the VMs allocated for that plan. [Choose the correct service plan for Azure Functions][function-plans].</span>
+<sup>1</sup> <span id="note1">Higher service-level agreement (SLA) that has two or more instances.</span>
 
-<sup>2</sup> <span id="note2">Higher service-level agreement (SLA) that has two or more instances.</span>
+<sup>2</sup> <span id="note2">For Azure Functions, the [Consumption and Flex Consumption plans](/azure/azure-functions/flex-consumption-plan) are serverless. For an App Service plan, functions run on the VMs allocated for that plan. [Choose the correct service plan for Azure Functions][function-plans].</span>
 
-<sup>3</sup> <span id="note3">Recommended for production environments.</span>
+<sup>3</sup> <span id="note3">When you use [durable functions][durable-functions].</span>
 
-<sup>4</sup> <span id="note4">Can scale down to zero after the job completes.</span>
+<sup>4</sup> <span id="note4">Recommended for production environments. Three in the system node pool and three per user node pool.</span>
 
 <sup>5</sup> <span id="note5">Three primary nodes and three worker nodes.</span>
 
-<sup>6</sup> <span id="note6">When you use [durable functions][durable-functions].</span>
+<sup>6</sup> <span id="note6">Can scale down to zero after the job completes.</span>
 
 <sup>7</sup> <span id="note7">See [Hosts][azure-vmware-plans].</span>
 
@@ -115,7 +115,7 @@ Your application platform will likely need to interface with networks both as a 
 | Azure Functions | Supported <a href="#note1b"><sup>1</sup></a> | Supported <a href="#note3b"><sup>3</sup></a> |
 | AKS | [Supported](/azure/aks/networking-overview) | Supported |
 | Container Apps | Supported | Supported |
-| Container Instances | [Supported](/azure/container-instances/container-instances-vnet) | [Supported](/azure/container-instances/container-instances-virtual-network-concepts#scenarios)  |
+| Container Instances | [Supported](/azure/container-instances/container-instances-vnet) | [Supported](/azure/container-instances/container-instances-virtual-network-concepts#scenarios) |
 | Azure Red Hat OpenShift | [Supported](/azure/openshift/concepts-networking) | Supported |
 | Batch | Supported | Supported |
 | Azure VMware Solution | [Supported](/azure/azure-vmware/configure-site-to-site-vpn-gateway) | [Supported](/azure/azure-vmware/enable-managed-snat-for-workloads) |
@@ -164,17 +164,19 @@ Your application platform will likely need to interface with networks both as a 
 
 ## Scalability
 
-| Service | Autoscaling | Load balancer | Scale limit<a href="#note3d"><sup>3</sup></a> |
-| :------ | :---------- | :------------ | :-------------------------------------------- |
+Quota and limits can influence scalability, review the latest [Azure subscription and service limits, quotas, and constraints](/azure/azure-resource-manager/management/azure-subscription-service-limits) when designing your workload.
+
+| Service | Autoscaling | Load balancer | Scale limit |
+| :------ | :---------- | :------------ | :---------- |
 | Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
 | App Service | Built-in service | Integrated | 30 instances, 200 with App Service Environment |
 | Azure Functions | Built-in service | Integrated | 200 instances (Consumption), 1,000 instances (Flex Consumption) |
 | AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [uptime SLA][uptime-sla] |
-| Container Apps | Scaling rules<a href="#note4d"><sup>4</sup></a> | Integrated | 1,000 replicas per revision, 15 environments per region |
+| Container Apps | Scaling rules<a href="#note3d"><sup>3</sup></a> | Integrated | 1,000 replicas per revision, 15 environments per region |
 | Container Instances | Not supported | No built-in support | 100 container groups for each subscription (default limit) |
 | Azure Red Hat OpenShift | Pod autoscaling, cluster autoscaling | Load Balancer or Application Gateway | 250 nodes for each cluster (default limit) |
 | Batch | Not applicable | Load Balancer | Core limit of 900 dedicated and 100 low-priority (default limit) |
-| Azure VMware Solution | Built-in service<a href="#note5d"><sup>5</sup></a> | Integrated<a href="#note6d"><sup>6</sup></a> | 3 to 16 VMware ESXi hosts per VMware vCenter |
+| Azure VMware Solution | Built-in service<a href="#note4d"><sup>4</sup></a> | Integrated<a href="#note5d"><sup>5</sup></a> | 3 to 16 VMware ESXi hosts per VMware vCenter |
 
 **Notes:**
 
@@ -182,13 +184,11 @@ Your application platform will likely need to interface with networks both as a 
 
 <sup>2</sup> <span id="note2d">See [Automatically scale a cluster to meet application demands on AKS](/azure/aks/cluster-autoscaler).</span>
 
-<sup>3</sup> <span id="note3d">See [Azure subscription and service limits, quotas, and constraints](/azure/azure-subscription-service-limits)</span>
+<sup>3</sup> <span id="note3d">See [Set scaling rules in Container Apps](/azure/container-apps/scale-app)</span>
 
-<sup>4</sup> <span id="note4d">See [Set scaling rules in Container Apps](/azure/container-apps/scale-app)</span>
+<sup>4</sup> <span id="note4d">See [Scale Azure VMware Solution](/azure/azure-vmware/tutorial-scale-private-cloud)</span>
 
-<sup>5</sup> <span id="note5d">See [Scale Azure VMware Solution](/azure/azure-vmware/tutorial-scale-private-cloud)</span>
-
-<sup>6</sup> <span id="note6d">See [VMware NSX](/azure/azure-vmware/configure-nsx-network-components-azure-portal)</span>
+<sup>5</sup> <span id="note5d">See [VMware NSX](/azure/azure-vmware/configure-nsx-network-components-azure-portal)</span>
 
 ## Built-in multi-region capabilities
 
@@ -284,20 +284,20 @@ Some workloads have specific requirements and are typically not subject to the g
 [app-service-hybrid]: /azure/app-service/app-service-hybrid-connections
 [azure-vmware-plans]: /azure/azure-vmware/architecture-private-clouds#hosts
 [big-compute]: ../architecture-styles/big-compute.md
-[cost-acs]: https://azure.microsoft.com/pricing/details/kubernetes-service
-[cost-app-service]: https://azure.microsoft.com/pricing/details/app-service
-[cost-aro]:https://azure.microsoft.com/pricing/details/openshift
-[cost-avs]: https://azure.microsoft.com/pricing/details/azure-vmware
-[cost-batch]: https://azure.microsoft.com/pricing/details/batch
-[cost-container-apps]: https://azure.microsoft.com/pricing/details/container-apps
-[cost-functions]: https://azure.microsoft.com/pricing/details/functions
-[cost-linux-vm]: https://azure.microsoft.com/pricing/details/virtual-machines/linux
-[cost-windows-vm]: https://azure.microsoft.com/pricing/details/virtual-machines/windows
+[cost-acs]: https://azure.microsoft.com/en-us/pricing/details/kubernetes-service/
+[cost-app-service]: https://azure.microsoft.com/en-us/pricing/details/app-service/linux/
+[cost-aro]:https://azure.microsoft.com/pricing/details/openshift/
+[cost-avs]: https://azure.microsoft.com/pricing/details/azure-vmware/
+[cost-batch]: https://azure.microsoft.com/pricing/details/batch/
+[cost-container-apps]: https://azure.microsoft.com/pricing/details/container-apps/
+[cost-functions]: https://azure.microsoft.com/pricing/details/functions/
+[cost-linux-vm]: https://azure.microsoft.com/pricing/details/virtual-machines/linux/
+[cost-windows-vm]: https://azure.microsoft.com/pricing/details/virtual-machines/windows/
 [durable-functions]: /azure/azure-functions/durable/durable-functions-overview
 [event-driven]: ../architecture-styles/event-driven.md
 [func-premium]: /azure/azure-functions/functions-premium-plan#private-network-connectivity
 [function-plans]: /azure/azure-functions/functions-scale
 [microservices]: ../architecture-styles/microservices.md
 [n-tier]: ../architecture-styles/n-tier.md
-[uptime-sla]: /azure/aks/uptime-sla
+[uptime-sla]: /azure/aks/free-standard-pricing-tiers
 [w-q-w]: ../architecture-styles/web-queue-worker.md
