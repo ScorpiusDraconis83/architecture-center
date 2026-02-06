@@ -87,7 +87,10 @@ The sidecar pattern is applicable to many scenarios. Some common examples:
 
   [Dapr sidecar](https://docs.dapr.io/concepts/dapr-services/sidecar/) is an example implementation of this use case.
 
-- Service mesh data plane. A sidecar proxy is injected alongside each service instance to handle cross‑cutting networking concerns such as traffic routing, retries, mTLS, policy enforcement, and telemetry. Service meshes such as Istio and Linkerd use sidecar proxies to implement these capabilities without requiring changes to application code.
+- Service mesh data plane. A sidecar proxy is injected alongside each service instance to handle cross‑cutting networking concerns such as traffic routing, retries, mTLS, policy enforcement, and telemetry.
+
+  Service meshes such as [Istio service mesh](https://istio.io/latest/about/service-mesh/) use sidecar proxies to implement these capabilities without requiring changes to application code.
+
 - Ambassador sidecar. Deploy an [ambassador](./ambassador.yml) service as a sidecar. The application calls through the ambassador, which handles request logging, routing, circuit breaking, and other connectivity related features.
 - Protocol Adapters. A sidecar converts between incompatible protocols, data formats, or acts as a [message bridge](messaging-bridge.yml). This enables the application to use simpler or legacy interfaces.
 
