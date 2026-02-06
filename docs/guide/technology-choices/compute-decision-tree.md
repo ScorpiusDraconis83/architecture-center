@@ -192,7 +192,7 @@ Your application platform will likely need to interface with networks both as a 
 
 ## Built-in multi-region capabilities
 
-All of the application platforms addressed in this decision guide are regional. They require external routing to enable [multi-region, active-active topologies](/azure/architecture/high-availability/reference-architecture-traffic-manager-application-gateway) for resiliency and active-pass for recoverability. With multiple instances of the application platform deployed, at least one per region, then an external router or load balancer can direct traffic where needed, across regions.
+All of the application platforms addressed in this decision guide are regional. They require external routing to enable [multi-region, active-active topologies](/azure/architecture/high-availability/reference-architecture-traffic-manager-application-gateway) for resiliency and active-passive for recoverability. With multiple instances of the application platform deployed, at least one per region, then an external router or load balancer can direct traffic where needed, across regions.
 
 | Service | Multiregion option |
 | :------ | :----------------- |
