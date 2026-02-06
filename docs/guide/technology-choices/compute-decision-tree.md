@@ -284,8 +284,8 @@ Some workloads have specific requirements and are typically not subject to the g
 [app-service-hybrid]: /azure/app-service/app-service-hybrid-connections
 [azure-vmware-plans]: /azure/azure-vmware/architecture-private-clouds#hosts
 [big-compute]: ../architecture-styles/big-compute.md
-[cost-acs]: https://azure.microsoft.com/en-us/pricing/details/kubernetes-service/
-[cost-app-service]: https://azure.microsoft.com/en-us/pricing/details/app-service/linux/
+[cost-acs]: https://azure.microsoft.com/pricing/details/kubernetes-service/
+[cost-app-service]: https://azure.microsoft.com/pricing/details/app-service/linux/
 [cost-aro]:https://azure.microsoft.com/pricing/details/openshift/
 [cost-avs]: https://azure.microsoft.com/pricing/details/azure-vmware/
 [cost-batch]: https://azure.microsoft.com/pricing/details/batch/
