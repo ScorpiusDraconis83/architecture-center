@@ -1,8 +1,8 @@
 ---
 title: Sidecar pattern
 description: Deploy supporting features of an application into a separate process or container with a shared lifecycle to provide modular abstraction and isolation of cross-cutting concerns.
-author: v-federicoar
-ms.author: v-federicoar
+author: claytonsiemens77
+ms.author: pnp
 ms.date: 03/02/2026
 ms.topic: design-pattern
 ms.subservice: cloud-fundamentals
