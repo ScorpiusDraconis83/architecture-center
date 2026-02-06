@@ -43,6 +43,8 @@ The sidecar pattern is often used with containers and referred to as a sidecar c
 
 ## Problems and considerations
 
+Consider the following points as you decide how to implement this pattern:
+
 - Consider the deployment and packaging format you will use to deploy services, processes, or containers. Containers are particularly well suited to the sidecar pattern.
 - When designing a sidecar service, carefully decide on the interprocess communication mechanism. Try to use language- or framework-agnostic technologies unless performance requirements make that impractical.
 - Before putting functionality into a sidecar, consider whether it would work better as a separate service or a more traditional daemon.
