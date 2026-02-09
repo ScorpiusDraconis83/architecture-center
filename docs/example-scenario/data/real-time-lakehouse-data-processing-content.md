@@ -176,7 +176,6 @@ Other contributor:
 
 ## Next steps
 
-- [Event Hubs connector for Apache Spark](https://github.com/Azure/azure-event-hubs-spark)
 - [Scalability with Event Hubs](/azure/event-hubs/event-hubs-scalability)
 - [Index data from Azure Cosmos DB](/azure/search/search-howto-index-cosmosdb)
 - [Best practices for dedicated SQL pools](/azure/synapse-analytics/sql/best-practices-dedicated-sql-pool)
@@ -187,4 +186,4 @@ Other contributor:
 ## Related resources
 
 - [Databases architecture design](../../databases/index.yml)
-- [Analytics architecture design](../../solution-ideas/articles/analytics-start-here.yml)
+- [Analytics architecture design](../../solution-ideas/articles/analytics-get-started.md)

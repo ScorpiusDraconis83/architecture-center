@@ -7,7 +7,7 @@ ms.reviewer: saitoyu
 ms.date: 02/05/2026
 ms.update-cycle: 180-days
 ms.subservice: architecture-guide
-ms.topic: conceptual
+ms.topic: concept-article
 ms.collection: ce-skilling-ai-copilot
 ms.custom: arb-aiml
 ---
@@ -165,6 +165,11 @@ When you implement vector search, you can also consider linking with other Micro
 1. <span id="g9">This service is supported as both a memory connector and a vector database connector. Documentation is available for both [C#](/semantic-kernel/concepts/vector-store-connectors/out-of-the-box-connectors/azure-ai-search-connector?pivots=programming-language-csharp) and [Python](/semantic-kernel/concepts/vector-store-connectors/out-of-the-box-connectors/azure-ai-search-connector?pivots=programming-language-python).</span>
 1. <span id="g10">This service is supported as a [memory connector](/azure/azure-sql/database/ai-artificial-intelligence-intelligent-applications).</span>
 1. <span id="g11">This service is supported as a vector database connector. For more information, see the [Redis connector documentation](/semantic-kernel/concepts/vector-store-connectors/out-of-the-box-connectors/redis-connector).</span>
+
+> [!IMPORTANT]
+> Azure OpenAI On Your Data is deprecated.
+>
+> We recommend that you migrate Azure OpenAI On Your Data workloads to [Foundry Agent Service](/azure/ai-foundry/agents/overview) with [Foundry IQ](/azure/ai-foundry/agents/concepts/what-is-foundry-iq) to retrieve content and generate grounded answers from your data.
 
 ## Contributors
 

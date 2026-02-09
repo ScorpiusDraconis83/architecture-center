@@ -5,7 +5,7 @@ author: josearper
 ms.author: joaria
 ms.custom: arb-data
 ms.date: 07/25/2022
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
 ---
 
@@ -35,7 +35,7 @@ For search scenarios, begin choosing the appropriate search data store for your 
 
 - Do you need to index data in common document formats such as PDF, Word, PowerPoint, and Excel? If yes, choose an option that provides document indexers.
 
-- Does your database have specific security needs? If yes, consider the security features listed below.
+- Does your database have specific security needs? If yes, consider the following security features.
 
 ## Capability matrix
 
@@ -48,14 +48,14 @@ The following tables summarize the key differences in capabilities.
 | Is managed service | Yes | No | Yes |
 | REST API | Yes | Yes | No |
 | Programmability | .NET, Java, Python, JavaScript | Java | T-SQL |
-| Document indexers for common file types (PDF, DOCX, TXT, and so on) | Yes | No | No |
+| Document indexers for common file types (for example, PDF, DOCX, and TXT) | Yes | No | No |
 
 ### Manageability capabilities
 
 | Capability | AI Search | Elasticsearch | SQL Database |
 | --- | --- | --- | --- |
 | Updateable schema | Yes | Yes | Yes |
-| Supports scale out  | Yes | Yes | No |
+| Supports scale-out  | Yes | Yes | No |
 
 ### Analytic workload capabilities
 

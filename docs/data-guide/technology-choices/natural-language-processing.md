@@ -1,11 +1,11 @@
 ---
 title: Natural Language Processing Technology
 description: Choose a natural language processing service for sentiment analysis, topic and language detection, key phrase extraction, and document categorization.
-author: FreddyAyala
-ms.author: freddyayala
+author: jessica-writes-code
+ms.author: moorejessica
 ms.date: 02/10/2025
 ms.update-cycle: 180-days
-ms.topic: conceptual
+ms.topic: concept-article
 ms.collection: ce-skilling-ai-copilot
 ms.subservice: architecture-guide
 ms.custom: arb-aiml
@@ -84,7 +84,7 @@ Spark NLP's infrastructure scales by using optimized builds for CPUs, GPUs, and 
 
 - **Standardization**: Without a standardized document format, it can be difficult to achieve consistently accurate results when you use free-form text processing to extract specific facts from a document. For example, extracting the invoice number and date from various invoices poses challenges. The integration of adaptable natural language processing models like M2M100 improves processing accuracy across multiple languages and formats. This improved accuracy leads to more consistent results.
 
-- **Data variety and complexity**: Addressing the variety of document structures and linguistic nuances remains complex. Innovations such as MPNet embeddings provide enhanced contextual understanding, which leads to more intuitive handling of diverse textual formats and more reliable data processing.
+- **Data variety and complexity**: Addressing the various document structures and linguistic nuances remains complex. Innovations such as MPNet embeddings provide enhanced contextual understanding, which leads to more intuitive handling of diverse textual formats and more reliable data processing.
 
 ## Key selection criteria
 
@@ -96,7 +96,7 @@ In Azure, Spark services like Azure Databricks, Microsoft Fabric, and HDInsight 
 
 - If you need low-level natural language processing capabilities like tokenization, stemming, lemmatization, and term frequency/inverse document frequency (TF/IDF), consider using Azure Databricks, Fabric, or HDInsight with Spark NLP. Alternatively, use an open-source software library in your processing tool of choice.
 
-- If you need simple, high-level natural language processing capabilities like entity and intent identification, topic detection, spell check, or sentiment analysis, consider using the APIs that AI services provides. Or download your model of choice through Spark NLP to use prebuilt functions for these tasks.
+- If you need straightforward, high‑level natural language processing capabilities like entity and intent identification, topic detection, spell check, or sentiment analysis, consider using the APIs that AI services provide. Or download your model of choice through Spark NLP and apply its prebuilt functions for these tasks.
 
 ## Capability matrix
 

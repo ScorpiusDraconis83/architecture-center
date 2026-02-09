@@ -26,7 +26,7 @@ This architecture makes use of the following technologies:
 
 - [Azure managed disks](/azure/virtual-machines/disks-types) Premium or Ultra storage disks are recommended. These storage types provide data persistence for virtual machines with the SAP workload.
 
-- [Azure NetApp Files](/azure/well-architected/service-guides/azure-netapp-files) supports shared storage when using a cluster. It also supports shared storage when you need high-performance storage that can host SAP HANA data and log files. Azure NetApp Files is fully managed and scalable for demanding workloads. It gives bare-metal performance, submillisecond latency, and integrated data management for workloads such as:
+- [Azure NetApp Files](/azure/well-architected/service-guides/azure-netapp-files) supports shared storage when you use a cluster. It also supports shared storage when you need high-performance storage that can host SAP HANA data and log files. Azure NetApp Files is fully managed and scalable for demanding workloads. It gives bare-metal performance, submillisecond latency, and integrated data management for workloads such as:
   - SAP HANA.
   - High-performance computing.
   - LOB applications.
@@ -171,7 +171,7 @@ Also, if you decide to deploy SAP workloads in [Azure Availability Zones](/azure
 
 ##### Web Dispatcher
 
-In this sample design, the SAP Web Dispatcher is used simply as an HTTP(s) load-balancing mechanism, for SAP traffic among the SAP application servers. To achieve [high availability](https://help.sap.com/viewer/683d6a1797a34730a6e005d1e8de6f22/7.5.4/489a9a6b48c673e8e10000000a42189b.html?q=parallel%20web%20dispatcher) for the Web Dispatcher component, Azure Load Balancer implements either the failover cluster or the parallel Web Dispatcher setup. See [SAP Web Dispatcher](https://help.sap.com/viewer/683d6a1797a34730a6e005d1e8de6f22/7.5.7/en-US/488fe37933114e6fe10000000a421937.html) in the SAP documentation.
+In this sample design, the SAP Web Dispatcher serves as an HTTP(S) load-balancing mechanism for SAP traffic across the SAP application servers. To achieve [high availability](https://help.sap.com/viewer/683d6a1797a34730a6e005d1e8de6f22/7.5.4/489a9a6b48c673e8e10000000a42189b.html?q=parallel%20web%20dispatcher) for the Web Dispatcher component, Azure Load Balancer implements either the failover cluster or the parallel Web Dispatcher setup. See [SAP Web Dispatcher](https://help.sap.com/viewer/683d6a1797a34730a6e005d1e8de6f22/7.5.7/en-US/488fe37933114e6fe10000000a421937.html) in the SAP documentation.
 
 As a software load balancer, Web Dispatcher offers extra layer services that can do SSL termination and other offloading functions. These layer services are known  as *layer 7* in the ISO networking model.
 
