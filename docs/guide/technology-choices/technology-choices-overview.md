@@ -61,8 +61,8 @@ Azure provides multiple storage services for different access patterns, performa
 
 | Article | Summary |
 | :------ | :------ |
-| [Review your storage options](/azure/cloud-adoption-framework/ready/considerations/storage-options) | Review the storage options for Azure workloads. |
-| [Azure managed disk types](/azure/virtual-machines/disks-types) | Learn about the disk types that are available for Azure virtual machines, including Ultra disks, Premium SSDs v2 (preview), Premium SSDs, and Standard SSDs. |
+| [Review your storage options](/azure/cloud-adoption-framework/ready/considerations/storage-options?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json) | Review the storage options for Azure workloads. |
+| [Azure managed disk types](/azure/virtual-machines/disks-types?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json) | Learn about the disk types that are available for Azure virtual machines, including Ultra disks, Premium SSDs v2 (preview), Premium SSDs, and Standard SSDs. |
 | [Transfer data to and from Azure](../../data-guide/scenarios/data-transfer.md) | Learn about Azure data transfer options like Azure Import/Export, Azure Data Box, Azure Data Factory, and command-line and graphical interface tools. |
 
 ## Choose a data store
@@ -112,6 +112,14 @@ Azure provides several networking services for traffic routing, load distributio
 | :------ | :------ |
 | [Load balancing options](load-balancing-overview.md) | Learn about Azure load balancing services and considerations for selecting one to distribute traffic across multiple computing resources. |
 | [Virtual network connectivity options and spoke-to-spoke communication](../../reference-architectures/hybrid-networking/virtual-network-peering.yml) | Compare virtual network peering and VPN gateways for connecting Azure virtual networks. Learn implementation patterns for spoke-to-spoke communication in hub-and-spoke architectures. |
+
+## Choose an integration and automation service
+
+Azure provides several services for integrating systems and automating workflows, from code-first to designer-first approaches. This article can help you evaluate your options:
+
+| Article | Summary |
+| :------ | :------ |
+| [Compare Azure Functions, Logic Apps, Power Automate, and WebJobs](/azure/azure-functions/functions-compare-logic-apps-ms-flow-webjobs?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json) | Compare integration and automation services in Azure. Learn the differences between code-first and designer-first approaches for building workflows and orchestrations. |
 
 ## Choose a messaging service
 
