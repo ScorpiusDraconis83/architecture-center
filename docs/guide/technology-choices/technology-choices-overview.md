@@ -136,3 +136,8 @@ IoT solutions use a combination of technologies to connect devices, events, and 
 | Article | Summary |
 | :------ | :------ |
 | [Choose a mobile development framework](/azure/developer/mobile-apps/choose-mobile-framework?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json) | Learn about the supported native and cross-platform languages for building client applications. |
+
+## Next step
+
+> [!div class="nextstepaction"]
+> [Choose an Azure compute service](compute-decision-tree.md)
