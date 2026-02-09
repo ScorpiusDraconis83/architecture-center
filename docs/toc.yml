@@ -166,7 +166,7 @@ items:
     - name: Choose a messaging service
       items:
       - name: Asynchronous messaging
-        href: guide/technology-choices/messaging.yml
+        href: guide/technology-choices/messaging.md
     - name: Development tools
       items:
       - name: Compare Java application hosting options

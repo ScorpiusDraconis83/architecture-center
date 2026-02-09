@@ -1,92 +1,127 @@
+---
+title: Asynchronous Messaging Options
+description: Learn about asynchronous messaging options in Azure, including the different types of messages and the entities that participate in a messaging infrastructure.
+author: claytonsiemens77
+ms.author: pnp
+ms.date: 02/11/2026
+ms.topic: concept-article
+ms.subservice: architecture-guide
+---
+
+# Asynchronous messaging options
+
 This article describes the different types of messages and the entities that participate in a messaging infrastructure. Based on the requirements of each message type, the article recommends Azure messaging services. The options include Azure Service Bus Messaging, Azure Event Grid, and Azure Event Hubs. For product comparison, see [Compare messaging services](/azure/service-bus-messaging/compare-messaging-services).
 
-At an architectural level, a message is a datagram that an entity (*producer*) creates to distribute information. Other entities (*consumers*) become aware of the information and act accordingly. The producer and the consumer can communicate directly or through an intermediary entity (*message broker*). This article focuses on asynchronous messaging using a message broker.
+At an architectural level, a message is a datagram that an entity (*producer*) creates to distribute information. Other entities (*consumers*) become aware of the information and act accordingly. The producer and the consumer can communicate directly or through an intermediary entity (*message broker*). This article focuses on asynchronous messaging that uses a message broker.
 
-![Diagram demonstrating entities that take part in asynchronous messaging.](./images/messaging.png)
+:::image type="complex" source="./images/messaging.png" border="false" lightbox= "./images/messaging.png" alt-text="Diagram demonstrating entities that take part in asynchronous messaging.":::
 
-Messages fall into two main categories. If the producer expects an action from the consumer, that message is a *command*. If the message informs the consumer that an action occurred, the message is an *event*.
+:::image-end:::
+
+Messages fall into two main categories:
+
+- A *command* is a message that requests a specific action from the consumer.
+- An *event* is a message that informs the consumer that an action occurred.
 
 ## Commands
 
-The producer sends a command with the intent that a consumer will perform an operation within the scope of a business transaction.
+A producer sends a command to request that a consumer perform an operation within a business transaction.
 
-A command is a high-value message and must be delivered at least once. If a command is lost, the entire business transaction might fail. Also, in most cases, a command shouldn't be processed more than once. Doing so might cause an erroneous transaction. A customer might get duplicate orders or billed twice.
+A command is a high-value message that has strict delivery requirements. A command must be delivered at least once. If a command is lost, the entire business transaction might fail. In most cases, a command shouldn't be processed more than once. Duplicate processing can cause erroneous transactions, like duplicate orders or double billing.
 
-Commands are often used to manage the workflow of a multistep business transaction. Depending on the business logic, the producer might expect the consumer to acknowledge the message and report the results of the operation. Based on that result, the producer might choose an appropriate course of action.
+Commands often manage the workflow of a multistep business transaction. Depending on the business logic, the producer might expect the consumer to acknowledge the message and report the results of the operation. Based on that result, the producer can choose an appropriate course of action.
 
 ## Events
 
-An event is a type of message that a producer raises to announce facts.
+An event is a message that a producer raises to announce that something happened. The producer (known as the *publisher* in this context) has no expectation that the event results in any specific action.
 
 The producer (known as the *publisher* in this context) has no expectations that the events result in any action.
 
-Interested consumers can subscribe, listen for events, and take actions depending on their consumption scenario. Events can have multiple subscribers or no subscribers at all. Two different subscribers can react to an event with different actions and not be aware of one another.
+Interested consumers can subscribe, listen for events, and take actions depending on their consumption scenario. Events can have multiple subscribers or no subscribers at all. Different subscribers can react to the same event with different actions, unaware of each other.
 
 The producer and consumer are loosely coupled and managed independently. The producer doesn't expect the consumer to acknowledge the event back to the producer. A consumer that's no longer interested in the events can unsubscribe, which removes the consumer from the pipeline without affecting the producer or the overall functionality of the system.
 
 There are two categories of events:
 
-- The producer raises events to announce discrete facts. A common use case is event notification. For example, Azure Resource Manager raises events when it creates, modifies, or deletes resources. A subscriber of those events could be a Logic App that sends alert emails.
+- **Discrete events:** The producer raises events to announce individual facts. A common use case is event notification. For example, Azure Resource Manager raises events when it creates, modifies, or deletes resources. A logic app can subscribe to those events and send alert emails.
 
-- The producer raises related events in a sequence, or a stream of events, over a period of time. Typically, a stream is consumed for statistical evaluation. The evaluation can happen within a temporal window or as events arrive. Telemetry is a common use case (for example, health and load monitoring of a system). Another case is event streaming from IoT devices.
+- **Event streams:** The producer raises a sequence of related events over time. Consumers typically evaluate streams for statistical purposes, either within a temporal window or as events arrive. Telemetry is a common use case, like health and load monitoring of a system. Another case is event streaming from Internet of Things (IoT) devices.
 
-A common pattern for implementing event messaging is the [Publisher-Subscriber](../../patterns/publisher-subscriber.yml) pattern.
+You can implement event messaging by using the [Publisher-Subscriber](../../patterns/publisher-subscriber.yml) pattern.
 
-![Diagram of Publisher-Subscriber pattern for event messaging.](./images/event-pull.png)
+:::image type="complex" source="./images/event-pull.png" border="false" lightbox="./images/event-pull.png" alt-text="Diagram of Publisher-Subscriber pattern for event messaging.":::
+
+:::image-end:::
 
 ## Role and benefits of a message broker
 
-An intermediate message broker provides the functionality of storing and moving messages from producer to consumer and can offer more benefits.
+An intermediate message broker provides the functionality of storing and moving messages from producer to consumer and can provide more benefits.
 
 ### Decoupling
 
-A message broker decouples the producer from the consumer in the logic that generates and uses the messages, respectively. In a complex workflow, the broker can encourage business operations to be decoupled and help coordinate the workflow.
+A message broker separates the producer's message-generation logic from the consumer's message-processing logic. In a complex workflow, this separation helps you decouple business operations and coordinate the workflow.
 
-For example, a single business transaction requires distinct operations that are performed in a business logic sequence. The producer issues a command that signals a consumer to start an operation. The consumer acknowledges the message in a separate queue reserved for lining up responses for the producer. Only after receiving the response does the producer send a new message to start the next operation in the sequence. A different consumer processes that message and sends a completion message to the response queue. By using messaging, the services coordinate the workflow of the transaction among themselves.
+Consider a single business transaction that requires distinct operations in sequence:
 
-![Diagram of producer-consumer communication.](./images/messagetrans.png)
+1. The producer issues a command that signals a consumer to start an operation.
 
-A message broker provides temporal decoupling. The producer and consumer don't have to run concurrently. A producer can send a message to the message broker regardless of the availability of the consumer. Conversely, the consumer isn't restricted by the producer's availability.
+1. The consumer acknowledges the message in a separate response queue reserved for lining up responses for the producer.
 
-For example, the user interface of a web app generates messages and uses a queue as the message broker. When the consumer is ready, it can retrieve messages from the queue and perform the work. Temporal decoupling helps the user interface to remain responsive. It's not blocked while the messages are handled asynchronously.
+1. After receiving the response, the producer sends a new message to start the next operation.
 
-Certain operations can take long to complete. After it issues a command, the producer shouldn't have to wait until the consumer completes it. A message broker helps asynchronous processing of messages.
+1. A different consumer processes that message and sends a completion message to the response queue.
+
+By using messaging, the services coordinate the transaction workflow among themselves.
+
+:::image type="complex" source="./images/messagetrans.png" border="false" lightbox="./images/messagetrans.png" alt-text="Diagram of producer-consumer communication.":::
+
+:::image-end:::
+
+A message broker provides temporal decoupling. The producer and consumer don't have to run concurrently. A producer can send a message to the message broker regardless of the consumer availability. And the producer's availability doesn't restrict the consumer.
+
+For example, the user interface (UI) of a web app generates messages and uses a queue as the message broker. When the consumer is ready, it can retrieve messages from the queue and perform the work. Temporal decoupling helps the UI remain responsive and unblocked while the messages are handled asynchronously.
+
+Some operations can take a long time. After the producer issues a command, it shouldn't have to wait until the consumer completes the operation. A message broker helps process messages asynchronously.
 
 ### Load balancing
 
-Producers can post a large number of messages that are serviced by many consumers. Use a message broker to distribute processing across servers and improve throughput. Consumers can run on different servers to spread the load. Consumers can be added dynamically to scale out the system when needed or removed otherwise.
+Producers can post a large number of messages that multiple consumers process. Use a message broker to distribute processing across servers and improve throughput. Consumers can run on different servers to spread the workload. You can dynamically add or remove consumers to scale the system as needed.
 
-![Diagram of Competing Consumers pattern.](./images/comp-con.png)
+:::image type="complex" source="./images/comp-con.png" border="false" lightbox="./images/comp-con.png" alt-text="Diagram of the Competing Consumers pattern.":::
 
-The [Competing Consumers pattern](../../patterns/competing-consumers.yml) explains how to process multiple messages concurrently to optimize throughput, improve scalability and availability, and balance the workload.
+:::image-end:::
+
+The [Competing Consumers pattern](../../patterns/competing-consumers.yml) processes multiple messages concurrently to optimize throughput, improve scalability and availability, and balance the workload.
 
 ### Load leveling
 
-The volume of messages generated by the producer or a group of producers can be variable. At times there might be a large volume causing spikes in messages. Instead of adding consumers to handle this work, a message broker can act as a buffer, and consumers gradually drain messages at their own pace without stressing the system.
+Producers generate varying message volumes that can spike suddenly. Rather than adding consumers to handle the extra load, a message broker buffers the messages. Consumers then process messages at their own pace without overloading the system.
 
-![Diagram of Queue-based Load Leveling pattern.](./images/load-lev.png)
+:::image type="complex" source="./images/load-lev.png" border="false" lightbox="./images/load-lev.png" alt-text="Diagram of Queue-based Load Leveling pattern.":::
+
+:::image-end:::
 
 The [Queue-based Load Leveling pattern](../../patterns/queue-based-load-leveling.yml) provides more information.
 
 ### Reliable messaging
 
-A message broker helps ensure that messages aren't lost even if communication fails between the producer and consumer. The producer can post messages to the message broker and the consumer can retrieve them when communication is reestablished. The producer isn't blocked unless it loses connectivity with the message broker.
+A message broker ensures messages persist through communication failures between producer and consumer. The producer posts messages to the broker, and the consumer retrieves them after communication resumes. The producer remains unblocked unless it loses connectivity to the message broker.
 
 ### Resilient messaging
 
-A message broker can add resiliency to the consumers in your system. If a consumer fails while processing a message, another instance of the consumer can process that message. The reprocessing is possible because the message persists in the broker.
+A message broker adds resiliency to consumers in your system. If a consumer fails while processing a message, another consumer instance can process that message. The broker retains the message, which supports this reprocessing.
 
 ### Handling large messages
 
-If your payload size exceeds the message broker's limit or consumers only sometimes need to access large message payloads, use the [Claim-Check pattern](../../patterns/claim-check.yml). Store the large payload in an external store like Azure Blob Storage, and send a message containing a pointer to the payload to the broker. The consumer uses the pointer to retrieve the payload, if necessary. This approach protects the broker and consumers from being overwhelmed with large datagrams.
+When your payload exceeds the message broker's size limit, or when consumers need to access large payloads only occasionally, use the [Claim-Check pattern](../../patterns/claim-check.yml). Store the large payload in an external store like Azure Blob Storage. Send the broker a message that includes a pointer to the stored payload. The consumer uses the pointer to retrieve the payload when needed. This approach prevents large datagrams from overwhelming the broker and consumers.
 
 ## Technology choices for a message broker
 
-Azure provides several message broker services, each with a range of features. Before choosing a service, determine the intent and requirements of the message.
+Azure provides several message broker services, each with various features. Before you choose a service, determine the intent and requirements of the message.
 
-### Azure Service Bus Messaging
+### Service Bus messaging
 
-[Azure Service Bus Messaging](/azure/service-bus-messaging/service-bus-messaging-overview) queues are well suited for transferring commands from producers to consumers. Here are some considerations.
+Use [Service Bus messaging](/azure/service-bus-messaging/service-bus-messaging-overview) queues to transfer commands from producers to consumers.
 
 #### Pull model
 
@@ -98,7 +133,7 @@ Service Bus allows a consumer to *peek* at the queue and lock messages. This let
 
 It's the consumer's responsibility to report the message's processing status. Only when the consumer marks the message as consumed does Service Bus remove the message from the queue. If a failure, timeout, or crash occurs, Service Bus unlocks the message so that other consumers can retrieve it. This way, messages aren't lost in transfer.
 
-A producer might accidentally send the same message twice. For example, a producer instance fails after sending a message. Another producer replaces the original instance and sends the message again. Azure Service Bus queues provide a [built-in deduping capability](/azure/service-bus-messaging/duplicate-detection) that detects and removes duplicate messages. There's still a chance that a message is delivered twice. For example, if a consumer fails while processing, the message is returned to the queue and is retrieved by the same or another consumer. The message-processing logic in the consumer should be idempotent so that even if the work is repeated, the state of the system isn't changed.
+A producer might accidentally send the same message twice. For example, a producer instance fails after sending a message. Another producer replaces the original instance and sends the message again. Service Bus queues provide a [built-in deduping capability](/azure/service-bus-messaging/duplicate-detection) that detects and removes duplicate messages. There's still a chance that a message is delivered twice. For example, if a consumer fails while processing, the message is returned to the queue and is retrieved by the same or another consumer. The message-processing logic in the consumer should be idempotent so that even if the work is repeated, the state of the system isn't changed.
 
 #### Message ordering
 
@@ -132,7 +167,7 @@ Examine messages in the DLQ to determine the failure reason. Reprocessing those 
 
 Service Bus bridges on-premises systems and cloud solutions. On-premises systems are often difficult to reach because of firewall restrictions. Both the producer and consumer (either can be on-premises or the cloud) can use the Service Bus queue endpoint in the cloud as the pickup and drop off location for messages.
 
-[Azure Relay Hybrid Connections](/azure/azure-relay/relay-hybrid-connections-protocol) is a turnkey implementation of cross-premises communication that is message based. Azure Relay is built on Azure Service Bus and it enables bi-directional, request-response patterns and datagram flows.
+[Azure Relay Hybrid Connections](/azure/azure-relay/relay-hybrid-connections-protocol) is a turnkey implementation of cross-premises communication that is message based. Azure Relay is built on Service Bus and it enables bi-directional, request-response patterns and datagram flows.
 
 The [Messaging Bridge pattern](/azure/architecture/patterns/messaging-bridge) is another way to handle these scenarios.
 
@@ -144,7 +179,7 @@ This feature provides a way for the producer to broadcast messages to multiple c
 
 Keep routing logic simple. Avoid embedding complex business rules in your subscription filters. Prefer the *smart endpoints and dumb pipes* approach. Use the broker for reliable transport and broad routing, but handle complex decision logic within the consuming service.
 
-For more information, see [Azure Service Bus topics](/azure/service-bus-messaging/service-bus-messaging-overview#topics).
+For more information, see [Service Bus topics](/azure/service-bus-messaging/service-bus-messaging-overview#topics).
 
 #### Protocols in Service Bus
 
@@ -152,15 +187,15 @@ Service Bus uses the [Advanced Message Queueing Protocol (AMQP)](/azure/service-
 
 For details of the message format schema, see [Messages, payloads, and serialization](/azure/service-bus-messaging/service-bus-messages-payloads).
 
-### Azure Event Grid
+### Event Grid
 
-Use [Azure Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they're published to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and an event handler that will process the events. Each event can have multiple subscriptions.
+Use [Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they're published to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and an event handler that will process the events. Each event can have multiple subscriptions.
 
 #### Push model in Event Grid
 
 Event Grid can propagate messages to the subscribers in a durable push model. Suppose you have an Event Grid subscription with a webhook. When a new event arrives, Event Grid posts the event to the webhook endpoint. In the push model, if there are no subscribers or the subscribers are repeatedly unavailable, the events are discarded.
 
-You can build a custom endpoint to receive events, as long as it [follows the webhook specification](/azure/event-grid/end-point-validation-cloud-events-schema), or you can use built-in capabilities such as the [Azure Event Grid bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-grid).
+You can build a custom endpoint to receive events, as long as it [follows the webhook specification](/azure/event-grid/end-point-validation-cloud-events-schema), or you can use built-in capabilities such as the [Event Grid bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-grid).
 
 #### Integrated with Azure
 
@@ -203,13 +238,14 @@ In addition to the push model, Event Grid also supports [pull delivery with HTTP
 - have network restrictions that require [private link](/azure/event-grid/configure-private-endpoints)
 - can't expose a push notification endpoint
 
-Even with pull delivery, Event Grid is optimized for high throughput distribution of discrete events. If your workload requires enterprise messaging features like strictly ordered processing (sessions), transactions, or duplicate detection, Azure Service Bus remains the preferred choice.
+Even with pull delivery, Event Grid is optimized for high throughput distribution of discrete events. If your workload requires enterprise messaging features like strictly ordered processing (sessions), transactions, or duplicate detection, Service Bus remains the preferred choice.
 
 #### Protocols in Event Grid
 
 Event Grid supports two event schemas:
 
 - **CloudEvents schema**: This is the recommended format schema for events. It's based on an [open specification](https://github.com/cloudevents/spec/blob/v1.0/spec.md) for describing event data and is highly interoperable between vendor systems.
+
 - **Event Grid schema**: This is a proprietary, nonextensible format schema for events. This schema is specific to Event Grid and should only be used when using the CloudEvents schema isn't possible.
 
 Event Grid also supports two protocols for message broker interaction:
@@ -217,9 +253,9 @@ Event Grid also supports two protocols for message broker interaction:
 - A [custom HTTP publish API](/rest/api/eventgrid/dataplane/operation-groups) to receive events into the system for distribution.
 - An [MQTT broker](/azure/event-grid/mqtt-overview) capability that allows MQTT clients to publish and subscribe to messages. This capability can be used, for example, to enable bidirectional communication for IoT scenarios.
 
-### Azure Event Hubs
+### Event Hubs
 
-When you're working with an event stream, [Azure Event Hubs](/azure/event-hubs/) is the recommended message broker. It's a large buffer that's capable of receiving large volumes of data with low latency. The received data can be read concurrently from the buffer. You can transform the received data by using any real-time analytics provider. Event Hubs also provides the capability to store events in a storage account.
+When you're working with an event stream, [Event Hubs](/azure/event-hubs/) is the recommended message broker. It's a large buffer that's capable of receiving large volumes of data with low latency. The received data can be read concurrently from the buffer. You can transform the received data by using any real-time analytics provider. Event Hubs also provides the capability to store events in a storage account.
 
 #### High-volume ingestion
 
@@ -229,9 +265,9 @@ Event Hubs is capable of ingesting millions of events per second. The events are
 
 Event Hubs offers Publisher-Subscriber capabilities. A key difference between other queues and Event Hubs is in the way event data is made available to the subscribers. Event Hubs uses a pull‑based model in which events are appended to a stream rather than placed in a traditional queue. A subscriber manages its cursor and can move forward and back in the stream, select a time offset, and replay a sequence at its pace.
 
-Stream processors are subscribers that pull data from Event Hubs for the purposes of transformation and statistical analysis. Use [Azure Stream Analytics](../../reference-architectures/data/stream-processing-stream-analytics.yml) and [Apache Spark](https://spark.apache.org/) for complex processing such as aggregation over time windows or anomaly detection. Or [get data from Azure Event Hubs](/fabric/real-time-intelligence/get-data-event-hub) into your Eventhouse or as [an eventstream](/fabric/real-time-intelligence/event-streams/add-source-azure-event-hubs) in Microsoft Fabric.
+Stream processors are subscribers that pull data from Event Hubs for the purposes of transformation and statistical analysis. Use [Azure Stream Analytics](../../reference-architectures/data/stream-processing-stream-analytics.yml) and [Apache Spark](https://spark.apache.org/) for complex processing such as aggregation over time windows or anomaly detection. Or [get data from Event Hubs](/fabric/real-time-intelligence/get-data-event-hub) into your Eventhouse or as [an eventstream](/fabric/real-time-intelligence/event-streams/add-source-azure-event-hubs) in Microsoft Fabric.
 
-If you want to act on each event per partition, you can pull the data by using [Event processor host](/azure/event-hubs/event-hubs-event-processor-host), or by using built-in connector such as [Azure Logic Apps](/azure/connectors/connectors-create-api-azure-event-hubs) to provide the transformation logic. Another option is to use [Azure Event Hubs trigger and bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-hubs).
+If you want to act on each event per partition, you can pull the data by using [Event processor host](/azure/event-hubs/event-hubs-event-processor-host), or by using built-in connector such as [Azure Logic Apps](/azure/connectors/connectors-create-api-azure-event-hubs) to provide the transformation logic. Another option is to use [Event Hubs trigger and bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-hubs).
 
 #### Partitioning
 
@@ -247,13 +283,13 @@ For more information about Event Hubs partitioning, see [Partitions](/azure/even
 
 #### Event Hubs Capture
 
-The Capture feature allows you to store the event stream to an [Azure Blob storage](/azure/storage/blobs/storage-blobs-overview) or [Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction). This way of storing events is reliable because even if the storage account isn't available, Capture keeps your data for a period, then writes to the storage after it's available.
+The Capture feature allows you to store the event stream to an [Blob Storage](/azure/storage/blobs/storage-blobs-overview) or [Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction). This way of storing events is reliable because even if the storage account isn't available, Capture keeps your data for a period, then writes to the storage after it's available.
 
 > Storage services can also offer additional features for analyzing events. For example, by taking advantage of the access tiers of a blob storage account, you can store events in a hot tier for data that needs frequent access. You might use that data for visualization. Alternately, you can store data in the archive tier and retrieve it occasionally for auditing purposes.
 
 Capture stores *all* events ingested by Event Hubs and is useful for batch processing. You can generate reports on the data by using a MapReduce function. Captured data can also serve as the source of truth. If certain facts were missed while aggregating the data, you can refer to the captured data.
 
-For more information about this feature, see [Capture events through Azure Event Hubs in Azure Blob Storage or Azure Data Lake Storage](/azure/event-hubs/event-hubs-capture-overview).
+For more information about this feature, see [Capture events through Event Hubs in Blob Storage or Azure Data Lake Storage](/azure/event-hubs/event-hubs-capture-overview).
 
 #### Support for Apache Kafka clients
 
@@ -265,25 +301,29 @@ For more information, see [Event Hubs for Apache Kafka](/azure/event-hubs/event-
 
 Combining two messaging services can have advantages.
 
-Combining services increases messaging system efficiency. For instance, in your business transaction, you use Azure Service Bus queues to handle messages. Queues that are mostly idle and receive messages occasionally are inefficient, because the consumer is constantly polling the queue for new messages. You can set up an Event Grid subscription with an Azure Function as the event handler. Each time the queue receives a message and there are no consumers listening, Event Grid sends a notification, which invokes the Azure Function that drains the queue.
+Combining services increases messaging system efficiency. For instance, in your business transaction, you use Service Bus queues to handle messages. Queues that are mostly idle and receive messages occasionally are inefficient, because the consumer is constantly polling the queue for new messages. You can set up an Event Grid subscription with an Azure Function as the event handler. Each time the queue receives a message and there are no consumers listening, Event Grid sends a notification, which invokes the Azure Function that drains the queue.
 
-![Diagram of Azure Service Bus to Event Grid integration.](./images/crossover1.png)
+:::image type="complex" source="./images/crossover1.png" border="false" lightbox="./images/crossover1.png" alt-text="Diagram of Service Bus to Event Grid integration.":::
 
-For more information about connecting Service Bus to Event Grid, see [Azure Service Bus to Event Grid integration overview](/azure/service-bus-messaging/service-bus-to-event-grid-integration-concept).
+:::image-end:::
+
+For more information about connecting Service Bus to Event Grid, see [Service Bus to Event Grid integration overview](/azure/service-bus-messaging/service-bus-to-event-grid-integration-concept).
 
 The [Enterprise integration using message queues and events](../../example-scenario/integration/queues-events.yml) reference architecture shows an implementation of Service Bus to Event Grid integration.
 
-Here's another example: Event Grid receives a set of events in which some events require a workflow while others are for notification. The message metadata indicates the type of event. One way to differentiate is to check the metadata by using the filtering feature in the event subscription. If it requires a workflow, Event Grid sends it to Azure Service Bus queue. The receivers of that queue can take necessary actions. The notification events are sent to Logic Apps to send alert emails.
+Here's another example: Event Grid receives a set of events in which some events require a workflow while others are for notification. The message metadata indicates the type of event. One way to differentiate is to check the metadata by using the filtering feature in the event subscription. If it requires a workflow, Event Grid sends it to Service Bus queue. The receivers of that queue can take necessary actions. The notification events are sent to Logic Apps to send alert emails.
 
-![Diagram of Azure Event Grid to Service Bus integration.](./images/crossover2.png)
+:::image type="complex" source="./images/crossover2.png" border="false" lightbox="./images/crossover2.png" alt-text="Diagram of Event Grid to Service Bus integration.":::
+
+:::image-end:::
 
 ## Related patterns
 
-Consider these patterns when implementing asynchronous messaging:
+Consider the following patterns when you implement asynchronous messaging:
 
 - [Competing Consumers pattern](../../patterns/competing-consumers.yml). Multiple consumers might need to compete to read messages from a queue. This pattern explains how to process multiple messages concurrently to optimize throughput, to improve scalability and availability, and to balance the workload.
 - [Priority Queue pattern](../../patterns/priority-queue.yml). For cases where the business logic requires that some messages are processed before others, this pattern describes how messages posted by a producer with a higher priority are received and processed more quickly by a consumer than messages of a lower priority.
-- [Queue-based Load Leveling pattern](../../patterns/queue-based-load-leveling.yml). This pattern uses a message broker to act as a buffer between a producer and a consumer to help to minimize the impact on availability and responsiveness of intermittent heavy loads for both those entities.
+- [Queue-Based Load Leveling pattern](../../patterns/queue-based-load-leveling.yml). This pattern uses a message broker to act as a buffer between a producer and a consumer to help to minimize the impact on availability and responsiveness of intermittent heavy loads for both those entities.
 - [Retry pattern](../../patterns/retry.yml). A producer or consumer might be unable connect to a queue, but the reasons for this failure might be temporary and quickly pass. This pattern describes how to handle this situation to add resiliency to an application.
 - [Scheduler Agent Supervisor pattern](../../patterns/scheduler-agent-supervisor.yml). Messaging is often used as part of a workflow implementation. This pattern demonstrates how messaging can coordinate a set of actions across a distributed set of services and other remote resources, and enable a system to recover and retry actions that fail.
 - [Choreography pattern](../../patterns/choreography.yml). This pattern shows how services can use messaging to control the workflow of a business transaction.
@@ -293,4 +333,4 @@ Consider these patterns when implementing asynchronous messaging:
 
 [Jonathon Oliver's blog post: Idempotency](https://blog.jonathanoliver.com/idempotency-patterns/)
 
-[Martin Fowler's blog post: What do you mean by "Event-Driven"?](https://martinfowler.com/articles/201701-event-driven.html)
+[Martin Fowler's blog post: What do you mean by event-driven?](https://martinfowler.com/articles/201701-event-driven.html)
