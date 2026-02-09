@@ -154,8 +154,8 @@ When you implement vector search, you can also consider linking with other Micro
 | Vector embedding with Azure OpenAI | No | No | No | Yes<a href="#g3"><sup>3</sup></a> | No | Yes<a href="#g4"><sup>4</sup></a> | Yes<a href="#g5"><sup>5</sup></a> |
 | Integration with Semantic Kernel | Yes<a href="#g6"><sup>6</sup></a> | Yes<a href="#g7"><sup>7</sup></a> | Yes<a href="#g8"><sup>8</sup></a> | Yes<a href="#g6"><sup>6</sup></a> | Yes<a href="#g11"><sup>11</sup></a> | Yes<a href="#g9"><sup>9</sup></a> | Yes<a href="#g10"><sup>10</sup></a> |
 
-1. <span id="g1">Azure DocumentDB is [supported as a data source](/azure/ai-services/openai/concepts/use-your-data?tabs=mongo-db#supported-data-sources) for Azure OpenAI on your data.</span>
-1. <span id="g2">AI Search is [supported as a data source](/azure/ai-services/openai/concepts/use-your-data?tabs=mongo-db#supported-data-sources) for Azure OpenAI on your data.</span>
+1. <span id="g1">Azure DocumentDB is [supported as a data source](/azure/ai-foundry/openai/concepts/use-your-data?tabs=mongo-db#supported-data-sources) for Azure OpenAI on your data.</span>
+1. <span id="g2">AI Search is [supported as a data source](/azure/ai-foundry/openai/concepts/use-your-data?tabs=mongo-db#supported-data-sources) for Azure OpenAI on your data.</span>
 1. <span id="g3">The [Azure AI extension](/azure/postgresql/flexible-server/generative-ai-azure-openai) is available.</span>
 1. <span id="g4">AI Search provides a skill to vectorize the chunked text.</span>
 1. <span id="g5">You can create a [stored procedure for your embedding model deployment](/azure/azure-sql/database/ai-artificial-intelligence-intelligent-applications).</span>
