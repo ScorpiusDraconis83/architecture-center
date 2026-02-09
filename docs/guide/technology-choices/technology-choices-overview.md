@@ -21,6 +21,7 @@ The term *compute* refers to the hosting model for the computing resources that 
 |---------|---------|
 |[Choose an Azure compute service](compute-decision-tree.md)  | Decide which compute service best suits your application.        |
 |[Choose an Azure compute option for microservices](../../microservices/design/compute-options.md)|     Learn about two compute options for microservices: service orchestrator and serverless architecture.    |
+|[Compare Java application hosting options on Azure](service-for-java-comparison.yml) | Explore recommended strategies for hosting Java applications on Azure, including platform types and supportability. |
 |[Choose between traditional web apps and SPAs](/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)  |  Learn how to choose between traditional web apps and single-page applications (SPAs).       |
 
 ## Choose a container option
@@ -29,6 +30,7 @@ There are many ways to build and deploy cloud-native and containerized applicati
 
 |Article |Summary  |
 |---------|---------|
+|[Choose an Azure container service](../choose-azure-container-service.md)| Evaluate which Azure container service is best suited to your specific workload scenarios and requirements. |
 |[Compare Container Apps with other Azure container options](/azure/container-apps/compare-options?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)   |     Understand when to use Azure Container Apps and how it compares to other container options, including Azure Container Instances, Azure App Service, Azure Functions, and Azure Kubernetes Service (AKS).    |
 |[Choose a Kubernetes at the edge compute option](../../operator-guides/aks/choose-kubernetes-edge-compute-option.md)     |   Learn about the pros and cons of various options for extending compute at the edge.      |
 
@@ -60,9 +62,9 @@ The Azure Storage platform is the Microsoft cloud storage solution for modern da
 
 |Article |Summary  |
 |---------|---------|
-|[Review your storage options](/azure/cloud-adoption-framework/ready/considerations/storage-options?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |     Review the storage options for Azure workloads.     |
-|[Azure managed disk types](/azure/virtual-machines/disks-types?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |   Learn about the disk types that are available for Azure virtual machines, including Ultra disks, Premium SSDs v2 (preview), Premium SSDs, and Standard SSDs.      |
-|[Choose an Azure solution for data transfer](/azure/storage/common/storage-choose-data-transfer-solution?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |     Choose an Azure solution for data transfer, based on the amount of data and the available network bandwidth in your environment.    |
+|[Review your storage options](/azure/cloud-adoption-framework/ready/considerations/storage-options)     |     Review the storage options for Azure workloads.     |
+|[Azure managed disk types](/azure/virtual-machines/disks-types)     |   Learn about the disk types that are available for Azure virtual machines, including Ultra disks, Premium SSDs v2 (preview), Premium SSDs, and Standard SSDs.      |
+|[Transfer data to and from Azure](../../data-guide/scenarios/data-transfer.md)|Learn about Azure data transfer options like Azure Import/Export, Azure Data Box, Azure Data Factory, and command-line and graphical interface tools.|
 
 ## Choose a data store
 
@@ -70,17 +72,14 @@ The cloud is changing the way applications are designed, including how data is p
 
 |Article |Summary  |
 |---------|---------|
-|[Understand data store models](data-store-overview.md)     |   Learn about the high-level differences between the various data storage models in Azure data services.      |
-|[Choose an Azure data store for your application](data-store-decision-tree.md)    |    Use a flowchart to choose an Azure data store.    |
-|[Criteria for choosing a data store](data-store-considerations.md)|Review some general considerations for choosing a data store. |
+|[Understand data store models](../../data-guide/technology-choices/understand-data-store-models.md)     |   Learn about the high-level differences between the various data storage models in Azure data services.      |
+|[Prepare to choose a data store](data-stores-getting-started.md)    |    Learn how to choose the right Azure data store for your workloads by evaluating functional, performance, cost, and security requirements.    |
 |[Choose a big data storage technology in Azure](../../data-guide/technology-choices/data-storage.md)     |    Compare big data storage options in Azure. View key selection criteria and a capability matrix.     |
 |[OLAP solutions](../../data-guide/relational-data/online-analytical-processing.md)|Learn about online analytical processing (OLAP) solutions for organizing large databases and supporting complex analysis without affecting transactional systems.|
 |[OLTP solutions](../../data-guide/relational-data/online-transaction-processing.md)|Learn about atomicity, consistency, and other features of online transaction processing (OLTP), which manages transactional data and supports querying.|
 |[Data lakes](../../data-guide/scenarios/data-lake.md)|Learn about data lake storage repositories, which can hold terabytes or petabytes of data in a native, raw format.|
-|[Non-relational data and NoSQL](../../data-guide/big-data/non-relational-data.yml)|Learn about non-relational databases that store data as key/value pairs, graphs, time series, objects, and other storage models.|
 |[Choose a data pipeline orchestration technology](../../data-guide/technology-choices/pipeline-orchestration-data-movement.md) |Choose an Azure data pipeline orchestration technology to automate pipeline orchestration, control flow, and data movement workflows.|
 |[Choose a search data store](../../data-guide/technology-choices/search-options.md)|Learn about the capabilities of search data stores in Azure and the key criteria for choosing one that best matches your needs.|
-|[Transfer data to and from Azure](../../data-guide/scenarios/data-transfer.md)|Learn about Azure data transfer options like Azure Import/Export, Azure Data Box, Azure Data Factory, and command-line and graphical interface tools.|
 
 ## Choose an analytics solution
 
@@ -89,6 +88,7 @@ With the exponential growth in data, organizations rely on the limitless compute
 |Article |Summary  |
 |---------|---------|
 |[Choose an analytical data store](../../data-guide/technology-choices/analytical-data-stores.md)     |      Evaluate analytical data store options for big data in Azure.   |
+|[Choose an analytical data store in Microsoft Fabric](../../data-guide/technology-choices/fabric-analytical-data-stores.md)     |      Evaluate analytical data store options in Microsoft Fabric based on data volumes, types, compute engine, ingestion, transformation, and query patterns.   |
 |[Choose a data analytics and reporting technology](../../data-guide/technology-choices/analysis-visualizations-reporting.md)     |  Evaluate big data analytics technology options for Azure.       |
 |[Choose a batch processing technology](../../data-guide/technology-choices/batch-processing.md)     |    Compare technology choices for big data batch processing in Azure.     |
 |[Choose a stream processing technology](../../data-guide/technology-choices/stream-processing.md)     |   Compare options for real-time message stream processing in Azure.      |
@@ -99,10 +99,11 @@ AI is the capability of a computer to imitate intelligent human behavior. Throug
 
 |Article |Summary  |
 |---------|---------|
+|[Choose the right AI model for your workload](../../ai-ml/guide/choose-ai-model.md)| Learn strategies to help you select the best model for your AI workload, including key criteria and practical considerations for decision-making. |
 |[Choose an Azure AI services technology](../../data-guide/technology-choices/ai-services.md)| Learn about AI services that you can use in intelligent applications and data flows. |
+|[Choose an Azure service for vector search](vector-search.md)| Learn how to decide which Azure service for vector search best suits your application. |
 |[Natural language processing technology](../../data-guide/technology-choices/natural-language-processing.md)     |     Choose a natural language processing service for sentiment analysis, topic and language detection, key phrase extraction, and document categorization.    |
 |[Compare machine learning products and technologies](../../ai-ml/guide/data-science-and-machine-learning.md)     |  Compare options for building, deploying, and managing your machine learning models. Decide which products to use for your solution.       |
-|[MLflow and Azure Machine Learning](/azure/machine-learning/concept-mlflow?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |     Learn about how Azure Machine Learning uses MLflow to log metrics and artifacts from machine learning models and deploy your machine learning models to an endpoint.    |
 
 ## Choose a networking service
 
