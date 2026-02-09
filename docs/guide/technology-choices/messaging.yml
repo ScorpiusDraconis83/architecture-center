@@ -2,12 +2,11 @@
 metadata:
   title: Asynchronous messaging options
   description: Learn about asynchronous messaging options in Azure, including the different types of messages and the entities that participate in a messaging infrastructure.
-  author: PageWriter-MSFT
+  author: claytonsiemens77
   ms.author: pnp
-  ms.date: 01/30/2022
+  ms.date: 02/03/2026
   ms.topic: concept-article
   ms.subservice: architecture-guide
-  ms.custom: fcp
 azureCategories:
   - integration
   - developer-tools
@@ -15,9 +14,8 @@ products:
   - azure-event-hubs
   - azure-event-grid
   - azure-service-bus
-  - azure-stream-analytics
 name: Asynchronous messaging options
 summary: Learn about asynchronous messaging options in Azure, including the different types of messages and the entities that participate in a messaging infrastructure.
 thumbnailUrl: /azure/architecture/browse/thumbs/messagetrans.png
 content: |
-   [!include[](messaging-content.md)]
+   [!INCLUDE[](messaging-content.md)]
