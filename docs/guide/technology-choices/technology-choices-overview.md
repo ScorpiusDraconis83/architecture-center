@@ -32,7 +32,7 @@ There are many ways to build and deploy cloud-native and containerized applicati
 |---------|---------|
 |[Choose an Azure container service](../choose-azure-container-service.md)| Evaluate which Azure container service is best suited to your specific workload scenarios and requirements. |
 |[Compare Container Apps with other Azure container options](/azure/container-apps/compare-options?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)   |     Understand when to use Azure Container Apps and how it compares to other container options, including Azure Container Instances, Azure App Service, Azure Functions, and Azure Kubernetes Service (AKS).    |
-|[Choose a Kubernetes at the edge compute option](../../operator-guides/aks/choose-kubernetes-edge-compute-option.md)     |   Learn about the pros and cons of various options for extending compute at the edge.      |
+|[Choose a Kubernetes at the edge compute option](../../operator-guides/aks/choose-kubernetes-edge-compute-option.md)     |   Learn about trade-offs and considerations for various Kubernetes options for extending compute on the edge.      |
 
 ## Choose a hybrid option
 
@@ -53,8 +53,8 @@ Identity solutions help you protect your data and resources. These articles can 
 
 |Article |Summary  |
 |---------|---------|
-|[Active Directory services](/entra/identity/domain-services/compare-identity-solutions?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |    Compare the identity services that are provided by Active Directory Domain Services, Microsoft Entra ID, and Microsoft Entra Domain Services.     |
-|[Hybrid identity authentication methods](/entra/identity/hybrid/connect/choose-ad-authn?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |   Choose an authentication method for a Microsoft Entra hybrid identity solution in a medium-sized to large organization.      |
+|[Compare Microsoft Entra ID and Domain Services identity solutions](/entra/identity/domain-services/compare-identity-solutions?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |    Compare the identity services provided by Active Directory Domain Services, Microsoft Entra ID, and Microsoft Entra Domain Services.     |
+|[Choose a hybrid identity authentication method](/entra/identity/hybrid/connect/choose-ad-authn?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |   Choose an authentication method for a Microsoft Entra hybrid identity solution in a medium-sized to large organization.      |
 
 ## Choose a storage service
 
@@ -72,7 +72,7 @@ The cloud is changing the way applications are designed, including how data is p
 
 |Article |Summary  |
 |---------|---------|
-|[Understand data store models](../../data-guide/technology-choices/understand-data-store-models.md)     |   Learn about the high-level differences between the various data storage models in Azure data services.      |
+|[Understand data models](../../data-guide/technology-choices/understand-data-store-models.md)     |   Learn how to evaluate Azure data store models based on workload patterns, scale, consistency, and governance to guide service selection.      |
 |[Prepare to choose a data store](data-stores-getting-started.md)    |    Learn how to choose the right Azure data store for your workloads by evaluating functional, performance, cost, and security requirements.    |
 |[Choose a big data storage technology in Azure](../../data-guide/technology-choices/data-storage.md)     |    Compare big data storage options in Azure. View key selection criteria and a capability matrix.     |
 |[OLAP solutions](../../data-guide/relational-data/online-analytical-processing.md)|Learn about online analytical processing (OLAP) solutions for organizing large databases and supporting complex analysis without affecting transactional systems.|
@@ -100,10 +100,10 @@ AI is the capability of a computer to imitate intelligent human behavior. Throug
 |Article |Summary  |
 |---------|---------|
 |[Choose the right AI model for your workload](../../ai-ml/guide/choose-ai-model.md)| Learn strategies to help you select the best model for your AI workload, including key criteria and practical considerations for decision-making. |
-|[Choose an Azure AI services technology](../../data-guide/technology-choices/ai-services.md)| Learn about AI services that you can use in intelligent applications and data flows. |
+|[Choose an Azure AI services technology](../../data-guide/technology-choices/ai-services.md)| Learn about Azure AI services that you can use in AI applications and data flows. Choose the appropriate service for your use case. |
 |[Choose an Azure service for vector search](vector-search.md)| Learn how to decide which Azure service for vector search best suits your application. |
 |[Natural language processing technology](../../data-guide/technology-choices/natural-language-processing.md)     |     Choose a natural language processing service for sentiment analysis, topic and language detection, key phrase extraction, and document categorization.    |
-|[Compare machine learning products and technologies](../../ai-ml/guide/data-science-and-machine-learning.md)     |  Compare options for building, deploying, and managing your machine learning models. Decide which products to use for your solution.       |
+|[Compare Microsoft machine learning products and technologies](../../ai-ml/guide/data-science-and-machine-learning.md)     |  Compare options for building, deploying, and managing your machine learning models. Decide which Microsoft products to use for your solution.       |
 
 ## Choose a networking service
 
@@ -111,7 +111,7 @@ These articles can help you explore the networking technologies that are availab
 
 |Article |Summary  |
 |---------|---------|
-|[Load balancing options](load-balancing-overview.md)    |    Learn about Azure load balancing services and how you can use them to distribute your workloads across multiple computing resources.     |
+|[Load balancing options](load-balancing-overview.md)    |    Learn about Azure load balancing services and considerations for selecting one to distribute traffic across multiple computing resources.     |
 |[Virtual network connectivity options and spoke-to-spoke communication](../../reference-architectures/hybrid-networking/virtual-network-peering.yml) | Compare virtual network peering and VPN gateways for connecting Azure virtual networks. Learn implementation patterns for spoke-to-spoke communication in hub-and-spoke architectures. |
 
 ## Choose a messaging service
@@ -129,7 +129,7 @@ IoT solutions use a combination of technologies to connect devices, events, and 
 
 |Article |Summary  |
 |---------|---------|
-|[Choose an IoT solution](/azure/iot/iot-services-and-technologies?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |  To evaluate your IoT solution, use Azure IoT Central, a managed IoT application platform. To build a custom IoT solution from scratch, use Azure IoT platform services such as Azure IoT Hub and the Device Provisioning Service.       |
+|[Azure IoT services and technologies](/azure/iot/iot-services-and-technologies?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |  Learn about Azure IoT services and technologies, including IoT Hub, IoT Operations, IoT Edge, and IoT Central. Choose between cloud-based and edge-based solution types.       |
 |[Compare IoT Hub and Event Hubs](/azure/iot-hub/iot-hub-compare-event-hubs?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json)     |     Review a comparison between Azure IoT Hub and Event Hubs that highlights functional differences and use cases. The comparison includes supported protocols, device management, monitoring, and file uploads.    |
 
 ## Choose a mobile development framework
