@@ -51,6 +51,9 @@ This scenario includes a fairly complex domain. Some of the key business concern
 
 A DDD approach helps you design microservices so that every service forms a natural fit to a functional business requirement. It can help you to avoid the trap of letting organizational boundaries or technology choices dictate your design.
 
+> [!TIP]
+> [Conway's Law](https://en.wikipedia.org/wiki/Conway's_law) observes that systems tend to mirror the communication structures of the organizations that build them. When that mirroring happens passively, it can lead to architectures that reflect org charts rather than business domains. However, you can use DDD to your advantage here: define service boundaries through domain analysis first, and then intentionally align team ownership to those boundaries. This proactive approach helps ensure that your team structure reinforces, rather than undermines, the architecture.
+
 Before you write any code, you should have a high-level understanding of the system that you're building. DDD starts by modeling the business domain and creating a *domain model*. The domain model is an abstract model of the business domain. It distills and organizes domain knowledge and provides a common language for developers and domain experts.
 
 Start by mapping all the business functions and their connections. This effort should be a collaboration that includes domain experts, software architects, and other stakeholders. You don't need to use any particular formalism. Sketch a diagram or draw on a whiteboard. One structured approach is *[Event storming](https://en.wikipedia.org/wiki/Event_storming)*. Whether you use *event storming* or a less formal approach, the goal is the same: build a shared understanding of the domain before you make technology decisions.
