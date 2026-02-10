@@ -3,7 +3,7 @@ title: Choose an Azure Compute Service
 description: Use this chart and other information to decide which compute service, or hosting model for computing resources, best suits your application.
 author: claytonsiemens77
 ms.author: pnp
-ms.date: 02/04/2025
+ms.date: 02/10/2026
 ms.reviewer: ssumner
 ms.topic: concept-article
 ms.subservice: architecture-guide
@@ -29,7 +29,7 @@ Use the following flowchart to select a candidate compute service.
 
 The previous diagram refers to two migration strategies:
 
-- **Lift and shift:** A strategy for migrating a workload to the cloud without redesigning the application or making code changes. It's also known as *rehosting*. For more information, see [Azure cloud migration and modernization center](https://azure.microsoft.com/migration).
+- **Lift and shift:** A strategy for migrating a workload to the cloud without redesigning the application or making code changes. It is also known as *rehosting*. For more information, see [Azure cloud migration and modernization center](https://azure.microsoft.com/migration).
 
 - **Cloud optimized:** A strategy for migrating to the cloud by refactoring an application to take advantage of cloud-native features and capabilities.
 
@@ -126,7 +126,7 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 
 **Notes:**
 
-<sup>1</sup> <span id="note1b">Requires App Service Environment or a dedicated compute pricing tier.</span>
+<sup>1</sup> <span id="note1b">Requires Basic tier or higher, or App Service Environment. See [virtual network integration](/azure/app-service/overview-vnet-integration).</span>
 
 <sup>2</sup> <span id="note2b">Use [App Service Hybrid Connections][app-service-hybrid].</span>
 
@@ -158,7 +158,7 @@ There's a trade-off between control and ease of management. IaaS provides the mo
 | Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
 | App Service | Built-in service | Integrated | 30 instances, 100 with App Service Environment |
 | Azure Functions | Built-in service | Integrated | 200 instances for each function app |
-| AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [uptime SLA][uptime-sla] |
+| AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [Standard or Premium tier][aks-pricing-tiers] |
 | Container Apps | Scaling rules<a href="#note4d"><sup>4</sup></a> | Integrated | 15 environments for each region (default limit), unlimited container apps for each environment and replicas for each container app (depending on available cores) |
 | Container Instances | Not supported | No built-in support | 100 container groups for each subscription (default limit) |
 | Azure Red Hat OpenShift | Pod autoscaling, cluster autoscaling | Load Balancer or Application Gateway | 250 nodes for each cluster (default limit) |
@@ -277,5 +277,5 @@ Along with the previous comparison tables, do a more detailed evaluation of the 
 [function-plans]: /azure/azure-functions/functions-scale
 [microservices]: ../architecture-styles/microservices.md
 [n-tier]: ../architecture-styles/n-tier.md
-[uptime-sla]: /azure/aks/uptime-sla
+[aks-pricing-tiers]: /azure/aks/free-standard-pricing-tiers
 [w-q-w]: ../architecture-styles/web-queue-worker.md
