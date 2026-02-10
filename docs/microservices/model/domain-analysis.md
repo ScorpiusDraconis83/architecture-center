@@ -3,7 +3,8 @@ title: Domain analysis for microservices
 description: This article shows a domain-driven approach to designing microservices so that each service follows the general rule of doing just one thing.
 author: claytonsiemens77
 ms.author: pnp
-ms.date: 02/25/2019
+ms.date: 02/10/2026
+ms.update-cycle: 1095-days
 ms.topic: concept-article
 ms.subservice: architecture-guide
 ---
