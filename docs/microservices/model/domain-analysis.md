@@ -29,7 +29,7 @@ Central to DDD is the concept of *ubiquitous language*, a shared vocabulary that
    The image has four sections: Analyze domain, Define bounded contexts, Define entities, aggregates, and services, and Identify microservices. Double greater-than signs indicate a flow between the sections, from left to right.
 :::image-end:::
 
-This article and the related [Tactical DDD](./tactical-ddd.yml) article walk through the following steps, applying them to the Drone Delivery application:
+This article and the related [Tactical DDD](./tactical-ddd.yml) article walks through the following steps, applying them to the Drone Delivery application:
 
 1. Start by analyzing the business domain to understand the application's functional requirements. The output of this step is an informal description of the domain, which can be refined into a more formal set of domain models.
 
@@ -76,8 +76,8 @@ After some initial domain analysis, the Fabrikam team came up with a rough sketc
 - **Shipping** is placed in the center of the diagram, because it's core to the business. Everything else in the diagram exists to enable this functionality.
 - **Drone management** is also core to the business. Functionality that is closely related to drone management includes **drone repair** and using **predictive analysis** to predict when drones need servicing and maintenance.
 - **ETA analysis** provides time estimates for pickup and delivery.
-- **Third-party transportation** enables the application to schedule alternative transportation methods if a package cannot be shipped entirely by drone.
-- **Drone sharing** is a possible extension of the core business. The company might have excess drone capacity during certain hours, and could rent out drones that would otherwise be idle. This feature will not be in the initial release.
+- **Third-party transportation** enables the application to schedule alternative transportation methods if a package can't be shipped entirely by drone.
+- **Drone sharing** is a possible extension of the core business. The company might have excess drone capacity during certain hours, and could rent out drones that would otherwise be idle. This feature won't be in the initial release.
 - **Video surveillance** is another area that the company might expand into later.
 - **User accounts**, **Invoicing**, and **Call center** are subdomains that support the core business.
 
@@ -94,7 +94,7 @@ Notice that at this point in the process, you haven't made any decisions about i
 
 ## Define bounded contexts
 
-The domain model will include representations of real things in the world &mdash; users, drones, packages, and so forth. But that doesn't mean that every part of the system needs to use the same representations for the same things.
+The domain model will include representations of real things in the world&mdash;users, drones, packages, and so forth. But that doesn't mean that every part of the system needs to use the same representations for the same things.
 
 For example, subsystems that handle drone repair and predictive analysis will need to represent many physical characteristics of drones, such as their maintenance history, mileage, age, model number, and performance characteristics. But when it's time to schedule a delivery, those details aren't relevant. The scheduling subsystem only needs to know whether a drone is available, and the ETA for pickup and delivery.
 
@@ -106,7 +106,7 @@ The DDD concept of *bounded contexts* comes into play here. A bounded context de
    The diagram is an interconnected web with multiple connecting lines and ovals that contain words. Dotted lines section off various ovals. Drone management is connected to Video surveillance, Shipping, and Third-party transportation. Accounts is connected to Drone sharing, Shipping, and Call center. The third-party transportation and Call center sections are both labeled as External systems.
 :::image-end:::
 
-Bounded contexts are not necessarily isolated from one another. In this diagram, the solid lines connecting the bounded contexts represent places where two bounded contexts interact. For example, Shipping depends on User Accounts to get information about customers, and on Drone Management to schedule drones from the fleet.
+Bounded contexts arn't necessarily isolated from one another. In this diagram, the solid lines connecting the bounded contexts represent places where two bounded contexts interact. For example, Shipping depends on User Accounts to get information about customers, and on Drone Management to schedule drones from the fleet.
 
 Once you identify these interactions, create a *context map* that documents the relationships between bounded contexts. A context map helps teams understand integration points and negotiate responsibilities. Evans and subsequent DDD practitioners describe several relationship patterns, including:
 
