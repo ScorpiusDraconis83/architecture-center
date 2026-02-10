@@ -10,7 +10,7 @@ ms.subservice: architecture-guide
 
 # Using domain analysis to model microservices
 
-One of the biggest challenges of microservices is to define the boundaries of individual services. The general rule is that a service should do only one thing, but putting that rule into practice requires careful thought. There's no mechanical process that produces the correct design. You have to think deeply about your business domain, requirements, architecture characteristics (also known as *nonfunctional requirements*), and goals. Otherwise, you can end up with a haphazard design that exhibits some undesirable characteristics, such as hidden dependencies between services, tight coupling, or poorly designed interfaces. This article shows a domain-driven approach to designing microservices. Evaluating service boundaries is an ongoing effort on evolving workloads. Sometimes the evaluation results in redefined definitions of existing boundaries that require more application development to accommodate the changes.
+One of the biggest challenges of microservices is to define the boundaries of individual services. The general rule is that a service should do only one thing, but putting that rule into practice requires careful thought. There's no mechanical process that produces the correct design. You have to think deeply about your business domain, requirements, architecture characteristics (also known as *nonfunctional requirements*), and goals. Otherwise, you can end up with a haphazard design that exhibits some undesirable characteristics, such as hidden dependencies between services, tight coupling, or poorly designed interfaces. This article shows a domain-driven approach to designing microservices. Evaluating service boundaries is an ongoing effort for evolving workloads. Sometimes the evaluation results in redefined boundaries that require more application development to accommodate the changes.
 
 This article uses a drone delivery service as a running example. For more information about the scenario and the corresponding reference implementation, see [Design a microservices architecture](../design/index.md).
 
@@ -36,7 +36,7 @@ This article and the related [Tactical DDD](./tactical-ddd.yml) article walk thr
 
 4. Use the results from the previous step to identify the microservices in your application.
 
-This article covers the first three steps, which are primarily concerned with the DDD process. The next article identifies the microservices. However, it's important to remember that DDD is an iterative, ongoing process. Service boundaries aren't fixed in stone. As an application evolves, you might decide to break apart a service into several smaller services.
+This article covers the first two steps, which are primarily concerned with strategic DDD. The [Tactical DDD](./tactical-ddd.yml) article covers step 3. The article on [identifying microservice boundaries](microservice-boundaries.yml) covers step 4. However, it's important to remember that DDD is an iterative, ongoing process. Service boundaries aren't fixed in stone. As an application evolves, you might decide to break apart a service into several smaller services.
 
 > [!NOTE]
 > This article doesn't show a complete and comprehensive domain analysis. The example is deliberately brief to illustrate the main points. For more background on DDD, read Eric Evans' *Domain-Driven Design*, the book that first introduced the term. Another good reference is *Learning Domain-Driven Design* by Vlad Khononov for a practical, modern treatment of the subject.
@@ -51,9 +51,9 @@ This scenario includes a fairly complex domain. Some of the key business concern
 
 A DDD approach helps you design microservices so that every service forms a natural fit to a functional business requirement. It can help you to avoid the trap of letting organizational boundaries or technology choices dictate your design.
 
-Before you write any code, you should have a high-level understanding of the system that you build. DDD starts by modeling the business domain and creating a *domain model*. The domain model is an abstract model of the business domain. It distills and organizes domain knowledge and provides a common language for developers and domain experts.
+Before you write any code, you should have a high-level understanding of the system that you're building. DDD starts by modeling the business domain and creating a *domain model*. The domain model is an abstract model of the business domain. It distills and organizes domain knowledge and provides a common language for developers and domain experts.
 
-Start by mapping all the business functions and their connections. This effort should be a collaboration that includes domain experts, software architects, and other stakeholders. You don't need to use any particular formalism. Sketch a diagram or draw on a whiteboard. One structured approach is *[Event storming](https://en.wikipedia.org/wiki/Event_storming)*. Whether you use a process Event Storming or a less formal approach, the goal is the same: build a shared understanding of the domain before you make technology decisions.
+Start by mapping all the business functions and their connections. This effort should be a collaboration that includes domain experts, software architects, and other stakeholders. You don't need to use any particular formalism. Sketch a diagram or draw on a whiteboard. One structured approach is *[Event storming](https://en.wikipedia.org/wiki/Event_storming)*. Whether you use *event storming* or a less formal approach, the goal is the same: build a shared understanding of the domain before you make technology decisions.
 
 As you fill in the diagram, you might start to identify discrete subdomains. Which functions are closely related? Which functions are core to the business, and which functions provide ancillary services? What's the dependency graph? During this initial phase, you aren't concerned with technologies or implementation details. That said, you should note the place where the application needs to integrate with external systems, such as customer relationship management, payment processing, or billing systems.
 
@@ -76,8 +76,8 @@ After some initial domain analysis, the Fabrikam team came up with a rough sketc
 DDD classifies subdomains into three categories, and this classification helps you prioritize where to invest the most design effort:
 
 - **Core subdomains** provide competitive advantage. Shipping and Drone management are core subdomains for Fabrikam because they define the business. These subdomains deserve the deepest modeling and the strongest team investment.
-- **Supporting subdomains** are necessary for the business to operate but don't differentiate it from competitors. Invoicing falls into this category. It will require custom development but aren't the source of competitive advantage.
-- **Generic subdomains** are problems that are already solved across the industry. User accounts and Call center are generic subdomains that Fabrikam can maybe be addressed with off-the-shelf or commodity solutions rather than custom-built systems.
+- **Supporting subdomains** are necessary for the business to operate but don't differentiate it from competitors. Invoicing falls into this category. It requires custom development but isn't the source of competitive advantage.
+- **Generic subdomains** are problems that are already solved across the industry. User accounts and Call center are generic subdomains that Fabrikam can address with off-the-shelf or commodity solutions rather than custom-built systems.
 
 Notice that at this point in the process, you haven't made any decisions about implementation or technologies. Some of the subsystems might involve external software systems or third-party services. Even so, the application needs to interact with these systems and services, so it's important to include them in the domain model.
 
