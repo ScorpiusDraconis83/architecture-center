@@ -26,7 +26,7 @@ Central to DDD is the concept of *ubiquitous language*, a shared vocabulary that
    The image has four sections: Analyze domain, Define bounded contexts, Define entities, aggregates, and services, and Identify microservices. Double greater-than signs indicate a flow between the sections, from left to right.
 :::image-end:::
 
-In this article and the next, we'll walk through the following steps, applying them to the Drone Delivery application:
+This article and the related [Tactical DDD](./tactical-ddd.yml) article walk through the following steps, applying them to the Drone Delivery application:
 
 1. Start by analyzing the business domain to understand the application's functional requirements. The output of this step is an informal description of the domain, which can be refined into a more formal set of domain models.
 
@@ -36,10 +36,10 @@ In this article and the next, we'll walk through the following steps, applying t
 
 4. Use the results from the previous step to identify the microservices in your application.
 
-In this article, we cover the first three steps, which are primarily concerned with DDD. In the next article, we'll identify the microservices. However, it's important to remember that DDD is an iterative, ongoing process. Service boundaries aren't fixed in stone. As an application evolves, you might decide to break apart a service into several smaller services.
+This article covers the first three steps, which are primarily concerned with the DDD process. The next article identifies the microservices. However, it's important to remember that DDD is an iterative, ongoing process. Service boundaries aren't fixed in stone. As an application evolves, you might decide to break apart a service into several smaller services.
 
 > [!NOTE]
-> This article doesn't show a complete and comprehensive domain analysis. We deliberately kept the example brief, to illustrate the main points. For more background on DDD, we recommend Eric Evans' *Domain-Driven Design*, the book that first introduced the term. Another good reference is *Learning Domain-Driven Design* by Vlad Khononov for a practical, modern treatment of the subject.
+> This article doesn't show a complete and comprehensive domain analysis. The example is deliberately brief to illustrate the main points. For more background on DDD, read Eric Evans' *Domain-Driven Design*, the book that first introduced the term. Another good reference is *Learning Domain-Driven Design* by Vlad Khononov for a practical, modern treatment of the subject.
 
 ## Scenario: Drone delivery
 
@@ -79,7 +79,7 @@ DDD classifies subdomains into three categories, and this classification helps y
 - **Supporting subdomains** are necessary for the business to operate but don't differentiate it from competitors. Invoicing falls into this category. It will require custom development but aren't the source of competitive advantage.
 - **Generic subdomains** are problems that are already solved across the industry. User accounts and Call center are generic subdomains that Fabrikam can maybe be addressed with off-the-shelf or commodity solutions rather than custom-built systems.
 
-Notice that at this point in the process, we haven't made any decisions about implementation or technologies. Some of the subsystems might involve external software systems or third-party services. Even so, the application needs to interact with these systems and services, so it's important to include them in the domain model.
+Notice that at this point in the process, you haven't made any decisions about implementation or technologies. Some of the subsystems might involve external software systems or third-party services. Even so, the application needs to interact with these systems and services, so it's important to include them in the domain model.
 
 > [!NOTE]
 > When an application depends on an external system, there's a risk that the external system's data schema or API can leak into the application. This kind of leakage can compromise the architectural design. It's especially common with legacy systems that don't follow modern best practices and might use convoluted data schemas or outdated APIs. In these cases, it's important to establish a well-defined boundary between the external system and the application. Consider using the [Strangler Fig pattern](../../patterns/strangler-fig.md) or the [Anti-Corruption Layer pattern](../../patterns/anti-corruption-layer.yml) to enforce this boundary.
@@ -88,9 +88,9 @@ Notice that at this point in the process, we haven't made any decisions about im
 
 The domain model will include representations of real things in the world &mdash; users, drones, packages, and so forth. But that doesn't mean that every part of the system needs to use the same representations for the same things.
 
-For example, subsystems that handle drone repair and predictive analysis will need to represent many physical characteristics of drones, such as their maintenance history, mileage, age, model number, and performance characteristics. But when it's time to schedule a delivery, we don't care about those things. The scheduling subsystem only needs to know whether a drone is available, and the ETA for pickup and delivery.
+For example, subsystems that handle drone repair and predictive analysis will need to represent many physical characteristics of drones, such as their maintenance history, mileage, age, model number, and performance characteristics. But when it's time to schedule a delivery, those details aren't relevant. The scheduling subsystem only needs to know whether a drone is available, and the ETA for pickup and delivery.
 
-If we tried to create a single model for both of these subsystems, it would be unnecessarily complex. It would also become harder for the model to evolve over time, because any changes will need to satisfy multiple teams working on separate subsystems. Therefore, it's often better to design separate models that represent the same real-world entity (in this case, a drone) in two different contexts. Each model contains only the features and attributes that are relevant within its particular context.
+If you tried to create a single model for both of these subsystems, it would be unnecessarily complex. It would also become harder for the model to evolve over time, because any changes will need to satisfy multiple teams working on separate subsystems. Therefore, it's often better to design separate models that represent the same real-world entity (in this case, a drone) in two different contexts. Each model contains only the features and attributes that are relevant within its particular context.
 
 The DDD concept of *bounded contexts* comes into play here. A bounded context defines the boundary within a domain where a specific domain model applies. Referring to the previous diagram, you can group functionality based on whether different functions share the same domain model.
 
@@ -107,9 +107,9 @@ Once you identify these interactions, create a *context map* that documents the 
 - **[Anticorruption Layer](https://ddd-practitioners.com/home/glossary/bounded-context/bounded-context-relationship/anticorruption-layer/)**: The downstream team builds a translation layer to protect its own model from changes in the upstream model. For more information, see the [Anti-Corruption Layer pattern](../../patterns/anti-corruption-layer.yml).
 - **[Separate Ways](https://ddd-practitioners.com/home/glossary/bounded-context/bounded-context-relationship/separate-ways/)**: Two contexts have no integration. Each evolves independently.
 
-In a microservices architecture, Open Host Service and Published Language are especially relevant because microservices communicate through well-defined APIs. In the article [Designing APIs for microservices](../design/api-design.md), we discuss using [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) (formerly known as Swagger) to define language-agnostic interface descriptions for REST APIs, expressed in JSON or YAML format.
+In a microservices architecture, Open Host Service and Published Language are especially relevant because microservices communicate through well-defined APIs. The article [Designing APIs for microservices](../design/api-design.md) discusses using [OpenAPI Specification](https://spec.openapis.org/oas/latest.html) to define language-agnostic interface descriptions for REST APIs, expressed in JSON or YAML format.
 
-For the rest of this journey, we will focus on the Shipping bounded context.
+The rest of this journey focuses on the Shipping bounded context.
 
 ## Next steps
 
