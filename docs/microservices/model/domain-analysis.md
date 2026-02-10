@@ -53,7 +53,7 @@ A DDD approach helps you design microservices so that every service forms a natu
 
 Before you write any code, you should have a high-level understanding of the system that you build. DDD starts by modeling the business domain and creating a *domain model*. The domain model is an abstract model of the business domain. It distills and organizes domain knowledge and provides a common language for developers and domain experts.
 
-Start by mapping all the business functions and their connections. This effort can be a collaboration that includes domain experts, software architects, and other stakeholders. You don't need to use any particular formalism. Sketch a diagram or draw on whiteboard.
+Start by mapping all the business functions and their connections. This effort should be a collaboration that includes domain experts, software architects, and other stakeholders. You don't need to use any particular formalism. Sketch a diagram or draw on a whiteboard. One structured approach is *[Event storming](https://en.wikipedia.org/wiki/Event_storming)*. Whether you use a process Event Storming or a less formal approach, the goal is the same: build a shared understanding of the domain before you make technology decisions.
 
 As you fill in the diagram, you might start to identify discrete subdomains. Which functions are closely related? Which functions are core to the business, and which functions provide ancillary services? What's the dependency graph? During this initial phase, you aren't concerned with technologies or implementation details. That said, you should note the place where the application needs to integrate with external systems, such as customer relationship management, payment processing, or billing systems.
 
