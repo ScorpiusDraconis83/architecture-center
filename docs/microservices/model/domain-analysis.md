@@ -20,6 +20,8 @@ Microservices should be designed around business capabilities, not horizontal la
 
 Domain-driven design (DDD) provides a framework that can get you most of the way to a set of well-designed microservices. DDD has two distinct phases, strategic and tactical. In strategic DDD, you define the large-scale structure of the system. Strategic DDD helps to ensure that your architecture remains focused on business capabilities. Tactical DDD provides a set of design patterns that you can use to create the domain model. These patterns include entities, aggregates, and domain services. These tactical patterns help you to design microservices that are both loosely coupled and cohesive.
 
+Central to DDD is the concept of *ubiquitous language*, a shared vocabulary that developers and domain experts build together within each bounded context. This language is used consistently in conversations, documentation, and code. When the same terms carry the same meaning across all of these surfaces, teams reduce misunderstandings and produce domain models that accurately reflect business intent. Each bounded context can have its own ubiquitous language, which means the same word (for example, "account") can carry different meanings in different contexts.
+
 :::image type="complex" border="false" source="../images/ddd-process.png" alt-text="Diagram that shows a DDD process." lightbox="../images/ddd-process.png":::
    The image has four sections: Analyze domain, Define bounded contexts, Define entities, aggregates, and services, and Identify microservices. Double greater-than signs indicate a flow between the sections, from left to right.
 :::image-end:::
