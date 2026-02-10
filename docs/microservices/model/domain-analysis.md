@@ -20,7 +20,7 @@ Microservices should be designed around business capabilities, not horizontal la
 
 Architecture characteristics have to be defined for each microservice to match its domain concerns, rather than being defined for the entire system. For example, a customer-facing microservice might need to have performance, availability, fault tolerance, security, testability, and agility. A backend microservice might need to have only fault tolerance and security. If microservices have synchronous communications with each other, the dependency between them often requires them to share the same architecture characteristics.
 
-Domain-driven design (DDD) provides a framework that can get you most of the way to a set of well-designed microservices. DDD has two distinct phases, strategic and tactical. In strategic DDD, you define the large-scale structure of the system. Strategic DDD helps ensure that your architecture remains focused on business capabilities. Tactical DDD provides a set of design patterns that you can use to create the domain model. These patterns include entities, aggregates, and domain services. These tactical patterns help you design microservices that are both loosely coupled and cohesive.
+Domain-driven design (DDD) provides a framework that gets you most of the way to a set of well-designed microservices. DDD has two distinct phases, strategic and tactical. In strategic DDD, you define the large-scale structure of the system. Strategic DDD helps ensure that your architecture remains focused on business capabilities. Tactical DDD provides a set of design patterns that you can use to create the domain model. These patterns include entities, aggregates, and domain services. These tactical patterns help you design microservices that are both loosely coupled and cohesive.
 
 Central to DDD is the concept of *ubiquitous language*, a shared vocabulary that developers and domain experts build together within each bounded context. This language is used consistently in conversations, documentation, and code. When the same terms carry the same meaning across all of these surfaces, teams reduce misunderstandings and produce domain models that accurately reflect business intent. Each bounded context can have its own ubiquitous language, which means the same word (for example, "account") can carry different meanings in different contexts.
 
@@ -51,7 +51,7 @@ This scenario involves a complex domain. Some of the key business concerns inclu
 
 ## Analyze the domain
 
-A DDD approach helps you design microservices so that every service forms a natural fit to a functional business requirement. It can help you avoid the trap of letting organizational boundaries or technology choices dictate your design.
+A DDD approach helps you design microservices so that every service forms a natural fit to a functional business requirement. It helps you avoid the trap of letting organizational boundaries or technology choices dictate your design.
 
 > [!TIP]
 > [Conway's Law](https://en.wikipedia.org/wiki/Conway's_law) observes that systems tend to mirror the communication structures of the organizations that build them. When that mirroring happens passively, it can lead to architectures that reflect org charts rather than business domains. However, you can use DDD to your advantage here: define service boundaries through domain analysis first, and then intentionally align team ownership to those boundaries. This proactive approach helps ensure that your team structure reinforces, rather than undermines, the architecture.
@@ -89,7 +89,7 @@ DDD classifies subdomains into three categories, and this classification helps y
 Notice that at this point in the process, you haven't made any decisions about implementation or technologies. Some of the subsystems might involve external software systems or third-party services. Even so, the application needs to interact with these systems and services, so it's important to include them in the domain model.
 
 > [!NOTE]
-> When an application depends on an external system, there's a risk that the external system's data schema or API can leak into the application. This kind of leakage can compromise the architectural design. It's especially common with legacy systems that don't follow modern best practices and might use convoluted data schemas or outdated APIs. In these cases, it's important to establish a well-defined boundary between the external system and the application. Consider using the [Strangler Fig pattern](../../patterns/strangler-fig.md) or the [Anti-Corruption Layer pattern](../../patterns/anti-corruption-layer.yml) to enforce this boundary.
+> When an application depends on an external system, there's a risk that the external system's data schema or API can leak into the application. This kind of leakage can compromise the architectural design. It's especially common with legacy systems that don't follow modern best practices and might use convoluted data schemas or outdated APIs. In these cases, it's important to establish a well-defined boundary between the external system and the application. Use the [Strangler Fig pattern](../../patterns/strangler-fig.md) or the [Anti-Corruption Layer pattern](../../patterns/anti-corruption-layer.yml) to enforce this boundary.
 
 ## Define bounded contexts
 
@@ -97,7 +97,7 @@ The domain model will include representations of real things in the world &mdash
 
 For example, subsystems that handle drone repair and predictive analysis will need to represent many physical characteristics of drones, such as their maintenance history, mileage, age, model number, and performance characteristics. But when it's time to schedule a delivery, those details aren't relevant. The scheduling subsystem only needs to know whether a drone is available, and the ETA for pickup and delivery.
 
-If you tried to create a single model for both of these subsystems, it would be unnecessarily complex. It would also become harder for the model to evolve over time, because any changes would need to satisfy multiple teams working on separate subsystems. Therefore, it's often better to design separate models that represent the same real-world entity (in this case, a drone) in two different contexts. Each model contains only the features and attributes that are relevant within its particular context.
+If you tried to create a single model for both of these subsystems, it would be unnecessarily complex. It would also become harder for the model to evolve over time, because any changes would need to satisfy multiple teams working on separate subsystems. Therefore, it's better to design separate models that represent the same real-world entity (in this case, a drone) in two different contexts. Each model contains only the features and attributes that are relevant within its particular context.
 
 The DDD concept of *bounded contexts* comes into play here. A bounded context defines the boundary within a domain where a specific domain model applies. Referring to the previous diagram, you can group functionality based on whether different functions share the same domain model.
 
