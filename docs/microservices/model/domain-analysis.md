@@ -53,6 +53,8 @@ A DDD approach helps you design microservices so that every service forms a natu
 
 > [!TIP]
 > [Conway's Law](https://en.wikipedia.org/wiki/Conway's_law) observes that systems tend to mirror the communication structures of the organizations that build them. When that mirroring happens passively, it can lead to architectures that reflect org charts rather than business domains. However, you can use DDD to your advantage here: define service boundaries through domain analysis first, and then intentionally align team ownership to those boundaries. This proactive approach helps ensure that your team structure reinforces, rather than undermines, the architecture.
+>
+> If a single team must own multiple unrelated bounded contexts, or a single bounded context requires coordination across many teams, revisit either the boundaries or the team structure.
 
 Before you write any code, you should have a high-level understanding of the system that you're building. DDD starts by modeling the business domain and creating a *domain model*. The domain model is an abstract model of the business domain. It distills and organizes domain knowledge and provides a common language for developers and domain experts.
 
