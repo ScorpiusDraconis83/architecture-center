@@ -73,6 +73,12 @@ After some initial domain analysis, the Fabrikam team came up with a rough sketc
 - **Video surveillance** is another area that the company might expand into later.
 - **User accounts**, **Invoicing**, and **Call center** are subdomains that support the core business.
 
+DDD classifies subdomains into three categories, and this classification helps you prioritize where to invest the most design effort:
+
+- **Core subdomains** provide competitive advantage. Shipping and Drone management are core subdomains for Fabrikam because they define the business. These subdomains deserve the deepest modeling and the strongest team investment.
+- **Supporting subdomains** are necessary for the business to operate but don't differentiate it from competitors. Invoicing falls into this category. It will require custom development but aren't the source of competitive advantage.
+- **Generic subdomains** are problems that are already solved across the industry. User accounts and Call center are generic subdomains that Fabrikam can maybe be addressed with off-the-shelf or commodity solutions rather than custom-built systems.
+
 Notice that at this point in the process, we haven't made any decisions about implementation or technologies. Some of the subsystems might involve external software systems or third-party services. Even so, the application needs to interact with these systems and services, so it's important to include them in the domain model.
 
 > [!NOTE]
