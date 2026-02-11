@@ -52,7 +52,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 ### Determine if the operation is suitable for retrying
 
-- Perform retry operations only when the faults are transient (typically indicated by the nature of the error) and when there's at least some likelihood that the operation can succeed when retried. There's no point in retrying operations that attempt an invalid operation, like a database update to an item that doesn't exist or a request to a service or resource that suffered a fatal error.
+- Perform retry operations only when the faults are transient (typically indicated by the nature of the error) and when there's at least some likelihood that the operation can succeed when retried. For HTTP-based services, status code 429 (Too Many Requests) and 5xx server errors are typical retry candidates, while most 4xx client errors (such as 400, 401, 403, and 404) indicate problems that a retry won't resolve. There's no point in retrying operations that attempt an invalid operation, like a database update to an item that doesn't exist or a request to a service or resource that suffered a fatal error.
 
 - In general, implement retries only when you can determine the full effect of doing so and when the conditions are well understood and can be validated. Otherwise, let the calling code implement retries. Remember that the errors returned from resources and services outside your control might evolve over time, and you might need to revisit your transient fault detection logic.
 
@@ -86,7 +86,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 - Don't implement overly aggressive retry strategies. These are strategies that have intervals that are too short or retries that are too frequent. They can have an adverse effect on the target resource or service. These strategies might prevent the resource or service from recovering from its overloaded state, and it continues to block or refuse requests. This scenario results in a vicious circle, where more and more requests are sent to the resource or service. Consequently, its ability to recover is further reduced.
 
-- Use the type of the exception and any data it contains, or the error codes and messages returned from the service, to optimize the number of retries and the interval between them. For example, some exceptions or error codes (like the HTTP code 503, Service Unavailable, with a Retry-After header in the response) might indicate how long the error might last, or that the service failed and won't respond to any subsequent attempt.
+- Use the type of the exception and any data it contains, or the error codes and messages returned from the service, to optimize the number of retries and the interval between them. For example, some exceptions or error codes (like HTTP 503, Service Unavailable) might indicate that the service failed and won't respond to any subsequent attempt. When a response includes a `Retry-After` header, honor it by waiting at least the indicated duration before the next attempt. This server-provided signal reflects the service's view of its own recovery timeline and takes precedence over your client side back-off calculation.
 
 - Use a [*dead-letter queue*](/azure/service-bus-messaging/service-bus-dead-letter-queues) approach so that the information from the incoming request isn't lost after all retry attempts are exhausted. This technique lets you defer failed work for later processing rather than discarding it entirely.
 
@@ -175,3 +175,4 @@ The following guidelines can help you design suitable transient fault handling m
 - [Reliability guides for Azure services](/azure/reliability/reliability-guidance-overview)
 - [Retry pattern](../patterns/retry.yml)
 - [Retry storm antipattern](../antipatterns/retry-storm/index.md)
+- [Throttling pattern](../patterns/throttling.yml)
