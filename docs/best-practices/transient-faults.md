@@ -48,6 +48,8 @@ The following guidelines can help you design suitable transient fault handling m
 
 - You should use the built-in retry mechanism when one is available, unless you have specific and well-understood requirements that make a different retry behavior more appropriate.
 
+- Azure services each handle transient faults differently. Some provide SDK-level retry policies with configurable back-off, others offer platform features like health probes and visibility timeouts that complement application-level retry logic. Check the [reliability guide](/azure/reliability/reliability-guidance-overview) for each Azure service you use. These guides include a dedicated section with service-specific recommendations for retry configuration, timeout tuning, and health monitoring.
+
 ### Determine if the operation is suitable for retrying
 
 - Perform retry operations only when the faults are transient (typically indicated by the nature of the error) and when there's at least some likelihood that the operation can succeed when retried. There's no point in retrying operations that attempt an invalid operation, like a database update to an item that doesn't exist or a request to a service or resource that suffered a fatal error.
@@ -122,7 +124,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 - Store the values that are used to build the retry policies at runtime in the application's configuration system so that you can change them without needing to restart the application.
 
-- Take advantage of built-in or default retry strategies that are available in the client APIs that you use, but only when they're appropriate for your scenario. These strategies are typically generic. In some scenarios, they might be all you need, but in other scenarios they don't offer the full range of options to suit your specific requirements. To determine the most appropriate values, you need to perform testing to understand how the settings affect your application.
+- Take advantage of built-in or default retry strategies that are available in the client APIs that you use, but only when they're appropriate for your scenario. These strategies are typically generic. In some scenarios, they might be all you need, but in other scenarios they don't offer the full range of options to suit your specific requirements. To determine the most appropriate values, you need to perform testing to understand how the settings affect your application. For service-specific retry defaults and configuration options, check the [reliability guide](/azure/reliability/reliability-guidance-overview) for each Azure service in your architecture.
 
 ### Log and track transient and nontransient faults
 
@@ -166,5 +168,6 @@ The following guidelines can help you design suitable transient fault handling m
 - [Compensating Transaction pattern](../patterns/compensating-transaction.yml)
 - [Idempotency patterns](../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing)
 - [Recommendations for handling transient faults](/azure/well-architected/reliability/handle-transient-faults)
+- [Reliability guides for Azure services](/azure/reliability/reliability-guidance-overview)
 - [Retry pattern](../patterns/retry.yml)
 - [Retry storm antipattern](../antipatterns/retry-storm/index.md)
