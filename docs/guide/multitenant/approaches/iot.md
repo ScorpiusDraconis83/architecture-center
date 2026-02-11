@@ -262,7 +262,7 @@ If the device communications plane uses horizontal partitioning, telemetry data 
 
 #### Stream processing
 
-When you partition stream processing, you can define tenant-specific analysis within the stream processors.
+When you partition stream processing, you create a structure that lets each tenant customize the analysis within the stream processors.
 
 ### Single-tenant automated
 
