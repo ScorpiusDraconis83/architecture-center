@@ -4,6 +4,7 @@ description: Learn how to handle transient faults caused by loss of network conn
 ms.author: pnp
 author: claytonsiemens77
 ms.date: 02/11/2026
+ms.update-cycle: 1095-days
 ms.topic: best-practice
 ms.subservice: best-practice
 ---
