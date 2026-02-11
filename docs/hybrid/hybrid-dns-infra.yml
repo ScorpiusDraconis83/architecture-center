@@ -1,6 +1,6 @@
 ### YamlMime:Architecture
 metadata:
-  title: Design a Hybrid Domain Name System Solution with Azure
+  title: Design a Hybrid Domain Name System (DNS) Solution by using Azure
   description: Learn how to design a hybrid Domain Name System (DNS) solution to resolve names for workloads that are hosted on-premises and in Microsoft Azure.
   author: erjosito
   ms.author: jomore
@@ -14,7 +14,7 @@ metadata:
   ms.custom:
     - e2e-hybrid
     - arb-hybrid
-name: Design a hybrid Domain Name System solution with Azure
+name: Design a hybrid Domain Name System (DNS) solution by using Azure
 azureCategories:
   - hybrid
   - networking
