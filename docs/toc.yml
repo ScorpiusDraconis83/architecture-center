@@ -348,7 +348,7 @@ items:
     - name: Network secure global ingress
       href: pattern-implementations/network-secure-ingress.md
   - name: Ambassador
-    href: patterns/ambassador.yml
+    href: patterns/ambassador.md
   - name: Anti-Corruption Layer
     href: patterns/anti-corruption-layer.yml
   - name: Asynchronous Request-Reply

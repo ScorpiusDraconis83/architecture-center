@@ -1,3 +1,15 @@
+---
+title: Ambassador pattern
+description: Learn about the Ambassador pattern, which creates helper services that send network requests on behalf of a consumer service or application.
+author: claytonsiemens77
+ms.author: pnp
+ms.date: 02/10/2026
+ms.topic: design-pattern
+ms.subservice: cloud-fundamentals
+---
+
+# Ambassador pattern
+
 Create helper services that send network requests on behalf of a consumer service or application. An ambassador service can be thought of as an out-of-process proxy that is co-located with the client.
 
 This pattern can be useful for offloading common client connectivity tasks such as monitoring, logging, routing, security (such as TLS), and [resiliency patterns](/azure/well-architected/reliability/design-patterns) in a language agnostic way. It's often used with legacy applications, or other applications that are difficult to modify, in order to extend their networking capabilities. It can also enable a specialized team to implement those features.
@@ -18,7 +30,9 @@ Features that are offloaded to the ambassador can be managed independently of th
 
 Ambassador services can be deployed as a [sidecar](./sidecar.yml) to accompany the lifecycle of a consuming application or service. Alternatively, if an ambassador is shared by multiple separate processes on a common host, it can be deployed as a daemon or Windows service. If the consuming service is containerized, the ambassador should be created as a separate container on the same host, with the appropriate links configured for communication.
 
-## Issues and considerations
+## Problems and considerations
+
+Consider the following points as you decide how to implement this pattern:
 
 - The proxy adds some latency overhead. Consider whether a client library, invoked directly by the application, is a better approach.
 - Consider the possible impact of including generalized features in the proxy. For example, the ambassador could handle retries, but that might not be safe unless all operations are idempotent.
@@ -28,17 +42,20 @@ Ambassador services can be deployed as a [sidecar](./sidecar.yml) to accompany t
 
 ## When to use this pattern
 
-Use this pattern when you:
+Use this pattern when:
 
 - Need to build a common set of client connectivity features for multiple languages or frameworks.
 - Need to offload cross-cutting client connectivity concerns to infrastructure developers or other more specialized teams.
 - Need to support cloud or cluster connectivity requirements in a legacy application or an application that is difficult to modify.
+- You must support protocols or connectivity patterns that **aren't easily handled** by API gateways, service meshes, or standard ingress/egress controls.
 
-This pattern might not be suitable:
+This pattern might not be suitable when:
 
 - When network request latency is critical. A proxy introduces some overhead, although minimal, and in some cases this might affect the application.
 - When client connectivity features are consumed by a single language. In that case, a better option might be a client library that is distributed to the development teams as a package.
 - When connectivity features can't be generalized and require deeper integration with the client application.
+- When a service mesh such as [Open Service Mesh](https://openservicemesh.io/) or [Istio service mesh](https://istio.io/latest/about/service-mesh/) is already in place, as it provides built‑in mTLS, traffic management, and policy capabilities that eliminate the need for ambassador containers.
+- When you only require routing or security capabilities, as these can be handled more effectively using [Azure Front Door](/azure/frontdoor/), [Azure API Management](/azure/api-management/), [Azure Application Gateway or Application Gateway for Containers](/azure/application-gateway/for-containers/overview), or [Azure Firewall](/azure/firewall/).
 
 ## Workload design
 
@@ -46,7 +63,7 @@ An architect should evaluate how the Ambassador pattern can be used in their wor
 
 | Pillar | How this pattern supports pillar goals |
 | :----- | :------------------------------------- |
-| [Reliability](/azure/well-architected/reliability/checklist) design decisions help your workload become **resilient** to malfunction and to ensure that it **recovers** to a fully functioning state after a failure occurs. | The network communications mediation point facilitated by this pattern provides an opportunity to add reliability patterns to network communication, such as retry or buffering.<br/><br/> - [RE:07 Self-preservation](/azure/well-architected/reliability/self-preservation) |
+| [Reliability](/azure/well-architected/reliability/checklist) design decisions help your workload become **resilient** to malfunction and ensure that it **recovers** to a fully functioning state after a failure occurs. | The network communications mediation point facilitated by this pattern provides an opportunity to add reliability patterns to network communication, such as retry or buffering.<br/><br/> - [RE:07 Self-preservation](/azure/well-architected/reliability/self-preservation) |
 | [Security](/azure/well-architected/security/checklist) design decisions help ensure the **confidentiality**, **integrity**, and **availability** of your workload's data and systems. | This pattern provides an opportunity to augment security on network communications that couldn't have been handled by the client directly.<br/><br/> - [SE:06 Network controls](/azure/well-architected/security/networking)<br/> - [SE:07 Encryption](/azure/well-architected/security/encryption) |
 
 As with any design decision, consider any tradeoffs against the goals of the other pillars that might be introduced with this pattern.
@@ -57,6 +74,15 @@ The following diagram shows an application making a request to a remote service 
 
 ![Example of the Ambassador pattern](./_images/ambassador-example.png)
 
+In a Kubernetes or containerized environment, the ambassador would typically run as a **sidecar container** next to the application container. In non-containerized environments, it could be implemented as a local process or Windows service on the same host.
+
+## Next steps
+
+- Explore how a [service mesh](/azure/aks/servicemesh-about) centralizes traffic management and security.
+- Review options for secure, global HTTP routing with [Azure Front Door documentation](/azure/frontdoor/).
+- Discover how to centralize APIs and security policies using [Azure API Management documentation](/azure/api-management/).
+
 ## Related resources
 
 - [Sidecar pattern](./sidecar.yml)
+- [Circuit Breaker pattern](./circuit-breaker.md)
