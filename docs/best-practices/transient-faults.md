@@ -12,7 +12,7 @@ ms.subservice: best-practice
 
 All applications that communicate with remote services and resources must be sensitive to transient faults. This is especially true for applications that run in the cloud, where, because of the nature of the environment and connectivity over the internet, this type of fault is likely to be encountered more often. Transient faults include the momentary loss of network connectivity to components and services, the temporary unavailability of a service, and timeouts that occur when a service is busy. These faults are often self-correcting, so, if the action is repeated after a suitable delay, it's likely to succeed.
 
-This article provides general guidance for transient fault handling.
+[Transient fault handling](/azure/well-architected/reliability/handle-transient-faults) is a key resiliency technique within the [Reliability pillar](/azure/well-architected/reliability/) of the Azure Well-Architected Framework. By detecting and recovering from transient faults at the application level, you reduce the likelihood of cascading failures that could trigger broader incident response or [disaster recovery](/azure/well-architected/reliability/disaster-recovery) procedures. Effective transient fault handling helps your workload absorb routine disruptions and maintain availability without escalating to infrastructure-level recovery.
 
 ## Why do transient faults occur in the cloud?
 
@@ -163,3 +163,4 @@ The following guidelines can help you design suitable transient fault handling m
 - [Circuit Breaker pattern](../patterns/circuit-breaker.md)
 - [Compensating Transaction pattern](../patterns/compensating-transaction.yml)
 - [Idempotency patterns](../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing)
+- [Recommendations for handling transient faults](/azure/well-architected/reliability/handle-transient-faults)
