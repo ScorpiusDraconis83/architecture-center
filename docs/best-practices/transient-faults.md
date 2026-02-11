@@ -58,7 +58,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 ### Determine an appropriate retry count and interval
 
-- Optimize the retry count and the interval to the type of use case. If you don't retry enough times, the application can't complete the operation and then probably fail. If you retry too many times, or with too short an interval between tries, the application might hold resources like threads, connections, and memory for long periods, which adversely affects the health of the application.
+- Optimize the retry count and the interval to the type of use case. If you don't retry enough times, the application can't complete the operation and then probably fail. If you retry too many times, or with too short an interval between tries, the application might hold resources like threads, connections, and memory for long periods, which adversely affects the health of the application. For detailed implementation guidance, see the [Retry pattern](../patterns/retry.yml).
 
 - Adapt values for the time interval and the number of retry attempts to the type of operation. For example, if the operation is part of a user interaction, the interval should be short and only a few retries should be attempted. By using this approach, you can avoid making users wait for a response, which holds open connections and can reduce availability for other users. If the operation is part of a long running or critical workflow, where canceling and restarting the process is expensive or time-consuming, it's appropriate to wait longer between attempts and retry more times.
 
@@ -86,7 +86,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 ### Avoid antipatterns
 
-- In most cases, avoid implementations that include duplicated layers of retry code. Avoid designs that include cascading retry mechanisms or that implement retry at every stage of an operation that involves a hierarchy of requests, unless you have specific requirements that require doing so. In these exceptional circumstances, use policies that prevent excessive numbers of retries and delay periods, and make sure you understand the consequences. For example, say one component makes a request to another, which then accesses the target service. If you implement retry with a count of three on both calls, there are nine retry attempts in total against the service. Many services and resources implement a built-in retry mechanism. You should investigate how you can disable or modify these mechanisms if you need to implement retries at a higher level.
+- In most cases, avoid implementations that include duplicated layers of retry code. Avoid designs that include cascading retry mechanisms or that implement retry at every stage of an operation that involves a hierarchy of requests, unless you have specific requirements that require doing so. In these exceptional circumstances, use policies that prevent excessive numbers of retries and delay periods, and make sure you understand the consequences. For example, say one component makes a request to another, which then accesses the target service. If you implement retry with a count of three on both calls, there are nine retry attempts in total against the service. Many services and resources implement a built-in retry mechanism. You should investigate how you can disable or modify these mechanisms if you need to implement retries at a higher level. For more information about the risks of uncoordinated retries, see [Retry storm antipattern](../antipatterns/retry-storm/index.md).
 
 - Never implement an endless retry mechanism. Doing so is likely to prevent the resource or service from recovering from overload situations and to cause throttling and refused connections to continue for a longer time. Use a finite number of retries, or implement a pattern like [Circuit Breaker](../patterns/circuit-breaker.md) to allow the service to recover.
 
@@ -164,3 +164,5 @@ The following guidelines can help you design suitable transient fault handling m
 - [Compensating Transaction pattern](../patterns/compensating-transaction.yml)
 - [Idempotency patterns](../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing)
 - [Recommendations for handling transient faults](/azure/well-architected/reliability/handle-transient-faults)
+- [Retry pattern](../patterns/retry.yml)
+- [Retry storm antipattern](../antipatterns/retry-storm/index.md)
