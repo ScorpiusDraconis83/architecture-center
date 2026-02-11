@@ -166,13 +166,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 - Consider how your retry strategy might affect neighbors and other tenants in a shared application and when you use shared resources and services. Aggressive retry policies can cause an increasing number of transient faults to occur for these other users and for applications that share the resources and services. Likewise, your application might be affected by the retry policies implemented by other users of the resources and services. For business-critical applications, you might want to use premium services that aren't shared. Doing so provides you with more control over the load and consequent throttling of these resources and services, which can help to justify the extra cost.
 
-## Related resources
+## Next step
 
-- [Circuit Breaker pattern](../patterns/circuit-breaker.md)
-- [Compensating Transaction pattern](../patterns/compensating-transaction.yml)
-- [Idempotency patterns](../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing)
-- [Recommendations for handling transient faults](/azure/well-architected/reliability/handle-transient-faults)
-- [Reliability guides for Azure services](/azure/reliability/reliability-guidance-overview)
-- [Retry pattern](../patterns/retry.yml)
-- [Retry storm antipattern](../antipatterns/retry-storm/index.md)
-- [Throttling pattern](../patterns/throttling.yml)
+> [!div class="nextstepaction"]
+> [Workload design to handle transient faults](/azure/well-architected/reliability/handle-transient-faults)
