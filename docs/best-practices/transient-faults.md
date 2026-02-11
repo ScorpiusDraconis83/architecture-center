@@ -19,7 +19,7 @@ All applications that communicate with remote services and resources must be sen
 
 Transient faults can occur in any environment, on any platform or operating system, and in any kind of application. For solutions that run on on-premises infrastructure, the performance and availability of the application and its components are typically maintained via expensive and often underused hardware redundancy, and components and resources are located close to each other. This approach makes failure less likely, but transient faults can still occur, as can outages caused by unforeseen events like external power supply or network issues, or other disaster scenarios.
 
-Cloud hosting, including private cloud systems, can offer higher overall availability by using shared resources, redundancy, automatic failover, and dynamic resource allocation across many commodity compute nodes. However, the nature of cloud environments makes transient faults more likely for several reasons:
+Cloud environments can offer higher overall availability because they distribute workloads across many servers and use redundancy, automatic failover, and dynamic resource allocation. However, the nature of cloud environments makes transient faults more likely for several reasons:
 
 - Many resources in a cloud environment are shared, and access to these resources is subject to [throttling](../patterns/throttling.yml) to protect the resources. Some services refuse connections when the load rises to a specific level, or when a maximum throughput rate is reached, to allow processing of existing requests and to maintain performance of the service for all users. Throttling helps maintain the quality of service for neighbors and other tenants that use the shared resource.
 
