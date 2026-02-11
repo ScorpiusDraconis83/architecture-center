@@ -145,7 +145,7 @@ The following guidelines can help you design suitable transient fault handling m
 
 ### Manage operations that continually fail
 
-- Plan for how you handle operations that continue to fail at every attempt. Situations like this are inevitable.
+- Create a plan to handle operations that continue to fail at every attempt. Situations like this are inevitable.
 
   - Although a retry strategy defines the maximum number of times that an operation should be retried, it doesn't prevent the application from repeating the operation again with the same number of retries. For example, if an order processing service fails with a fatal error that puts it out of action permanently, the retry strategy might detect a connection timeout and consider it to be a transient fault. The code retries the operation a specified number of times and then gives up. However, when another customer places an order, the operation is attempted again, even though it then fails every time.
 
