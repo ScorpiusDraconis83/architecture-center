@@ -162,8 +162,4 @@ The following guidelines can help you design suitable transient fault handling m
 
 - [Circuit Breaker pattern](../patterns/circuit-breaker.md)
 - [Compensating Transaction pattern](../patterns/compensating-transaction.yml)
-- [Idempotency patterns][idempotency-patterns]
-
-<!-- links -->
-
-[idempotency-patterns]: https://blog.jonathanoliver.com/idempotency-patterns
+- [Idempotency patterns](../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing)
