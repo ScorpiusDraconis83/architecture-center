@@ -100,9 +100,9 @@ From these scenarios, the development team identified the following **entities**
 - Notification
 - Tag
 
-The first four, Delivery, Package, Drone, and Account, are all **aggregates** that represent transactional consistency boundaries. Confirmations and Notifications are child entities of Deliveries, and Tags are child entities of Packages.
+The first four, Delivery, Package, Drone, and Account, are all **aggregates** that represent transactional consistency boundaries. Each has an independent lifecycle and is managed by a different part of the system. For example, a delivery can be created, updated, and completed without requiring a transaction that locks the drone or account. Confirmations and Notifications are child entities of Deliveries because they don't exist independently. Tags are child entities of Packages for the same reason.
 
-The **value objects** in this design include Location, ETA, PackageWeight, and PackageSize.
+The **value objects** in this design include Location, ETA, PackageWeight, and PackageSize. These have no identity of their own and are not tracked over time.
 
 To illustrate, here is a UML diagram of the Delivery aggregate. Notice that it holds references to other aggregates, including Account, Package, and Drone.
 
