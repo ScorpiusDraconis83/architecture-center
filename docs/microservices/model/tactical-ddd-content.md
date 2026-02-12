@@ -24,7 +24,13 @@ This section provides a brief summary of the tactical DDD patterns. If you're fa
 
 - Entities should encapsulate behavior, not just carry data. An entity that contains only properties with getters and setters, while all business logic lives in external service classes, is an *anemic domain model*. This anti-pattern loses the core benefit of DDD: expressing business rules in the domain model itself. Place validation, state transitions, and business rules inside the entity. For example, a `Delivery` entity should contain the logic for whether it can be canceled, rather than delegating that decision to an external service.
 
-**Value objects**. A value object has no identity. It's defined only by the values of its attributes. Value objects are immutable. To update a value object, a new instance is created to replace the old one. Value objects can include methods that encapsulate domain logic, but those methods must not produce side effects or modify the object's state. Common examples of value objects include colors, dates and times, and currency values.
+**Value objects**. A value object has no identity. It's defined only by the values of its attributes. Two value objects with the same attribute values are interchangeable. Common examples include colors, dates and times, currency amounts, and measurements.
+
+- Value objects are immutable. To update a value object, you create a new instance to replace the old one. Immutable objects are safe to share across threads, can be cached without defensive copying, and are easier to reason about in distributed systems.
+
+- Value objects can include methods that encapsulate domain logic, but those methods should not produce side effects. They return new value objects instead.
+
+- **Prefer value objects as your default modeling choice.** Only promote a concept to an entity when you need to track its identity over time. For example, an `Address` is typically a value object — two addresses with the same street, city, and postal code are interchangeable. But if your domain needs to track a specific address record over time (for example, for audit purposes), then it becomes an entity.
 
 **Aggregates**. An aggregate defines a consistency boundary around one or more entities. Exactly one entity in an aggregate is the root. Lookup is done using the root entity's identifier. Any other entities in the aggregate are children of the root, and are referenced by following pointers from the root.
 
