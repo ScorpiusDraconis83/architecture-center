@@ -121,7 +121,7 @@ Power Automate is a low-code application platform that you can use to automate r
 
   - [Real-Time Intelligence](/fabric/real-time-intelligence/overview) is a feature that provides stream ingestion and processing capabilities. In this architecture, it supports real-time analytics by capturing and analyzing data in motion through eventstreams and reflexes.
 
-  - [Microsoft Copilot](/fabric/get-started/copilot-fabric-overview) is a natural language interface that generates insights and visualizations. In this architecture, it helps users interact with data in Fabric and Power BI.
+  - [Microsoft Copilot](/fabric/fundamentals/copilot-fabric-overview) is a natural language interface that generates insights and visualizations. In this architecture, it helps users interact with data in Fabric and Power BI.
 
 - [Power BI](/power-bi/fundamentals/power-bi-overview) is a BI tool for creating dashboards and reports. In this architecture, it visualizes lakehouse data by using semantic models and Direct Lake mode for in-memory performance.
 
