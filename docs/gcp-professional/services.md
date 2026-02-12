@@ -26,7 +26,7 @@ For an overview of Azure for Google Cloud users, see the introduction to [Azure 
 
 | Google Cloud service | Azure service | Description |
 | --- | --- | --- |
-| [Google Cloud Marketplace](https://cloud.google.com/marketplace) | [Azure Marketplace](https://azure.microsoft.com/marketplace/) | Preconfigured third-party applications that can be deployed to single or multiple virtual machines. |
+| [Google Cloud Marketplace](https://cloud.google.com/marketplace) | [Microsoft Marketplace](https://marketplace.microsoft.com) | Preconfigured third-party applications that can be deployed to single or multiple virtual machines. |
 
 ## Data platform
 
@@ -195,7 +195,7 @@ Here are some architectures that use AKS as the orchestrator.
 
 | Architecture | Description |
 |----|----|
-| [Cross-cloud scaling pattern](/azure/adaptive-cloud/app-solutions/pattern-cross-cloud-scale) | Learn how to improve cross-cloud scalability with solution architecture that includes Azure Stack. A step-by-step flowchart details instructions for implementation. |
+| [Cross-cloud scaling pattern](/azure-stack/user/pattern-cross-cloud-scale) | Learn how to improve cross-cloud scalability with solution architecture that includes Azure Stack. A step-by-step flowchart details instructions for implementation. |
 
 ## DevOps and application monitoring
 
@@ -211,7 +211,7 @@ Here are some architectures that use AKS as the orchestrator.
 | [gcloud SDK](https://cloud.google.com/sdk) | [Azure SDKs and Tools](https://azure.microsoft.com/downloads/) | The Azure SDKs are collections of libraries that make it easier to use Azure services from your language of choice. These libraries are consistent, approachable, diagnosable, dependable, and idiomatic. The Azure command-line interface (CLI) is a set of commands used to create and manage Azure resources. The Azure CLI is available across Azure services and is designed to get you working quickly with Azure, with an emphasis on automation. |
 | [Cloud Shell](https://cloud.google.com/shell) | [Azure Cloud Shell](/azure/cloud-shell/overview) | Azure Cloud Shell is an interactive, authenticated, browser-accessible shell for managing Azure resources. It provides the flexibility of choosing the shell experience that best suits the way you work, either Bash or PowerShell. |
 | [PowerShell on Google Cloud](https://cloud.google.com/tools/powershell/docs/quickstart) | [Azure PowerShell](/powershell/azure/?view=azps-3.7.0&preserve-view=true) | Azure PowerShell is a set of cmdlets for managing Azure resources directly from the PowerShell command line. Azure PowerShell is designed to be approachable and includes features for automation. Azure PowerShell works all [platforms that support PowerShell version 7 or higher](/powershell/scripting/install/PowerShell-Support-Lifecycle#supported-platforms). |
-| [Cloud Deployment Manager](https://cloud.google.com/deployment-manager) | [Azure Marketplace](https://azuremarketplace.microsoft.com) | The Marketplace is a catalog of software offerings validated to run on Azure. |
+| [Cloud Deployment Manager](https://cloud.google.com/deployment-manager) | [Microsoft Marketplace](https://marketplace.microsoft.com) | The Marketplace is a catalog of software offerings validated to run on Azure. |
 | [Cloud Deployment Manager](https://cloud.google.com/deployment-manager) | [Azure Resource Manager](https://azure.microsoft.com/features/resource-manager/) | Provides a way for users to automate the manual, long-running, error-prone, and frequently repeated IT tasks. |
 
 ### DevOps architectures
@@ -395,7 +395,7 @@ Here are some architectures that use AKS as the orchestrator.
 | App migration to containers | Migrate for Anthos | [Azure Migrate: App Containerization tool](/azure/migrate/tutorial-app-containerization-aspnet-kubernetes) | Modernize your application by migrating it to AKS or App Services containers. |
 | Migration of virtual machines | [Migrate for Compute Engine](https://cloud.google.com/migrate/compute-engine) | [Azure Migrate: Server Migration tool](/azure/migrate/tutorial-migrate-physical-virtual-machines) | Migrate servers from anywhere to Azure. |
 | VMware migration | [Google Cloud VMware Engine](https://cloud.google.com/vmware-engine) | [Azure VMware Solution](/azure/migrate/vmware/start-here-vmware) | Move or extend on-premises VMware environments to Azure. |
-| Migration of databases | [Database Migration Service](https://cloud.google.com/database-migration) | [Azure Database Migration Service (classic)](/azure/dms/migration-using-azure-data-studio?tabs=azure-sql-mi), [Azure SQL Migration extension for Azure Data Studio](/azure/dms/migration-using-azure-data-studio?tabs=azure-sql-mi) | Fully managed service designed to enable migrations from multiple database sources to Azure data platforms with minimal downtime. |
+| Migration of databases | [Database Migration Service](https://cloud.google.com/database-migration) | [Azure Database Migration Service](/azure/dms/dms-overview) | Fully managed service designed to enable migrations from multiple database sources to Azure data platforms with minimal downtime. |
 | Migration programs | [Google Cloud Rapid Assessment & Migration Program (RAMP)](https://cloud.google.com/solutions/cloud-migration-program) | [Azure Migration and Modernization Program](https://azure.microsoft.com/migration/migration-modernization-program/#overview) | Learn how to move your apps, data, and infrastructure to Azure using a proven cloud migration and modernization approach. |
 | Server assessment | [Migrate to Google Cloud](https://cloud.google.com/architecture/migration-to-gcp-assessing-and-discovering-your-workloads) | [Azure Migrate](/azure/migrate/migrate-services-overview#azure-migrate-discovery-and-assessment-tool) | Increases business intelligence by accurately presenting entire IT environments within a single day. |
 | Database assessment | [Migrate to Google Cloud](https://cloud.google.com/architecture/migration-to-gcp-assessing-and-discovering-your-workloads) | [Data Migration Assistant](/azure/migrate/concepts-azure-sql-assessment-calculation) |  It helps pinpoint potential problems blocking migration. It identifies unsupported features, new features that can benefit you after migration, and the right path for database migration. |
