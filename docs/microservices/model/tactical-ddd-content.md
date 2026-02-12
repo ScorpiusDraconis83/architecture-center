@@ -74,7 +74,7 @@ In a microservices architecture, domain events sometimes need to cross microserv
 
 ### Additional patterns
 
-There are a few other DDD patterns not covered here, including factories, repositories, and modules. These patterns can be helpful when you implement a microservice, but they're less relevant when you design the boundaries between microservices.
+There are other DDD patterns not covered here, including factories, repositories, and modules. These patterns are important when you implement a microservice, but this article focuses on the patterns that help you identify microservice boundaries.
 
 ## Drone delivery: Applying the patterns
 
