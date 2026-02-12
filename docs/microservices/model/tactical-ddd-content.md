@@ -41,6 +41,14 @@ Traditional applications have often used database transactions to enforce consis
 > [!NOTE]
 > An aggregate might consist of a single entity, without child entities. What makes it an aggregate is the transactional boundary.
 
+When you design aggregates, keep these rules in mind:
+
+- **Design small aggregates.** Include only the data that must be consistent within a single transaction. In the drone delivery example, Delivery, Package, Drone, and Account are each separate aggregates because they have independent lifecycles. Combining them would force unrelated updates to contend for the same locks.
+
+- **Reference other aggregates by identity only.** The Delivery aggregate stores a `DroneId` and a `PackageId`, not direct references to those objects. This keeps aggregates decoupled — a property that maps directly to microservice boundaries.
+
+- **Use eventual consistency across aggregates.** When a business process spans multiple aggregates, use domain events rather than a single transaction. When a delivery is completed, the Delivery aggregate raises a `DeliveryCompleted` event that other services react to asynchronously.
+
 **Domain and application services**. In DDD terminology, a service is an object that implements some logic without holding any state. Evans distinguishes between *domain services*, which encapsulate domain logic, and *application services*, which provide technical functionality, such as user authentication or sending an SMS message. Domain services are often used to model behavior that spans multiple entities.
 
 > [!NOTE]
