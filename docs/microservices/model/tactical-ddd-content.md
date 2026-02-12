@@ -104,7 +104,7 @@ The first four, Delivery, Package, Drone, and Account, are all **aggregates** th
 
 The **value objects** in this design include Location, ETA, PackageWeight, and PackageSize. These have no identity of their own and are not tracked over time.
 
-To illustrate, here is a UML diagram of the Delivery aggregate. Notice that it holds references to other aggregates, including Account, Package, and Drone.
+To illustrate, here is a UML diagram of the Delivery aggregate. Notice that it references other aggregates (Account, Package, and Drone) by identity only.
 
 :::image type="complex" border="false" source="../images/delivery-entity.png" alt-text="UML diagram of the Delivery aggregate." lightbox="../images/delivery-entity.png":::
    The image contains a Delivery header. Below the header are the following terms: Id string, OwnerID: REF, Pickup: Location, Drop-off: Location, Packages: REF, Expedited: BOOLEAN, Confirmation: Confirmation, and DroneId: REF. Three lines connect this section to the terms Account, Package, and Drone.
