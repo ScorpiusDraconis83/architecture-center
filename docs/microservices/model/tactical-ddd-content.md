@@ -14,11 +14,15 @@ This section provides a brief summary of the tactical DDD patterns. If you're fa
 
 **Entities**. An entity is an object with a unique identity that persists over time. For example, in a banking application, customers and accounts would be entities.
 
-- An entity has a unique identifier in the system, which can be used to look up or retrieve the entity. That doesn't mean the identifier is always exposed directly to users. It could be a GUID or a primary key in a database.
+- An entity has a unique identifier in the system, which can be used to look up or retrieve the entity.
 
-- An identity can span multiple bounded contexts and might persist beyond the lifetime of the application. For example, bank account numbers or government-issued IDs aren't tied to a specific application.
+  - Two entity instances that share the same identity represent the same domain concept, even if their attributes differ at a given point in time. For instance, a person's name or address might change, but they remain the same individual. Conversely, two instances with identical attributes but different identities are distinct entities.
 
-- The attributes of an entity can change over time. For instance, a person's name or address might change, but they remain the same individual.
+  - The identifier is always exposed directly to users. It could be a GUID or a primary key in a database.
+
+    The choice of identity strategy matters: natural keys (such as an order number or government-issued ID) carry business meaning and can be recognized across systems, while surrogate keys (such as GUIDs) are generated without business meaning but avoid coupling to external systems. In a microservices architecture, other services reference entities by their identifiers, so the identity must be stable and meaningful across service boundaries. An identity can span multiple bounded contexts and might persist beyond the lifetime of the application.
+
+- Entities should encapsulate behavior, not just carry data. An entity that contains only properties with getters and setters, while all business logic lives in external service classes, is an *anemic domain model*. This anti-pattern loses the core benefit of DDD: expressing business rules in the domain model itself. Place validation, state transitions, and business rules inside the entity. For example, a `Delivery` entity should contain the logic for whether it can be canceled, rather than delegating that decision to an external service.
 
 **Value objects**. A value object has no identity. It's defined only by the values of its attributes. Value objects are immutable. To update a value object, a new instance is created to replace the old one. Value objects can include methods that encapsulate domain logic, but those methods must not produce side effects or modify the object's state. Common examples of value objects include colors, dates and times, and currency values.
 
