@@ -6,7 +6,7 @@ This article reviews the tactical patterns and then applies them to the Shipping
 
 ## Overview of the tactical patterns
 
-This section provides a brief summary of the tactical DDD patterns. If you're familiar with DDD, you might choose to skip it. These patterns are described in more detail in chapters 5 and 6 of Eric Evans' book, and in *Implementing Domain-Driven Design* by Vaughn Vernon.
+This section provides a brief summary of the tactical DDD patterns. If you're familiar with DDD, you might choose to skip it. These patterns are described in more detail in Eric Evans' *Domain-Driven Design*, the book that first introduced the term. Another good reference is *Learning Domain-Driven Design* by Vlad Khononov for a practical, modern treatment of the subject.
 
 :::image type="complex" border="false" source="../images/ddd-patterns.png" alt-text="Diagram of tactical patterns in DDD." lightbox="../images/ddd-patterns.png":::
    The diagram has five key sections. An arrow points from Application service to Domain service. One arrow points from Domain service to the Aggregate section. Another arrow points from Domain service to an Aggregate section that contains Root entity, Entity, and Value object. A line points from the first Aggregate section to the Domain event section.
