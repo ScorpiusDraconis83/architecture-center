@@ -20,7 +20,7 @@ An entity is an object with a unique identity that persists over time. For examp
 
   - Two entity instances that share the same identity represent the same domain concept, even if their attributes differ at a given point in time. For instance, a person's name or address might change, but they remain the same individual. Conversely, two instances with identical attributes but different identities are distinct entities.
 
-  - The identifier is always exposed directly to users. It could be a GUID or a primary key in a database.
+  - The identifier isn't always exposed directly to users. It could be a GUID or a primary key in a database.
 
     The choice of identity strategy matters: natural keys (such as an order number or government-issued ID) carry business meaning and can be recognized across systems, while surrogate keys (such as GUIDs) are generated without business meaning but avoid coupling to external systems. In a microservices architecture, other services reference entities by their identifiers, so the identity must be stable and meaningful across service boundaries. An identity can span multiple bounded contexts and might persist beyond the lifetime of the application.
 
@@ -40,9 +40,9 @@ Prefer value objects as your default modeling choice. Only promote a concept to 
 
 An aggregate defines a consistency boundary around one or more entities. Exactly one entity in an aggregate is the root. Lookup is done using the root entity's identifier. Any other entities in the aggregate are children of the root, and are referenced by following pointers from the root.
 
-The purpose of an aggregate is to model transactional invariants. Things in the real world have complex webs of relationships. Customers create orders, orders contain products, and products have suppliers. If the application modifies several related objects, how does it guarantee consistency? How do we keep track of invariants and enforce them?
+The purpose of an aggregate is to model transactional invariants. Things in the real world have complex webs of relationships. Customers create orders, orders contain products, and products have suppliers. If the application modifies several related objects, it needs a way to guarantee consistency and enforce invariants.
 
-Traditional applications have often used database transactions to enforce consistency. In a distributed application, however, that's often not feasible. A single business transaction might span multiple data stores, or might be long running, or might involve third-party services. Ultimately it's up to the application, not the data layer, to enforce the invariants required for the domain. That's what aggregates are meant to model.
+Traditional applications have often used database transactions to enforce consistency. In a distributed application, however, that's often not feasible. A single business transaction might span multiple data stores, might be long running, or might involve third-party services. Ultimately, it's up to the application, not the data layer, to enforce the invariants required for the domain. That's what aggregates are meant to model.
 
 > [!NOTE]
 > An aggregate might consist of a single entity, without child entities. What makes it an aggregate is the transactional boundary.
@@ -51,7 +51,7 @@ When you design aggregates, keep these rules in mind:
 
 - **Design small aggregates.** Include only the data that must be consistent within a single transaction. In the drone delivery example, Delivery, Package, Drone, and Account are each separate aggregates because they have independent lifecycles. Combining them would force unrelated updates to contend for the same locks.
 
-- **Reference other aggregates by identity only.** The Delivery aggregate stores a `DroneId` and a `PackageId`, not direct references to those objects. This keeps aggregates decoupled — a property that maps directly to microservice boundaries.
+- **Reference other aggregates by identity only.** The Delivery aggregate stores a `DroneId` and a `PackageId`, not direct references to those objects. This decoupling maps directly to microservice boundaries.
 
 - **Use eventual consistency across aggregates.** When a business process spans multiple aggregates, use domain events rather than a single transaction. When a delivery is completed, the Delivery aggregate raises a `DeliveryCompleted` event that other services react to asynchronously.
 
@@ -62,7 +62,7 @@ In DDD terminology, a service is a stateless object that implements logic that d
 > [!TIP]
 > The term *service* is overloaded in software development. The definition used here isn't directly related to microservices.
 
-- **Domain services** encapsulate business rules that span multiple entities or aggregates. In the Shipping bounded context, the Scheduler is a domain service — scheduling logic involves business rules about drone availability, delivery windows, and route optimization that don't belong to any single entity.
+- **Domain services** encapsulate business rules that span multiple entities or aggregates. In the Shipping bounded context, the Scheduler is a domain service because scheduling logic involves business rules about drone availability, delivery windows, and route optimization that don't belong to any single entity.
 
 - **Application services** orchestrate use cases. They coordinate calls to domain services and repositories, manage transactions, and handle concerns such as user authentication or sending an SMS notification. They contain no business logic themselves. An API endpoint that receives a delivery request, calls the Scheduler, and returns the result is an application service.
 
@@ -78,16 +78,16 @@ There are other DDD patterns not covered here, including factories, repositories
 
 ## Drone delivery: Applying the patterns
 
-We start with the scenarios that the Shipping bounded context must handle.
+The Shipping bounded context must handle the following scenarios.
 
 - A customer can request a drone to pick up goods from a business that is registered with the drone delivery service.
 - The sender generates a tag (barcode or RFID) to put on the package.
-- A drone will pick up and deliver a package from the source location to the destination location.
+- A drone picks up and delivers a package from the source location to the destination location.
 - When a customer schedules a delivery, the system provides an ETA based on route information, weather conditions, and historical data.
 - When the drone is in flight, a user can track the current location and the latest ETA.
 - Until a drone has picked up the package, the customer can cancel a delivery.
 - The customer is notified when the delivery is completed.
-- The sender can request delivery confirmation from the customer, in the form of a signature or finger print.
+- The sender can request delivery confirmation from the customer, in the form of a signature or fingerprint.
 - Users can look up the history of a completed delivery.
 
 From these scenarios, the development team identified the following **entities**.
@@ -116,9 +116,9 @@ There are two domain events:
 
 - The Delivery entity sends DeliveryTracking events whenever the stage of a delivery changes. The DeliveryTracking events include DeliveryCreated, DeliveryRescheduled, DeliveryHeadedToDropoff, and DeliveryCompleted.
 
-Notice that these events describe things that are meaningful within the domain model. They describe something about the domain, and aren't tied to a particular programming language construct.
+Notice that these events describe things that are meaningful within the domain model. They represent something about the domain and aren't tied to a particular programming language construct.
 
-The development team identified one more area of functionality, which doesn't fit neatly into any of the entities described so far. Some part of the system must coordinate all of the steps involved in scheduling or updating a delivery. Therefore, the development team added two **domain services** to the design: a *Scheduler* that coordinates the steps, and a *Supervisor* that monitors the status of each step, in order to detect whether any steps failed or timed out. This approach is a variation of the [Scheduler Agent Supervisor pattern](../../patterns/scheduler-agent-supervisor.yml).
+The development team identified one more area of functionality that doesn't fit neatly into any of the entities described so far. Some part of the system must coordinate all the steps involved in scheduling or updating a delivery. The development team added two **domain services** to the design: a *Scheduler* that coordinates the steps, and a *Supervisor* that monitors the status of each step to detect whether any steps failed or timed out. This approach is a variation of the [Scheduler Agent Supervisor pattern](../../patterns/scheduler-agent-supervisor.yml).
 
 :::image type="complex" border="false" source="../images/drone-ddd.png" alt-text="Diagram of the revised domain model." lightbox="../images/drone-ddd.png":::
    The image contains 11 key sections. An arrow labeled Observes points from Supervisor to Scheduler. An arrow points from Scheduler to Drone. A double-sided arrow labeled Coordinates points from Account to Delivery. An arrow points from Coordinates to Package. A smaller arrow points from Package to Tag. A dotted arrow labeled Drone status points from Drone to Delivery. Two smaller arrows point from Delivery to Confirmation and Notification. A dotted line connects Delivery and Delivery status.
