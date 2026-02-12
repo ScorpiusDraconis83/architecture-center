@@ -32,7 +32,7 @@ The [Azure Data Factory](/fabric/data-factory/data-factory-overview) feature in 
 
 - Data pipelines provide built-in rich data orchestration capabilities for composing flexible data workflows that meet your enterprise needs.
 
-- Data flows provide a graphical user interface (GUI), similar to Power Query, that supports over 300 built-in data transformations, including AI-based operations. Use data flows to write data to native data stores in Fabric, like lakehouse, warehouse, Azure SQL, and Kusto databases.
+- Data flows provide a graphical interface, similar to Power Query, that supports over 300 built-in data transformations, including AI-based operations. Use data flows to write data to native data stores in Fabric, like lakehouse, warehouse, Azure SQL, and Kusto databases.
 
 Depending on your requirements, you can use either or both of these capabilities to create a metadata-driven ingestion framework. You can onboard data from various source systems on a defined schedule or by using event triggers.
 
