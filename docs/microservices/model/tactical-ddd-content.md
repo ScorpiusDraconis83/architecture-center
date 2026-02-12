@@ -54,7 +54,9 @@ When you design aggregates, keep these rules in mind:
 > [!NOTE]
 > The term *service* is overloaded in software development. The definition used here isn't directly related to microservices.
 
-**Domain events**. Domain events can notify other parts of the system when something occurs. As the name suggests, domain events should represent something meaningful within the domain. For example, "a record was inserted into a table" isn't a domain event. "A delivery was canceled" is a domain event. Domain events are especially important in a microservices architecture. Because microservices are distributed and don't share data stores, domain events enable coordination between services. For more information about asynchronous messaging, see [Interservice communication](../design/interservice-communication.yml).
+**Domain events**. Domain events represent something meaningful that happened within the domain. For example, "a record was inserted into a table" isn't a domain event. "A delivery was canceled" is. Domain events are raised by aggregates after a state change and are the primary mechanism for coordinating work across aggregate boundaries.
+
+In a microservices architecture, domain events sometimes need to cross microservice boundaries. Unlike internal domain events, integration events are published asynchronously through a message broker after the originating transaction commits. For example, when the Shipping bounded context completes a delivery, it publishes a `DeliveryCompleted` integration event that the Accounts bounded context consumes to trigger invoicing. For more information about asynchronous messaging, see [Interservice communication](../design/interservice-communication.yml).
 
 There are a few other DDD patterns not covered here, including factories, repositories, and modules. These patterns can be helpful when you implement a microservice, but they're less relevant when you design the boundaries between microservices.
 
