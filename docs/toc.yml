@@ -781,7 +781,7 @@ items:
           href: reference-architectures/hybrid-networking/index.yml
         - name: Connect on-premises with ExpressRoute
           href: reference-architectures/hybrid-networking/expressroute-vpn-failover.yml
-        - name: Design a hybrid Domain Name System
+        - name: Design a hybrid Domain Name System (DNS) solution by using Azure
           href: hybrid/hybrid-dns-infra.yml
         - name: Implement a secure hybrid network
           href: reference-architectures/dmz/secure-vnet-dmz.yml
