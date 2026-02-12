@@ -217,7 +217,7 @@
 		<v:userDefs>
 			<v:ud v:nameU="visNavType" v:val="VT0(1):26"/>
 		</v:userDefs>
-		<title>fabric_lakehouse</title>
+		<title>greenfield-lakehouse-fabric</title>
 		<v:pageProperties v:drawingScale="1" v:pageScale="1" v:drawingUnits="19" v:shadowOffsetX="9" v:shadowOffsetY="-9"/>
 		<v:layer v:name="Connector" v:index="0"/>
 		<v:layer v:name="Annotations" v:index="1"/>
@@ -3836,24 +3836,24 @@
 			<text x="34.01" y="590.45" class="st28" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Notebook</text>		</g>
 		<g id="shape1209-464" v:mID="1209" v:groupContext="shape" transform="translate(319.992,-162.035)">
 			<title>Sheet.1209</title>
-			<desc>Dataflow</desc>
+			<desc>Data flow</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(69000):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="56.2777" cy="587.449" width="112.56" height="20"/>
 			<rect x="0" y="577.449" width="112.555" height="20" class="st27"/>
-			<text x="36.67" y="590.45" class="st28" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Dataflow</text>		</g>
+			<text x="35.3" y="590.45" class="st28" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Data flow</text>		</g>
 		<g id="shape1210-467" v:mID="1210" v:groupContext="shape" transform="translate(455.642,-162.035)">
 			<title>Sheet.1210</title>
-			<desc>Dataflow</desc>
+			<desc>Data flow</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(70000):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="56.2777" cy="587.449" width="112.56" height="20"/>
 			<rect x="0" y="577.449" width="112.555" height="20" class="st27"/>
-			<text x="36.67" y="590.45" class="st28" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Dataflow</text>		</g>
+			<text x="35.3" y="590.45" class="st28" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Data flow</text>		</g>
 		<g id="shape1211-470" v:mID="1211" v:groupContext="shape" transform="translate(619.919,-450.035)">
 			<title>Sheet.1211</title>
 			<v:userDefs>
