@@ -10,7 +10,7 @@ ms.subservice: architecture-guide
 
 # Asynchronous messaging options
 
-This article describes the different types of messages and the entities that participate in a messaging infrastructure. Based on message type requirements, Azure provides messaging services that include Azure Service Bus messaging, Azure Event Grid, and Azure Event Hubs. For product comparison, see [Compare messaging services](/azure/service-bus-messaging/compare-messaging-services).
+This article describes the different types of messages and the entities that participate in a messaging infrastructure. Based on message type requirements, Azure provides messaging services that include Azure Service Bus messaging, Azure Event Grid, and Azure Event Hubs. For more information, see [Compare messaging services](/azure/service-bus-messaging/compare-messaging-services).
 
 At an architectural level, a producer entity creates a message datagram to distribute information. Consumer entities become aware of the information and act accordingly. The producer and the consumers can communicate directly or through an intermediary message broker entity. This article focuses on asynchronous messaging that uses a message broker.
 
@@ -18,24 +18,23 @@ At an architectural level, a producer entity creates a message datagram to distr
 The diagram shows a flow that starts with a producer, goes to a message broker, and ends with a consumer.
 :::image-end:::
 
-Messages fall into two main categories:
+Messages have two main categories:
 
 - A *command* is a message that requests a specific action from the consumer.
 - An *event* is a message that informs the consumer that an action occurred.
 
 ## Commands
 
-A producer sends a command to request a consumer to perform an operation within a business transaction.
+A producer sends a command that requests the consumer to perform an operation within a business transaction.
 
 A command is a high-value message that has strict delivery requirements. A command must be delivered at least once. If a command is lost, the entire business transaction might fail. In most cases, a command shouldn't be processed more than once. Duplicate processing can cause erroneous transactions, like duplicate orders or double billing.
 
-Commands often manage the workflow of a multistep business transaction. Depending on the business logic, the producer might expect the consumer to acknowledge the message and report the results of the operation. Based on that result, the producer can choose an appropriate course of action.
+Commands often manage the workflow of a multistep business transaction. Depending on the business logic, the producer might expect the consumer to acknowledge the message and report the results of the operation. Based on that result, the producer can choose how to proceed.
 
 ## Events
 
 An event is a message that a producer raises to announce that something happened. The producer (known as the *publisher* in this context) doesn't expect the event to result in any specific action.
 
-The producer (known as the *publisher* in this context) has no expectations that the events result in any action.
 
 Interested consumers can subscribe, listen for events, and take actions depending on their consumption scenario. Events can have multiple subscribers or no subscribers at all. Different subscribers can react to the same event with different actions, unaware of each other.
 
@@ -45,7 +44,7 @@ Events have two categories:
 
 - **Discrete events:** The producer raises events to announce individual facts. A common use case is event notification. For example, Azure Resource Manager raises events when it creates, modifies, or deletes resources. A logic app can subscribe to those events and send alert emails.
 
-- **Eventstreams:** The producer raises a sequence of related events over time. Consumers typically evaluate streams for statistical purposes, either within a temporal window or as events arrive. Telemetry is a common use case, like health and load monitoring of a system. Another use case includes eventstreaming from Internet of Things (IoT) devices.
+- **Eventstreams:** The producer raises a sequence of related events over time. Consumers typically evaluate streams for statistical purposes, either within a temporal window or as events arrive. Telemetry is a common use case, like monitoring the health and load of a system. Another use case includes eventstreaming from Internet of Things (IoT) devices.
 
 You can implement event messaging by using the [Publisher-Subscriber pattern](../../patterns/publisher-subscriber.yml).
 
@@ -88,14 +87,14 @@ Some operations can take a long time. After the producer issues a command, it sh
 Producers can post several messages for multiple consumers to process. A message broker can distribute processing across servers and improve throughput. Consumers can run on different servers to spread the workload. You can dynamically add or remove consumers to scale the system as needed.
 
 :::image type="complex" source="./images/comp-con.png" border="false" lightbox="./images/comp-con.png" alt-text="Diagram of the Competing Consumers pattern.":::
-Diagram that shows an application instance on the left. It sends messages into a single message queue in the center. From this queue, three arrows fan out to three separate consumer instances on the right that represent a pool of consumers that process messages in parallel.
+Diagram that shows an application instance on the left. It sends messages into a single message queue in the center. From this queue, three arrows point to three separate consumer instances on the right that represent a pool of consumers that process messages in parallel.
 :::image-end:::
 
 The [Competing Consumers pattern](../../patterns/competing-consumers.yml) processes multiple messages concurrently to optimize throughput, improve scalability and availability, and balance the workload.
 
 ### Load leveling
 
-Producers generate varying message volumes that can spike suddenly. Rather than adding consumers to handle the extra load, a message broker buffers the messages. Consumers then process messages at their own pace without overloading the system.
+Producers generate varying message volumes that can spike suddenly. Rather than adding consumers to handle the extra load, a message broker buffers the messages. Consumers then process messages at a manageable rate without overloading the system.
 
 :::image type="complex" source="./images/load-lev.png" border="false" lightbox="./images/load-lev.png" alt-text="Diagram of Queue-based Load Leveling pattern.":::
 Three producers on the left point to a central message queue. A single arrow exits the queue to one consumer on the right. Below the diagram, a bar chart labeled requests received at a variable rate has uneven bars. Another bar chart labeled messages processed at a more constant rate has more uniform bars.
@@ -117,7 +116,7 @@ When your payload exceeds the message broker's size limit, or when consumers nee
 
 ## Technology choices for a message broker
 
-Azure provides several message broker services, each with various features. Before you choose a service, determine the intent and requirements of the message.
+Azure provides several message broker services that each have different features. Before you choose a service, determine the intent and requirements of the message.
 
 ### Service Bus messaging
 
@@ -125,7 +124,7 @@ Use [Service Bus messaging](/azure/service-bus-messaging/service-bus-messaging-o
 
 #### Pull model
 
-A consumer of a Service Bus queue constantly polls Service Bus to check for new messages. The client SDKs and the [Azure functions trigger for Service Bus](/azure/azure-functions/functions-bindings-service-bus-trigger) handle this polling automatically. When a message becomes available, the SDK invokes the consumer's callback and delivers the message to the consumer.
+A consumer of a Service Bus queue continuously polls Service Bus to check for new messages. The client SDKs and the [Azure functions trigger for Service Bus](/azure/azure-functions/functions-bindings-service-bus-trigger) handle this polling automatically. When a message becomes available, the SDK invokes the consumer's callback and delivers the message to the consumer.
 
 #### Guaranteed delivery
 
@@ -157,7 +156,7 @@ A Service Bus queue has a default subqueue, called the [*dead-letter queue (DLQ)
 
 Service Bus moves messages to the DLQ in the following scenarios:
 
-- A *poison message* is a message that the consumer can't handle because it's malformed or contains unexpected information. To detect poison messages in Service Bus queues, set the **MaxDeliveryCount** property of the queue. If the consumer receives the same message more times than this property value allows, Service Bus moves the message to the DLQ.
+- A *poison message* is a message that the consumer can't handle because it's malformed or contains unexpected information. To detect poison messages in Service Bus queues, set the `MaxDeliveryCount` property of the queue. If the consumer receives the same message more times than this property value allows, Service Bus moves the message to the DLQ.
 
 - A message might no longer be relevant if a consumer doesn't process it within a specific period. Service Bus queues let the producer post messages with a time-to-live (TTL) attribute. If this period expires before a consumer receives the message, Service Bus places the message in the DLQ.
 
@@ -167,7 +166,7 @@ Check messages in the DLQ to determine the failure reason. You might not be able
 
 Service Bus bridges on-premises systems and cloud solutions. On-premises systems are often difficult to reach because of firewall restrictions. Both the producer and consumer, either on-premises or in the cloud, can use the Service Bus queue endpoint in the cloud as the pickup and drop off location for messages.
 
-[Azure Relay Hybrid Connections](/azure/azure-relay/relay-hybrid-connections-protocol) provides a turnkey implementation for message-based cross-premises communication. Azure Relay is built on Service Bus and provides bi-directional, request-response patterns and datagram flows.
+[Azure Relay Hybrid Connections](/azure/azure-relay/relay-hybrid-connections-protocol) provides a turnkey implementation for message-based cross-premises communication. Azure Relay is built on Service Bus and provides bidirectional, request-response patterns and datagram flows.
 
 You can also use the [Messaging Bridge pattern](/azure/architecture/patterns/messaging-bridge) to handle these scenarios.
 
@@ -175,7 +174,7 @@ You can also use the [Messaging Bridge pattern](/azure/architecture/patterns/mes
 
 Service Bus supports the Publisher-Subscriber pattern through topics and subscriptions.
 
-Topics and subscriptions let the producer broadcast messages to multiple consumers. When a topic receives a message, the topic forwards it to all subscribed consumers. Optionally, you can add filter criteria to a subscription so that consumers receive only a subset of messages. Each consumer retrieves messages from a subscription, similar to a queue.
+Topics and subscriptions let the producer broadcast messages to multiple consumers. When a topic receives a message, it forwards the message to all subscribed consumers. You can optionally add filter criteria to a subscription so that consumers receive only a subset of messages. Each consumer retrieves messages from a subscription, similar to a queue.
 
 Keep routing logic simple. Avoid embedding complex business rules in your subscription filters. Use the broker for reliable transport and broad routing, but handle complex decision logic within the consuming service.
 
@@ -193,19 +192,19 @@ Use [Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the
 
 #### Push model in Event Grid
 
-Event Grid can propagate messages to the subscribers in a durable push model. Suppose you have an Event Grid subscription with a webhook. When a new event arrives, Event Grid posts the event to the webhook endpoint. In the push model, if no subscribers exist or subscribers repeatedly fail to respond, Event Grid discards the events.
+Event Grid can propagate messages to the subscribers in a durable push model. Suppose that you have an Event Grid subscription with a webhook. When a new event arrives, Event Grid posts the event to the webhook endpoint. In the push model, if no subscribers exist or subscribers repeatedly fail to respond, Event Grid discards the events.
 
 You can build a custom endpoint to receive events if the endpoint [follows the webhook specification](/azure/event-grid/end-point-validation-cloud-events-schema). Or you can use built-in capabilities like the [Event Grid bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-grid).
 
 #### Integrate with Azure
 
-Choose Event Grid if you want to get notifications about Azure resources. Many Azure services act as event sources that have built-in Event Grid topics. Event Grid also supports various Azure services that you can set up as [event handlers](/azure/event-grid/overview#event-handlers). You can subscribe to those topics to route events to event handlers of your choice. For example, you can use Event Grid to invoke an Azure function when you create or delete a storage blob.
+Choose Event Grid if you want to get notifications about Azure resources. Many Azure services serve as event sources that have built-in Event Grid topics. Event Grid also supports various Azure services that you can set up as [event handlers](/azure/event-grid/overview#event-handlers). You can subscribe to those topics to route events to event handlers of your choice. For example, you can use Event Grid to invoke an Azure function when you create or delete a storage blob.
 
 #### Custom topics
 
 Create custom Event Grid topics if you want to send events from your application or an Azure service that Event Grid doesn't integrate with.
 
-For example, suppose you want to monitor the progress of an entire business transaction. The participating services raise events as they process their individual business operations. A web app displays those events. To implement this monitoring, create a custom topic and add a subscription that registers your web app as an HTTP webhook. When business services send events to the custom topic, Event Grid pushes the events to your web app.
+For example, suppose that you want to monitor the progress of an entire business transaction. The participating services raise events as they process their individual business operations. A web app displays those events. To implement this monitoring, create a custom topic and add a subscription that registers your web app as an HTTP webhook. When business services send events to the custom topic, Event Grid pushes the events to your web app.
 
 #### Filtered events
 
@@ -221,9 +220,9 @@ Event Grid has multiple [tiers](/azure/event-grid/choose-right-tier#basic-and-st
 
 #### Resilient delivery
 
-Successful delivery for events isn't as crucial as for commands, but you might still want delivery guarantees depending on the event type. Event Grid attempts to deliver each message at least once for each subscription. You can turn on and customize features like retry policies, expiration time, and dead lettering. For more information, see [Event Grid message delivery and retry](/azure/event-grid/delivery-and-retry).
+Successful delivery for events matters less than it does for commands, but you might still want delivery guarantees depending on the event type. Event Grid attempts to deliver each message at least one time for each subscription. You can turn on and customize features like retry policies, expiration time, and dead lettering. For more information, see [Event Grid message delivery and retry](/azure/event-grid/delivery-and-retry).
 
-The Event Grid retry process improves resiliency but isn't fail safe. Event Grid might deliver the message more than once, skip, or delay some retries when the endpoint remains unresponsive for an extended period. For more information, see [Retry schedule](/azure/event-grid/delivery-and-retry#retry-schedule).
+The Event Grid retry process improves resiliency, but it doesn't guarantee delivery. Event Grid might deliver the message more than one time, skip, or delay some retries when the endpoint remains unresponsive for an extended period. For more information, see [Retry schedule](/azure/event-grid/delivery-and-retry#retry-schedule).
 
 When you turn on dead lettering, Event Grid persists undelivered events to a Blob Storage account. If the Blob Storage endpoint becomes unresponsive, Event Grid delays delivery and eventually discards the event. For more information, see [Set dead-letter location and retry policy](/azure/event-grid/manage-event-delivery).
 
@@ -276,15 +275,15 @@ A *partition* is a portion of the eventstream. Event Hubs divides events by usin
 
 A *consumer* is an instance of code that processes the event data. Event Hubs follows a partitioned consumer pattern. Each consumer only reads a specific partition. Multiple partitions result in faster processing because multiple consumers can read the stream concurrently.
 
-Instances of the same consumer make up a single consumer group. Multiple consumer groups can read the same stream with different intentions. Suppose an eventstream has data from a temperature sensor. One consumer group can read the stream to detect anomalies like a spike in temperature. Another consumer can read the same stream to calculate a rolling average temperature in a temporal window.
+Instances of the same consumer make up a single consumer group. Multiple consumer groups can read the same stream with different intentions. Suppose that an eventstream has data from a temperature sensor. One consumer group can read the stream to detect anomalies like a spike in temperature. Another consumer can read the same stream to calculate a rolling average temperature in a temporal window.
 
-Event Hubs implements the Publisher-Subscriber pattern through multiple consumer groups, where each group acts as a separate subscriber.
+Event Hubs implements the Publisher-Subscriber pattern through multiple consumer groups, where each group serves as a separate subscriber.
 
 For more information about Event Hubs partitioning, see [Partitions](/azure/event-hubs/event-hubs-features#partitions).
 
 #### Event Hubs capture
 
-The capture feature lets you store the eventstream to [Blob Storage](/azure/storage/blobs/storage-blobs-overview) or [Azure Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction). Capture provides reliable storage because it keeps your data for a period if the storage account isn't available, then writes to the storage after it becomes available.
+You can use the capture feature to store the eventstream in [Blob Storage](/azure/storage/blobs/storage-blobs-overview) or [Azure Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction). Capture provides reliable storage because it keeps your data for a period if the storage account is unavailable, then writes to the storage after it becomes available.
 
 Storage services also provide extra features for analyzing events. For example, use the access tiers of a Blob Storage account to store events in a hot tier for data that needs frequent access. You might use that data for visualization. Alternatively, you can store data in the archive tier and retrieve it occasionally for auditing purposes.
 
