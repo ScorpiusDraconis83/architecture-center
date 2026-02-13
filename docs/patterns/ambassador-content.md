@@ -42,8 +42,8 @@ This pattern might not be suitable when:
 - When network request latency is critical. A proxy introduces some overhead, although minimal, and in some cases this might affect the application.
 - When client connectivity features are consumed by a single language. In that case, a better option might be a client library that is distributed to the development teams as a package.
 - When connectivity features can't be generalized and require deeper integration with the client application.
-- When a service mesh such as [Open Service Mesh](https://openservicemesh.io/) or [Istio service mesh](https://istio.io/latest/about/service-mesh/) is already in place, as it provides built‑in mTLS, traffic management, and policy capabilities that eliminate the need for ambassador containers.
-- When you only require routing or security capabilities, as these can be handled more effectively using [Azure Front Door](/azure/frontdoor/), [Azure API Management](/azure/api-management/), [Azure Application Gateway or Application Gateway for Containers](/azure/application-gateway/for-containers/overview), or [Azure Firewall](/azure/firewall/).
+- When a service mesh such as [Istio service mesh](https://istio.io/latest/about/service-mesh/) is already in place, as it provides built‑in mTLS, traffic management, and policy capabilities that eliminate the need for ambassador containers.
+- When you only require general-purpose routing or security capabilities, which can be handled more effectively using [Azure Front Door](/azure/frontdoor/), [Azure API Management](/azure/api-management/), [Azure Application Gateway or Application Gateway for Containers](/azure/application-gateway/for-containers/overview), or [Azure Firewall](/azure/firewall/).
 
 ## Workload design
 
@@ -62,15 +62,8 @@ The following diagram shows an application making a request to a remote service 
 
 ![Example of the Ambassador pattern](./_images/ambassador-example.png)
 
-In a Kubernetes or containerized environment, the ambassador would typically run as a **sidecar container** next to the application container. In non-containerized environments, it could be implemented as a local process or Windows service on the same host.
+In a containerized environment, this ambassador would run as a sidecar container next to the application container. In non-containerized environments, it would be implemented as a local process or Windows service on the same host.
 
 ## Next steps
 
-- Explore how a [service mesh](/azure/aks/servicemesh-about) centralizes traffic management and security.
-- Review options for secure, global HTTP routing with [Azure Front Door documentation](/azure/frontdoor/).
-- Discover how to centralize APIs and security policies using [Azure API Management documentation](/azure/api-management/).
-
-## Related resources
-
 - [Sidecar pattern](./sidecar.yml)
-- [Circuit Breaker pattern](./circuit-breaker.md)
