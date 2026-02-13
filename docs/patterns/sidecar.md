@@ -42,13 +42,13 @@ The Sidecar pattern provides the following advantages:
 
 - **Enhanced extensibility:** You can extend applications that lack native extensibility mechanisms by attaching a sidecar as a separate process on the same host or subcontainer.
 
-The sidecar pattern is often used with containers and referred to as a sidecar container or sidekick container.
+The most common implementation of this pattern uses containers, which are also called *sidecar containers* or *sidekick containers*.
 
 ## Problems and considerations
 
 Consider the following points when you implement this pattern:
 
-- Consider the deployment and packaging format to deploy services, processes, or containers. Containers work well for the sidecar pattern.
+- Consider the deployment and packaging format to deploy services, processes, or containers. Containers work well for the Sidecar pattern.
 
 - When you design a sidecar service, carefully choose the interprocess communication mechanism. Use language-agnostic or framework-agnostic technologies unless performance requirements make that approach impractical.
 
@@ -94,11 +94,11 @@ If this pattern introduces trade-offs within a pillar, consider them against the
 
 ## Example
 
-You can apply the sidecar pattern to many scenarios. Consider the following examples:
+You can apply the Sidecar pattern to many scenarios. Consider the following examples:
 
 - **Dependency abstraction:** Deploy a custom service alongside each application to provide access to shared dependency capabilities through a consistent API. This approach replaces language-specific client libraries with a sidecar that handles concerns like logging, configuration, service discovery, state management, and health checks.
 
-  [Distributed Application Runtime (Dapr) sidecar](https://docs.dapr.io/concepts/dapr-services/sidecar/) exemplifies this use case.
+  The [Distributed Application Runtime (Dapr) sidecar](https://docs.dapr.io/concepts/dapr-services/sidecar/) exemplifies this use case.
 
 - **Service mesh data plane:** Deploy a sidecar proxy alongside each service instance to handle cross-cutting networking concerns like traffic routing, retries, mutual Transport Layer Security (mTLS), policy enforcement, and telemetry.
 
@@ -108,13 +108,13 @@ You can apply the sidecar pattern to many scenarios. Consider the following exam
 
 - **Protocol adapters:** Deploy a sidecar to translate between incompatible protocols or data formats, or to [bridge messaging systems](messaging-bridge.yml). This approach lets the application use simpler or legacy interfaces.
 
-- **Telemetry enrichment:** Deploy a sidecar to preprocess or enrich telemetry data, like metrics, logs, and traces, before forwarding it to external monitoring systems. Components like the [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/deploy/agent/) can run as sidecars to normalize, enrich, or route telemetry separately from the application.
+- **Telemetry enrichment:** Deploy a sidecar to preprocess or enrich telemetry data, like metrics, logs, and traces, before it forwards the data to external monitoring systems. Components like the [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/deploy/agent/) can run as sidecars to normalize, enrich, or route telemetry separately from the application.
 
 ## Next steps
 
-- [Microservice APIs powered by Dapr](/azure/container-apps/dapr-overview): Learn how Azure Container Apps uses Dapr sidecars to help you build simple, portable, resilient, and secure microservices.
+- [Microservice APIs that use Dapr](/azure/container-apps/dapr-overview): Learn how Azure Container Apps uses Dapr sidecars to help you build simple, portable, resilient, and secure microservices.
 
-- [Native sidecar mode for Istio-based service mesh add-on in Azure Kubernetes Service (AKS)](/azure/aks/istio-native-sidecar): Learn how the Istio service mesh feature for AKS uses the Sidecar pattern to address distributed architecture challenges.
+- [Native sidecar mode for Istio-based service mesh feature in Azure Kubernetes Service (AKS)](/azure/aks/istio-native-sidecar): Learn how the Istio service mesh feature for AKS uses the Sidecar pattern to address distributed architecture challenges.
 
 ## Related resources
 
