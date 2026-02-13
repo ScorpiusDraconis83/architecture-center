@@ -101,7 +101,7 @@ Fabric provides a rich API surface across its items. OneLake provides open acces
 
 ###### Power Automate
 
-Power Automate is a low-code application platform that you can use to automate repetitive tasks and also manipulate your data. The reflex item in Fabric supports Power Automate flows as a destination. This [integration](/fabric/real-time-intelligence/data-activator/activator-trigger-power-automate-flows) unlocks many use cases and lets you trigger downstream actions by using a wide range of connectors, for both Microsoft and non-Microsoft systems.
+Power Automate is a low-code application platform that you can use to automate repetitive tasks and manipulate your data. The Fabric activator supports Power Automate flows as a destination. This [integration](/fabric/real-time-intelligence/data-activator/activator-trigger-power-automate-flows) unlocks many use cases and lets you trigger downstream actions by using connectors for both Microsoft and non-Microsoft systems
 
 ### Components
 
@@ -181,7 +181,7 @@ For more information, see [Security in Fabric](/fabric/security/security-overvie
 
 Cost Optimization focuses on ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
 
-Fabric provides [capacity reservations](/azure/cost-management-billing/reservations/fabric-capacity) for a given number of capacity units (CUs). Capacity reservations can help you save costs when you commit to a reservation for your Fabric capacity usage for one year.
+Fabric provides [capacity reservations](/azure/cost-management-billing/reservations/fabric-capacity) for a given number of capacity units (CUs). A one-year reservation can help reduce cost for your Fabric capacity usage.
 
 To maximize the utilization of your Fabric capacity, consider the following recommendations:
 
