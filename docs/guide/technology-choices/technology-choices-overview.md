@@ -1,6 +1,6 @@
 ---
 title: Technology Choices for Azure Solutions
-description: Explore comparison matrices and decision trees that help you select the right Azure technologies for your workload.
+description: Learn where to find Azure technology guidance across compute, data, analytics, networking, and AI by using curated comparison and choice resources.
 author: claytonsiemens77
 ms.author: pnp
 ms.date: 02/16/2026
