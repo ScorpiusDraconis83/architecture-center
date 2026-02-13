@@ -1,5 +1,5 @@
 ---
-title: IoT Hub-based Multitenant Solution Architectural Approaches
+title: IoT Hub-Based Multitenant Solution Architectural Approaches
 description: Learn about architectural approaches for Azure IoT Hub-based multitenant solutions to build scalable, secure, and efficient solutions.
 author: MikeBazMSFT
 ms.author: micbaz
@@ -166,7 +166,7 @@ The following table lists common patterns for multitenant IoT solutions. Each pa
 |---|---|---|
 | Service provider's subscription | Fully multitenant | Simple |
 
-The *simple SaaS* approach is the simplest implementation for a SaaS IoT solution. As shown in the previous diagram, all infrastructure serves all tenants, with no geographic or scale stamping applied. The infrastructure often resides within a single Azure subscription.
+The *Simple SaaS* approach is the simplest implementation for a SaaS IoT solution. As shown in the previous diagram, all infrastructure serves all tenants, with no geographic or scale stamping applied. The infrastructure often resides within a single Azure subscription.
 
 Azure IoT Central supports the concept of organizations. Organizations let a solution provider segregate tenants in a secure, hierarchical way while sharing the basic application design across all tenants.
 
@@ -180,11 +180,11 @@ Communications to systems outside of Azure IoT Central, like for longer-term dat
 
 - Power BI as a visualization and reporting platform
 
-When you compare the *simple SaaS* approach with the *[single-tenant automated](#single-tenant-automated)* aPaaS model, many characteristics match. The primary differences between the two models involve how each model deploys Azure IoT Central:
+When you compare the *Simple SaaS* approach with the *[single-tenant automated](#single-tenant-automated)* aPaaS model, many characteristics match. The primary differences between the two models involve how each model deploys Azure IoT Central:
 
 - In the *single-tenant automated* model, you deploy a distinct Azure IoT Central instance for each tenant.
 
-- In the *simple SaaS with aPaaS* model, you deploy a shared instance for multiple customers, and you create an Azure IoT Central organization for each tenant.
+- In the *Simple SaaS with aPaaS* model, you deploy a shared instance for multiple customers, and you create an Azure IoT Central organization for each tenant.
 
 Because this model uses a shared multitenant data tier, you must implement row-level security to isolate customer data. For more information, see [Architectural approaches for storage and data in multitenant solutions](storage-data.md).
 
@@ -208,7 +208,7 @@ Because this model uses a shared multitenant data tier, you must implement row-l
 
 A common scalability approach is to [horizontally partition your solution](../considerations/tenancy-models.md#horizontally-partitioned-deployments). This approach uses a combination of shared components and tenant-specific components.
 
-Within an IoT solution, many components support horizontal partitioning. The horizontally partitioned subsystems are typically arranged by using a [deployment stamp pattern](../../../patterns/deployment-stamp.yml) that integrates with the greater solution.
+Within an IoT solution, many components support horizontal partitioning. The horizontally partitioned subsystems are typically arranged by using a [deployment stamps pattern](../../../patterns/deployment-stamp.yml) that integrates with the greater solution.
 
 #### Example horizontal SaaS
 
@@ -286,7 +286,7 @@ This pattern also generally has low latency compared to other patterns because y
 
 If necessary, you can extend the automated deployment to improve latency or scale by supporting fast deployment of extra solution instances in existing or new geographies.
 
-The *single-tenant automated* approach is similar to the *[simple SaaS](#simple-saas)* aPaaS model. The primary difference between the two models is that in the *single-tenant automated* approach, you deploy a distinct Azure IoT Central instance for each tenant, while in the *simple SaaS with aPaaS* model, you deploy a shared instance of Azure IoT Central with multiple Azure IoT Central organizations.
+The *single-tenant automated* approach is similar to the *[Simple SaaS](#simple-saas)* aPaaS model. The primary difference between the two models is that in the *single-tenant automated* approach, you deploy a distinct Azure IoT Central instance for each tenant, while in the *Simple SaaS with aPaaS* model, you deploy a shared instance of Azure IoT Central with multiple Azure IoT Central organizations.
 
 **Benefits:**
 
@@ -305,7 +305,7 @@ The *single-tenant automated* approach is similar to the *[simple SaaS](#simple-
 
 ### Increase the scale of SaaS
 
-When you expand the scale of a solution to large deployments, specific challenges occur based on service limits, geographic concerns, and other factors.
+When you expand the scale of a solution to large deployments, specific challenges occur based on service limits, geographic concerns, and other factors. For more information about large-scale IoT deployment architectures, see [Scale out an Azure IoT solution to support millions of devices](/azure/architecture/guide/iot/scale-iot-solution-azure).
 
 ## Contributors
 
