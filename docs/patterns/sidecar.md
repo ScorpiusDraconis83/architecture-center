@@ -1,3 +1,14 @@
+---
+title: Sidecar pattern
+description: Deploy supporting features of an application into a separate process or container with a shared lifecycle to provide modular abstraction and isolation of cross-cutting concerns.
+author: claytonsiemens77
+ms.author: pnp
+ms.date: 02/03/2026
+ms.topic: design-pattern
+ms.subservice: cloud-fundamentals
+---
+# Sidecar pattern
+
 Deploy components of an application into a separate process or container to provide isolation and encapsulation. This pattern can also enable applications to be composed of heterogeneous components and technologies.
 
 This pattern is named *Sidecar* because it resembles a sidecar attached to a motorcycle. In the pattern, the sidecar is attached to a parent application and provides supporting features for the application. The sidecar also shares the same lifecycle as the parent application, being created and retired alongside the parent. The sidecar pattern is sometimes referred to as the sidekick pattern and is a decomposition pattern.
@@ -30,7 +41,9 @@ Advantages of using a sidecar pattern include:
 
 The sidecar pattern is often used with containers and referred to as a sidecar container or sidekick container.
 
-## Issues and considerations
+## Problems and considerations
+
+Consider the following points as you decide how to implement this pattern:
 
 - Consider the deployment and packaging format you will use to deploy services, processes, or containers. Containers are particularly well suited to the sidecar pattern.
 - When designing a sidecar service, carefully decide on the interprocess communication mechanism. Try to use language- or framework-agnostic technologies unless performance requirements make that impractical.
@@ -42,16 +55,17 @@ The sidecar pattern is often used with containers and referred to as a sidecar c
 Use this pattern when:
 
 - Your primary application uses a heterogeneous set of languages and frameworks. A component located in a sidecar service can be consumed by applications written in different languages using different frameworks.
-- A component is owned by a remote team or a different organization.
+- A component is owned by a different team or a third-party.
 - A component or feature must be co-located on the same host as the application.
 - You need a service that shares the overall lifecycle of your main application, but can be independently updated.
 - You need fine-grained control over resource limits for a particular resource or component. For example, you might want to restrict the amount of memory a specific component uses. You can deploy the component as a sidecar and manage memory usage independently of the main application.
 
-This pattern might not be suitable:
+This pattern might not be suitable when:
 
 - When interprocess communication needs to be optimized. Communication between a parent application and sidecar services includes some overhead, notably latency in the calls. This might not be an acceptable trade-off for chatty interfaces.
 - For small applications where the resource cost of deploying a sidecar service for each instance isn't worth the advantage of isolation.
 - When the service needs to scale differently than or independently from the main applications. If so, it might be better to deploy the feature as a separate service.
+- Your application platform already offers equivalent functionality without colocated processes.
 
 ## Workload design
 
@@ -69,10 +83,23 @@ As with any design decision, consider any tradeoffs against the goals of the oth
 
 The sidecar pattern is applicable to many scenarios. Some common examples:
 
-- Infrastructure API. The infrastructure development team creates a service that's deployed alongside each application, instead of a language-specific client library to access the infrastructure. The service is loaded as a sidecar and provides a common layer for infrastructure services, including logging, environment data, configuration store, discovery, health checks, and watchdog services. The sidecar also monitors the parent application's host environment and process (or container) and logs the information to a centralized service.
-- Manage NGINX/HAProxy. Deploy NGINX with a sidecar service that monitors environment state, then updates the NGINX configuration file and recycles the process when a change in state is needed.
+- Dependency abstraction. A custom service that's deployed alongside each application, instead of a language-specific client library, to provide access to shared dependency capabilities. The service is loaded as a sidecar and exposes a consistent API for concerns such as logging, configuration, service discovery, state management, and health checks.
+
+  [Dapr sidecar](https://docs.dapr.io/concepts/dapr-services/sidecar/) is an example implementation of this use case.
+
+- Service mesh data plane. A sidecar proxy is injected alongside each service instance to handle cross‑cutting networking concerns such as traffic routing, retries, mTLS, policy enforcement, and telemetry.
+
+  Service meshes such as [Istio service mesh](https://istio.io/latest/about/service-mesh/) use sidecar proxies to implement these capabilities without requiring changes to application code.
+
 - Ambassador sidecar. Deploy an [ambassador](./ambassador.yml) service as a sidecar. The application calls through the ambassador, which handles request logging, routing, circuit breaking, and other connectivity related features.
-- Offload proxy. Place an NGINX proxy in front of a node.js service instance, to handle serving static file content for the service.
+- Protocol Adapters. A sidecar converts between incompatible protocols, data formats, or acts as a [message bridge](messaging-bridge.yml). This enables the application to use simpler or legacy interfaces.
+
+- Telemetry enrichment. A sidecar preprocesses or enriches telemetry data (metrics, logs, and traces) before forwarding it to external monitoring systems. Components such as the [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/deploy/agent/) can run as sidecars to normalize, enrich, or route telemetry without embedding those responsibilities in the application.
+
+## Next steps
+
+- [Microservice APIs powered by Dapr](/azure/container-apps/dapr-overview). Azure Container Apps provides APIs powered by Distributed Application Runtime (Dapr) that help you write and implement simple, portable, resilient, and secured microservices. It uses sidecar.
+- [Native sidecar mode for Istio-based service mesh add-on in Azure Kubernetes Service (AKS)](/azure/aks/istio-native-sidecar). Istio addresses the challenges developers and operators face with a distributed or microservices architecture. The Istio-based service mesh add-on provides an officially supported and tested integration for Azure Kubernetes Service (AKS).
 
 ## Related resources
 

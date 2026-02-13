@@ -508,7 +508,7 @@ items:
     displayName: Horizontal partitioning, database partitioning
     href: patterns/sharding.yml
   - name: Sidecar
-    href: patterns/sidecar.yml
+    href: patterns/sidecar.md
   - name: Static Content Hosting
     displayName: Blob storage website, CDN hosting, static website, static assets
     href: patterns/static-content-hosting.yml
