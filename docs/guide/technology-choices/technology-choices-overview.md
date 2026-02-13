@@ -14,14 +14,14 @@ When you design an Azure solution, you must select the right technologies for yo
 
 ## Choose a compute service
 
-The term *compute* refers to the hosting model for the computing resources that your application runs on. The following articles can help you choose the right technologies:
+The term *compute* refers to the hosting model for the computing resources that your application runs on. The following articles can help you choose the right technologies.
 
 | Article | Summary |
 | :------ | :------ |
 | [Choose an Azure compute service](compute-decision-tree.md) | Decide which compute service best suits your application. |
 | [Choose an Azure compute option for microservices](../../microservices/design/compute-options.md) | Learn about two compute options for microservices: service orchestrator and serverless architecture. |
 | [Compare Java application hosting options on Azure](service-for-java-comparison.yml) | Explore recommended strategies for hosting Java applications on Azure, including platform types and supportability. |
-| [Choose between traditional web apps and SPAs](/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-appsn) | Learn how to choose between traditional web apps and single-page applications (SPAs). |
+| [Choose between traditional web apps and SPAs](/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps) | Learn how to choose between traditional web apps and single-page applications (SPAs). |
 
 ## Choose a container option
 
@@ -41,8 +41,6 @@ Many organizations need a hybrid approach for analytics, automation, and service
 | :------ | :------ |
 | [Azure hybrid options](hybrid-considerations.yml) | Learn about Azure hybrid solutions, including alternatives to deploy and host hybrid services on-premises, at the edge, in Azure, and in other clouds. |
 | [Compare Azure Stack Hub to Azure](/azure-stack/user/azure-stack-considerations) | Learn the differences between Azure and Azure Stack Hub. |
-| [Compare Azure, Azure Stack Hub, and Azure Local](/azure-stack/operator/compare-azure-azure-stack) | Learn the differences between Azure, Azure Stack Hub, and Azure Local. |
-| [Compare Azure Local to Azure Stack Hub](/azure-stack/hci/concepts/compare-azure-stack-hub) | Choose between Azure Local and Azure Stack Hub for your organization. |
 | [Compare Azure Local to Windows Server](/azure-stack/hci/concepts/compare-windows-server) | Choose between Azure Local and Windows Server for your organization. |
 | [Choose drives for Azure Local and Windows Server clusters](/azure-stack/hci/concepts/choose-drives) | Learn how to choose drives for Azure Local and Windows Server clusters to meet performance and capacity requirements. |
 
@@ -63,7 +61,7 @@ Azure provides multiple storage services for different access patterns, performa
 | :------ | :------ |
 | [Review your storage options](/azure/cloud-adoption-framework/ready/considerations/storage-options) | Review the storage options for Azure workloads. |
 | [Azure managed disk types](/azure/virtual-machines/disks-types) | Learn about the disk types for Azure virtual machines (VMs), including Azure Ultra Disk Storage, Azure Premium SSD v2, Premium SSD, and Azure Standard SSD. |
-| [Transfer data to and from Azure](../../data-guide/scenarios/data-transfer.md) | Learn about Azure data transfer options like the Azure Import/Export service, Azure Data Box, Azure Data Factory, and command-line and graphical interface tools. |
+| [Choose a data transfer technology](../../data-guide/scenarios/data-transfer.md) | Learn about Azure data transfer options like the Azure Import/Export service, Azure Data Box, Azure Data Factory, and command-line and graphical interface tools. |
 
 ## Choose a data store
 
@@ -73,7 +71,7 @@ Choose the right data store based on your data model, access patterns, scale, an
 | :------ | :------ |
 | [Understand data models](../../data-guide/technology-choices/understand-data-store-models.md) | Learn how to evaluate Azure data store models based on workload patterns, scale, consistency, and governance. |
 | [Prepare to choose a data store](data-stores-getting-started.md) | Learn how to choose the right Azure data store for your workloads by evaluating functional, performance, cost, and security requirements. |
-| [Choose a big data storage technology in Azure](../../data-guide/technology-choices/data-storage.md) | Compare big data storage options in Azure. View key selection criteria and a capability matrix. |
+| [Choose a big data storage technology](../../data-guide/technology-choices/data-storage.md) | Compare big data storage options in Azure. View key selection criteria and a capability matrix. |
 | [OLAP solutions](../../data-guide/relational-data/online-analytical-processing.md) | Learn about online analytical processing (OLAP) solutions for organizing large databases and supporting complex analysis without affecting transactional systems. |
 | [OLTP solutions](../../data-guide/relational-data/online-transaction-processing.md) | Learn about atomicity, consistency, and other features of online transaction processing (OLTP), which manages transactional data and supports querying. |
 | [Data lakes](../../data-guide/scenarios/data-lake.md) | Learn about data lake storage repositories, which can hold terabytes (TBs) or petabytes (PBs) of data in a native, raw format. |
