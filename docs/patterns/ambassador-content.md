@@ -42,7 +42,7 @@ This pattern might not be suitable when:
 - When network request latency is critical. A proxy introduces some overhead, although minimal, and in some cases this might affect the application.
 - When client connectivity features are consumed by a single language. In that case, a better option might be a client library that is distributed to the development teams as a package.
 - When connectivity features can't be generalized and require deeper integration with the client application.
-- When a service mesh such as [Istio service mesh](https://istio.io/latest/about/service-mesh/) is already in place, as it provides built‑in mTLS, traffic management, and policy capabilities that eliminate the need for ambassador containers.
+- When your application platform supports prebuilt solutions, such as a service mesh, to handle mTLS, traffic management, and policy capabilities. In that case, use them instead of creating a custom ambassador solution.
 - When you only require general-purpose routing or security capabilities, which can be handled more effectively using [Azure Front Door](/azure/frontdoor/), [Azure API Management](/azure/api-management/), [Azure Application Gateway or Application Gateway for Containers](/azure/application-gateway/for-containers/overview), or [Azure Firewall](/azure/firewall/).
 
 ## Workload design
