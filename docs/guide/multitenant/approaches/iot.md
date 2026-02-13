@@ -54,7 +54,7 @@ Fully shared solutions can have [noisy neighbors](../../../antipatterns/noisy-ne
 
 In fully multitenant solutions, these effects can cascade. When customers share IoT Hub or Azure IoT Central applications, all customers on the shared infrastructure receive errors. Because IoT Hub and Azure IoT Central commonly serve as entry points for cloud data, downstream systems that depend on this data are also likely to fail. These errors often occur when a customer exceeds a message-quota limit. In this situation, the simplest fix for IoT Hub solutions is to upgrade the IoT Hub SKU, increase the number of IoT Hub units, or use both options. For Azure IoT Central solutions, the system scales automatically as needed, up to the [documented number of messages supported](/azure/iot-central/core/concepts-quotas-limits).
 
-You can isolate and distribute tenants across the IoT control, management, and communications planes by using DPS [custom allocation policies](/azure/iot-dps/tutorial-custom-allocation-policies). When you follow the guidance for [high-scale IoT solutions](../../iot/scale-iot-solution-azure.md), you can manage other allocation distributions at the DPS load-balancer level.
+You can isolate and distribute tenants across the IoT control, management, and communications planes by using device provisioning service [custom allocation policies](/azure/iot-dps/tutorial-custom-allocation-policies). When you follow the guidance for [high-scale IoT solutions](../../iot/scale-iot-solution-azure.md), you can manage other allocation distributions at the device provisioning service load-balancer level.
 
 #### Data storage, query, usage, and retention
 
@@ -98,7 +98,7 @@ A typical aPaaS solution that uses [Azure IoT Central](/azure/iot-central/core/o
 
 - [Power BI](/power-bi/fundamentals/power-bi-overview) as a visualization and reporting platform
 
-:::image type="complex" border="false" source="media/iot/simple-saas.png" alt-text="Diagram of an IoT Hub-based multitenant architecture that shows tenants sharing an Azure IoT Central environment, Data Explorer, Power BI, and Logic Apps." lightbox="media/iot/simple-saas.png":::
+:::image type="complex" border="false" source="media/iot/simple-saas.png" alt-text="Diagram of an IoT Hub-based multitenant architecture that shows tenants sharing an Azure IoT Central environment, Azure Data Explorer, Power BI, and Logic Apps." lightbox="media/iot/simple-saas.png":::
    Diagram that shows a platform owner subscription that has three tenants. Each tenant connects via an arrow to a shared Azure IoT Central organizations environment. A double-sided arrow connects an IoT device and Azure IoT Central. An arrow points from the shared tenant section to the Azure Data Explorer section and then from the Azure Data Explorer section to Power BI. Another arrow points from the shared tenant section to Logic Apps and then from Logic Apps to Power BI.
 :::image-end:::
 
@@ -122,15 +122,15 @@ A PaaS-based approach might use the following Azure services:
 
 - [IoT Hub](/azure/iot-hub/iot-concepts-and-iot-hub) as the core device configuration and communications platform
 
-- [DPS](/azure/iot-dps/about-iot-dps) as the device deployment and initial configuration platform
+- [Device provisioning service](/azure/iot-dps/about-iot-dps) as the device deployment and initial configuration platform
 
-- [Data Explorer](/azure/data-explorer/data-explorer-overview) to store and analyze warm and cold path time-series data from IoT devices
+- [Azure Data Explorer](/azure/data-explorer/data-explorer-overview) to store and analyze warm and cold path time-series data from IoT devices
 
 - [Azure Stream Analytics](../../../reference-architectures/data/stream-processing-stream-analytics.yml) to analyze hot path data from IoT devices
 
 - [IoT Edge](/azure/iot-edge/about-iot-edge) to run AI, non-Microsoft services, or your own business logic on IoT Edge devices
 
-:::image type="complex" border="false" source="media/iot/simple-paas-saas.png" alt-text="Diagram that shows an IoT solution. Each tenant connects to a shared web app, which receives data from hubs and an Azure Functions app. Devices connect to the DPS and IoT Hub." lightbox="media/iot/simple-paas-saas.png":::
+:::image type="complex" border="false" source="media/iot/simple-paas-saas.png" alt-text="Diagram that shows an IoT solution. Each tenant connects to a shared web app, which receives data from hubs and an Azure Functions app. Devices connect to the device provisioning service and IoT Hub." lightbox="media/iot/simple-paas-saas.png":::
    The diagram shows a platform-owner subscription. Double-sided arrows point from the device ecosystem to the device provisioning service, IoT hubs, and function apps. Arrows point downward from the device provisioning service to the IoT hubs. Double-sided arrows connect the IoT hubs and function apps. An arrow points from the IoT hubs to Azure Data Explorer. Arrows point from Azure Data Explorer to the web app section and to Azure Cosmos DB. Another arrow points from the function apps to Azure  Cosmos DB and then from Azure Cosmos DB to the web app section. Three tenants connect to the web app section via arrows.
 :::image-end:::
 
@@ -158,7 +158,7 @@ The following table lists common patterns for multitenant IoT solutions. Each pa
 
 ### Simple SaaS
 
-:::image type="complex" border="false" source="media/iot/simple-saas.png" alt-text="Diagram that shows an IoT architecture. Tenants share an Azure IoT Central environment, Data Explorer, Power BI, and Logic Apps." lightbox="media/iot/simple-saas.png":::
+:::image type="complex" border="false" source="media/iot/simple-saas.png" alt-text="Diagram that shows an IoT architecture. Tenants share an Azure IoT Central environment, Azure Data Explorer, Power BI, and Logic Apps." lightbox="media/iot/simple-saas.png":::
    Diagram that shows a platform owner subscription that contains three tenants. Each tenant connects to a shared Azure IoT Central organizations environment. IoT devices connect to the Azure IoT Central environment. Data flows from Azure IoT Central to Azure Data Explorer, then to Power BI for visualization. Logic Apps connects to the Azure IoT Central environment for integration workflows.
 :::image-end:::
 
@@ -176,7 +176,7 @@ Communications to systems outside of Azure IoT Central, like for longer-term dat
 
 - Logic Apps as an integration platform as a service (iPaaS)
 
-- Data Explorer as a data analytics platform
+- Azure Data Explorer as a data analytics platform
 
 - Power BI as a visualization and reporting platform
 
@@ -215,7 +215,7 @@ Within an IoT solution, many components support horizontal partitioning. The hor
 The following architectural example partitions Azure IoT Central for each customer, where it functions as the device management, device communications, and administration portal. This partitioning gives the customer full control over adding, removing, and updating their devices without involvement from the software vendor. The rest of the solution uses a standard shared infrastructure pattern that supports hot-path analysis, business integrations, SaaS management, and device analysis.
 
 :::image type="complex" border="false" source="media/iot/horizontal-saas.png" alt-text="Diagram of an IoT solution. Each tenant has their own Azure IoT Central organization, which sends telemetry to a shared function app and makes it available to the tenants' business users through a web app." lightbox="media/iot/horizontal-saas.png":::
-   Diagram that shows three key sections: tenants' device administrators, subscriptions, and tenants' business users. Three arrows point from tenants' device administrators to individual tenant subscriptions that contain Azure IoT Central. Double-sided arrows point from Azure IoT Central to the Functions app. An arrow points from the Functions app to Data Explorer and from Data Explorer to the web app. An arrow points from the tenants' business users to the web app.
+   Diagram that shows three key sections: tenants' device administrators, subscriptions, and tenants' business users. Three arrows point from tenants' device administrators to individual tenant subscriptions that contain Azure IoT Central. Double-sided arrows point from Azure IoT Central to the Functions app. An arrow points from the Functions app to Azure Data Explorer and from Azure Data Explorer to the web app. An arrow points from the tenants' business users to the web app.
 :::image-end:::
 
 Each tenant has their own Azure IoT Central organization, which sends telemetry to a shared function app and exposes that data to the tenants' business users through a web app.
@@ -254,7 +254,7 @@ Separate the databases for each tenant to gain the following benefits:
 
 #### Device management, communications, and administration
 
-You can often deploy DPS, IoT Hub, and Azure IoT Central applications as horizontally partitioned components. In this approach, you need another service to redirect devices to the appropriate DPS instance for that tenant's management, control, and telemetry plane.
+You can often deploy the device provisioning service, IoT Hub, and Azure IoT Central applications as horizontally partitioned components. In this approach, you need another service to redirect devices to the right device provisioning service instance for that tenant's management, control, and telemetry plane.
 
 This approach is often used when customers need to manage and control their own device fleets, which remain directly and fully isolated.
 
@@ -269,7 +269,7 @@ When you partition stream processing, you create a structure that lets each tena
 A single-tenant automated approach follows a decision process and design similar to an [enterprise solution](/azure/iot/iot-services-and-technologies).
 
 :::image type="complex" border="false" source="media/iot/single-tenant-automated.png" alt-text="Diagram that shows an IoT architecture for three tenants. Each tenant has their own identical, isolated environment with an Azure IoT Central organization and other dedicated components." lightbox="media/iot/single-tenant-automated.png":::
-   Diagram that shows three separate tenant subscriptions or isolated environments. Each tenant has a dedicated Azure IoT Central application. IoT devices for each tenant connect to their respective Azure IoT Central instance. Each tenant environment includes dedicated instances of Data Explorer for data storage and analysis. Each tenant has a dedicated Power BI workspace for visualization. Logic Apps provides integration capabilities within each tenant environment. All components remain isolated per tenant with no shared infrastructure between tenants.
+   Diagram that shows three separate tenant subscriptions or isolated environments. Each tenant has a dedicated Azure IoT Central application. IoT devices for each tenant connect to their respective Azure IoT Central instance. Each tenant environment includes dedicated instances of Azure Data Explorer for data storage and analysis. Each tenant has a dedicated Power BI workspace for visualization. Logic Apps provides integration capabilities within each tenant environment. All components remain isolated per tenant with no shared infrastructure between tenants.
 :::image-end:::
 
 Each tenant has its own identical, isolated environment, with an Azure IoT Central organization and other components dedicated to that tenant.
