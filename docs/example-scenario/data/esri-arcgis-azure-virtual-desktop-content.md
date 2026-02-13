@@ -56,7 +56,8 @@ The following diagram presents a high-level architecture for deploying ArcGIS co
 - Although Azure Files and Azure Blob Storage are fine for many enterprises, Azure NetApp Files might be better suited for GIS because of large raster image files, Portal for ArcGIS items, shapefiles, lidar datasets, file geodatabases, and other geospatial data types that require fast access.
 - You can add other ArcGIS Enterprise server roles, like Raster Analytics Server, GeoAnalytics Server, GeoEvent Server, Knowledge Server, and Mission Server, to this base deployment as needed. You can also use newer technologies, like ArcGIS Enterprise on Kubernetes, as a replacement for or supplement to ArcGIS Enterprise. GPU-based VMs for Drone2Map, CityEngine, and SURE for ArcGIS can also take advantage of these VMs. For more information, see [ArcGIS Enterprise server roles](https://enterprise.arcgis.com/en/get-started/latest/windows/additional-server-deployment.htm#:~:text=In%20the%20base%20ArcGIS%20Enterprise%20deployment%2C%20ArcGIS%20GIS,reference%20your%20own%20data%20sources%2C%20such%20as%20geodatabases.).
 - To increase capacity, you can use multiple Azure subscriptions in a hub-and-spoke architecture and connect them via virtual network peering. Also, you can use Azure landing zones to lay down the initial services. For more information, see [What is an Azure landing zone?](/azure/cloud-adoption-framework/ready/landing-zone).
-
+- You can use the [ArcGIS Pro Solution Accelerator for Mission Landing Zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) to deploy ArcGIS Pro on Azure Virtual Desktop with a single click. This accelerator includes SCCA-compliant infrastructure, GPU-enabled VMs, Azure NetApp Files, and FSLogix pre-configured for rapid proof-of-concept deployments.
+  
 ## Scenario details
 
 Esri's technology is a geographic information system (GIS) that contains capabilities for the visualization, analysis, and data management of geospatial data. Esri's core technology is called *the ArcGIS platform*. It includes capabilities for mapping, spatial analysis, 3D GIS, imagery and remote sensing, data collection and management, and field operations. For more information, see the [ArcGIS page](https://www.esri.com/en-us/arcgis/about-arcgis/overview) on the Esri website.
@@ -135,8 +136,8 @@ The following table provides examples for single-session ArcGIS Pro scenarios:
 
 | Workload type | Example Azure virtual machine SKU | Activity |
 |--|--|--|
-| Light | NV4as_v4, NV8as_v4 | Viewing |
-| Medium | NV16as_v4, NC4as_T4_v3, NC8as_T4_v3, NV6ads_A10_v5 | Editing |
+| Light | NV4ads_V710_v5, NV8ads_V710_v5 | Viewing |
+| Medium | NV12ads_V710_v5, NC4as_T4_v3, NC8as_T4_v3, NV6ads_A10_v5 | Editing |
 | Heavy | NC16as_T4_v3, NV12ads_A10_v5, NV18ads_A10_v5 | Visualizing |
 
 ### Multi-session recommendations
@@ -147,9 +148,9 @@ The following table provides examples for multi-session ArcGIS Pro scenarios:
 
 | Workload type | Example Azure virtual machine SKU | Maximum users per VM | Activity |
 |--|--|--|--|
-| Light | NV18ads_A10_v5, NC16as_T4_v3, NV32as_v4 | 6 | Viewing |
-| Medium | NV18ads_A10_v5, NC16as_T4_v3, NV32as_v4 | 4 | Editing |
-| Heavy | NV18ads_A10_v5, NC16as_T4_v3, NV32as_v4 | 3 | Visualizing |
+| Light | NV18ads_A10_v5, NC16as_T4_v3, NV24ads_V710_v5 | 6 | Viewing |
+| Medium | NV18ads_A10_v5, NC16as_T4_v3, NV24ads_V710_v5 | 4 | Editing |
+| Heavy | NV18ads_A10_v5, NC16as_T4_v3, NV24ads_V710_v5 | 3 | Visualizing |
 
 ## Contributors
 
@@ -164,6 +165,7 @@ Principal authors:
 
 ## Next steps
 
+- [Deploy ArcGIS Pro on Azure with Mission Landing Zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) - One-click deployment accelerator for SCCA-compliant environments
 - [Create a managed image of a generalized VM in Azure](/azure/virtual-machines/windows/capture-image-resource)
 - Prepare an Azure Virtual Desktop image with the [Virtual Desktop Optimization Tool (VDOT)](https://github.com/The-Virtual-Desktop-Team/Virtual-Desktop-Optimization-Tool)
 - [Download and install FSLogix](/FSLogix/install-ht)
