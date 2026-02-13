@@ -64,6 +64,6 @@ The following diagram shows an application making a request to a remote service 
 
 In a containerized environment, this ambassador would run as a sidecar container next to the application container. In non-containerized environments, it would be implemented as a local process or Windows service on the same host.
 
-## Next steps
+## Next step
 
 - [Sidecar pattern](./sidecar.yml)
