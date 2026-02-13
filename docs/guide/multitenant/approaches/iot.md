@@ -29,10 +29,10 @@ Governance in IoT also includes decisions about device ownership and device mana
 
 Plan your solution's scale across these three areas:
 
-- **Device quantity:** All Azure device management services - [Azure IoT Central](/azure/iot-central/core/concepts-quotas-limits), [IoT Hub Device Provisioning Service (DPS)](/azure/iot-dps/about-iot-dps#quotas-and-limits), and [IoT Hub](/azure/iot-hub/iot-hub-devguide-quotas-throttling) - limit the number of devices that they support in a single instance.
+- **Device quantity:** All Azure device management services - [Azure IoT Central](/azure/iot-central/core/concepts-quotas-limits), [IoT Hub device provisioning service](/azure/iot-dps/about-iot-dps#quotas-and-limits), and [IoT Hub](/azure/iot-hub/iot-hub-devguide-quotas-throttling) - limit the number of devices that they support in a single instance.
 
    > [!TIP]
-   > If you plan to deploy a large number of devices, see [Scale out an IoT Hub solution to support millions of devices](../../iot/scale-iot-solution-azure.md).
+   > If you plan to deploy many devices, see [Scale out an IoT Hub solution to support millions of devices](../../iot/scale-iot-solution-azure.md).
 
 - **Device throughput:** Different devices, even in the same solution, might have different throughput requirements. In this context, *throughput* refers to the number of messages over a period of time and the size of the messages. Consider the following examples:
 
@@ -66,7 +66,7 @@ IoT solutions often have security considerations at multiple layers, especially 
 
 - [Microsoft Defender for IoT](/azure/defender-for-iot/organizations/overview) is a comprehensive IoT monitoring solution that provides [per-device EIoT licenses and OT site licenses](https://www.microsoft.com/security/business/endpoint-security/microsoft-defender-iot-pricing) for each customer device or site. The approach that you select determines whether the Microsoft 365 named user licensing scenario fits your needs. If it doesn't, you can use the per-device or site license options. Both options operate independently from Microsoft 365 tenant licenses.
 
-- [Azure Firewall](/azure/firewall/overview) or a non-Microsoft firewall appliance, which you can use to isolate network layers and monitor network traffic. Your design approach determines where workloads have network isolation versus a shared network, which is described later in this article.
+- You can use [Azure Firewall](/azure/firewall/overview) or a non-Microsoft firewall appliance to isolate network layers and monitor network traffic. Your design approach determines where workloads have network isolation versus a shared network, which is described later in this article.
 
 - [Azure IoT Edge](/azure/iot-edge/about-iot-edge) supports deploying workloads to the edge to enforce security boundaries and process data closer to devices.
 
@@ -94,15 +94,15 @@ A typical aPaaS solution that uses [Azure IoT Central](/azure/iot-central/core/o
 
 - [Azure Logic Apps](/azure/logic-apps/logic-apps-overview) as an integration platform as a service (iPaaS) offering
 
-- [Data Explorer](/azure/data-explorer/data-explorer-overview) as a data analytics platform
+- [Azure Data Explorer](/azure/data-explorer/data-explorer-overview) as a data analytics platform
 
 - [Power BI](/power-bi/fundamentals/power-bi-overview) as a visualization and reporting platform
 
 :::image type="complex" border="false" source="media/iot/simple-saas.png" alt-text="Diagram of an IoT Hub-based multitenant architecture that shows tenants sharing an Azure IoT Central environment, Data Explorer, Power BI, and Logic Apps." lightbox="media/iot/simple-saas.png":::
-   Diagram that shows a platform owner subscription that has three tenants. Each tenant connects via an arrow to a shared Azure IoT Central Organizations environment. A double-sided arrow connects an IoT device and Azure IoT Central. An arrow points from the shared tenant section to the Data Explorer section and then from the Data Explorer section to Power BI. Another arrow points from the shared tenant section to Logic Apps.
+   Diagram that shows a platform owner subscription that has three tenants. Each tenant connects via an arrow to a shared Azure IoT Central organizations environment. A double-sided arrow connects an IoT device and Azure IoT Central. An arrow points from the shared tenant section to the Azure Data Explorer section and then from the Azure Data Explorer section to Power BI. Another arrow points from the shared tenant section to Logic Apps and then from Logic Apps to Power BI.
 :::image-end:::
 
-In the previous diagram, the tenants share the Azure IoT Central environment, including Data Explorer, Power BI, and Logic Apps.
+In the previous diagram, the tenants share the Azure IoT Central environment and Azure Data Explorer, Power BI, and Logic Apps services.
 
 This approach typically provides a shorter deployment timeline. It's a high-scale service that supports multitenancy through [organizations](/azure/iot-central/core/howto-create-organizations).
 
@@ -131,10 +131,10 @@ A PaaS-based approach might use the following Azure services:
 - [IoT Edge](/azure/iot-edge/about-iot-edge) to run AI, non-Microsoft services, or your own business logic on IoT Edge devices
 
 :::image type="complex" border="false" source="media/iot/simple-paas-saas.png" alt-text="Diagram that shows an IoT solution. Each tenant connects to a shared web app, which receives data from hubs and an Azure Functions app. Devices connect to the DPS and IoT Hub." lightbox="media/iot/simple-paas-saas.png":::
-   The diagram shows a platform-owner subscription. Double-sided arrows point from the device ecosystem to DPS, IoT Hubs, and the Azure Functions app. Arrows point downward from DPS to IoT Hubs. Double-sided arrows point from IoT Hubs to the Functions app. An arrow points from IoT Hubs to Data Explorer. Arrows point from Data Explorer to the web app section and to Azure Cosmos DB. Another arrow points from the Functions app to Azure Cosmos DB and then from Azure Cosmos D to the web app section. Three tenants connect to the web app section via arrows.
+   The diagram shows a platform-owner subscription. Double-sided arrows point from the device ecosystem to the device provisioning service, IoT hubs, and function apps. Arrows point downward from the device provisioning service to the IoT hubs. Double-sided arrows connect the IoT hubs and function apps. An arrow points from the IoT hubs to Azure Data Explorer. Arrows point from Azure Data Explorer to the web app section and to Azure Cosmos DB. Another arrow points from the function apps to Azure  Cosmos DB and then from Azure Cosmos DB to the web app section. Three tenants connect to the web app section via arrows.
 :::image-end:::
 
-In the previous diagram, each tenant connects to a shared web app, which receives data from IoT Hubs and an Azure Functions app. Devices connect to DPS and to IoT Hubs.
+In the previous diagram, each tenant connects to a shared web app, which receives data from IoT Hub and an Azure Functions app. Devices connect to the device provisioning service and to IoT Hub.
 
 This approach requires more developer effort to create, deploy, and maintain the solution than an aPaaS approach. It includes fewer prebuilt capabilities. This approach also provides more control because fewer assumptions are built into the platform.
 
@@ -159,7 +159,7 @@ The following table lists common patterns for multitenant IoT solutions. Each pa
 ### Simple SaaS
 
 :::image type="complex" border="false" source="media/iot/simple-saas.png" alt-text="Diagram that shows an IoT architecture. Tenants share an Azure IoT Central environment, Data Explorer, Power BI, and Logic Apps." lightbox="media/iot/simple-saas.png":::
-   Diagram that shows a platform owner subscription that contains three tenants. Each tenant connects to a shared Azure IoT Central Organizations environment. IoT devices connect to the Azure IoT Central environment. Data flows from Azure IoT Central to Data Explorer, then to Power BI for visualization. Logic Apps connects to the Azure IoT Central environment for integration workflows.
+   Diagram that shows a platform owner subscription that contains three tenants. Each tenant connects to a shared Azure IoT Central organizations environment. IoT devices connect to the Azure IoT Central environment. Data flows from Azure IoT Central to Azure Data Explorer, then to Power BI for visualization. Logic Apps connects to the Azure IoT Central environment for integration workflows.
 :::image-end:::
 
 | Deployment target | Tenancy model | Deployment pattern |
@@ -174,7 +174,7 @@ Communications to systems outside of Azure IoT Central, like for longer-term dat
 
 - Event Hubs as a cross-platform, enterprise-grade messaging and data flow engine
 
-- Logic Apps as an iPaaS
+- Logic Apps as an integration platform as a service (iPaaS)
 
 - Data Explorer as a data analytics platform
 
@@ -198,7 +198,7 @@ Because this model uses a shared multitenant data tier, you must implement row-l
 
 - Shared services and components across tenants, so a failure in any component can affect all tenants and reduce reliability and availability
 
-- Increased complexity for compliance, operations, tenant lifecycle, and device subfleet security because this solution type shares control, management, and communications planes across customers
+- Increased complexity for compliance, operations, tenant life cycle, and device subfleet security because this solution type shares control, management, and communications planes across customers
 
 ### Horizontal SaaS
 
@@ -276,7 +276,7 @@ Each tenant has its own identical, isolated environment, with an Azure IoT Centr
 
 | Deployment target | Tenancy model | Deployment pattern |
 |---|---|---|
-| Either service provider's or customer's subscription | One tenant for each customer | Simple |
+| Either the service provider's or customer's subscription | One tenant for each customer | Simple |
 
 A critical decision point in this approach is choosing which Azure subscription to deploy the components to. Deploying the components to your subscription gives you more control and improved visibility into solution costs, but it also requires you to own more of the solution's security and governance concerns. Conversely, if you deploy the solution in your customer's subscription, your customer manages the security and governance of the deployment.
 
