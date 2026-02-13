@@ -29,7 +29,7 @@ Governance in IoT also includes decisions about device ownership and device mana
 
 Plan your solution's scale across these three areas:
 
-- **Device quantity:** All Azure device management services - [Azure IoT Central](/azure/iot-central/core/concepts-quotas-limits), [IoT Hub device provisioning service](/azure/iot-dps/about-iot-dps#quotas-and-limits), and [IoT Hub](/azure/iot-hub/iot-hub-devguide-quotas-throttling) - limit the number of devices that they support in a single instance.
+- **Device quantity:** All Azure device management services, including [Azure IoT Central](/azure/iot-central/core/concepts-quotas-limits), [IoT Hub device provisioning service](/azure/iot-dps/about-iot-dps#quotas-and-limits), and [IoT Hub](/azure/iot-hub/iot-hub-devguide-quotas-throttling), limit the number of devices that they support in a single instance.
 
    > [!TIP]
    > If you plan to deploy many devices, see [Scale out an IoT Hub solution to support millions of devices](../../iot/scale-iot-solution-azure.md).
