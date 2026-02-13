@@ -27,7 +27,7 @@ Messages have two main categories:
 
 A producer sends a command that requests the consumer to perform an operation within a business transaction.
 
-A command is a high-value message that has strict delivery requirements. A command must be delivered at least once. If a command is lost, the entire business transaction might fail. In most cases, a command shouldn't be processed more than once. Duplicate processing can cause erroneous transactions, like duplicate orders or double billing.
+A command is a high-value message that has strict delivery requirements. A command must be delivered at least one time. If a command doesn't reach its destination, the entire business transaction might fail. In most cases, consumers shouldn't process a command more than one time. Duplicate processing can cause erroneous transactions, like duplicate orders or double billing.
 
 Commands often manage the workflow of a multistep business transaction. Depending on the business logic, the producer might expect the consumer to acknowledge the message and report the results of the operation. Based on that result, the producer can choose how to proceed.
 
@@ -36,7 +36,7 @@ Commands often manage the workflow of a multistep business transaction. Dependin
 An event is a message that a producer raises to announce that something happened. The producer (known as the *publisher* in this context) doesn't expect the event to result in any specific action.
 
 
-Interested consumers can subscribe, listen for events, and take actions depending on their consumption scenario. Events can have multiple subscribers or no subscribers at all. Different subscribers can react to the same event with different actions, unaware of each other.
+Interested consumers can subscribe, listen for events, and take actions depending on their consumption scenario. Events can have multiple subscribers or no subscribers at all. Different subscribers can react to the same event with different actions, independently of one another.
 
 The producer and consumer are loosely coupled and managed independently. The producer doesn't expect the consumer to acknowledge the event back to the producer. A consumer that's no longer interested in the events can unsubscribe, which removes the consumer from the pipeline without affecting the producer or the overall functionality of the system.
 
@@ -164,7 +164,7 @@ Check messages in the DLQ to determine the failure reason. You might not be able
 
 #### Hybrid solution
 
-Service Bus bridges on-premises systems and cloud solutions. On-premises systems are often difficult to reach because of firewall restrictions. Both the producer and consumer, either on-premises or in the cloud, can use the Service Bus queue endpoint in the cloud as the pickup and drop off location for messages.
+Service Bus bridges on-premises systems and cloud solutions. On-premises systems are often difficult to reach because of firewall restrictions. Both the producer and consumer, either on-premises or in the cloud, can use the Service Bus queue endpoint in the cloud as the location to exchange messages.
 
 [Azure Relay Hybrid Connections](/azure/azure-relay/relay-hybrid-connections-protocol) provides a turnkey implementation for message-based cross-premises communication. Azure Relay is built on Service Bus and provides bidirectional, request-response patterns and datagram flows.
 
@@ -299,7 +299,7 @@ For more information, see [Event Hubs for Apache Kafka](/azure/event-hubs/event-
 
 ## Crossover scenarios
 
-You can combine two messaging services to gain advantages. This approach increases messaging system efficiency. For example, suppose you use Service Bus queues to handle messages in your business transaction. Idle queues that occasionally receive messages create inefficiency because the consumer constantly polls the queue for new messages. You can set up an Event Grid subscription and use an Azure function as the event handler. Each time the queue receives a message and no consumers are listening, Event Grid sends a notification that invokes the Azure function to drain the queue.
+You can combine two messaging services to gain advantages. This approach increases messaging system efficiency. For example, suppose that you use Service Bus queues to handle messages in your business transaction. Idle queues that occasionally receive messages create inefficiency because the consumer continuously polls the queue for new messages. You can set up an Event Grid subscription and use an Azure function as the event handler. Each time the queue receives a message and no consumers are listening, Event Grid sends a notification that invokes the Azure function to drain the queue.
 
 :::image type="complex" source="./images/crossover1.png" border="false" lightbox="./images/crossover1.png" alt-text="Diagram that shows Service Bus to Event Grid integration.":::
 On the left, a Service Bus queue publishes messages. In the center, an Event Grid subscription sends notifications. The Event Grid subscription points to a logic app, which drains the queue.
