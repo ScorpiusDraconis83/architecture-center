@@ -111,11 +111,11 @@ Power Automate is a low-code application platform that you can use to automate r
 
   - [Data Factory](/fabric/data-factory/data-factory-overview) is a cloud-based ETL and orchestration service. In this architecture, it automates data movement and transformation across diverse sources, which supports both scheduled and event-driven ingestion.
 
-  - [Data Engineering](/fabric/data-engineering/data-engineering-overview) is a workload in Fabric that provides tools to collect, store, process, and analyze large datasets. In this architecture, it powers the transformation and preparation of data within the lakehouse by using Spark notebooks and pipelines.
+  - [Fabric Data Engineer](/fabric/data-engineering/data-engineering-overview) is a workload in Fabric that provides tools to collect, store, process, and analyze large datasets. In this architecture, it powers the transformation and preparation of data within the lakehouse by using Spark notebooks and pipelines.
   
-  - [Data Science](/fabric/data-science/data-science-overview) is a workload in Fabric that provides tools to build machine learning models and generate insights. In this architecture, it supports experimentation, model tracking, and deployment within the lakehouse environment.
+  - [Fabric Data Science](/fabric/data-science/data-science-overview) is a workload in Fabric that provides tools to build machine learning models and generate insights. In this architecture, it supports experimentation, model tracking, and deployment within the lakehouse environment.
 
-  - [Data Warehouse](/fabric/data-warehouse/data-warehousing) is an enterprise-scale relational warehouse on a data lake foundation. Every lakehouse in Fabric includes a SQL endpoint, which provides SQL-native warehouse semantics on top of the lakehouse. Use Data Warehouse to serve curated gold data from the lakehouse. Data analysts can use this feature for interactive analysis, and business users can generate reports.
+  - [Fabric Data Warehouse](/fabric/data-warehouse/data-warehousing) is an enterprise-scale relational warehouse on a data lake foundation. Every lakehouse in Fabric includes a SQL endpoint, which provides SQL-native warehouse semantics on top of the lakehouse. Use Data Warehouse to serve curated gold data from the lakehouse. Data analysts can use this feature for interactive analysis, and business users can generate reports.
   
   For more information about data ingestion, table management, data preparation, statistics, and querying best practices in warehouses and SQL analytics endpoints, see [Performance guidelines in Data Warehouse](/fabric/data-warehouse/guidelines-warehouse-performance).
 
@@ -250,4 +250,4 @@ Principal authors:
 
 - [What is a data lake?](../../data-guide/scenarios/data-lake.md)
 - [Data warehousing and analytics](data-warehouse.yml)
-- [Use Microsoft Fabric to design an enterprise BI solution](../../example-scenario/analytics/enterprise-bi-microsoft-fabric.yml)
+- [Use Fabric to design an enterprise BI solution](../../example-scenario/analytics/enterprise-bi-microsoft-fabric.yml)
