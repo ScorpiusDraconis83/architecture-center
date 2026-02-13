@@ -336,5 +336,4 @@ Consider the following patterns when you implement asynchronous messaging:
 ## Community resources
 
 - [Blog post: Idempotency](https://blog.jonathanoliver.com/idempotency-patterns/)
-
 - [Blog post: What do you mean by event driven?](https://martinfowler.com/articles/201701-event-driven.html)
