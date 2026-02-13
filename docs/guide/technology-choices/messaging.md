@@ -136,7 +136,7 @@ A producer might accidentally send the same message twice. For example, a produc
 
 #### Message ordering
 
-If you want consumers to receive messages in the order that the producer sends them, Service Bus queues guarantee ordered delivery by using sessions. A session can have one or more messages. Service Bus correlates messages by using the **SessionId** property. Messages that belong to a session never expire. You can lock a session to a consumer to prevent a different consumer from handling its messages.
+To ensure that messages are delivered in the order that they were sent, Service Bus queues use sessions to provide ordered delivery. A session can have one or more messages. Service Bus correlates messages by using the `SessionId` property. Messages that belong to a session never expire. You can lock a session to a consumer to prevent a different consumer from handling its messages.
 
 For more information, see [Message sessions](/azure/service-bus-messaging/message-sessions).
 
@@ -188,7 +188,7 @@ For more information about the message format schema, see [Messages, payloads, a
 
 ### Event Grid
 
-Use [Event Grid](/azure/event-grid/) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they publish them to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and an event handler to process the events. Each event can have multiple subscriptions.
+Use [Event Grid](/azure/event-grid/overview) for discrete events. Event Grid follows the Publisher-Subscriber pattern. When event sources trigger events, they publish them to [Event Grid topics](/azure/event-grid/concepts#topics). Consumers of those events create Event Grid subscriptions by specifying event types and an event handler to process the events. Each event can have multiple subscriptions.
 
 #### Push model in Event Grid
 
@@ -234,7 +234,7 @@ In addition to the push model, Event Grid supports [HTTP-based pull delivery](/a
 
 - Process events on a schedule rather than continuously
 - Have intermittent availability that prevents reliable real-time push delivery
-- Have network restrictions that require [private link](/azure/event-grid/configure-private-endpoints)
+- Have network restrictions that require a [private link](/azure/event-grid/configure-private-endpoints)
 - Can't expose a push notification endpoint
 
 Event Grid remains optimized for high-throughput distribution of discrete events, even with pull delivery. If your workload requires enterprise messaging features like strictly ordered processing (sessions), transactions, or duplicate detection, use Service Bus instead.
@@ -255,7 +255,7 @@ Event Grid supports two protocols for message broker interaction:
 
 ### Event Hubs
 
-When you work with eventstreams, use [Event Hubs](/azure/event-hubs/) as the message broker. Event Hubs buffers large volumes of data at low latency. Multiple consumers can read data concurrently from the buffer. You can transform the received data by using any real-time analytics provider. Event Hubs also stores events in a storage account.
+When you work with eventstreams, use [Event Hubs](/azure/event-hubs/event-hubs-about) as the message broker. Event Hubs buffers large volumes of data at low latency. Multiple consumers can read data concurrently from the buffer. You can transform the received data by using any real-time analytics provider. Event Hubs also stores events in a storage account.
 
 #### High-volume ingestion
 
@@ -267,7 +267,7 @@ Event Hubs provides publisher-subscriber capabilities. A key difference between 
 
 *Stream processors* are subscribers that pull data from Event Hubs for transformation and statistical analysis. For complex processing like aggregation over time windows or anomaly detection, use [Azure Stream Analytics](../../reference-architectures/data/stream-processing-stream-analytics.yml) or [Apache Spark](https://spark.apache.org/). You can also integrate Event Hubs with Microsoft Fabric by [loading data into your eventhouse](/fabric/real-time-intelligence/get-data-event-hub) or [creating an eventstream](/fabric/real-time-intelligence/event-streams/add-source-azure-event-hubs).
 
-To process individual events in each partition, you can use [EventProcessorHost](/azure/event-hubs/event-hubs-event-processor-host), built-in connectors like [Azure Logic Apps](/azure/connectors/connectors-create-api-azure-event-hubs), or [Event Hubs trigger and bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-hubs).
+To process individual events in each partition, you can use [EventProcessorHost](/azure/event-hubs/event-processor-balance-partition-load), built-in connectors like [Azure Logic Apps](/azure/connectors/connectors-create-api-azure-event-hubs), or [Event Hubs trigger and bindings for Azure Functions](/azure/azure-functions/functions-bindings-event-hubs).
 
 #### Partitioning
 
@@ -295,7 +295,7 @@ For more information about this feature, see [Capture events through Event Hubs 
 
 Event Hubs provides an endpoint for [Apache Kafka](https://kafka.apache.org/) clients. Existing clients can update their configuration to point to the endpoint and start sending events to Event Hubs. You don't need to make any code changes.
 
-For more information, see [Event Hubs for Apache Kafka](/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview).
+For more information, see [Event Hubs for Apache Kafka](/azure/event-hubs/azure-event-hubs-apache-kafka-overview).
 
 ## Crossover scenarios
 
@@ -323,7 +323,7 @@ Consider the following patterns when you implement asynchronous messaging:
 
 - [Priority Queue pattern](../../patterns/priority-queue.yml): When business logic requires prioritized message processing, this pattern describes how consumers process higher-priority messages before lower-priority messages.
 
-- [Queue-Based Load Leveling pattern](../../patterns/queue-based-load-leveling.yml): This pattern uses a message broker to act as a buffer between a producer and a consumer. This pattern helps minimize the effect on availability and responsiveness of intermittent heavy loads for both the producer and consumer.
+- [Queue-Based Load Leveling pattern](../../patterns/queue-based-load-leveling.yml): This pattern uses a message broker to act as a buffer between a producer and a consumer. This pattern helps minimize the impact of intermittent heavy loads on both the producer's and consumer's availability and responsiveness.
 
 - [Retry pattern](../../patterns/retry.yml): Producers or consumers might temporarily lose connection to a queue because of transient failures. This pattern describes how to retry operations during transient failures to maintain application resiliency.
 
