@@ -102,7 +102,7 @@ A typical aPaaS solution that uses [Azure IoT Central](/azure/iot-central/core/o
    Diagram that shows a platform owner subscription that has three tenants. Each tenant connects via an arrow to a shared Azure IoT Central organizations environment. A double-sided arrow connects an IoT device and Azure IoT Central. An arrow points from the shared tenant section to the Azure Data Explorer section and then from the Azure Data Explorer section to Power BI. Another arrow points from the shared tenant section to Logic Apps and then from Logic Apps to Power BI.
 :::image-end:::
 
-In the previous diagram, the tenants share the Azure IoT Central environment and Azure Data Explorer, Power BI, and Logic Apps services.
+In the previous diagram, the tenants share Azure IoT Central, Azure Data Explorer, Power BI, and Azure Logic Apps.
 
 This approach typically provides a shorter deployment timeline. It's a high-scale service that supports multitenancy through [organizations](/azure/iot-central/core/howto-create-organizations).
 
