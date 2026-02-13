@@ -10,7 +10,7 @@ ms.subservice: cloud-fundamentals
 
 # Sidecar pattern
 
-The Sidecar pattern deploys application components into a separate process or container to provide isolation and encapsulation. This pattern lets you build applications from diverse components and technologies.
+The Sidecar pattern deploys application components into a process or container separate from the main application to provide isolation and encapsulation. This pattern lets you build applications from diverse components and technologies.
 
 Like a motorcycle sidecar, these components attach to a parent application and share its life cycle—you create and retire them together. This pattern is also called the *Sidekick pattern*.
 
@@ -27,7 +27,7 @@ If you decompose the application into services, you can build each service by us
 Deploy a cohesive set of tasks alongside the primary application in a separate process or container. This approach provides a consistent interface for platform services across languages.
 
 :::image type="complex" border="false" source="./_images/sidecar.png" alt-text="Diagram that shows the Sidecar pattern." lightbox="./_images/sidecar.png":::
-
+The application performs core functionality and the sidecar performs peripheral tasks, like platform abstraction, proxy to remote services, logging, and configuration. Both the application and sidecare reside in a host.
 :::image-end:::
 
 A sidecar service connects to the application without being part of it and deploys alongside it. Each application instance gets its own sidecar instance that shares its life cycle.
