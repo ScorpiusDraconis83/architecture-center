@@ -11,7 +11,7 @@ ms.subservice: architecture-guide
 
 # Choose an Azure compute service
 
-Azure provides many ways to host your application code. The term *compute* refers to the hosting model for the resources that your application runs on. This article helps you choose a compute service for your application. It focuses on general purpose compute offerings.
+Azure provides many ways to host your application code. The term *compute* refers to the hosting model for the resources that your application runs on. This article helps you choose the right compute service for your scenario and focuses on general-purpose compute offerings.
 
 ## Architecture
 
@@ -90,7 +90,7 @@ A trade-off exists between control and ease of management. IaaS provides the mos
 
 <sup>1</sup> <span id="note1">Higher service-level agreement (SLA) that has two or more instances.</span>
 
-<sup>2</sup> <span id="note2">For Azure Functions, the [Consumption and Flex Consumption plans](/azure/azure-functions/flex-consumption-plan) are serverless. For an App Service plan, functions run on the VMs allocated for that plan. [Choose the correct service plan for Azure Functions][function-plans].</span>
+<sup>2</sup> <span id="note2">For Azure Functions, the [Consumption and Flex Consumption plans](/azure/azure-functions/flex-consumption-plan) are serverless. For an App Service plan, functions run on the VMs allocated for that plan. [Choose the right service plan for Azure Functions][function-plans].</span>
 
 <sup>3</sup> <span id="note3">When you use [durable functions][durable-functions].</span>
 
@@ -106,7 +106,7 @@ For more information, see [Choose an Azure container service](../choose-azure-co
 
 ## Networking
 
-Your application platform likely needs to interface with networks both as a server for your applications and as a client. For example, it might serve as a client to get operating system (OS) updates. You must select a platform that supports both your east-west and north-south traffic requirements.
+Your application platform likely needs to interface with networks both as a server for your applications and as a client. For example, it might function as a client to get operating system (OS) updates. You must select a platform that supports both your east-west and north-south traffic requirements.
 
 | Service | Virtual network integration | Hybrid connectivity |
 | :------ | :-------------------------- | :------------------ |
@@ -164,7 +164,7 @@ Your application platform likely needs to interface with networks both as a serv
 
 ## Scalability
 
-Quota and limits can influence scalability. Review the latest [Azure subscription and service limits, quotas, and constraints](/azure/azure-resource-manager/management/azure-subscription-service-limits) when you design your workload.
+Quota and limits can affect scalability. Review the latest [Azure subscription and service limits, quotas, and constraints](/azure/azure-resource-manager/management/azure-subscription-service-limits) when you design your workload.
 
 | Service | Autoscaling | Load balancer | Scale limit |
 | :------ | :---------- | :------------ | :---------- |
