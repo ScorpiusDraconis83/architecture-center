@@ -137,14 +137,6 @@ Internet of Things (IoT) solutions use a combination of technologies to connect 
 | [Learn about Azure IoT services and technologies](/azure/iot/iot-services-and-technologies) | Learn about Azure IoT services and technologies, including Azure IoT Hub, Azure IoT Operations, Azure IoT Edge, and Azure IoT Central. Choose between cloud-based and edge-based solution types. |
 | [Compare IoT Hub and Event Hubs](/azure/iot-hub/iot-hub-compare-event-hubs) | Review a comparison between Azure IoT Hub and Event Hubs that highlights functional differences and use cases. The comparison includes supported protocols, device management, monitoring, and file uploads. |
 
-## Choose a mobile development framework
-
-Developers can use native and cross-platform frameworks to build mobile applications. The following article can help you evaluate your options.
-
-| Article | Summary |
-| :------ | :------ |
-| [Choose a mobile development framework](/azure/developer/mobile-apps/choose-mobile-framework) | Learn about the supported native and cross-platform languages for building client applications. |
-
 ## Next step
 
 > [!div class="nextstepaction"]
