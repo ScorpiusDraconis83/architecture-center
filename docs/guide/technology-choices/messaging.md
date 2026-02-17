@@ -12,7 +12,7 @@ ms.subservice: architecture-guide
 
 This article describes the different types of messages and the entities that participate in a messaging infrastructure. Based on message type requirements, Azure provides messaging services that include Azure Service Bus messaging, Azure Event Grid, and Azure Event Hubs. For more information, see [Compare messaging services](/azure/service-bus-messaging/compare-messaging-services).
 
-At an architectural level, a producer entity creates a message datagram to distribute information. Consumer entities become aware of the information and act accordingly. The producer and the consumers can communicate directly or through an intermediary message broker entity. This article focuses on asynchronous messaging that uses a message broker.
+At an architectural level, a *producer* entity creates a message datagram to distribute information. *Consumer* entities become aware of the information and act accordingly. The producer and the consumers can communicate directly or through an intermediary *message broker* entity. This article focuses on asynchronous messaging that uses a message broker.
 
 :::image type="complex" source="./images/messaging.png" border="false" lightbox= "./images/messaging.png" alt-text="Diagram that shows the components of asynchronous messaging.":::
 The diagram shows a flow that starts with a producer, goes to a message broker, and ends with a consumer.
@@ -27,14 +27,13 @@ Messages have two main categories:
 
 A producer sends a command that requests the consumer to perform an operation within a business transaction.
 
-A command is a high-value message that has strict delivery requirements. A command must be delivered at least one time. If a command doesn't reach its destination, the entire business transaction might fail. In most cases, consumers shouldn't process a command more than one time. Duplicate processing can cause erroneous transactions, like duplicate orders or double billing.
+A command is a high-value message that has strict delivery requirements. A command must be delivered at least once. If a command doesn't reach its destination, the entire business transaction might fail. In most cases, consumers shouldn't process a command more than one time. Duplicate processing can cause erroneous transactions, like duplicate orders or double billing.
 
 Commands often manage the workflow of a multistep business transaction. Depending on the business logic, the producer might expect the consumer to acknowledge the message and report the results of the operation. Based on that result, the producer can choose how to proceed.
 
 ## Events
 
-An event is a message that a producer raises to announce that something happened. The producer (known as the *publisher* in this context) doesn't expect the event to result in any specific action.
-
+An event is a message that a producer raises to announce that something happened. The producer (known as the *publisher* in this context) has no expectation that the event will result in any specific action.
 
 Interested consumers can subscribe, listen for events, and take actions depending on their consumption scenario. Events can have multiple subscribers or no subscribers at all. Different subscribers can react to the same event with different actions, independently of one another.
 
@@ -44,7 +43,7 @@ Events have two categories:
 
 - **Discrete events:** The producer raises events to announce individual facts. A common use case is event notification. For example, Azure Resource Manager raises events when it creates, modifies, or deletes resources. A logic app can subscribe to those events and send alert emails.
 
-- **Eventstreams:** The producer raises a sequence of related events over time. Consumers typically evaluate streams for statistical purposes, either within a temporal window or as events arrive. Telemetry is a common use case, like monitoring the health and load of a system. Another use case includes eventstreaming from Internet of Things (IoT) devices.
+- **Event streams:** The producer raises a sequence of related events over time. Consumers typically evaluate streams for statistical purposes, either within a temporal window or as events arrive. Telemetry is a common use case, like monitoring the health and load of a system. Another use case includes event streaming from Internet of Things (IoT) devices.
 
 You can implement event messaging by using the [Publisher-Subscriber pattern](../../patterns/publisher-subscriber.yml).
 
@@ -84,7 +83,7 @@ Some operations can take a long time. After the producer issues a command, it sh
 
 ### Load balancing
 
-Producers can post several messages for multiple consumers to process. A message broker can distribute processing across servers and improve throughput. Consumers can run on different servers to spread the workload. You can dynamically add or remove consumers to scale the system as needed.
+Producers can post a large number of messages for multiple consumers to process. Use a message broker to distribute processing across servers and improve throughput. Consumers can run on different servers to spread the workload. You can dynamically add or remove consumers to scale the system as needed.
 
 :::image type="complex" source="./images/comp-con.png" border="false" lightbox="./images/comp-con.png" alt-text="Diagram of the Competing Consumers pattern.":::
 Diagram that shows an application instance on the left. It sends messages into a single message queue in the center. From this queue, three arrows point to three separate consumer instances on the right that represent a pool of consumers that process messages in parallel.
@@ -176,7 +175,7 @@ Service Bus supports the Publisher-Subscriber pattern through topics and subscri
 
 Topics and subscriptions let the producer broadcast messages to multiple consumers. When a topic receives a message, it forwards the message to all subscribed consumers. You can optionally add filter criteria to a subscription so that consumers receive only a subset of messages. Each consumer retrieves messages from a subscription, similar to a queue.
 
-Keep routing logic simple. Avoid embedding complex business rules in your subscription filters. Use the broker for reliable transport and broad routing, but handle complex decision logic within the consuming service.
+Keep routing logic simple. Avoid embedding complex business rules in your subscription filters. Prefer the *smart endpoints and dumb pipes* approach. Use the broker for reliable transport and broad routing, but handle complex decision logic within the consuming service.
 
 For more information, see [Service Bus topics](/azure/service-bus-messaging/service-bus-messaging-overview#topics).
 
@@ -220,7 +219,7 @@ Event Grid has multiple [tiers](/azure/event-grid/choose-right-tier#basic-and-st
 
 #### Resilient delivery
 
-Successful delivery for events matters less than it does for commands, but you might still want delivery guarantees depending on the event type. Event Grid attempts to deliver each message at least one time for each subscription. You can turn on and customize features like retry policies, expiration time, and dead lettering. For more information, see [Event Grid message delivery and retry](/azure/event-grid/delivery-and-retry).
+Successful delivery for events matters less than it does for commands, but you might still want delivery guarantees depending on the event type. Event Grid attempts to deliver each message *at least once* for each subscription. You can turn on and customize features like retry policies, expiration time, and dead lettering. For more information, see [Event Grid message delivery and retry](/azure/event-grid/delivery-and-retry).
 
 The Event Grid retry process improves resiliency, but it doesn't guarantee delivery. Event Grid might deliver the message more than one time, skip, or delay some retries when the endpoint remains unresponsive for an extended period. For more information, see [Retry schedule](/azure/event-grid/delivery-and-retry#retry-schedule).
 
@@ -255,7 +254,7 @@ Event Grid supports two protocols for message broker interaction:
 
 ### Event Hubs
 
-When you work with eventstreams, use [Event Hubs](/azure/event-hubs/event-hubs-about) as the message broker. Event Hubs buffers large volumes of data at low latency. Multiple consumers can read data concurrently from the buffer. You can transform the received data by using any real-time analytics provider. Event Hubs also stores events in a storage account.
+When you work with event streams, use [Event Hubs](/azure/event-hubs/event-hubs-about) as the message broker. Event Hubs buffers large volumes of data at low latency. Multiple consumers can read data concurrently from the buffer. You can transform the received data by using any real-time analytics provider. Event Hubs also stores events in a storage account.
 
 #### High-volume ingestion
 
@@ -271,11 +270,11 @@ To process individual events in each partition, you can use [EventProcessorHost]
 
 #### Partitioning
 
-A *partition* is a portion of the eventstream. Event Hubs divides events by using a partition key. For example, several IoT devices send device data to an event hub. The partition key is the device identifier. As Event Hubs ingests events, it moves them to separate partitions. Within each partition, Event Hubs orders all events by time.
+A *partition* is a portion of the event stream. Event Hubs divides events by using a partition key. For example, several IoT devices send device data to an event hub. The partition key is the device identifier. As Event Hubs ingests events, it moves them to separate partitions. Within each partition, Event Hubs orders all events by time.
 
 A *consumer* is an instance of code that processes the event data. Event Hubs follows a partitioned consumer pattern. Each consumer only reads a specific partition. Multiple partitions result in faster processing because multiple consumers can read the stream concurrently.
 
-Instances of the same consumer make up a single consumer group. Multiple consumer groups can read the same stream with different intentions. Suppose that an eventstream has data from a temperature sensor. One consumer group can read the stream to detect anomalies like a spike in temperature. Another consumer can read the same stream to calculate a rolling average temperature in a temporal window.
+Instances of the same consumer make up a single consumer group. Multiple consumer groups can read the same stream with different intentions. Suppose that an event stream has data from a temperature sensor. One consumer group can read the stream to detect anomalies like a spike in temperature. Another consumer can read the same stream to calculate a rolling average temperature in a temporal window.
 
 Event Hubs implements the Publisher-Subscriber pattern through multiple consumer groups, where each group serves as a separate subscriber.
 
@@ -283,7 +282,7 @@ For more information about Event Hubs partitioning, see [Partitions](/azure/even
 
 #### Event Hubs capture
 
-You can use the capture feature to store the eventstream in [Blob Storage](/azure/storage/blobs/storage-blobs-overview) or [Azure Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction). Capture provides reliable storage because it keeps your data for a period if the storage account is unavailable, then writes to the storage after it becomes available.
+You can use the capture feature to store the event stream in [Blob Storage](/azure/storage/blobs/storage-blobs-overview) or [Azure Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction). Capture provides reliable storage because it keeps your data for a period if the storage account is unavailable, then writes to the storage after it becomes available.
 
 Storage services also provide extra features for analyzing events. For example, use the access tiers of a Blob Storage account to store events in a hot tier for data that needs frequent access. You might use that data for visualization. Alternatively, you can store data in the archive tier and retrieve it occasionally for auditing purposes.
 
