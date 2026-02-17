@@ -277,7 +277,7 @@ Operational Excellence covers the operations processes that deploy an applicatio
 The deployment for the baseline App Service application follows the [Azure Pipelines architecture guidance](/azure/devops/pipelines/architectures/devops-pipelines-azure-web-apps-architecture). Because the baseline architecture denies public access to App Service and secures the deployment storage account within the virtual network, you can't deploy from outside the virtual network. To address this constraint, the architecture uses self-hosted deployment agents that run within the virtual network. The following deployment guidance focuses on application code deployment, not infrastructure or database changes.
 
 :::image type="complex" source="../_images/baseline-app-service-deployments.svg" lightbox="../_images/baseline-app-service-deployments.svg" alt-text="Diagram that shows a baseline App Service deployment architecture." border="false":::
-The diagram shows the baseline architecture with a subnet that contains self-hosted deployment agents. It also adds Azure pipelines with managed agents. The managed agents point to Azure DevOps and the release pipeline (steps 1, 4, and 6). The self-hosted deployment agents point to Azure DevOps and the release pipeline (step 2) and to the storage private endpoint (step 3). The storage private endpoint points to Storage (step 3).
+The diagram shows the baseline architecture with a subnet that contains self-hosted deployment agents. It also adds Azure Pipelines with managed agents. The managed agents point to Azure DevOps and the release pipeline (steps 1, 4, and 6). The self-hosted deployment agents point to Azure DevOps and the release pipeline (step 2) and to the storage private endpoint (step 3). The storage private endpoint points to Storage (step 3).
 :::image-end:::
 
 #### Deployment flow
@@ -387,7 +387,7 @@ App Service provides built-in and integrated monitoring capabilities for improve
 
 - [Turn on distributed tracing](/azure/azure-monitor/app/app-map) to track requests across multiple services and dependencies. You can monitor distributed cloud systems via distributed tracing and a performance profiler.
 
-- Use code-based instrumentation for custom telemetry. Application Insights also supports code-based instrumentation for custom application telemetry. Add the Application Insights SDK to your code and use the Application Insights API.
+- Use code-based instrumentation for custom telemetry. Application Insights also supports code-based instrumentation for custom application telemetry. Add the [Azure Monitor OpenTelemetry Distro](/azure/azure-monitor/app/opentelemetry-enable) to your code.
 
 - [Turn on App Service logs](/azure/app-service/troubleshoot-diagnostic-logs) for platform-level diagnostics. App Service provides four log types for troubleshooting: application logs, web server logs, detailed error messages, and failed request tracing.
 
