@@ -3,7 +3,7 @@ title: Sidecar Pattern
 description: Learn how to deploy features of an application into a separate process or container to provide modular abstraction and isolation of cross-cutting concerns.
 author: claytonsiemens77
 ms.author: pnp
-ms.date: 02/16/2026
+ms.date: 02/17/2026
 ms.topic: design-pattern
 ms.subservice: cloud-fundamentals
 ---
@@ -12,7 +12,7 @@ ms.subservice: cloud-fundamentals
 
 The Sidecar pattern deploys application components into a process or container separate from the main application to provide isolation and encapsulation. This pattern lets you build applications from diverse components and technologies.
 
-Like a motorcycle sidecar, these components attach to a parent application and share its life cycle—you create and retire them together. This pattern is also called the *Sidekick pattern*.
+Like a motorcycle sidecar, these components attach to a parent application and share its life cycle, so you create and retire them together. This pattern is also known as the *Sidekick pattern*.
 
 ## Context and problem
 
@@ -20,7 +20,7 @@ Applications and services often require related functionality, like monitoring, 
 
 Tightly integrated components run in the same process and efficiently use shared resources, but they lack isolation. An outage in one component can affect the entire application. They also require implementation in the parent application's language, which creates interdependence.
 
-If you decompose the application into services, you can build each service by using different languages and technologies. This approach provides more flexibility. But each component has its own dependencies and requires language-specific libraries to access the platform and shared resources. Deploying these features as separate services adds latency. Managing language-specific code and dependencies increases complexity for hosting and deployment.
+If you decompose the application into services, you can build each service by using different languages and technologies. This approach provides more flexibility. But each component has its own dependencies and requires language-specific libraries to access the platform and shared resources. When you deploy these features as separate services, you add latency. Language-specific code and dependencies also increase complexity for hosting and deployment.
 
 ## Solution
 
@@ -52,7 +52,7 @@ Consider the following points when you implement this pattern:
 
 - When you design a sidecar service, carefully choose the interprocess communication mechanism. Use language-agnostic or framework-agnostic technologies unless performance requirements make that approach impractical.
 
-- Before you add functionality to a sidecar, evaluate whether it would work better as a separate service or a traditional daemon.
+- Before you add functionality to a sidecar, evaluate whether it works better as a separate service or a traditional daemon.
 
 - Consider whether to implement the functionality as a library or through a traditional extension mechanism. Language-specific libraries provide deeper integration and less network overhead.
 
@@ -72,7 +72,7 @@ Use this pattern when:
 
 This pattern might not be suitable when:
 
-- You need to optimize interprocess communication. Sidecars add overhead, particularly latency, which makes them unsuitable for applications with frequent communication between components.
+- You need to optimize interprocess communication. Sidecars add overhead, especially latency, which makes them unsuitable for applications with frequent communication between components.
 
 - Your application is small. The resource cost of deploying a sidecar for each instance might outweigh the isolation benefits.
 
@@ -116,6 +116,6 @@ You can apply the Sidecar pattern to many scenarios. Consider the following exam
 
 - [Native sidecar mode for Istio-based service mesh feature in Azure Kubernetes Service (AKS)](/azure/aks/istio-native-sidecar): Learn how the Istio service mesh feature for AKS uses the Sidecar pattern to address distributed architecture challenges.
 
-## Related resources
+## Related resource
 
 - [Ambassador pattern](./ambassador.yml)
