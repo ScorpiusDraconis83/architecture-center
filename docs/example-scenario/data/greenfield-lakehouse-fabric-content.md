@@ -101,7 +101,7 @@ Fabric provides an API surface across its items. OneLake provides open access to
 
 ###### Power Automate
 
-Power Automate is a low-code application platform that you can use to automate repetitive tasks and manipulate your data. The Fabric activator supports Power Automate flows as a destination. This [integration](/fabric/real-time-intelligence/data-activator/activator-trigger-power-automate-flows) unlocks many use cases and lets you trigger downstream actions by using connectors for both Microsoft and non-Microsoft systems
+Power Automate is a low-code application platform that you can use to automate repetitive tasks and manipulate your data. The Fabric activator supports Power Automate flows as a destination. This [integration](/fabric/real-time-intelligence/data-activator/activator-trigger-power-automate-flows) unlocks many use cases and lets you trigger downstream actions by using connectors for both Microsoft and non-Microsoft systems.
 
 ### Components
 
