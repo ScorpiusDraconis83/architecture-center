@@ -189,8 +189,8 @@ items:
     - name: Choose a messaging service
       items:
       - name: Asynchronous messaging
+        href: guide/technology-choices/messaging.md
         displayName: queue comparison, event-driven, Service Bus, Event Hubs, Event Grid
-        href: guide/technology-choices/messaging.yml
     - name: Development tools
       items:
       - name: Compare Java application hosting options
