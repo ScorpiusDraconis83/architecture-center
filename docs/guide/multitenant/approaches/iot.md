@@ -54,7 +54,7 @@ Fully shared solutions can have [noisy neighbors](../../../antipatterns/noisy-ne
 
 In fully multitenant solutions, these effects can cascade. When customers share IoT Hub or Azure IoT Central applications, all customers on the shared infrastructure receive errors. Because IoT Hub and Azure IoT Central commonly serve as entry points for cloud data, downstream systems that depend on this data are also likely to fail. These errors often occur when a customer exceeds a message-quota limit. In this situation, the simplest fix for IoT Hub solutions is to upgrade the IoT Hub SKU, increase the number of IoT Hub units, or use both options. For Azure IoT Central solutions, the system scales automatically as needed, up to the [documented number of messages supported](/azure/iot-central/core/concepts-quotas-limits).
 
-You can isolate and distribute tenants across the IoT control, management, and communications planes by using Device Provisioning Service [custom allocation policies](/azure/iot-dps/tutorial-custom-allocation-policies). When you follow the guidance for [high-scale IoT solutions](../../iot/scale-iot-solution-azure.md), you can manage other allocation distributions at the Device Provisioning Service load-balancer level.
+You can isolate and distribute tenants across the IoT control, management, and communications planes by using IoT Hub Device Provisioning Service [custom allocation policies](/azure/iot-dps/tutorial-custom-allocation-policies). When you follow the guidance for [high-scale IoT solutions](../../iot/scale-iot-solution-azure.md), you can manage other allocation distributions at the IoT Hub Device Provisioning Service load-balancer level.
 
 #### Data storage, query, usage, and retention
 
@@ -122,7 +122,7 @@ A PaaS-based approach might use the following Azure services:
 
 - [IoT Hub](/azure/iot-hub/iot-concepts-and-iot-hub) as the core device configuration and communications platform
 
-- [Device Provisioning Service](/azure/iot-dps/about-iot-dps) as the device deployment and initial configuration platform
+- [IoT Hub Device Provisioning Service](/azure/iot-dps/about-iot-dps) as the device deployment and initial configuration platform
 
 - [Azure Data Explorer](/azure/data-explorer/data-explorer-overview) to store and analyze warm and cold path time-series data from IoT devices
 
@@ -130,11 +130,11 @@ A PaaS-based approach might use the following Azure services:
 
 - [IoT Edge](/azure/iot-edge/about-iot-edge) to run AI, non-Microsoft services, or your own business logic on IoT Edge devices
 
-:::image type="complex" border="false" source="media/iot/simple-paas-saas.png" alt-text="Diagram that shows an IoT solution. Each tenant connects to a shared web app, which receives data from hubs and an Azure Functions app. Devices connect to Device Provisioning Service and IoT Hub." lightbox="media/iot/simple-paas-saas.png":::
-   The diagram shows a platform-owner subscription. Double-sided arrows point from the device ecosystem to Device Provisioning Service, IoT hubs, and function apps. Arrows point downward from Device Provisioning Service to the IoT hubs. Double-sided arrows connect the IoT hubs and function apps. An arrow points from the IoT hubs to Azure Data Explorer. Arrows point from Azure Data Explorer to the web app section and to Azure Cosmos DB. Another arrow points from the function apps to Azure  Cosmos DB and then from Azure Cosmos DB to the web app section. Three tenants connect to the web app section via arrows.
+:::image type="complex" border="false" source="media/iot/simple-paas-saas.png" alt-text="Diagram that shows an IoT solution. Each tenant connects to a shared web app, which receives data from hubs and an Azure Functions app. Devices connect to IoT Hub Device Provisioning Service and IoT Hub." lightbox="media/iot/simple-paas-saas.png":::
+   The diagram shows a platform-owner subscription. Double-sided arrows point from the device ecosystem to Device Provisioning Service, IoT hubs, and function apps. Arrows point downward from IoT Hub Device Provisioning Service to the IoT hubs. Double-sided arrows connect the IoT hubs and function apps. An arrow points from the IoT hubs to Azure Data Explorer. Arrows point from Azure Data Explorer to the web app section and to Azure Cosmos DB. Another arrow points from the function apps to Azure  Cosmos DB and then from Azure Cosmos DB to the web app section. Three tenants connect to the web app section via arrows.
 :::image-end:::
 
-In the previous diagram, each tenant connects to a shared web app, which receives data from IoT Hub and an Azure Functions app. Devices connect to Device Provisioning Service and to IoT Hub.
+In the previous diagram, each tenant connects to a shared web app, which receives data from IoT Hub and an Azure Functions app. Devices connect to IoT Hub Device Provisioning Service and to IoT Hub.
 
 This approach requires more developer effort to create, deploy, and maintain the solution than an aPaaS approach. It includes fewer prebuilt capabilities. This approach also provides more control because fewer assumptions are built into the platform.
 
@@ -254,7 +254,7 @@ Separate the databases for each tenant to gain the following benefits:
 
 #### Device management, communications, and administration
 
-You can often deploy Device Provisioning Service, IoT Hub, and Azure IoT Central applications as horizontally partitioned components. In this approach, you need another service to redirect devices to the right Device Provisioning Service instance for that tenant's management, control, and telemetry plane.
+You can often deploy IoT Hub Device Provisioning Service, IoT Hub, and Azure IoT Central applications as horizontally partitioned components. In this approach, you need another service to redirect devices to the right device provisioning service instance for that tenant's management, control, and telemetry plane.
 
 This approach is often used when customers need to manage and control their own device fleets, which remain directly and fully isolated.
 
