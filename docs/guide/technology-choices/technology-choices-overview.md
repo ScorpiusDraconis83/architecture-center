@@ -73,8 +73,8 @@ Choose the right data store based on your data model, access patterns, scale, an
 | [Prepare to choose a data store](data-stores-getting-started.md) | Learn how to choose the right Azure data store for your workloads by evaluating functional, performance, cost, and security requirements. |
 | [Choose a big data storage technology](../../data-guide/technology-choices/data-storage.md) | Compare big data storage options in Azure. View key selection criteria and a capability matrix. |
 | [OLAP solutions](../../data-guide/relational-data/online-analytical-processing.md) | Learn about online analytical processing (OLAP) solutions for organizing large databases and supporting complex analysis without affecting transactional systems. |
-| [OLTP solutions](../../data-guide/relational-data/online-transaction-processing.md) | Learn about atomicity, consistency, and other features of online transaction processing (OLTP), which manages transactional data and supports querying. |
-| [Data lakes](../../data-guide/scenarios/data-lake.md) | Learn about data lake storage repositories, which can hold terabytes (TBs) or petabytes (PBs) of data in a native, raw format. |
+| [Learn about online transaction processing (OLTP) solutions](../../data-guide/relational-data/online-transaction-processing.md) | Learn about atomicity, consistency, and other features of OLTP, which manages transactional data and supports querying. |
+| [Learn about data lakes](../../data-guide/scenarios/data-lake.md) | Learn about data lake storage repositories, which can hold terabytes (TBs) or petabytes (PBs) of data in a native, raw format. |
 | [Choose a data pipeline orchestration technology](../../data-guide/technology-choices/pipeline-orchestration-data-movement.md) | Choose an Azure data pipeline orchestration technology to automate pipeline orchestration, control flow, and move data. |
 | [Choose a search data store](../../data-guide/technology-choices/search-options.md) | Learn about the capabilities of search data stores in Azure and the key criteria for choosing one that best matches your needs. |
 
