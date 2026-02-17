@@ -3,7 +3,7 @@ title: Choose an Azure Compute Service
 description: Use this chart and other information to decide which compute service, or hosting model for computing resources, best suits your application.
 author: claytonsiemens77
 ms.author: pnp
-ms.date: 02/04/2026
+ms.date: 02/18/2026
 ms.reviewer: ssumner
 ms.topic: concept-article
 ms.subservice: architecture-guide
@@ -18,7 +18,7 @@ Azure provides many ways to host your application code. The term *compute* refer
 Use the following flowchart to select a candidate compute service.
 
 :::image type="complex" border="false" source="images/compute-choices.svg" alt-text="Diagram that shows a decision tree for Azure compute services." lightbox="images/compute-choices.svg":::
-   The image shows a flowchart for selecting an appropriate Azure service based on whether the user migrates an existing workload or builds a new one. The flowchart begins with a start node and splits into two primary branches labeled migrate and build new. The migrate branch includes decision points that assess whether the application is optimized for the cloud and whether it can be lifted and shifted. Depending on the answers, the flow leads to services like Azure App Service, Azure VMware Solution, or Azure Virtual Machines. The build new branch includes decision points that evaluate the need for full control, high-performance computing (HPC), event-driven workloads, managed web hosting, and orchestration requirements. These decisions guide the user toward services like Virtual Machines, Azure Batch, Azure Functions, App Service, Azure Container Instances, Azure Red Hat OpenShift, Azure Kubernetes Service (AKS), or Azure Container Apps. A branching section for your own orchestration implementation on Virtual Machines includes VMware Tanzu on Virtual Machines, Kubernetes on Virtual Machines, and OpenShift on Virtual Machines. At the bottom of the image, two boxed sections list container-exclusive services and container-compatible services. The container-exclusive section includes Container Instances, Azure Red Hat OpenShift, Kubernetes on Virtual Machines, OpenShift on Virtual Machines, and VMware Tanzu on Virtual Machines. The container-compatible section includes Azure Batch, Azure Functions, and App Service.
+   The image shows a flowchart for selecting an appropriate Azure service based on whether the user migrates an existing workload or builds a new workload. The flowchart begins with a start node and splits into two primary branches labeled migrate and build new. The migrate branch includes decision points that assess whether the application is optimized for the cloud and whether it can be lifted and shifted. Depending on the answers, the flow leads to services like Azure App Service, Azure VMware Solution, or Azure Virtual Machines. The build new branch includes decision points that evaluate the need for full control, high-performance computing (HPC), event-driven workloads, managed web hosting, and orchestration requirements. These decisions guide the user toward services like Virtual Machines, Azure Batch, Azure Functions, App Service, Azure Container Instances, Azure Red Hat OpenShift, Azure Kubernetes Service (AKS), or Azure Container Apps. A branching section for your own orchestration implementation on Virtual Machines includes VMware Tanzu on Virtual Machines, Kubernetes on Virtual Machines, and OpenShift on Virtual Machines. At the bottom of the image, two boxed sections list container-exclusive services and container-compatible services. The container-exclusive section includes Container Instances, Azure Red Hat OpenShift, Kubernetes on Virtual Machines, OpenShift on Virtual Machines, and VMware Tanzu on Virtual Machines. The container-compatible section includes Azure Batch, Azure Functions, and App Service.
 :::image-end:::
 
 *Download a [Visio file](https://arch-center.azureedge.net/compute-choices.vsdx) of this architecture.*
@@ -39,19 +39,19 @@ If your workload consists of distinct compute components, evaluate each applicat
 
 If you're unfamilliar with the Azure service that you select in the previous section, see the following overview documentation:
 
-- [Azure Virtual Machines](/azure/virtual-machines) is a service that lets you deploy and manage VMs inside an Azure virtual network.
+- [Azure Virtual Machines](/azure/virtual-machines/overview) is a service that lets you deploy and manage VMs inside an Azure virtual network.
 
-- [Azure App Service](/azure/app-service) is a managed service for hosting web apps, mobile app back ends, RESTful APIs, or automated business processes.
+- [Azure App Service](/azure/app-service/overview) is a managed service for hosting web apps, mobile app back ends, RESTful APIs, or automated business processes.
 
 - [Azure Functions](/azure/azure-functions/functions-overview) is a service that provides managed functions that run based on various trigger types for event-driven applications.
 
-- [Azure Kubernetes Service (AKS)](/azure/aks/intro-kubernetes) is a managed Kubernetes service for running containerized applications. It provides direct access to the Kubernetes API and control plane.
+- [Azure Kubernetes Service (AKS)](/azure/aks/what-is-aks) is a managed Kubernetes service for running containerized applications. It provides direct access to the Kubernetes API and control plane.
 
-- [Azure Container Apps](/azure/container-apps) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment. It doesn't provide direct access to the underlying Kubernetes APIs. If you require access to the Kubernetes APIs and control plane, use AKS.
+- [Azure Container Apps](/azure/container-apps/overview) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment. It doesn't provide direct access to the underlying Kubernetes APIs. Use AKS if you require access to the Kubernetes APIs and control plane.
 
 - [Azure Container Instances](/azure/container-instances/container-instances-overview) is a service for running a single container or group of containers in Azure. Container Instances doesn't provide full container orchestration, but you can implement containers without the need to provision virtual machines (VMs) or adopt a higher-level service.
 
-- [Azure Red Hat OpenShift](/azure/openshift) is a fully managed OpenShift cluster for running containers in production with Kubernetes.
+- [Azure Red Hat OpenShift](/azure/openshift/intro-openshift) is a fully managed OpenShift cluster for running containers in production with Kubernetes.
 
 - [Azure Batch](/azure/batch/batch-technical-overview) is a managed service for running large-scale parallel and high-performance computing (HPC) applications.
 
@@ -70,14 +70,14 @@ For hosting models, cloud services fall into three categories:
   > [!NOTE]
   > Azure Functions is an [Azure serverless](https://azure.microsoft.com/solutions/serverless/#solutions) compute offering. To see how this service compares with other Azure serverless offerings, like Azure Logic Apps for serverless workflows, see [Choose the right integration and automation services in Azure](/azure/azure-functions/functions-compare-logic-apps-ms-flow-webjobs).
 
-The spectrum ranges from IaaS to fully managed FaaS. For example, Azure VMs can automatically scale by using virtual machine scale sets. Automatic scaling capabilities are often associated with PaaS or FaaS, but capabilities vary by service rather than by compute category.
+Cloud compute services range from IaaS to fully managed FaaS. For example, Azure VMs can automatically scale by using virtual machine scale sets. Automatic scaling capabilities are often associated with PaaS or FaaS, but capabilities vary by service rather than by compute category.
 
 A trade-off exists between control and ease of management. IaaS provides the most control, flexibility, and portability, but you must provision, set up, and manage the VMs and network components that you create. FaaS services automatically manage nearly all aspects of running an application. PaaS provides partial management and requires some user configuration.
 
 | Service | Application composition | Density | Minimum number of nodes | State management | Web hosting |
 | :------ | :---------------------- | :------ | :---------------------- | :--------------- | :---------- |
 | Virtual Machines | Agnostic | Agnostic | 1 <a href="#note1"><sup>1</sup></a> | Stateless or stateful | Agnostic |
-| App Service | Applications, containers | Multiple apps for each instance by using App Service plan | 1 | Stateless | Built-in |
+| App Service | Applications, containers | Multiple apps for each instance by using an App Service plan | 1 | Stateless | Built-in |
 | Azure Functions | Functions, containers | Serverless <a href="#note2"><sup>2</sup></a> | Serverless <a href="#note2"><sup>2</sup></a> | Stateless or stateful <a href="#note3"><sup>3</sup></a> | Not applicable |
 | AKS | Containers | Multiple containers for each node | 6 <a href="#note4"><sup>4</sup></a> | Stateless or stateful | Agnostic |
 | Container Apps | Containers | Serverless | Serverless | Stateless or stateful | Agnostic |
@@ -113,7 +113,7 @@ Your application platform likely needs to interface with networks both as a serv
 | Virtual Machines | Supported | Supported |
 | App Service | Supported <a href="#note1b"><sup>1</sup></a> | Supported <a href="#note2b"><sup>2</sup></a> |
 | Azure Functions | Supported <a href="#note1b"><sup>1</sup></a> | Supported <a href="#note3b"><sup>3</sup></a> |
-| AKS | [Supported](/azure/aks/networking-overview) | Supported |
+| AKS | [Supported](/azure/aks/configure-azure-cni) | Supported |
 | Container Apps | Supported | Supported |
 | Container Instances | [Supported](/azure/container-instances/container-instances-vnet) | [Supported](/azure/container-instances/container-instances-virtual-network-concepts#scenarios) |
 | Azure Red Hat OpenShift | [Supported](/azure/openshift/concepts-networking) | Supported |
@@ -122,7 +122,7 @@ Your application platform likely needs to interface with networks both as a serv
 
 **Notes:**
 
-<sup>1</sup> <span id="note1b">Requires App Service Environment or a dedicated compute pricing tier.</span>
+<sup>1</sup> <span id="note1b">Requires an App Service Environment or a dedicated compute pricing tier.</span>
 
 <sup>2</sup> <span id="note2b">Use [App Service Hybrid Connections][app-service-hybrid].</span>
 
@@ -150,17 +150,17 @@ Your application platform likely needs to interface with networks both as a serv
 
 ## Team skills and operational overhead
 
-| Service | Required skills | Operational overhead | Best for teams with |
+| Service | Required skills | Operational overhead | Best for teams that have these characteristics |
 | :------ | :-------------- | :------------------- | :------------------ |
-| Virtual Machines | OS administration, networking, security patching | High - full infrastructure management | Traditional IT operations experience |
-| App Service | Web development, application deployment | Low - platform handles infrastructure | Application developers focused on code |
-| Azure Functions | Event-driven programming, serverless patterns | Very low - serverless management | Developers building event-driven solutions |
-| AKS | Kubernetes administration, container orchestration | High - cluster management, upgrades, security | DevOps teams with Kubernetes expertise |
-| Container Apps | Container basics, cloud-native patterns | Low - abstracted Kubernetes management | Teams wanting modern patterns without Kubernetes complexity |
-| Container Instances | Container basics | Very low - no orchestration | Teams needing simple container execution |
-| Azure Red Hat OpenShift | OpenShift/Kubernetes administration | High - cluster management | Teams with OpenShift investment |
-| Batch | Job scheduling, parallel processing | Medium - job and pool management | Teams running HPC or batch workloads |
-| Azure VMware Solution | VMware administration | Medium - VMware-managed infrastructure | Teams with VMware platform requirements |
+| Virtual Machines | OS administration, networking, security patching | High: full infrastructure management | Traditional IT operations experience |
+| App Service | Web development, application deployment | Low: platform handles infrastructure | Application developers focused on code |
+| Azure Functions | Event-driven programming, serverless patterns | Very low: serverless management | Developers who build event-driven solutions |
+| AKS | Kubernetes administration, container orchestration | High: cluster management, upgrades, security | DevOps teams that have Kubernetes expertise |
+| Container Apps | Container basics, cloud-native patterns | Low: abstracted Kubernetes management | Teams that want modern patterns without Kubernetes complexity |
+| Container Instances | Container basics | Very low: no orchestration | Teams that need simple container execution |
+| Azure Red Hat OpenShift | OpenShift/Kubernetes administration | High: cluster management | Teams that have OpenShift investment |
+| Batch | Job scheduling, parallel processing | Medium: job and pool management | Teams that run HPC or batch workloads |
+| Azure VMware Solution | VMware administration | Medium: VMware-managed infrastructure | Teams that have VMware platform requirements |
 
 ## Scalability
 
@@ -169,7 +169,7 @@ Quota and limits can influence scalability. Review the latest [Azure subscriptio
 | Service | Autoscaling | Load balancer | Scale limit |
 | :------ | :---------- | :------------ | :---------- |
 | Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
-| App Service | Built-in service | Integrated | 30 instances, 200 with App Service Environment |
+| App Service | Built-in service | Integrated | 30 instances, 200 with an App Service Environment |
 | Azure Functions | Built-in service | Integrated | 200 instances (Consumption), 1,000 instances (Flex Consumption) |
 | AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [uptime SLA][uptime-sla] |
 | Container Apps | Scaling rules<a href="#note3d"><sup>3</sup></a> | Integrated | 1,000 replicas for each revision, 15 environments in each region |
@@ -182,7 +182,7 @@ Quota and limits can influence scalability. Review the latest [Azure subscriptio
 
 <sup>1</sup> <span id="note1d">See [Autoscale pods](/azure/aks/tutorial-kubernetes-scale#autoscale-pods).</span>
 
-<sup>2</sup> <span id="note2d">See [Automatically scale a cluster to meet application demands on AKS](/azure/aks/cluster-autoscaler).</span>
+<sup>2</sup> <span id="note2d">See [Scale a cluster automatically to meet application demands on AKS](/azure/aks/cluster-autoscaler).</span>
 
 <sup>3</sup> <span id="note3d">See [Set scaling rules in Container Apps](/azure/container-apps/scale-app).</span>
 
@@ -190,9 +190,9 @@ Quota and limits can influence scalability. Review the latest [Azure subscriptio
 
 <sup>5</sup> <span id="note5d">See [VMware NSX](/azure/azure-vmware/configure-nsx-network-components-azure-portal).</span>
 
-## Built-in multi-region capabilities
+## Built-in multiregion capabilities
 
-All of the application platforms that this decision guide addresses are regional. They require external routing to enable [multi-region, active-active topologies](/azure/architecture/high-availability/reference-architecture-traffic-manager-application-gateway) for resiliency and active-passive for recoverability. When you deploy multiple instances of the application platform, at least one for each region, an external router or load balancer can direct traffic where needed, across regions.
+All of the application platforms that this decision guide addresses are regional. They require external routing to enable [multiregion, active-active topologies](/azure/architecture/high-availability/reference-architecture-traffic-manager-application-gateway) for resiliency and active-passive topologies for recoverability. When you deploy multiple instances of the application platform, with at least one instance in each region, an external router or load balancer can direct traffic where needed across regions.
 
 | Service | Multiregion option |
 | :------ | :----------------- |
@@ -202,41 +202,40 @@ All of the application platforms that this decision guide addresses are regional
 | AKS | Single region only. <br><br> Must use external router combined with [multiple clusters](/azure/architecture/reference-architectures/containers/aks-multi-region/aks-multi-cluster). |
 | Container Apps | Single region only. <br><br> Must use external router combined with multiple Container Apps environments. |
 | Container Instances | Single region only. |
-| Azure Red Hat OpenShift | [Single region only.](/azure/openshift/openshift-faq#can-a-cluster-have-compute-nodes-across-multiple-azure-regions) <br><br> Must use external router combined with multiple clusters. |
+| Azure Red Hat OpenShift | [Single region only](/azure/openshift/openshift-faq#can-a-cluster-have-compute-nodes-across-multiple-azure-regions). <br><br> Must use external router combined with multiple clusters. |
 | Batch | Single region only. |
-| Azure VMware Solution | Single region only. <br><br> Must use external router combined with [multiple VMware Solution instances](/azure/cloud-adoption-framework/scenarios/azure-vmware/dual-region-virtual-wan-global-reach). |
+| Azure VMware Solution | Single region only. <br><br> Must use external router combined with [multiple Azure VMware Solution instances](/azure/cloud-adoption-framework/scenarios/azure-vmware/dual-region-virtual-wan-global-reach). |
 
 ## Security
 
 Review and understand the available security controls and visibility for each of the following services:
 
-- [Virtual Machines for Linux](/azure/virtual-machines/linux/security-baseline)
-- [Virtual Machines for Windows](/azure/virtual-machines/windows/security-baseline)
+- [Virtual Machines for Linux](/security/benchmark/azure/baselines/virtual-machines-linux-virtual-machines-security-baseline)
+- [Virtual Machines for Windows](/security/benchmark/azure/baselines/virtual-machines-windows-virtual-machines-security-baseline)
 - [App Service](/azure/app-service/overview-security)
-- [Azure Functions](/azure/azure-functions/security-baseline)
-- [AKS](/azure/aks/security-baseline)
+- [Azure Functions](/security/benchmark/azure/baselines/functions-security-baseline)
+- [AKS](/security/benchmark/azure/baselines/azure-kubernetes-service-aks-security-baseline)
 - [Container Apps](/security/benchmark/azure/baselines/azure-container-apps-security-baseline)
-- [Container Instances](/azure/container-instances/security-baseline)
-- [Batch](/azure/batch/security-baseline)
+- [Container Instances](/security/benchmark/azure/baselines/container-instances-security-baseline)
 - [Azure VMware Solution](/security/benchmark/azure/baselines/azure-vmware-solution-security-baseline)
 
 ## Other criteria
 
-| Service | TLS | Cost | GPU support | Suitable architecture styles |
+| Service | Transport Layer Security (TLS) | Cost | Graphics processing unit (GPU) support | Suitable architecture styles |
 | :------ | :-- | :--- | :--- | :--------------------------- |
 | Virtual Machines | Set up in VM | [Windows][cost-windows-vm], [Linux][cost-linux-vm] | [Supported](/azure/virtual-machines/sizes/overview#gpu-accelerated) | [N-tier][n-tier], [big compute][big-compute] (HPC) |
 | App Service | Supported | [App Service pricing][cost-app-service] | Not supported | [Web-queue-worker][w-q-w] |
 | Azure Functions | Supported | [Azure Functions pricing][cost-functions] | Not supported | [Microservices][microservices], [event-driven architecture][event-driven] |
 | AKS | [Ingress controller](/azure/aks/ingress) | [AKS pricing][cost-acs] | [Supported](/azure/aks/use-nvidia-gpu) | [Microservices][microservices], [event-driven architecture][event-driven] |
-| Container Apps | [Ingress controller](/azure/container-apps/ingress) | [Container Apps pricing][cost-container-apps] | [Supported](/azure/container-apps/gpu-serverless-overview) | [Microservices][microservices], [event-driven architecture][event-driven] |
-| Container Instances | Use [sidecar](../../patterns/sidecar.yml) container | [Container Instances pricing](https://azure.microsoft.com/pricing/details/container-instances) | [Not supported](/azure/container-instances/container-instances-gpu) | [Microservices][microservices], task automation, batch jobs |
+| Container Apps | [Ingress controller](/azure/container-apps/ingress-overview) | [Container Apps pricing][cost-container-apps] | [Supported](/azure/container-apps/gpu-serverless-overview) | [Microservices][microservices], [event-driven architecture][event-driven] |
+| Container Instances | Use [sidecar](../../patterns/sidecar.yml) container | [Container Instances pricing](https://azure.microsoft.com/pricing/details/container-instances/) | [Not supported](/azure/container-instances/container-instances-gpu) | [Microservices][microservices], task automation, batch jobs |
 | Azure Red Hat OpenShift | Supported | [Azure Red Hat OpenShift pricing][cost-aro] | [Supported](/azure/openshift/howto-gpu-workloads) | [Microservices][microservices], [event-driven architecture][event-driven] |
 | Batch | Supported | [Batch pricing][cost-batch] | [Supported](/azure/batch/batch-pool-compute-intensive-sizes) | [Big compute][big-compute] (HPC) |
 | Azure VMware Solution | Set up in VM | [Azure VMware Solution pricing][cost-avs] | Not supported | VM workload based on VMware format |
 
 ## Consider limits and cost
 
-Along with the previous comparison tables, do a more detailed evaluation of the following aspects of the candidate service:
+Use the previous comparison tables as context and evaluate the following aspects of the candidate service in more detail:
 
 - [Azure pricing](https://azure.microsoft.com/pricing) and [cost calculator](https://azure.microsoft.com/pricing/calculator/)
 - [Azure service availability by region](https://azure.microsoft.com/explore/global-infrastructure/products-by-region/table)
@@ -245,7 +244,7 @@ Along with the previous comparison tables, do a more detailed evaluation of the 
 
 ## Specialty workloads
 
-Some workloads have specific requirements and don't typically follow the general recommendations found in this application platform selection guide. These are typically software or database products that have specific characteristics that constrain service choice to a narrow set of supported options.
+Some workloads have specific requirements and don't typically follow the general recommendations in this application platform selection guide. These workloads are usually software or database products that have characteristics that limit the service options to a narrow set of supported choices.
 
 | Scenario | Explore these options |
 | :------- | :-------------------- |
