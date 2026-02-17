@@ -5,7 +5,7 @@ This baseline architecture builds on the [basic web application architecture](./
 
 ## Architecture
 
-:::image type="complex" source="../_images/baseline-app-service-architecture.svg" lightbox="../_images/baseline-app-service-architecture.svg" alt-text="Diagram that shows a baseline App Service architecture with zonal redundancy and high availability." border="false":::
+:::image type="complex" source="../_images/baseline-app-service-architecture.svg" lightbox="../_images/baseline-app-service-architecture.svg" alt-text="Diagram that shows a baseline App Service architecture with zone redundancy and high availability." border="false":::
 The diagram shows a virtual network with three subnets. One subnet contains Application Gateway with Azure Web Application Firewall. A user points to this subnet. The second subnet contains private endpoints for Azure PaaS services. The third subnet contains a virtual interface for App Service network integration. Application Gateway communicates with App Service via a private endpoint. App Service shows a zonal configuration. App Service uses virtual network integration and private endpoints to communicate with SQL Database, Key Vault, and Azure Storage. Private DNS zones are linked to the virtual network. Distributed denial of service (DDoS) protection secures the virtual network. Microsoft Entra ID provides identity and access control. Application Insights and Azure Monitor serve monitoring purposes.
 :::image-end:::
 
@@ -145,7 +145,7 @@ These considerations implement the pillars of the Azure Well-Architected Framewo
 
 Reliability helps ensure that your application can meet the commitments that you make to your customers. For more information, see [Design review checklist for Reliability](/azure/well-architected/reliability/checklist).
 
-The baseline App Service architecture focuses on zonal redundancy for key regional services. Availability zones are physically separate locations within a region that provide high availability and fault tolerance. When you deploy two or more instances across [availability zones](/azure/reliability/availability-zones-service-support) in [supported regions](/azure/reliability/availability-zones-region-support), the failure of one zone doesn't affect the others. This approach helps maintain service availability.
+The baseline App Service architecture focuses on zone redundancy for key regional services. Availability zones are physically separate locations within a region that provide high availability and fault tolerance. When you deploy two or more instances across [availability zones](/azure/reliability/availability-zones-service-support) in [supported regions](/azure/reliability/availability-zones-region-support), the failure of one zone doesn't affect the others. This approach helps maintain service availability.
 
 The architecture also ensures sufficient instances of Azure services to meet demand. The following sections provide reliability guidance for each key service in the architecture.
 
