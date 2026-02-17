@@ -126,7 +126,7 @@ Learn about the services that Azure provides to help you deliver events or messa
 | Article | Summary |
 | :------ | :------ |
 | [Compare messaging services](/azure/service-bus-messaging/compare-messaging-services) | Learn about Azure Event Grid, Azure Event Hubs, and Azure Service Bus. Choose the best service for your scenario. |
-| [Learn about asynchronous messaging options](messaging.yml) | Learn about asynchronous messaging options in Azure, including the various types of messages and the entities that participate in a messaging infrastructure. |
+| [Learn about asynchronous messaging options](messaging.md) | Learn about asynchronous messaging options in Azure, including the various types of messages and the entities that participate in a messaging infrastructure. |
 
 ## Choose an IoT option
 
