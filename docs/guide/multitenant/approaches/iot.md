@@ -3,7 +3,7 @@ title: IoT Hub-Based Multitenant Solution Architectural Approaches
 description: Learn about architectural approaches for Azure IoT Hub-based multitenant solutions to build scalable, secure, and efficient solutions.
 author: MikeBazMSFT
 ms.author: micbaz
-ms.date: 02/12/2026
+ms.date: 02/17/2026
 ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.custom:
