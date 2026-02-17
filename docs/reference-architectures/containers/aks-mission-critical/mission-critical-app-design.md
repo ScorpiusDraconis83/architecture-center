@@ -165,7 +165,7 @@ The `BackgroundProcessor` component uses the `Microsoft.ApplicationInsights.Work
 To demonstrate practical request traceability, every successful and unsuccessful API request returns the Correlation ID header to the caller. The application support team can search Application Insights with this identifier and get a detailed view of the full transaction, which is illustrated in the preceding diagram.
 
 > [!NOTE]
-> Adaptive sampling is enabled by default in the Application Insights SDK. Adaptive sampling means that not every request is sent to the cloud and is searchable by ID. Mission-critical application teams need to reliably trace every request. Adaptive sampling should be disabled in production environments.
+> Adaptive sampling might be enabled by default in Azure Monitor OpenTelemetry distribution used in your applications. Adaptive sampling means that not every request is sent to the cloud and is searchable by ID. Mission-critical application teams need to reliably trace every request. Adaptive sampling should be disabled in production environments.
 
 ### Kubernetes monitoring implementation details
 

@@ -387,7 +387,7 @@ App Service provides built-in and integrated monitoring capabilities for improve
 
 - [Turn on distributed tracing](/azure/azure-monitor/app/app-map) to track requests across multiple services and dependencies. You can monitor distributed cloud systems via distributed tracing and a performance profiler.
 
-- Use code-based instrumentation for custom telemetry. Application Insights also supports code-based instrumentation for custom application telemetry. Add the Application Insights SDK to your code and use the Application Insights API.
+- Use code-based instrumentation for custom telemetry. Application Insights also supports code-based instrumentation for custom application telemetry. Add the [Azure Monitor OpenTelemetry Distro](/azure/azure-monitor/app/opentelemetry-enable) to your code.
 
 - [Turn on App Service logs](/azure/app-service/troubleshoot-diagnostic-logs) for platform-level diagnostics. App Service provides four log types for troubleshooting: application logs, web server logs, detailed error messages, and failed request tracing.
 
