@@ -50,13 +50,13 @@ Model routing does not eliminate the need to understand model capabilities. Inst
 
 When you adopt a model routing strategy, consider the following factors:
 
-- **Model pool constraints**: Routing decisions are limited to the models included in the router’s backing pool.
+- **Model pool constraints**: Routing decisions are limited to the models included in the router's backing pool.
 
 - **Context window limits**: The effective context window is constrained by the smallest context window among all candidate models.
 
 - **Custom and fine-tuned models**: Routing strategies must account for models that are tuned for specific domains or tasks.
 
-- **Predictability and observability**: Dynamic routing can complicate cost forecasting, debugging, and performance analysis without strong telemetry.
+- **Predictability and observability**: Dynamic routing can complicate cost forecasting, debugging, and performance analysis.
 
 Model routers are most effective when variability in request complexity or volume justifies the added architectural complexity.
 
@@ -66,7 +66,7 @@ When you consider task fit, factor in your workload application design. A single
 
 Individually evaluate and select each model that you include in your workload. Apply the following considerations for each model.
 
-#### Manual model selection vs. automatic model selection
+#### Manual routing between multiple models vs. automatic model selection
 
 Most model selection guidance assumes that you manually choose a model during design time. This approach works well when workload requirements are stable, model behavior is well understood, and cost or performance characteristics are predictable.
 
