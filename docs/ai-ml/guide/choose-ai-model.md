@@ -3,7 +3,7 @@ title: Choose the Right AI Model for Your Workload
 description: Learn strategies to help you select the best model for your AI workload, including key criteria and practical considerations for decision-making.
 author: claytonsiemens77
 ms.author: csiemens
-ms.date: 07/30/2025
+ms.date: 02/17/2026
 ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.collection: ce-skilling-ai-copilot
