@@ -168,7 +168,6 @@ The following table provides a list of possible use cases for Video Indexer.
 - [What is Azure Vision in Foundry Tools?](/azure/ai-services/computer-vision/overview)
 - [Learning path: Develop natural language solutions in Azure](/training/paths/develop-language-solutions-azure-ai/)
 - [Learning path: Develop generative AI apps in Azure](/training/paths/create-custom-copilots-ai-studio/)
-- [Learning path: Microsoft Azure AI fundamentals: Computer vision](/training/paths/explore-computer-vision-microsoft-azure/)
 - [Learning path: Develop computer vision solutions in Azure](/training/paths/create-computer-vision-solutions-azure-ai/)
 - [Learning path: Create an image recognition solution with Azure IoT Edge and Foundry Tools](/training/modules/create-image-recognition-solution-iot-edge-cognitive-services/)
 
