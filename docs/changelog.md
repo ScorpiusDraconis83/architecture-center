@@ -85,7 +85,7 @@ The following new and updated articles have recently been published in the Azure
 - [AI Architecture Design](./ai-ml/index.md) ([#d587a699fc](https://github.com/MicrosoftDocs/architecture-center/commit/d587a699fc))
 - [Deploy Microservices to Azure Container Apps](./example-scenario/serverless/microservices-with-container-apps.yml) ([#7521d30186](https://github.com/MicrosoftDocs/architecture-center/commit/7521d30186))
 - [Choose an Azure Service for Vector Search](./guide/technology-choices/vector-search.md) ([#7521d30186](https://github.com/MicrosoftDocs/architecture-center/commit/7521d30186))
-- [Build a Conversation Knowledge Mining Solution by using Azure AI Services](./ai-ml/idea/unlock-insights-from-conversational-data.yml) ([#9f370bb224](https://github.com/MicrosoftDocs/architecture-center/commit/9f370bb224))
+- [Build a Conversation Knowledge Mining Solution by using Foundry Tools](./ai-ml/idea/unlock-insights-from-conversational-data.yml) ([#9f370bb224](https://github.com/MicrosoftDocs/architecture-center/commit/9f370bb224))
 - [Generate Documents from Your Data](./ai-ml/idea/generate-documents-from-your-data.yml) ([#fec7972bc2](https://github.com/MicrosoftDocs/architecture-center/commit/fec7972bc2))
 - [Baseline Microsoft Foundry Chat Reference Architecture in an Azure Landing Zone](./ai-ml/architecture/baseline-microsoft-foundry-landing-zone.yml) ([#dbb5fdf008](https://github.com/MicrosoftDocs/architecture-center/commit/dbb5fdf008))
 - [Design and Develop a RAG Solution](./ai-ml/guide/rag/rag-solution-design-and-evaluation-guide.md) ([#4c4cbcb7bb](https://github.com/MicrosoftDocs/architecture-center/commit/4c4cbcb7bb))
@@ -128,7 +128,7 @@ The following new and updated articles have recently been published in the Azure
 ### Updated articles
 
 - [Deploy Microservices to Azure Container Apps](./example-scenario/serverless/microservices-with-container-apps.yml) ([#b64113461e](https://github.com/MicrosoftDocs/architecture-center/commit/b64113461e))
-- [Automate Video Analysis by Using Azure Machine Learning and Azure AI Vision](./ai-ml/architecture/analyze-video-computer-vision-machine-learning.yml) ([#fbe994e490](https://github.com/MicrosoftDocs/architecture-center/commit/fbe994e490))
+- [Automate Video Analysis by Using Azure Machine Learning and Azure Vision in Foundry Tools](./ai-ml/architecture/analyze-video-computer-vision-machine-learning.yml) ([#fbe994e490](https://github.com/MicrosoftDocs/architecture-center/commit/fbe994e490))
 - [Build Real-Time Monitoring and Observable Systems for Media](./example-scenario/monitoring/monitoring-observable-systems-media.yml) ([#9523c80384](https://github.com/MicrosoftDocs/architecture-center/commit/9523c80384))
 - [Azure Icons](./icons/index.md) ([#e780b39549](https://github.com/MicrosoftDocs/architecture-center/commit/e780b39549))
 - [Load Balancing Options](./guide/technology-choices/load-balancing-overview.md) ([#39668ec73c](https://github.com/MicrosoftDocs/architecture-center/commit/39668ec73c))

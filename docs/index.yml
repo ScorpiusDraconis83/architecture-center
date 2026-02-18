@@ -60,7 +60,7 @@ productDirectory:
         - url: /azure/architecture/data-guide/technology-choices/data-store-classification
           text: Choose a data store
         - url: /azure/architecture/data-guide/technology-choices/ai-services
-          text: Choose AI services
+          text: Choose Foundry Tools
         - url: ./guide/technology-choices/messaging.md
           text: Choose a messaging service
     - title: Implement an Azure landing zone
