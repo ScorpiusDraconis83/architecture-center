@@ -138,7 +138,7 @@ The following new and updated articles have recently been published in the Azure
 - [Global Routing Redundancy for Mission-Critical Web Applications](./guide/networking/global-web-applications/overview.md) ([#0f46d38455](https://github.com/MicrosoftDocs/architecture-center/commit/0f46d38455))
 - [Choose a Data Transfer Technology](./data-guide/scenarios/data-transfer.md) ([#fd12403a4a](https://github.com/MicrosoftDocs/architecture-center/commit/fd12403a4a))
 - [Automate Document Classification in Azure](./ai-ml/architecture/automate-document-classification-durable-functions.yml) ([#01d81fef19](https://github.com/MicrosoftDocs/architecture-center/commit/01d81fef19))
-- [Choose an Azure AI Technology](./data-guide/technology-choices/ai-services.md) ([#be37dd953f](https://github.com/MicrosoftDocs/architecture-center/commit/be37dd953f))
+- [Choose an AI services technology](./data-guide/technology-choices/ai-services.md) ([#be37dd953f](https://github.com/MicrosoftDocs/architecture-center/commit/be37dd953f))
 - [Replicate Mainframe Data by Using Precisely Connect](./example-scenario/mainframe/mainframe-replication-precisely-connect.yml) ([#3f0cd53f92](https://github.com/MicrosoftDocs/architecture-center/commit/3f0cd53f92))
 - [Develop a RAG Solution - Chunking Phase](./ai-ml/guide/rag/rag-chunking-phase.md) ([#c558440e24](https://github.com/MicrosoftDocs/architecture-center/commit/c558440e24))
 - [Develop a RAG Solution - Chunk Enrichment Phase](./ai-ml/guide/rag/rag-enrichment-phase.md) ([#c558440e24](https://github.com/MicrosoftDocs/architecture-center/commit/c558440e24))

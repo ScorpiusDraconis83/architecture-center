@@ -1,6 +1,6 @@
 ---
 title: Choose an Azure AI Technology
-description: Learn about Foundry Tools that you can use in AI applications and data flows. Choose the appropriate service for your use case.
+description: Learn about AI services that you can use in AI applications and data flows. Choose the appropriate service for your use case.
 author: davihern
 ms.author: davihern
 ms.date: 11/22/2025
@@ -11,17 +11,17 @@ ms.subservice: architecture-guide
 ms.custom: arb-aiml
 ---
 
-# Choose a Foundry Tools technology
+# Choose an AI services technology
 
-[Foundry Tools](/azure/ai-services/what-are-ai-services) provide a suite of data science tools, models, and inferencing capabilities that support a broad range of functions. Most Foundry Tools require little to no AI expertise. This accessibility makes them available to students, small-business owners, startups, and large enterprises alike. Instead of building custom solutions, Microsoft recommends that you use these services to embed intelligent functionality into your workloads. In many cases, prebuilt models and software-as-a-service solutions provide the necessary capabilities. However, many services support further customization and fine-tuning without the need to redesign your workload.
+[Foundry Tools](/azure/ai-services/what-are-ai-services) provide a suite of data science tools, models, and inferencing capabilities that support a broad range of functions. Most AI services require little to no AI expertise. This accessibility makes them available to students, small-business owners, startups, and large enterprises alike. Instead of building custom solutions, Microsoft recommends that you use these services to embed intelligent functionality into your workloads. In many cases, prebuilt models and software-as-a-service solutions provide the necessary capabilities. However, many services support further customization and fine-tuning without the need to redesign your workload.
 
 Some projects require capabilities beyond what prebuilt models provide. You might need to use your own data exclusively to build a new model or perform functions that existing prebuilt models don't support. In these cases, you can use [Azure Machine Learning](/azure/machine-learning) to build custom models of any type or scale. These solutions require more expertise, but they provide tailored functionality for organizations of any size and budget.
 
-This article compares Foundry Tools and machine learning solutions. It's organized by broad categories to help you choose the right service or model for your use case.
+This article compares AI services and machine learning solutions. It's organized by broad categories to help you choose the right service or model for your use case.
 
-## Categories of Foundry Tools
+## Categories of AI services
 
-Azure provides several Foundry Tools that can be grouped into categories based on their capabilities:
+Azure provides several AI services that can be grouped into categories based on their capabilities:
 
 | Technology selection guide | Service descriptions |
 | :----- | :----- |
@@ -36,7 +36,7 @@ Azure provides several Foundry Tools that can be grouped into categories based o
 
 ## Next steps
 
-- [Learning path: Get started with Foundry Tools](/training/paths/create-custom-copilots-ai-studio/)
+- [Learning path: Get started with AI services](/training/paths/create-custom-copilots-ai-studio/)
 - [Microsoft Foundry documentation](/azure/ai-foundry)
 - [What are Foundry Tools?](/azure/ai-services/what-are-ai-services)
 

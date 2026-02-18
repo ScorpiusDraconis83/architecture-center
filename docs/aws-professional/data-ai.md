@@ -189,5 +189,5 @@ Other contributor:
 
 ## Related resources
 
-- [Choose a Foundry Tools technology](../data-guide/technology-choices/ai-services.md)
+- [Choose an AI services technology](../data-guide/technology-choices/ai-services.md)
 - [Compare Microsoft machine learning products and technologies](../ai-ml/guide/data-science-and-machine-learning.md)
