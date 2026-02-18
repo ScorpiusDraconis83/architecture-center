@@ -123,7 +123,7 @@ Use [Microsoft Defender for Cloud](/azure/security-center/security-center-intro)
 
 Cost Optimization is about looking at ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
 
-There are various options for VM sizes depending on the usage and workload. The range includes most economical option of the Bs-series to the newest GPU VMs optimized for machine learning. For information about the available options, see [Azure Linux VM pricing](https://azure.microsoft.com/pricing/details/virtual-machines/linux).
+There are various options for VM sizes depending on the usage and workload. The range includes the most economical option of the Bs-series to the newest GPU VMs optimized for machine learning. For information about the available options, see [Azure Linux VM pricing](https://azure.microsoft.com/pricing/details/virtual-machines/linux).
 
 For predictable workloads, use [Azure Reservations](/azure/cost-management-billing/reservations/save-compute-costs-reservations) and [Azure savings plan for compute](https://azure.microsoft.com/pricing/offers/savings-plan-compute/#benefits-and-features) with a one-year or three-year contract and receive significant savings off pay-as-you-go prices. For workloads with no predictable time of completion or resource consumption, consider the **Pay as you go** option.
 
@@ -133,7 +133,7 @@ Use [Azure Spot VMs](/azure/virtual-machines/windows/spot-vms) to run workloads 
 - Test environments, including continuous integration and continuous delivery workloads.
 - Large-scale stateless applications.
 
-Use the [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/) to estimates costs.
+Use the [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/) to estimate costs.
 
 For more information, see the cost section in [Microsoft Azure Well-Architected Framework](/azure/architecture/framework/cost/overview).
 

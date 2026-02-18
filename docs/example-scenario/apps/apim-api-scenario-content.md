@@ -2,7 +2,7 @@ In this scenario, an e-commerce company in the travel industry migrates a legacy
 
 ## Architecture
 
-![Architecture diagram](./media/architecture-apim-api-scenario.png)
+![Architecture diagram.](./media/architecture-apim-api-scenario.png)
 
 *[Download a Visio file](https://arch-center.azureedge.net/architecture-apim-api-scenario.vsdx) of this architecture.*
 
