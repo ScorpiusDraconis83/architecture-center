@@ -24,7 +24,7 @@ This article covers Foundry Tools that provide speech recognition and generation
 
 The following Foundry Tools can provide speech recognition and generation capabilities for your workload.
 
-- [Microsoft Azure Speech in Foundry Tools](#speech) provides natural language processing for text analysis.
+- [Azure Speech in Foundry Tools](#speech) provides natural language processing for text analysis.
 
   - **Use** Speech when you need to transcribe or translate spoken speech and identify speakers in a conversation. You can also use Speech as a lower-cost alternative for natural-sounding speech generation compared to the higher-quality [Whisper](/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure#audio-api) system in the OpenAI models.
 
@@ -71,7 +71,7 @@ The following table describes some of the ways that you can use Speech.
 
 ### Immersive Reader
 
-[Immersive Reader](https://www.onenote.com/learningtools), part of Foundry Tools, is an inclusively designed tool that implements proven techniques to improve reading comprehension for new readers, language learners, and people with learning differences such as dyslexia. With the Immersive Reader client library, you can use the same technology used in Microsoft Word and Microsoft OneNote to provide an enhanced experience for your workload's users.
+[Immersive Reader](https://www.onenote.com/learningtools) is an inclusively designed tool that implements proven techniques to improve reading comprehension for new readers, language learners, and people with learning differences such as dyslexia. With the Immersive Reader client library, you can use the same technology used in Microsoft Word and Microsoft OneNote to provide an enhanced experience for your workload's users.
 
 #### Capabilities
 
@@ -92,7 +92,7 @@ The following capabilities are available for your workload to help users achieve
 ## Next steps
 
 - [What is the Speech service?](/azure/ai-services/speech-service/overview)
-- [Learning path: Develop natural language processing solutions with Foundry Tools](/training/paths/develop-language-solutions-azure-ai/)
+- [Learning path: Develop natural language solutions in Azure](/training/paths/develop-language-solutions-azure-ai/)
 
 ## Related resources
 

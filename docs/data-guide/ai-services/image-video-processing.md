@@ -31,7 +31,7 @@ The following services provide video and image processing capabilities for Found
 
   - **Don't use** Azure OpenAI if you need to perform specific types of image processing like form extraction, face recognition, or domain-specialized image characteristic detection. For these scenarios, use or build AI solutions designed specifically for those purposes.
 
-- [Microsoft Azure Vision in Foundry Tools](#vision)
+- [Azure Vision in Foundry Tools](#vision)
 
   - **Use** Vision when you need basic optical character recognition (OCR), image analysis, or basic video analysis to detect motion and other events.
 
@@ -165,11 +165,11 @@ The following table provides a list of possible use cases for Video Indexer.
 
 ## Next steps
 
-- [What is Vision?](/azure/ai-services/computer-vision/overview)
-- [Learning path: Develop natural language processing solutions with Foundry Tools](/training/paths/develop-language-solutions-azure-ai/)
-- [Learning path: Get started with Foundry Tools](/training/paths/get-started-azure-ai)
+- [What is Azure Vision in Foundry Tools?](/azure/ai-services/computer-vision/overview)
+- [Learning path: Develop natural language solutions in Azure](/training/paths/develop-language-solutions-azure-ai/)
+- [Learning path: Develop generative AI apps in Azure](/training/paths/create-custom-copilots-ai-studio/)
 - [Learning path: Microsoft Azure AI fundamentals: Computer vision](/training/paths/explore-computer-vision-microsoft-azure/)
-- [Learning path: Create computer vision solutions with Vision](/training/paths/create-computer-vision-solutions-azure-ai/)
+- [Learning path: Develop computer vision solutions in Azure](/training/paths/create-computer-vision-solutions-azure-ai/)
 - [Learning path: Create an image recognition solution with Azure IoT Edge and Foundry Tools](/training/modules/create-image-recognition-solution-iot-edge-cognitive-services/)
 
 ## Related resources

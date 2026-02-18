@@ -27,7 +27,7 @@ The following services provide targeted language processing capabilities for Fou
 
   - **Don't use** Language if you need to search documents with chat, check them for content safety, or translate them.
 
-- [Microsoft Azure Translator in Foundry Tools](#translator) is a machine translation service. It can perform [real-time text translation](/azure/ai-services/translator/text-translation-overview), batch and single file [document translation](/azure/ai-services/translator/document-translation/overview), and [custom translations](/azure/ai-services/translator/custom-translator/overview) that you can use to incorporate specialized terminology or industry-specific language for your scenario. Translator [supports multiple languages](/azure/ai-services/translator/language-support).
+- [Azure Translator in Foundry Tools](#translator) is a machine translation service. It can perform [real-time text translation](/azure/ai-services/translator/text-translation-overview), batch and single file [document translation](/azure/ai-services/translator/document-translation/overview), and [custom translations](/azure/ai-services/translator/custom-translator/overview) that you can use to incorporate specialized terminology or industry-specific language for your scenario. Translator [supports multiple languages](/azure/ai-services/translator/language-support).
 
   - **Use** Translator when you need to perform translation specifically. You can use other general purpose foundation language models to perform translation. But using Translator for its specialized purpose can be more effective and cost effective because of its targeted translation models.
   
@@ -150,9 +150,9 @@ For more information about model scenarios, see [Which model should I choose?](/
 
 ## Next steps
 
-- [What is Language?](/azure/ai-services/language-service/overview)
-- [Learning path: Develop NLP solutions with Foundry Tools](/training/paths/develop-language-solutions-azure-ai/)
-- [Learning path: Get started with Foundry Tools](/training/paths/get-started-azure-ai/)
+- [What is Azure Language in Foundry Tools?](/azure/ai-services/language-service/overview)
+- [Learning path: Develop natural language solutions in Azure](/training/paths/develop-language-solutions-azure-ai/)
+- [Learning path: Develop generative AI apps in Azure](/training/paths/create-custom-copilots-ai-studio/)
 
 ## Related resources
 
