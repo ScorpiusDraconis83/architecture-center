@@ -1,23 +1,16 @@
 ---
 title: Kubernetes Monitoring and Logging
 description: Understand monitoring and logging for an Azure Kubernetes Service (AKS) cluster and workloads, and compare Amazon EKS and AKS monitoring and logging.
-author: ketan-chawda-msft
-ms.author: kechaw
+author: swgriffith
+ms.author: stgriffi
 ms.date: 01/28/2025
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.custom:
   - arb-containers
 ms.collection:
   - migration
   - aws-to-azure
-categories:
-  - containers
-  - management-and-governance
-products:
-  - azure-kubernetes-service
-  - azure-log-analytics
-  - azure-monitor
 ---
 
 # Kubernetes monitoring and logging
@@ -75,7 +68,7 @@ To help ensure comprehensive monitoring of your Kubernetes clusters, use the fol
 
 [Microsoft Sentinel](/azure/sentinel/overview) delivers intelligent security analytics and threat intelligence across enterprises. Microsoft Sentinel provides a single solution for attack detection, threat visibility, proactive hunting, and threat response.
 
-You must connect Microsoft Sentinel with AKS by using the [AKS connector](/azure/sentinel/data-connectors/azure-kubernetes-service-aks). Then you can stream your AKS diagnostics logs into Microsoft Sentinel to continuously monitor activity in your instances.
+You must connect Microsoft Sentinel with AKS by using the [AKS connector](https://marketplace.microsoft.com/product/azuresentinel.azure-sentinel-solution-azurekubernetes). Then you can stream your AKS diagnostics logs into Microsoft Sentinel to continuously monitor activity in your instances.
 
 After you connect your data sources to Microsoft Sentinel, you can [visualize and monitor the data](/azure/sentinel/monitor-your-data). Microsoft Sentinel and Azure Monitor workbooks provide versatility to create custom dashboards.
 
@@ -112,7 +105,7 @@ You can deploy Prometheus independently as a self-managed solution within AKS cl
 
 [Azure Managed Grafana](/azure/managed-grafana/overview) is a data visualization platform that's built on top of [Grafana](https://grafana.com/). It's a fully managed Azure service that Microsoft operates and supports. Azure Managed Grafana has predefined Grafana dashboards to monitor Kubernetes and full-stack troubleshooting.
 
-Azure Managed Grafana is optimized for the Azure environment, works with many Azure services, and provides simple integration features. You can also deploy Grafana independently as a self-managed solution. For more information, see [Monitor your Azure services in Grafana](/azure/azure-monitor/visualize/grafana-plugin).
+Azure Managed Grafana is optimized for the Azure environment, integrates with many Azure services, and provides simple integration features. You can also deploy Grafana independently as a self-managed solution. For more information, see [Monitor your Azure services in Grafana](/azure/azure-monitor/visualize/grafana-plugin).
 
 ### AKS monitoring costs
 
@@ -126,15 +119,15 @@ Before you enable container insights, estimate costs and understand how to contr
 
 Principal authors:
 
-- [Paolo Salvatori](https://www.linkedin.com/in/paolo-salvatori) | Principal Service Engineer
-- [Ketan Chawda](https://www.linkedin.com/in/ketanchawda1402) | Senior Customer Engineer
-- [Laura Nicolas](https://www.linkedin.com/in/lauranicolasd) | Senior Cloud Solution Architect
+- [Paolo Salvatori](https://www.linkedin.com/in/paolo-salvatori/) | Principal Service Engineer
+- [Ketan Chawda](https://www.linkedin.com/in/ketanchawda1402/) | Senior Customer Engineer
+- [Laura Nicolas](https://www.linkedin.com/in/lauranicolasd/) | Senior Cloud Solution Architect
 
 Other contributors:
 
-- [Chad Kittel](https://www.linkedin.com/in/chadkittel) | Principal Software Engineer
-- [Ed Price](https://www.linkedin.com/in/priceed) | Senior Content Program Manager
-- [Theano Petersen](https://www.linkedin.com/in/theanop) | Technical Writer
+- [Chad Kittel](https://www.linkedin.com/in/chadkittel/) | Principal Software Engineer - Azure Patterns & Practices
+- [Ed Price](https://www.linkedin.com/in/priceed/) | Senior Content Program Manager
+- [Theano Petersen](https://www.linkedin.com/in/theanop/) | Technical Writer
 
 *To see nonpublic LinkedIn profiles, sign in to LinkedIn.*
 

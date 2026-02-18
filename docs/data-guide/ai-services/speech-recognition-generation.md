@@ -3,18 +3,12 @@ title: Choose an Azure Speech Recognition and Generation Technology
 description: Learn about Azure's AI speech recognition and generation capabilities, such as speech-to-text, speech translation, and text-to-speech.
 author: ritesh-modi
 ms.author: rimod
-categories:
-  - analytics
 ms.date: 3/20/2025
-ms.topic: conceptual
+ms.update-cycle: 180-days
+ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.collection: ce-skilling-ai-copilot
-products:
-  - ai-services
-ms.custom:
-  - analytics
-  - guide
-  - arb-aiml
+ms.custom: arb-aiml
 ---
 
 # Choose an Azure AI speech recognition and generation technology
@@ -32,7 +26,7 @@ The following AI services can provide speech recognition and generation capabili
 
 - [Microsoft Azure AI Speech](#speech) provides natural language processing for text analysis.
 
-  - **Use** Speech when you need to transcribe or translate spoken speech and identify speakers in a conversation. You can also use Speech as a lower-cost alternative for natural-sounding speech generation compared to the higher-quality [Whisper](/azure/ai-services/openai/concepts/models) system in the OpenAI models.
+  - **Use** Speech when you need to transcribe or translate spoken speech and identify speakers in a conversation. You can also use Speech as a lower-cost alternative for natural-sounding speech generation compared to the higher-quality [Whisper](/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure#audio-api) system in the OpenAI models.
 
   - **Don't use** Speech for chat, content summarization, moderation, or guiding users through scripts. Use other models for those things instead.
 

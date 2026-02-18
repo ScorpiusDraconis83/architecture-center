@@ -1,21 +1,11 @@
 ---
 title: Monolithic Persistence Antipattern
 description: Learn about the Monolithic Persistence antipattern, which can weaken performance by putting all of an application's data into a single data store.
-ms.author: robbag
-author: RobBagby
+ms.author: pnp
+author: claytonsiemens77
 ms.date: 06/05/2017
 ms.topic: design-pattern
-ms.subservice: design-pattern
-categories:
-  - analytics
-  - storage
-  - web
-  - azure
-products:
-  - aspnet
-  - azure-cache-redis
-ms.custom:
-  - article
+ms.subservice: cloud-fundamentals
 ---
 
 <!-- cSpell:ignore DTUs -->
@@ -33,7 +23,7 @@ Modern cloud-based systems often have extra functional and nonfunctional require
 - Storing and retrieving large amounts of unrelated data in the same data store can cause contention, which leads to slow response times and connection failures.
 - Regardless of which data store is chosen, it might not be the best fit for all types of data. Or it might not be optimized for the operations that the application performs.
 
-The following example shows an ASP.NET Web API controller that adds a new record to a database and also records the result to a log. The log is stored in the same database as the business data. For more information, see the [complete sample][sample-app].
+The following example shows an ASP.NET Web API controller that adds a new record to a database and also records the result to a log. The log is stored in the same database as the business data.
 
 ```csharp
 public class MonoController : ApiController
@@ -75,7 +65,7 @@ public class PolyController : ApiController
 
 - Separate data based on how you use and access it. For example, don't store log information and business data in the same data store. These types of data have different requirements and patterns of access. Log records are inherently sequential, while business data is more likely to require random access, and is often relational.
 
-- Consider the data access pattern for each type of data. For example, store formatted reports and documents in a document database such as [Azure Cosmos DB][cosmos-db]. Use [Azure Cache for Redis][azure-cache] to cache temporary data.
+- Consider the data access pattern for each type of data. For example, store formatted reports and documents in a document database such as [Azure Cosmos DB][cosmos-db]. Use [Azure Managed Redis][azure-managed-redis] to cache temporary data.
 
 - Scale up the database if you follow this guidance but still reach the limits of the database. Also consider scaling horizontally and partitioning the load across database servers. However, partitioning might require redesigning the application. For more information, see [Data partitioning][DataPartitioningGuidance].
 
@@ -83,7 +73,7 @@ public class PolyController : ApiController
 
 The system can slow down dramatically and eventually fail when the system runs out of resources such as database connections.
 
-You can perform the following steps to help identify the cause:
+You can do the following steps to help identify the cause:
 
 1. Instrument the system to record the key performance statistics. Capture timing information for each operation. And capture the points where the application reads and writes data.
 
@@ -151,9 +141,8 @@ Similarly, the maximum DTU utilization of the log database only reaches about 70
 - [Data access for highly scalable solutions by using SQL, NoSQL, and polyglot persistence][Data-Access-Guide]
 - [Data partitioning][DataPartitioningGuidance]
 
-[sample-app]: https://github.com/mspnp/performance-optimization/tree/main/MonolithicPersistence
 [cosmos-db]: https://azure.microsoft.com/services/cosmos-db
-[azure-cache]: /azure/azure-cache-for-redis/cache-overview
+[azure-managed-redis]: /azure/redis/overview
 [Data-Access-Guide]: /previous-versions/msp-n-p/dn271399(v=pandp.10)
 [DataPartitioningGuidance]: ../../best-practices/data-partitioning.yml
 [data-store-overview]: ../../guide/technology-choices/data-store-overview.md

@@ -60,7 +60,7 @@ Use this pattern when:
 - A client needs to consume a variable number of service instances.
 - You want to implement a deployment strategy where clients access multiple versions of the service at the same time.
 
-This pattern may not be suitable when you have a simple application that uses only one or two services.
+This pattern might not be suitable when you have a simple application that uses only one or two services.
 
 ## Workload design
 
@@ -76,7 +76,7 @@ As with any design decision, consider any tradeoffs against the goals of the oth
 
 ## Example
 
-Using Nginx as the router, the following is a simple example configuration file for a server that routes requests for applications residing on different virtual directories to different machines at the back end.
+Using Nginx as the router, the following example shows a configuration file for a server that routes requests for applications residing on different virtual directories to different machines at the back end.
 
 ```console
 server {
@@ -104,6 +104,6 @@ The following Azure services can be used to implement the gateway routing patter
 
 ## Related resources
 
-- [Backends for Frontends pattern](./backends-for-frontends.yml)
+- [Backends for Frontends pattern](./backends-for-frontends.md)
 - [Gateway Aggregation pattern](./gateway-aggregation.yml)
 - [Gateway Offloading pattern](./gateway-offloading.yml)

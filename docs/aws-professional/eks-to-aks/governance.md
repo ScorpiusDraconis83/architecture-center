@@ -1,22 +1,16 @@
 ---
 title: Governance Options for a Kubernetes Cluster
 description: Understand governance options for a Kubernetes cluster, and compare Amazon EKS and Azure Kubernetes Service (AKS) governance options.
-author: paolosalvatori
-ms.author: paolos
+author: francisnazareth
+ms.author: fnazaret
 ms.date: 01/28/2025
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.collection: 
  - migration
  - aws-to-azure
 ms.custom:
   - arb-containers
-categories:
-  - containers
-  - management-and-governance
-products:
-  - azure-kubernetes-service
-  - azure-policy
 ---
 
 # Kubernetes cluster governance
@@ -97,14 +91,14 @@ After you install the Azure Policy add-on for AKS, you can apply individual poli
 
 Principal authors:
 
-- [Paolo Salvatori](https://www.linkedin.com/in/paolo-salvatori) | Principal Service Engineer
-- [Martin Gjoshevski](https://www.linkedin.com/in/martin-gjoshevski) | Senior Service Engineer
+- [Paolo Salvatori](https://www.linkedin.com/in/paolo-salvatori/) | Principal Service Engineer
+- [Martin Gjoshevski](https://www.linkedin.com/in/martin-gjoshevski/) | Senior Service Engineer
 
 Other contributors:
 
-- [Chad Kittel](https://www.linkedin.com/in/chadkittel) | Principal Software Engineer
-- [Ed Price](https://www.linkedin.com/in/priceed) | Senior Content Program Manager
-- [Theano Petersen](https://www.linkedin.com/in/theanop) | Technical Writer
+- [Chad Kittel](https://www.linkedin.com/in/chadkittel/) | Principal Software Engineer - Azure Patterns & Practices
+- [Ed Price](https://www.linkedin.com/in/priceed/) | Senior Content Program Manager
+- [Theano Petersen](https://www.linkedin.com/in/theanop/) | Technical Writer
 
 *To see nonpublic LinkedIn profiles, sign in to LinkedIn.*
 

@@ -1,21 +1,11 @@
 ---
 title: Storage architecture
 description: Get an overview of Azure Storage technologies, guidance offerings, solution ideas, and reference architectures.  
-author: RobBagby
+author: claytonsiemens77
 ms.author: pnp 
 ms.date: 07/26/2022
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
-categories:
-- storage
-- analytics
-- databases
-products:
-- azure-blob-storage
-- azure-files
-- azure-queue-storage
-- azure-table-storage
-- azure-disk-storage
 ms.custom: 
 - overview
 - fcp
@@ -49,7 +39,7 @@ If you're new to storage on Azure, the best way to learn more is [Microsoft Lear
   - [Understand data encryption in Azure NetApp Files](/azure/azure-netapp-files/understand-data-encryption)
   - [Understand data protection and disaster recovery options in Azure NetApp Files](/azure/azure-netapp-files/data-protection-disaster-recovery-options)
 
-- For information about migrating existing data, see the [Azure Storage migration guide](/azure/storage/common/storage-migration-overview?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json). 
+- For more information about migrating existing data, see [Azure Storage migration guide](/azure/storage/common/storage-migration-overview?toc=/azure/architecture/toc.json&bc=/azure/architecture/_bread/toc.json). 
 
 ## Best practices
 Depending on the storage technology you use, see the following best practices resources:

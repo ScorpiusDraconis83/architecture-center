@@ -41,11 +41,11 @@ Azure NICs support multiple IPs. This support conforms with the SAP recommended 
 
 #### Virtual machines
 
-This architecture uses virtual machines (VM). Azure offers single-node scale up to 32 Tebibytes (TiB) of memory on virtual machines. The [SAP Certified and Supported SAP HANA Hardware Directory](https://www.sap.com/dmc/exp/2014-09-02-hana-hardware/enEN/#/solutions?id=s:2494&filters=ve:24) lists the virtual machines that are certified for the SAP HANA database. For details about SAP support for virtual machine types and throughput metrics (SAPS), see [SAP Note 1928533 - SAP Applications on Microsoft Azure: Supported Products and Azure VM types](https://launchpad.support.sap.com/#/notes/1928533). (To access this and other SAP notes, an SAP Service Marketplace account is required.)
+This architecture uses virtual machines (VM). Azure offers single-node scale up to 32 Tebibytes (TiB) of memory on virtual machines. The [SAP Certified and Supported SAP HANA Hardware Directory](https://www.sap.com/dmc/exp/2014-09-02-hana-hardware/enEN/#/solutions?id=s:2494&filters=ve:24) lists the virtual machines that are certified for the SAP HANA database. For more information about SAP support for virtual machine types and throughput metrics (SAPS), see [SAP Note 1928533 - SAP Applications on Microsoft Azure: Supported Products and Azure VM types](https://launchpad.support.sap.com/#/notes/1928533). (To access this and other SAP notes, an SAP Service Marketplace account is required.)
 
 Microsoft and SAP jointly certify a range of virtual machine sizes for SAP HANA workloads. For example, smaller deployments can run on an [Edsv4](/azure/virtual-machines/edv4-edsv4-series) or [Edsv5](/azure/virtual-machines/edv5-edsv5-series) virtual machine with 160 GiB or more of RAM. To support the largest SAP HANA memory sizes on virtual machines, as much as 30 TiB, you can use [Mv3-series](/azure/virtual-machines/sizes/memory-optimized/mdsv3-very-high-memory-series) virtual machines.
 
-**Generation 2 (Gen2) virtual machines.** When you deploy VMs, you can use either generation 1 or generation 2 VMs. [Generation 2 VMs](/azure/virtual-machines/generation-2) support key features that aren't available for generation 1 VMs. For SAP HANA, this is particularly important because some VM families, like [Mv2](/azure/virtual-machines/mv2-series), [Mdsv2](/azure/virtual-machines/msv2-mdsv2-series), [Msv3, and Mdsv3](/azure/virtual-machines/sizes/memory-optimized/msv3-mdsv3-high-memory-series) are supported only as Gen2 VMs. Similarly, SAP on Azure certification might require newer VMs to be Gen2, even if Azure allows both Gen1 and Gen2. For details, see [SAP Note 1928533 - SAP Applications on Microsoft Azure: Supported Products and Azure VM types](https://launchpad.support.sap.com/#/notes/1928533).
+**Generation 2 (Gen2) virtual machines.** When you deploy VMs, you can use either generation 1 or generation 2 VMs. [Generation 2 VMs](/azure/virtual-machines/generation-2) support key features that aren't available for generation 1 VMs. For SAP HANA, this consideration is especially important because some VM families, like [Mv2](/azure/virtual-machines/mv2-series), [Mdsv2](/azure/virtual-machines/msv2-mdsv2-series), [Msv3, and Mdsv3](/azure/virtual-machines/sizes/memory-optimized/msv3-mdsv3-high-memory-series) are supported only as Gen2 VMs. Similarly, SAP on Azure certification might require newer VMs to be Gen2, even if Azure allows both Gen1 and Gen2. For more information, see [SAP Note 1928533 - SAP Applications on Microsoft Azure: Supported Products and Azure VM types](https://launchpad.support.sap.com/#/notes/1928533).
 
 Because all other VMs supporting SAP HANA allow the choice of either Gen2 only or Gen1+2 selectively, we recommend that you deploy all SAP VMs as Gen2 only. This applies also to VMs with low memory requirements. Even the smallest SAP HANA VM can run as Gen2 VM and can be, when deallocated, be resized to the largest VM available in your region.
 
@@ -53,12 +53,17 @@ Because all other VMs supporting SAP HANA allow the choice of either Gen2 only o
 
 ### Components
 
-* [Azure Virtual Network](/azure/well-architected/service-guides/virtual-network)
-* [Azure ExpressRoute](/azure/well-architected/service-guides/azure-expressroute)
-* [Azure Virtual Machines](/azure/well-architected/service-guides/virtual-machines)
-* [Azure NetApp Files](/azure/well-architected/service-guides/azure-netapp-files)
-* [Azure Load Balancer](/azure/well-architected/service-guides/azure-load-balancer/reliability)
-* [Azure Disk Storage](/azure/virtual-machines/managed-disks-overview)
+- [Azure Disk Storage](/azure/well-architected/service-guides/azure-disk-storage) is a high-performance, durable block storage solution for Azure virtual machines. In this architecture, it provides persistent storage for SAP HANA data and log volumes and supports configurations that meet strict latency and throughput requirements.
+
+- [Azure Load Balancer](/azure/well-architected/service-guides/azure-load-balancer/reliability) is a layer 4 load balancer that distributes network traffic across virtual machines. In this architecture, it acts as the virtual IP endpoint for SAP HANA, directing traffic to the active database node and optionally supporting read-enabled secondary nodes.
+
+- [Azure NetApp Files](/azure/well-architected/service-guides/azure-netapp-files) is a high-performance file storage service built for enterprise workloads. In this architecture, it stores SAP HANA data and log files, supports snapshot-based backups, and enables fast recovery and disaster replication across regions.
+
+- [Azure Virtual Machines](/azure/well-architected/service-guides/virtual-machines) are scalable compute resources for running workloads in Azure. In this architecture, they host the SAP HANA database in a certified, high-memory configuration, supporting scale-up deployments with system replication for high availability.
+
+- [Azure Virtual Network](/azure/well-architected/service-guides/virtual-network) is the foundational networking service in Azure. In this architecture, it connects SAP HANA VMs within a spoke network and links to on-premises systems via a hub network using ExpressRoute, which enables secure and segmented communication across tiers.
+
+- [ExpressRoute](/azure/well-architected/service-guides/azure-expressroute) is a private connection service between on-premises infrastructure and Azure. In this architecture, it connects the SAP HANA environment to on-premises systems using zone-redundant gateways, ensuring secure and reliable communication that bypasses the public internet.
 
 ## Considerations
 
@@ -99,7 +104,7 @@ Make sure to verify your target region's [resource capacity](/azure/site-recover
 
 The preceding architecture depicts a highly available deployment, with SAP HANA contained on two or more virtual machines. The following components are used.
 
-**Load balancers.**  [Azure Load Balancer](/azure/load-balancer/load-balancer-overview) is used to distribute traffic to SAP HANA virtual machines. When you incorporate Azure Load Balancer in a zonal deployment of SAP, make sure you select the Standard SKU load balancer. The Basic SKU balancer doesn't support zonal redundancy and [deprecated](/azure/load-balancer/skus). In this architecture, Load Balancer acts as the virtual IP address for SAP HANA. Network traffic is sent to the active VM with primary database instance. SAP HANA active/read-enabled architecture is optionally available ([SLES](/azure/virtual-machines/workloads/sap/sap-hana-high-availability#configure-hana-activeread-enabled-system-replication-in-pacemaker-cluster)/[RHEL](/azure/virtual-machines/workloads/sap/sap-hana-high-availability-rhel#configure-hana-activeread-enabled-system-replication-in-pacemaker-cluster)) where a second virtual IP addressed on the load balancer is used to direct network traffic to the secondary SAP HANA instance on another VM for read-intense workloads.
+**Load balancers.** [Azure Load Balancer](/azure/load-balancer/load-balancer-overview) is used to distribute traffic to SAP HANA virtual machines. When you incorporate Azure Load Balancer in a zonal deployment of SAP, make sure you select the Standard SKU load balancer. The Basic SKU balancer doesn't support zone redundancy and [deprecated](/azure/load-balancer/skus). In this architecture, Load Balancer acts as the virtual IP address for SAP HANA. Network traffic is sent to the active VM with primary database instance. SAP HANA active/read-enabled architecture is optionally available ([SLES](/azure/virtual-machines/workloads/sap/sap-hana-high-availability#configure-hana-activeread-enabled-system-replication-in-pacemaker-cluster)/[RHEL](/azure/virtual-machines/workloads/sap/sap-hana-high-availability-rhel#configure-hana-activeread-enabled-system-replication-in-pacemaker-cluster)) where a second virtual IP addressed on the load balancer is used to direct network traffic to the secondary SAP HANA instance on another VM for read-intense workloads.
 
 The Standard Load Balancer provides a layer of security by default. Virtual machines that are behind the Standard Load Balancer don't have outbound internet connectivity. To enable outbound internet in these virtual machines, you need to update your [Standard Load Balancer](/azure/virtual-machines/workloads/sap/high-availability-guide-standard-load-balancer-outbound-connections) configuration. In addition, you can also use an [Azure NAT Gateway](/azure/nat-gateway/nat-overview) to get outbound connectivity.
 
@@ -117,7 +122,7 @@ For the Linux Pacemaker cluster, you need to decide which cluster fencing mechan
 
 Preferably three small VMs are deployed in either an availability set or availability zone setup. Each VM exporting small parts of a disk as a block device which is accessed by the two SAP HANA cluster nodes. Three SBD VMs ensure sufficient voting members are available in case of planned or unplanned downtime for either SBD VM.
 
-Alternatively to using SBD VMs, [Azure shared disk](/azure/virtual-machines/disks-shared) can be used instead. The SAP HANA cluster nodes then [access the single shared disk](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-pacemaker#use-an-sbd-device). The shared disk can be locally ([LRS](/azure/storage/common/storage-redundancy#locally-redundant-storage)) or zonally ([ZRS](/azure/storage/common/storage-redundancy#zone-redundant-storage)) redundant, if ZRS is available in your Azure region.
+Alternatively to using SBD VMs, [Azure shared disk](/azure/virtual-machines/disks-shared) can be used instead. The SAP HANA cluster nodes then [access the single shared disk](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-pacemaker#use-an-sbd-device). The shared disk can be locally ([LRS](/azure/storage/common/storage-redundancy#locally-redundant-storage)) or zone ([ZRS](/azure/storage/common/storage-redundancy#zone-redundant-storage)) redundant, if ZRS is available in your Azure region.
 
 ### Security
 
@@ -146,13 +151,13 @@ For network security, use network security groups (NSGs) and Azure Firewall or a
 
 * Use [Azure Firewall](/azure/firewall/overview) or Azure network virtual appliance to inspect and control the routing of traffic from the hub virtual network to the spoke virtual network where your SAP applications are, and also to control your outbound internet connectivity.
 
-For User and Authorization, implement role-based access control (RBAC) and resource locks as follows:
+For user authorization, implement Azure role-based access control (Azure RBAC) and resource locks as follows:
 
-* Follow the principle of least privilege, using [RBAC](/azure/role-based-access-control/overview) for assigning administrative privileges at IaaS-level resources that host your SAP solution on Azure. The fundamental purpose of RBAC is the segregation and control of duties for your users/group. RBAC is designed to grant only the amount of access to resources that's needed to enable users to do their jobs.
+* Follow the principle of least privilege, using [Azure RBAC](/azure/role-based-access-control/overview) for assigning administrative privileges at IaaS-level resources that host your SAP solution on Azure. The fundamental purpose of Azure RBAC is the segregation and control of duties for your users/group. Azure RBAC is designed to grant only the amount of access to resources that's needed to enable users to do their jobs.
 
 * Use [resource locks](/azure/azure-resource-manager/management/lock-resources) to help prevent accidental or malicious changes. Resource locks help prevent administrators from deleting or modifying critical Azure resources where your SAP solution is located.
 
-More security recommendations can be found at theses [Microsoft](https://azure.microsoft.com/blog/sap-on-azure-architecture-designing-for-security/) and [SAP](https://blogs.sap.com/2019/07/21/sap-security-operations-on-azure/) articles.
+More security recommendations can be found at these [Microsoft](https://azure.microsoft.com/blog/sap-on-azure-architecture-designing-for-security/) and [SAP](https://blogs.sap.com/2019/07/21/sap-security-operations-on-azure/) articles.
 
 ### Operational Excellence
 
@@ -190,7 +195,7 @@ These technologies are needed to consistently meet the required storage latency 
 
 [Azure Premium SSD v2](https://azure.microsoft.com/updates/general-availability-azure-premium-ssd-v2-disk-storage/) is designed for performance-critical workloads like SAP. Write Accelerator isn't required when /*hana/log* is running on Premium SSD v2. For information about this storage solution's benefits and current limitations, see [Deploy a Premium SSD v2](/azure/virtual-machines/disks-deploy-premium-v2?tabs=azure-cli).
 
-For details about SAP HANA performance requirements, see [SAP Note 1943937 - Hardware Configuration Check Tool](https://launchpad.support.sap.com/#/notes/1943937).
+For more information about SAP HANA performance requirements, see [SAP Note 1943937 - Hardware Configuration Check Tool](https://launchpad.support.sap.com/#/notes/1943937).
 
 - **Cost-conscious storage design for non-production systems.** For SAP HANA environments that don't require maximum storage performance in all situations, you can use a storage architecture that's optimized for cost. This choice of storage optimization can apply to little-used production systems or some non-production SAP HANA environments. The cost-optimized storage option uses a combination of Standard SSDs instead of the Premium or Ultra SSDs that are used for production environments. It also combines */hana/data* and */hana/log* file systems onto a single set of disks. [Guidelines and best practices](/azure/virtual-machines/workloads/sap/hana-vm-operations-storage#cost-conscious-solution-with-azure-premium-storage) are available for most VM sizes. If you use Azure NetApp Files for SAP HANA, you can use size-reduced volumes to achieve the same goal.
 
@@ -205,16 +210,16 @@ Communities can answer questions and help you set up a successful deployment. Co
 
 * [SAP Community](https://www.sap.com/community.html)
 
-* [SAP on Stack Overflow](http://stackoverflow.com/tags/sap/info)
+* [SAP on Stack Overflow](https://stackoverflow.com/tags/sap/info)
 
 ## Contributors
 
-*This article is maintained by Microsoft. It was originally written by the following contributors.* 
+*This article is maintained by Microsoft. It was originally written by the following contributors.*
 
 Principal author:
 
- - [Robert Biro](https://www.linkedin.com/in/robert-biro-38991927/) | Senior Architect
- 
+- [Robert Biro](https://www.linkedin.com/in/robert-biro-38991927/) | Senior Architect
+
 *To see non-public LinkedIn profiles, sign in to LinkedIn.*
 
 ## Next steps

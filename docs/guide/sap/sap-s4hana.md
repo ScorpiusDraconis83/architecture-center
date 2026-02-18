@@ -4,20 +4,11 @@ description: Learn more about proven practices for running SAP S/4HANA effective
 author: bqtrinh
 ms.author: bentrin
 ms.date: 03/17/2025
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
-products:
-- azure-expressroute
-- azure-sap
-- azure-virtual-machines
-- azure-virtual-network
-- azure-netapp-files
-categories:
-- databases
-- management-and-governance
 ---
 
-<!-- cSpell:ignore lbrader HANA Fiori -->
+<!-- cSpell:ignore HANA Fiori -->
 
 # SAP S/4HANA in Linux on Azure
 
@@ -109,7 +100,7 @@ This architecture meets multiple requirements and assumes that you use the embed
 
 For more information about deployment options, see [SAP Fiori deployment options and system landscape recommendations](https://www.sap.com/documents/2018/02/f0148939-f27c-0010-82c7-eda71af511fa.html). For simplicity and performance, the software releases between the Fiori technology components and the S/4 applications are tightly coupled. This setup makes a hub deployment suitable for only a few, specific use cases.
 
-If you use the FES hub deployment, the FES is an add-on component to the classic SAP NetWeaver ABAP stack. Set up HA the same way that you protect a three-tier ABAP application stack that has clustered or multiple-host capability. Use a standby server database layer, a clustered ASCS layer with HA NFS for shared storage, and at least two application servers. Traffic is load balanced via a pair of Web Dispatcher instances that can be either clustered or parallel. For internet-facing Fiori apps, we recommend an [FES hub deployment](https://blogs.sap.com/2017/12/15/considerations-and-recommendations-for-internet-facing-fiori-apps) in the perimeter network. Use Azure Web Application Firewall on [Application Gateway](/azure/application-gateway) as a critical component to deflect threats. Use [Microsoft Entra ID with Security Assertion Markup Language](/azure/active-directory/saas-apps/sap-netweaver-tutorial) for user authentication and [single sign-on for SAP Fiori](/azure/active-directory/saas-apps/sap-fiori-tutorial).
+If you use the FES hub deployment, the FES is an add-on component to the classic SAP NetWeaver ABAP stack. Set up HA the same way that you protect a three-tier ABAP application stack that has clustered or multiple-host capability. Use a standby server database layer, a clustered ASCS layer with HA NFS for shared storage, and at least two application servers. Traffic is load balanced via a pair of Web Dispatcher instances that can be either clustered or parallel. For internet-facing Fiori apps, we recommend an [FES hub deployment](https://blogs.sap.com/2017/12/15/considerations-and-recommendations-for-internet-facing-fiori-apps) in the perimeter network. Use Azure Web Application Firewall on [Application Gateway](/azure/application-gateway) as a critical component to deflect threats. Use [Microsoft Entra ID with Security Assertion Markup Language](/entra/identity/saas-apps/sap-netweaver-tutorial) for user authentication and [single sign-on for SAP Fiori](/entra/identity/saas-apps/sap-fiori-tutorial).
 
 :::image type="complex" border="false" source="media/fiori.svg" alt-text="Architecture diagram that shows the data flow between the internet and two virtual networks, one with SAP Fiori and one with SAP S/4HANA." lightbox="media/fiori.svg":::
    The image shows two main sections enclosed in dotted rectangles that indicate that they're both virtual networks. There's an icon that represents the internet. This icon connects via a two-sided arrow to an icon that represents web navigation in the first section. This section has three rectangles. The first rectangle has icons that represent Azure Web Application Firewall and Azure Application Gateway. The second rectangle has icons that represent SAP Web Dispatcher instances. The third section has an icon that represents SAP Fiori. It also has text that reads Hub Fiori or central Fiori. Arrows point from the first box to the second box and then from the second box to the third box. A dotted arrow labeled Virtual network peering connects the two virtual networks. The second main section has an icon that represents SAP S/4HANA and contains text that reads Dedicated back end or embedded Fiori.
@@ -195,6 +186,13 @@ SAP application servers communicate constantly with the database servers. For pe
 
 To optimize inter-server communications, use [Accelerated Networking](/azure/virtual-network/accelerated-networking-overview). Most general-purpose and compute-optimized VM instance sizes that have two or more vCPUs support Accelerated Networking. On instances that support hyper-threading, VM instances with four or more vCPUs support Accelerated Networking.
 
+You should optimize the [Linux TCP/IP stack and buffers in the network interface](/azure/virtual-network/virtual-network-tcpip-performance-tuning) to achieve consistent performance. Follow Microsoft recommended settings. For example, you'll adjust items such as:
+
+- Kernel parameters to optimize read and write memory buffers
+- Bottleneck bandwidth and round-trip propagation time (BBR) congestion control
+- Adjust TCP parameters to bring better consistency and throughput
+- NIC ring buffers for TX/RX
+
 For more information about SAP HANA performance requirements, see [SAP note 1943937](https://launchpad.support.sap.com/#/notes/1943937).
 
 To achieve high input/output operations per second (IOPS) and disk bandwidth throughput, follow the common practices for storage volume [performance optimization](/azure/virtual-machines/linux/premium-storage-performance). For example, combining multiple disks to create a striped disk volume can improve your input/output (I/O) performance. Enabling the read cache on storage content that changes infrequently can also speed up your data retrieval. For more information, see [SAP HANA Azure virtual machine storage configurations](/azure/virtual-machines/workloads/sap/hana-vm-operations-storage).
@@ -240,7 +238,7 @@ You can achieve HA by using redundant Web Dispatcher instances. For more informa
 
 For HA of Central Services on Azure Linux VMs, use the appropriate HA extension for the selected Linux distribution. It's customary to place the shared file systems on highly available NFS storage by using the SUSE Distributed Replicated Block Device or Red Hat GlusterFS. To provide a highly available NFS and eliminate the need for an NFS cluster, you can use other cost-effective or robust solutions like [NFS over Azure Files](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-nfs-azure-files) or [Azure NetApp Files](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-netapp-files). Azure NetApp Files shares can host the SAP HANA data and log files. This setup enables the [HANA scale-out](/azure/virtual-machines/workloads/sap/sap-hana-scale-out-standby-netapp-files-suse) deployment model with standby nodes, while NFS over Azure Files is good for highly available non-database file sharing.
 
-NFS over Azure Files now supports the highly available file shares for both [SLES](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-nfs-azure-files) and [RHEL](/azure/virtual-machines/workloads/sap/high-availability-guide-rhel-nfs-azure-files). This solution works well for highly available file shares like `/sapmnt` and `/saptrans` in SAP installations.  
+NFS over Azure Files now supports the highly available file shares for both [SLES](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-nfs-azure-files) and [RHEL](/azure/virtual-machines/workloads/sap/high-availability-guide-rhel-nfs-azure-files). This solution works well for highly available file shares like `/sapmnt` and `/saptrans` in SAP installations.
 
 Azure NetApp Files supports HA of [ASCS on SLES](/azure/virtual-machines/workloads/sap/high-availability-guide-suse-netapp-files). For more information about ASCS on RHEL HA, see [SIOS Protection Suite for Linux](https://us.sios.com/blog/how-to-install-a-sios-protection-suite-for-linux-license-key/).
 
@@ -366,11 +364,11 @@ You can back up SAP HANA data in many ways. After you migrate to Azure, continue
 
 Use a centralized identity management system to control access to resources at all levels.
 
-- Provide access to Azure resources through [Azure role-based access control (RBAC)](/azure/role-based-access-control/overview).
+- Provide access to Azure resources through [Azure role-based access control (Azure RBAC)](/azure/role-based-access-control/overview).
 
 - Grant access to Azure VMs through Lightweight Directory Access Protocol, Microsoft Entra ID, Kerberos, or another system.
 
-- Support access within the apps themselves through the services that SAP provides, or use [OAuth 2.0 and Microsoft Entra ID](/azure/active-directory/develop/active-directory-protocols-oauth-code).
+- Support access within the apps themselves through the services that SAP provides, or use [OAuth 2.0 and Microsoft Entra ID](/entra/identity-platform/v2-oauth2-auth-code-flow).
 
 ### Monitoring
 
@@ -389,6 +387,8 @@ To [encrypt Linux VM disks](/azure/virtual-machines/disk-encryption-overview), y
 > [!NOTE]
 > Don't use HANA data-at-rest encryption and Azure Disk Encryption on the same storage volume. For HANA, use HANA data encryption over [Azure disk storage server-side encryption](/azure/virtual-machines/disk-encryption). Using customer-managed keys might affect I/O throughput.
 
+To enhance the security of data in Azure Files, you can enable [Encryption in Transit (EiT) for Azure Files NFS](/azure/sap/workloads/sap-azure-files-nfs-encryption-in-transit-guide).
+
 ## Communities
 
 Communities can answer questions and help you set up a successful deployment. Consider the following resources:
@@ -396,7 +396,7 @@ Communities can answer questions and help you set up a successful deployment. Co
 - [Run SAP applications on the Microsoft platform blog](/archive/blogs/saponsqlserver/sap-on-azure-general-update-for-customers-partners-april-2017)
 - [Azure community support](https://azure.microsoft.com/support/forums)
 - [SAP Community](https://www.sap.com/community.html)
-- [Stack Overflow SAP](http://stackoverflow.com/tags/sap/info)
+- [Stack Overflow SAP](https://stackoverflow.com/tags/sap/info)
 
 ## Contributors
 

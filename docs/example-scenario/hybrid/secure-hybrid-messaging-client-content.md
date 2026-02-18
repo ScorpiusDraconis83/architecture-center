@@ -6,7 +6,7 @@ The article shows how to implement multifactor authentication for Outlook deskto
 - [Exchange on-premises, AD FS](#architecture-exchange-on-premises-ad-fs)
 
 > [!NOTE]
-> In the diagrams, black dashed lines show basic interactions between local Active Directory, Microsoft Entra Connect, Microsoft Entra ID, AD FS, and Web Application Proxy components. You can learn about these interactions in [Hybrid identity required ports and protocols](/azure/active-directory/hybrid/reference-connect-ports).
+> In the diagrams, black dashed lines show basic interactions between local Active Directory, Microsoft Entra Connect, Microsoft Entra ID, AD FS, and Web Application Proxy components. You can learn about these interactions in [Hybrid identity required ports and protocols](/entra/identity/hybrid/connect/reference-connect-ports).
 
 ## Architecture (Exchange Online)
 
@@ -24,7 +24,7 @@ In this scenario, users need to use the version of Outlook client that supports 
 1. As soon as the domain is federated, Microsoft Entra ID redirects the request to on-premises AD FS.
 1. The user enters credentials on an AD FS sign-in page.
 1. AD FS redirects the session back to Microsoft Entra ID.
-1. Microsoft Entra ID applies an Azure Conditional Access policy with a multifactor authentication requirement for mobile apps and desktop clients. See the [deployment section](#set-up-a-conditional-access-policy) of this article for information about setting up that policy.
+1. Microsoft Entra ID applies an Azure Conditional Access policy with a multifactor authentication requirement for mobile apps and desktop clients. For more information about setting up that policy, see the [deployment section](#set-up-a-conditional-access-policy) of this article.
 1. The Conditional Access policy calls Microsoft Entra multifactor authentication. The user gets a request to complete multifactor authentication.
 1. The user completes multifactor authentication.
 1. Microsoft Entra ID issues access and refresh tokens and returns them to the client.
@@ -224,7 +224,7 @@ After you create the authentication policy, you can first assign it to a pilot g
 ## Components
 
 - [Microsoft Entra ID](/entra/fundamentals/whatis). Microsoft Entra ID is a Microsoft cloud-based identity and access management service. It provides modern authentication that's essentially based on EvoSTS (a Security Token Service used by Microsoft Entra ID). It's used as an authentication server for Exchange Server on-premises.
-- [Microsoft Entra multifactor authentication](/azure/active-directory/authentication/howto-mfa-getstarted). Multifactor authentication is a process in which users are prompted during the sign-in process for another form of identification, like a code on their cellphone or a fingerprint scan.
+- [Microsoft Entra multifactor authentication](/entra/identity/authentication/howto-mfa-getstarted). Multifactor authentication is a process in which users are prompted during the sign-in process for another form of identification, like a code on their cellphone or a fingerprint scan.
 - [Microsoft Entra Conditional Access](/entra/identity/conditional-access/overview). Conditional Access is the feature that Microsoft Entra ID uses to enforce organizational policies like multifactor authentication.
 - [AD FS](/windows-server/identity/active-directory-federation-services). AD FS enables federated identity and access management by sharing digital identity and entitlements rights across security and enterprise boundaries with improved security. In these architectures, it's used to facilitate sign-in for users with federated identity.
 - [Web Application Proxy](/windows-server/remote/remote-access/web-application-proxy/web-application-proxy-in-windows-server). Web Application Proxy pre-authenticates access to web applications by using AD FS. It also functions as an AD FS proxy.
@@ -235,7 +235,7 @@ After you create the authentication policy, you can first assign it to a pilot g
 
 ## Scenario details
 
-Enterprise messaging infrastructure (EMI) is a key service for organizations. Moving from older, less secure methods of authentication and authorization to modern authentication is a critical challenge in a world where remote work is common. Implementing multifactor authentication requirements for messaging service access is one of the most effective ways to meet that challenge.
+Enterprise messaging infrastructure (EMI) is a key service for organizations. The move from older, less secure methods of authentication and authorization to modern authentication is a critical challenge in a world where remote work is common. Implementing multifactor authentication requirements for messaging service access is one of the most effective ways to meet that challenge.
 
 This article describes four architectures to enhance your security in an Outlook desktop-client access scenario by using Microsoft Entra multifactor authentication.
 
@@ -257,7 +257,7 @@ This article doesn't discuss other protocols, like IMAP or POP. Typically, these
 
 ### General notes
 
-- These architectures use the [federated](/azure/active-directory/hybrid/whatis-fed) Microsoft Entra identity model. For the password hash synchronization and Pass-through Authentication models, the logic and flow are the same. The only difference is related to the fact that Microsoft Entra ID doesn't redirect the authentication request to on-premises Active Directory Federation Services (AD FS).
+- These architectures use the [federated](/entra/identity/hybrid/connect/whatis-fed) Microsoft Entra identity model. For the password hash synchronization and Pass-through Authentication models, the logic and flow are the same. The only difference is related to the fact that Microsoft Entra ID doesn't redirect the authentication request to on-premises Active Directory Federation Services (AD FS).
 - By *Exchange on-premises*, we mean Exchange 2019 with the latest updates and a Mailbox role.
 - In a real environment, you won't have just one server. You'll have a load-balanced array of Exchange servers for high availability. The scenarios described here are suited for that configuration.
 
@@ -284,7 +284,7 @@ Overall availability depends on the availability of the components that are invo
 
 - [Advancing Microsoft Entra availability](https://azure.microsoft.com/blog/advancing-azure-active-directory-availability)
 - [Cloud services you can trust: Office 365 availability](https://www.microsoft.com/microsoft-365/blog/2013/08/08/cloud-services-you-can-trust-office-365-availability)
-- [What is the Microsoft Entra architecture?](/azure/active-directory/fundamentals/active-directory-architecture)
+- [What is the Microsoft Entra architecture?](/entra/architecture/architecture)
 
 Availability of on-premises solution components depends on the implemented design, hardware availability, and your internal operations and maintenance routines. For availability information about some of these components, see the following resources:
 
@@ -316,7 +316,7 @@ For information about security and hybrid modern authentication, see [Deep Dive:
 
 For closed organizations that have traditional strong perimeter protection, there are security concerns related to Exchange Hybrid Classic configurations. The Exchange Hybrid Modern configuration doesn't support hybrid modern authentication.
 
-For information about Microsoft Entra ID, see [Microsoft Entra security operations guide](/azure/active-directory/fundamentals/security-operations-introduction).
+For information about Microsoft Entra ID, see [Microsoft Entra security operations guide](/entra/architecture/security-operations-introduction).
 
 For information about scenarios that use AD FS security, see these articles:
 
@@ -359,7 +359,7 @@ For information about Exchange Server on-premises scalability, see [Exchange 201
 Here are the high-level steps:
 
 1. Protect Outlook desktop access by [configuring Exchange Hybrid configuration and enabling hybrid modern authentication](/microsoft-365/enterprise/hybrid-modern-auth-overview?view=o365-worldwide).
-1. Block all legacy authentication attempts at the [Microsoft Entra ID level](/azure/active-directory/conditional-access/block-legacy-authentication). Block legacy authentication attempts on a messaging-services level by using [authentication policy](/exchange/clients-and-mobile-in-exchange-online/disable-basic-authentication-in-exchange-online).
+1. Block all legacy authentication attempts at the [Microsoft Entra ID level](/entra/identity/conditional-access/policy-block-legacy-authentication). Block legacy authentication attempts on a messaging-services level by using [authentication policy](/exchange/clients-and-mobile-in-exchange-online/disable-basic-authentication-in-exchange-online).
 
 ### Set up a Conditional Access policy
 

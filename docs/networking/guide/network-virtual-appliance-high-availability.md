@@ -4,23 +4,8 @@ description: Learn how to deploy network virtual appliances in high availability
 author: erjosito
 ms.author: jomore
 ms.date: 03/21/2025
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
-ms.category:
-  - networking
-  - management-and-governance
-ms.custom:
-  - networking
-  - reference-architecture
-categories:
-  - networking
-  - management-and-governance
-products:
-  - entra-id
-  - azure-firewall
-  - azure-functions
-  - azure-traffic-manager
-  - azure-virtual-machines
 ---
 
 # Deploy highly available NVAs

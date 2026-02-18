@@ -1,25 +1,16 @@
 ---
 title: Storage Options for a Kubernetes Cluster
 description: Understand storage options for a Kubernetes cluster, and compare Amazon EKS and Azure Kubernetes Service (AKS) storage options.
-author: paolosalvatori
-ms.author: paolos
+author: francisnazareth
+ms.author: fnazaret
 ms.date: 01/28/2025
-ms.topic: conceptual
+ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.collection: 
  - migration
  - aws-to-azure
 ms.custom:
   - arb-containers
-categories:
-  - containers
-  - storage
-products:
-  - azure-files
-  - azure-kubernetes-service
-  - azure-managed-disks
-  - azure-netapp-files
-  - azure-storage
 ---
 
 # Storage options for a Kubernetes cluster
@@ -282,7 +273,6 @@ You can use [Azure disk storage](/azure/aks/azure-disk-csi) to create a Kubernet
 - [Premium SSD v2](/azure/aks/use-premium-v2-disks)
 - [Azure Ultra Disk Storage](/azure/aks/use-ultra-disks)
 - [Standard SSD](/azure/aks/azure-disk-csi)
-- Azure Standard HDD
 
 > [!TIP]
 > For most production and development workloads, use Premium SSD.
@@ -347,7 +337,7 @@ When you mount Blob Storage as a file system into a container or pod, you can us
 - Images, documents, and streaming video or audio.
 - Disaster recovery data.
 
-Applications can access the data on the object storage via [BlobFuse](https://github.com/Azure/azure-storage-fuse/blob/master/README.md) or the [NFS 3.0 protocol](https://wikipedia.org/wiki/Network_File_System). Before the introduction of the Blob Storage CSI driver, the only option was to manually install an unsupported driver to access Blob Storage from your application that runs on AKS. A Blob Storage CSI driver that's enabled on AKS has two built-in storage classes: [azureblob-fuse-premium](/azure/aks/azure-blob-csi) and [azureblob-nfs-premium](/azure/aks/azure-blob-csi).
+Applications can access the data on the object storage via [Blobfuse2](https://github.com/Azure/azure-storage-fuse) or the [NFS 3.0 protocol](https://wikipedia.org/wiki/Network_File_System). Before the introduction of the Blob Storage CSI driver, the only option was to manually install an unsupported driver to access Blob Storage from your application that runs on AKS. A Blob Storage CSI driver that's enabled on AKS has two built-in storage classes: [azureblob-fuse-premium](/azure/aks/azure-blob-csi) and [azureblob-nfs-premium](/azure/aks/azure-blob-csi).
 
 To create an AKS cluster that has CSI drivers support, see [CSI drivers on AKS](/azure/aks/csi-storage-drivers). For more information, see [Compare access to Azure Files, Blob Storage, and Azure NetApp Files with NFS](/azure/storage/common/nfs-comparison).
 
@@ -448,9 +438,9 @@ Principal authors:
 
 Other contributors:
 
-- [Chad Kittel](https://www.linkedin.com/in/chadkittel) | Principal Software Engineer
-- [Ed Price](https://www.linkedin.com/in/priceed) | Senior Content Program Manager
-- [Theano Petersen](https://www.linkedin.com/in/theanop) | Technical Writer
+- [Chad Kittel](https://www.linkedin.com/in/chadkittel/) | Principal Software Engineer - Azure Patterns & Practices
+- [Ed Price](https://www.linkedin.com/in/priceed/) | Senior Content Program Manager
+- [Theano Petersen](https://www.linkedin.com/in/theanop/) | Technical Writer
 
 *To see nonpublic LinkedIn profiles, sign in to LinkedIn.*
 
