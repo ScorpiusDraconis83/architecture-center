@@ -184,7 +184,6 @@ Principal authors:
 [vwan_nva]: /azure/virtual-wan/about-nva-hub
 [alb_probes]: /azure/load-balancer/load-balancer-custom-probe-overview
 [alb_haports]: /azure/load-balancer/load-balancer-ha-ports-overview
-[caf_dmz]: /azure/cloud-adoption-framework/decision-guides/software-defined-network/cloud-dmz
 [caf_perimeter]: /azure/cloud-adoption-framework/ready/azure-best-practices/perimeter-networks
 [caf_hns]: /azure/cloud-adoption-framework/ready/azure-best-practices/hub-spoke-network-topology
 [secure_hybrid]: /azure/architecture/reference-architectures/dmz/secure-vnet-dmz

@@ -298,7 +298,6 @@ Principal author:
 
 [Application Gateway limits]: /azure/azure-resource-manager/management/azure-subscription-service-limits#azure-application-gateway-limits
 [Azure Firewall DNS settings]: /azure/firewall/dns-settings
-[Azure Firewall limits]: /azure/azure-resource-manager/management/azure-subscription-service-limits#azure-firewall-limits
 [Azure Firewall Premium certificates]: /azure/firewall/premium-certificates
 [Firewall and Application Gateway for virtual networks]: ./firewall-application-gateway.yml
 [How an application gateway works]: /azure/application-gateway/how-application-gateway-works

@@ -276,5 +276,4 @@ Principal author:
 [install-and-configure-the-web-application-proxy-server]: /previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn383662(v=ws.11)
 [publish-applications-by-using-AD-FS-preauthentication]: /previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn383640(v=ws.11)
 [oms-adfs-pack]: https://www.microsoft.com/download/details.aspx?id=54526
-[adfs-intro]: /entra/identity/hybrid/whatis-hybrid-identity
 [considerations]: ./index.yml

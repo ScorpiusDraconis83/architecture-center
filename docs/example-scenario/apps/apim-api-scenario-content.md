@@ -123,7 +123,6 @@ Learn modules:
 <!-- links -->
 
 [architecture]: ./media/architecture-apim-api-scenario.png
-[apim-create]: /azure/api-management/get-started-create-service-instance
 [apim-multi-regions]: /azure/api-management/api-management-howto-deploy-multi-region
 [apim-ha]: /azure/api-management/high-availability
 [apim-scaleout]: /azure/api-management/upgrade-and-scale
@@ -131,7 +130,6 @@ Learn modules:
 [azure-mon]: /azure/monitoring-and-diagnostics/monitoring-overview
 [azure-appgw]: /azure/application-gateway/application-gateway-introduction
 [apim-vnet-internal]: /azure/api-management/api-management-howto-integrate-internal-vnet-appgateway
-[apim-vnet]: /azure/api-management/api-management-using-with-vnet
 [apim-vnet-concepts]: /azure/api-management/virtual-network-concepts
 [azure-hybrid]: ../../reference-architectures/hybrid-networking/index.yml
 [azure-er]: /azure/expressroute/expressroute-introduction
@@ -145,9 +143,7 @@ Learn modules:
 [apim-mutualcert-auth]: /azure/api-management/api-management-howto-mutual-certificates
 [apim-allow-ip]: /azure/api-management/api-management-faq#how-can-i-secure-the-connection-between-the-api-management-gateway-and-my-back-end-services
 [apim]: /azure/api-management/api-management-key-concepts
-[azure-vm-lift-shift]: https://azure.microsoft.com/resources/azure-virtual-datacenter-lift-and-shift-guide
 [apim-pricing]: https://azure.microsoft.com/pricing/details/api-management
-[azure-quickstart-templates-apim]: https://azure.microsoft.com/resources/templates/?term=API+Management&pageNumber=1
 [soap]: https://en.wikipedia.org/wiki/SOAP
 [pricing-calculator]: https://azure.com/e/0e916a861fac464db61342d378cc0bd6
 [visio-download]: https://arch-center.azureedge.net/architecture-apim-api-scenario.vsdx

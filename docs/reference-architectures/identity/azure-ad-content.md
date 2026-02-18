@@ -285,12 +285,10 @@ Principal author:
 [aad-health-adds]: /entra/identity/hybrid/connect/how-to-connect-health-adds
 [aad-health-adfs]: /entra/identity/hybrid/connect/how-to-connect-health-adfs
 [aad-identity-protection]: /entra/id-protection/overview-identity-protection
-[aad-password-management]: /entra/identity/authentication/howto-sspr-customization
 [aad-reporting-guide]: /entra/identity/monitoring-health/overview-monitoring-health
 [aad-scalability]: /entra/architecture/architecture
 [aad-sync-best-practices]: /entra/identity/hybrid/connect/how-to-connect-sync-best-practices-changing-default-configuration
 [aad-sync-disaster-recovery]: /entra/identity/hybrid/connect/how-to-connect-sync-staging-server#disaster-recovery
-[aad-sync-requirements]: /entra/identity/hybrid/
 [aad-topologies]: /entra/identity/hybrid/connect/plan-connect-topologies
 [aad-user-sign-in]: /entra/identity/hybrid/connect/plan-connect-user-signin
 [adds-azure-design]: ./index.yml

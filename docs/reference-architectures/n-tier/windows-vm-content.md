@@ -142,7 +142,6 @@ Consider using the [Azure Monitor][azure-monitor] to Analyze and optimize the pe
 [azure-monitor]: https://azure.microsoft.com/services/monitor/
 [audit-logs]: https://azure.microsoft.com/blog/analyze-azure-audit-logs-in-powerbi-more/
 [azure-storage]: /azure/storage/common/storage-introduction
-[blob-storage]: /azure/storage/common/storage-introduction
 [boot-diagnostics]: https://azure.microsoft.com/blog/boot-diagnostics-for-virtual-machines-v2/
 [cname-record]: https://en.wikipedia.org/wiki/CNAME_record
 [data-disk]: /azure/virtual-machines/windows/disks-types

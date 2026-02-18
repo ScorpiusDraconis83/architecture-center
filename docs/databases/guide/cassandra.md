@@ -174,7 +174,6 @@ For more information about general Cassandra settings, not specific to Azure, se
 - [Data partitioning guidance](../../best-practices/data-partitioning.yml)
 
 [dsv2]: /azure/virtual-machines/dv2-dsv2-series-memory
-[dsv3]: /azure/virtual-machines/dv3-dsv3-series
 [dsv5]: /azure/virtual-machines/dv5-dsv5-series
 [esv5]: /azure/virtual-machines/ev5-esv5-series
 [lsv2]: /azure/virtual-machines/lsv2-series

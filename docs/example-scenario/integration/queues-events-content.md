@@ -151,10 +151,7 @@ For more Service Bus recommendations, see [Best practices for performance improv
 [apim-autoscale]: /azure/api-management/api-management-howto-autoscale
 [azure-pricing-calculator]: https://azure.microsoft.com/pricing/calculator
 [event-grid]: /azure/event-grid
-[event-grid-sla]: https://azure.microsoft.com/support/legal/sla/event-grid
 [logic-apps]: /azure/logic-apps/logic-apps-overview
-[logic-apps-sla]: https://azure.microsoft.com/support/legal/sla/logic-apps
-[sb-sla]: https://azure.microsoft.com/support/legal/sla/service-bus
 [service-bus]: /azure/service-bus-messaging
 [service-bus-pricing]: https://azure.microsoft.com/pricing/details/service-bus
 [basic-enterprise-integration]: ../../reference-architectures/enterprise-integration/basic-enterprise-integration.yml

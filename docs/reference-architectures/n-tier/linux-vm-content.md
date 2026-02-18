@@ -164,7 +164,6 @@ Consider using the [Azure Monitor][azure-monitor] to Analyze and optimize the pe
 [azure-linux]: /azure/virtual-machines/linux/endorsed-distros
 [azure-monitor]: https://azure.microsoft.com/services/monitor/
 [azure-storage]: /azure/storage/common/storage-introduction
-[blob-storage]: /azure/storage/common/storage-introduction
 [boot-diagnostics]: https://azure.microsoft.com/blog/boot-diagnostics-for-virtual-machines-v2/
 [azure-pricing-calculator]: https://azure.microsoft.com/pricing/calculator/
 [cname-record]: https://en.wikipedia.org/wiki/CNAME_record
@@ -172,7 +171,6 @@ Consider using the [Azure Monitor][azure-monitor] to Analyze and optimize the pe
 [disk-encryption]: /azure/security/fundamentals/azure-disk-encryption-vms-vmss
 [enable-monitoring]: /azure/monitoring-and-diagnostics/insights-how-to-use-diagnostics
 [fqdn]: /azure/virtual-machines/create-fqdn
-[group-policy]: /windows-server/administration/windows-server-update-services/deploy/4-configure-group-policy-settings-for-automatic-updates
 [iostat]: https://en.wikipedia.org/wiki/Iostat
 [linux-vms-pricing]: https://azure.microsoft.com/pricing/details/virtual-machines/linux
 [manage-vm-availability]: /azure/virtual-machines/linux/manage-availability
@@ -198,5 +196,4 @@ Consider using the [Azure Monitor][azure-monitor] to Analyze and optimize the pe
 [virtual-machine-sizes]: /azure/virtual-machines/sizes
 [vm-size-tables]: /azure/virtual-machines/sizes
 [vm-sla]: https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services
-[WAF-devops]: /azure/architecture/framework/devops/overview
 [WAF-cost]: /azure/architecture/framework/cost/overview

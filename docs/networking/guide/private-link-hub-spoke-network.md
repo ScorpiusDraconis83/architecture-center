@@ -192,9 +192,6 @@ Other contributor:
 [Hub-spoke network topology in Azure]: ../architecture/hub-spoke.yml
 [Integrate Azure services with virtual networks for network isolation]: /azure/virtual-network/vnet-integration-for-azure-services
 [Private Link and DNS integration at scale]: /azure/cloud-adoption-framework/ready/azure-best-practices/private-link-and-dns-integration-at-scale
-[SVG version of architecture diagram]: ./images/private-link-hub-spoke-network-basic-hub-spoke-diagram.svg
-[SVG version of decision tree]: ./images/private-link-hub-spoke-network-decision-tree.svg
-[SVG version of Private Link diagram]: ./images/private-link-hub-spoke-network-private-link.svg
 [Use Azure Firewall to inspect traffic destined to a private endpoint]: /azure/private-link/inspect-traffic-with-azure-firewall
 [Use Private Link in Virtual WAN]: /azure/virtual-wan/howto-private-link
 [View virtual hub effective routes]: /azure/virtual-wan/effective-routes-virtual-hub
