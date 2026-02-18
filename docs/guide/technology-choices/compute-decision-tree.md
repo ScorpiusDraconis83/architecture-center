@@ -175,7 +175,7 @@ Quota and limits can affect scalability. Review the latest [Azure subscription a
 | Container Apps | Scaling rules<a href="#note3d"><sup>3</sup></a> | Integrated | 1,000 replicas for each revision, 15 environments in each region |
 | Container Instances | Not supported | No built-in support | 100 container groups for each subscription (default limit) |
 | Azure Red Hat OpenShift | Pod autoscaling, cluster autoscaling | Load Balancer or Application Gateway | 250 nodes for each cluster (default limit) |
-| Batch | Not applicable | Load Balancer | Core limit of 900 dedicated and 100 low-priority (default limit) |
+| Batch | Not applicable | Load Balancer | Core limit of 900 dedicated cores and 100 low-priority cores (default limit) |
 | Azure VMware Solution | Built-in service<a href="#note4d"><sup>4</sup></a> | Integrated<a href="#note5d"><sup>5</sup></a> | 3 to 16 VMware ESXi hosts for each VMware vCenter |
 
 **Notes:**
