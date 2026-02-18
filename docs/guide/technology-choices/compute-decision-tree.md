@@ -37,9 +37,9 @@ If your workload consists of distinct compute components, evaluate each applicat
 
 ## Understand the basic features
 
-If you're unfamilliar with the Azure service that you select in the previous section, see the following overview documentation:
+If you're unfamiliar with the Azure service that you select in the previous section, see the following overview documentation:
 
-- [Azure Virtual Machines](/azure/virtual-machines/overview) is a service that lets you deploy and manage VMs inside an Azure virtual network.
+- [Azure Virtual Machines](/azure/virtual-machines/overview) is a service that you can use to deploy and manage virtual machines (VMs) inside an Azure virtual network.
 
 - [Azure App Service](/azure/app-service/overview) is a managed service for hosting web apps, mobile app back ends, RESTful APIs, or automated business processes.
 
@@ -49,7 +49,7 @@ If you're unfamilliar with the Azure service that you select in the previous sec
 
 - [Azure Container Apps](/azure/container-apps/overview) is a managed service built on Kubernetes, which simplifies the deployment of containerized applications in a serverless environment. It doesn't provide direct access to the underlying Kubernetes APIs. Use AKS if you require access to the Kubernetes APIs and control plane.
 
-- [Azure Container Instances](/azure/container-instances/container-instances-overview) is a service for running a single container or group of containers in Azure. Container Instances doesn't provide full container orchestration, but you can implement containers without the need to provision virtual machines (VMs) or adopt a higher-level service.
+- [Azure Container Instances](/azure/container-instances/container-instances-overview) is a service for running a single container or group of containers in Azure. Container Instances doesn't provide full container orchestration, but you can implement containers without the need to provision VMs or adopt a higher-level service.
 
 - [Azure Red Hat OpenShift](/azure/openshift/intro-openshift) is a fully managed OpenShift cluster for running containers in production with Kubernetes.
 
@@ -61,7 +61,7 @@ If you're unfamilliar with the Azure service that you select in the previous sec
 
 For hosting models, cloud services fall into three categories:
 
-- **Infrastructure as a service (IaaS)** lets you provision VMs along with the associated networking and storage components. You can then deploy any software and applications on those VMs. This model is the closest to a traditional on-premises environment. Microsoft manages the infrastructure, and you manage the VMs.
+- **Infrastructure as a service (IaaS)** lets you provision VMs along with the associated networking and storage components. You can then deploy any software and applications on those VMs. This model is the most similar to a traditional on-premises environment. Microsoft manages the infrastructure, and you manage the VMs.
 
 - **Platform as a service (PaaS)** provides a managed hosting environment where you can deploy your application without the need to manage VMs. App Service and Container Apps are PaaS services.
 
@@ -152,7 +152,7 @@ Your application platform likely needs to interface with networks both as a serv
 
 | Service | Required skills | Operational overhead | Best for teams that have these characteristics |
 | :------ | :-------------- | :------------------- | :------------------ |
-| Virtual Machines | OS administration, networking, security patching | High: full infrastructure management | Traditional IT operations experience |
+| Virtual Machines | OS administration, networking, security patching | High: Full infrastructure management | Traditional IT operations experience |
 | App Service | Web development, application deployment | Low: platform handles infrastructure | Application developers focused on code |
 | Azure Functions | Event-driven programming, serverless patterns | Very low: serverless management | Developers who build event-driven solutions |
 | AKS | Kubernetes administration, container orchestration | High: cluster management, upgrades, security | DevOps teams that have Kubernetes expertise |
@@ -168,7 +168,7 @@ Quota and limits can affect scalability. Review the latest [Azure subscription a
 
 | Service | Autoscaling | Load balancer | Scale limit |
 | :------ | :---------- | :------------ | :---------- |
-| Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
+| Virtual Machines | Virtual machine scale sets | Azure Load Balancer | - Platform image: 1,000 nodes for each scale set <br><br> - Custom image: 600 nodes for each scale set |
 | App Service | Built-in service | Integrated | 30 instances, 200 with an App Service Environment |
 | Azure Functions | Built-in service | Integrated | 200 instances (Consumption), 1,000 instances (Flex Consumption) |
 | AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [uptime SLA][uptime-sla] |
@@ -255,7 +255,7 @@ Some workloads have specific requirements and don't typically follow the general
 | Mainframe | [Rehost a mainframe on Azure](/azure/architecture/example-scenario/mainframe/mainframe-rehost-architecture-azure) <br><br> [Refactor a mainframe application for Azure](/azure/architecture/example-scenario/mainframe/general-mainframe-refactor) |
 | Marketplace offerings | [Browse partner offerings on Azure compute](https://marketplace.microsoft.com/search/products?product=azure) |
 | Quantum computing | [Azure Quantum](/azure/quantum/overview-azure-quantum) |
-| Virtual Desktop hosting | [Virtual desktop architecture design](/azure/architecture/guide/virtual-desktop/start-here) |
+| Virtual desktop hosting | [Virtual desktop architecture design](/azure/architecture/guide/virtual-desktop/start-here) |
 | Bare metal or dedicated compute workloads | [Azure Dedicated Hosts](/azure/virtual-machines/dedicated-hosts) <br><br> [Nutanix Cloud Clusters on Azure](/azure/baremetal-infrastructure/workloads/nc2-on-azure/about-nc2-on-azure) |
 
 ## Contributors
