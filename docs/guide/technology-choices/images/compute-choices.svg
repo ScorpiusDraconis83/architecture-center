@@ -263,7 +263,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="7.08661" cy="673.133" width="50" height="18.0036"/>
 			<path d="M7.09 657.07 L7.09 685.93" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="0.0797476" y="667.876" width="14.0139" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="0.0797476" y="667.876" width="14.0139" height="10.2574" class="st10"/>
 			<text x="0.08" y="675.63" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape13-46" v:mID="13" v:groupContext="shape" v:layerMember="0" transform="translate(375.02,-521.527)">
 			<title>Dynamic connector.13</title>
@@ -274,7 +274,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="7.08661" cy="673.126" width="50" height="18.0036"/>
 			<path d="M7.09 657.07 L7.09 685.91" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="0.0797476" y="667.868" width="14.0139" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="0.0797476" y="667.868" width="14.0139" height="10.2574" class="st10"/>
 			<text x="0.08" y="675.63" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape17-53" v:mID="17" v:groupContext="shape" transform="translate(371.216,-296.254)">
 			<title>Choice.17</title>
@@ -309,7 +309,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="-64.2" cy="676.564" width="70.57" height="18.0036"/>
 			<path d="M0 657.07 L-58.53 657.07 A8.50394 8.50394 -180 0 0 -67.03 665.57 L-67.03 748.7" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="-94.1025" y="671.307" width="59.8049" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-94.1025" y="671.307" width="59.8049" height="10.2574" class="st10"/>
 			<text x="-94.1" y="679.06" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Lift and shift</text>		</g>
 		<g id="shape23-66" v:mID="23" v:groupContext="shape" transform="translate(115.815,-416.919)">
 			<title>Choice.23</title>
@@ -328,7 +328,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="15.572" cy="649.79" width="50" height="18.0036"/>
 			<path d="M0 649.98 L105.01 649.98" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="7.63242" y="644.533" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="7.63242" y="644.533" width="15.8791" height="10.2574" class="st10"/>
 			<text x="7.63" y="652.29" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape30-75" v:mID="30" v:groupContext="shape" v:layerMember="0" transform="translate(392.998,-525.071)">
 			<title>Dynamic connector.30</title>
@@ -339,7 +339,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="16.8476" cy="650.324" width="50" height="18.0036"/>
 			<path d="M0 649.98 L105.01 649.98" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="8.90803" y="645.067" width="15.8791" height="10.2574" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="8.90803" y="645.067" width="15.8791" height="10.2574" class="st9"/>
 			<text x="8.91" y="652.82" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape32-82" v:mID="32" v:groupContext="shape" v:layerMember="0" transform="translate(392.998,-471.698)">
 			<title>Dynamic connector.32</title>
@@ -439,7 +439,7 @@
 			<v:textRect cx="-34.181" cy="681.14" width="50" height="18.0036"/>
 			<path d="M0 657.07 L0 672.75 A8.50394 8.50394 0 0 1 -8.5 681.25 L-90.8 681.25 A5.19107 5.19107 -180 0 0 -95.99 686.44
 						 L-95.99 688.36" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="-42.1206" y="675.882" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-42.1206" y="675.882" width="15.8791" height="10.2574" class="st10"/>
 			<text x="-42.12" y="683.64" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape46-134" v:mID="46" v:groupContext="shape" v:layerMember="0" transform="translate(297.004,-313.973)">
 			<title>Dynamic connector.46</title>
@@ -450,7 +450,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="37.1058" cy="664.156" width="50" height="18.0036"/>
 			<path d="M0 664.16 L70.94 664.16" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="29.1662" y="658.899" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="29.1662" y="658.899" width="15.8791" height="10.2574" class="st10"/>
 			<text x="29.17" y="666.66" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape47-141" v:mID="47" v:groupContext="shape" v:layerMember="0" transform="translate(279.026,-296.256)">
 			<title>Dynamic connector.47</title>
@@ -461,7 +461,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="7.18745" cy="677.229" width="50" height="18.0036"/>
 			<path d="M7.09 657.07 L7.09 709.57" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="0.180585" y="671.972" width="14.0139" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="0.180585" y="671.972" width="14.0139" height="10.2574" class="st10"/>
 			<text x="0.18" y="679.73" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape195-148" v:mID="195" v:groupContext="shape" v:layerMember="0" transform="translate(392.998,-299.798)">
 			<title>Dynamic connector.195</title>
@@ -472,7 +472,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="18.4067" cy="649.232" width="50" height="18.0036"/>
 			<path d="M0 649.98 L105.01 649.98" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="10.4671" y="643.975" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="10.4671" y="643.975" width="15.8791" height="10.2574" class="st10"/>
 			<text x="10.47" y="651.73" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape196-155" v:mID="196" v:groupContext="shape" v:layerMember="0" transform="translate(393.296,-245.939)">
 			<title>Dynamic connector.196</title>
@@ -483,7 +483,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="18.6752" cy="650.184" width="50" height="18.0036"/>
 			<path d="M0 649.98 L104.71 649.98" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="10.7356" y="644.927" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="10.7356" y="644.927" width="15.8791" height="10.2574" class="st10"/>
 			<text x="10.74" y="652.68" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape201-162" v:mID="201" v:groupContext="shape" v:layerMember="0" transform="translate(375.169,-296.254)">
 			<title>Dynamic connector.201</title>
@@ -494,7 +494,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="7.08661" cy="673.368" width="50" height="18.0036"/>
 			<path d="M6.94 657.07 L7.21 686.4" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="0.0797476" y="668.111" width="14.0139" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="0.0797476" y="668.111" width="14.0139" height="10.2574" class="st10"/>
 			<text x="0.08" y="675.87" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape202-169" v:mID="202" v:groupContext="shape" v:layerMember="0" transform="translate(382.405,-242.396)">
 			<title>Dynamic connector.202</title>
@@ -505,7 +505,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="26.8776" cy="701.78" width="50" height="18.0036"/>
 			<path d="M0 657.07 L0 695.95 A5.66929 5.66929 -180 0 0 5.67 701.62 L115.6 701.62" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="19.8708" y="696.523" width="14.0139" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="19.8708" y="696.523" width="14.0139" height="10.2574" class="st10"/>
 			<text x="19.87" y="704.28" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape203-176" v:mID="203" v:groupContext="shape" transform="translate(95.0772,-183.809)">
 			<title>Sheet.203</title>
@@ -581,7 +581,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="-11.4497" cy="656.959" width="50" height="18.0036"/>
 			<path d="M0 657.07 L-36.18 657.07 A8.50394 8.50394 -180 0 0 -44.68 665.57 L-44.68 705.42" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="-18.4565" y="651.702" width="14.0139" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-18.4565" y="651.702" width="14.0139" height="10.2574" class="st10"/>
 			<text x="-18.46" y="659.46" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>No</text>		</g>
 		<g id="shape254-204" v:mID="254" v:groupContext="shape" v:layerMember="0" transform="translate(202.346,-418.344)">
 			<title>Dynamic connector.254</title>
@@ -593,7 +593,7 @@
 			<v:textRect cx="0.109567" cy="668.506" width="50" height="18.0036"/>
 			<path d="M0 657.07 L0 671.51 A8.50394 8.50394 0 0 1 -8.5 680.01 L-41.25 680.01 A8.50394 8.50394 -180 0 0 -49.75 688.52
 						 L-49.75 696.22" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="-7.83004" y="663.249" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-7.83004" y="663.249" width="15.8791" height="10.2574" class="st10"/>
 			<text x="-7.83" y="671.01" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape255-211" v:mID="255" v:groupContext="shape" v:layerMember="0" transform="translate(204.27,-574.915)">
 			<title>Dynamic connector.255</title>
@@ -604,7 +604,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="10.9769" cy="679.504" width="160.7" height="18.0036"/>
 			<path d="M0 657.07 L0 691.32 A8.50394 8.50394 -180 0 0 8.5 699.83 L163.68 699.83" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="-63.9916" y="674.247" width="149.937" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="-63.9916" y="674.247" width="149.937" height="10.2574" class="st10"/>
 			<text x="-63.99" y="682" class="st3" v:langID="1033"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Already optimized for the cloud</text>		</g>
 		<g id="shape256-218" v:mID="256" v:groupContext="shape" transform="translate(293.2,-263.863)">
 			<title>Sheet.256</title>
@@ -709,7 +709,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="15.4963" cy="663.573" width="50" height="18.0036"/>
 			<path d="M0 663.54 L230.71 664.75" class="st7"/>
-			<rect v:rectContext="textBkgnd" x="7.5567" y="658.316" width="15.8791" height="10.2574" class="st9"/>
+			<rect v:rectContext="textBkgnd" x="7.5567" y="658.316" width="15.8791" height="10.2574" class="st10"/>
 			<text x="7.56" y="666.07" class="st3" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
 		<g id="shape1003-273" v:mID="1003" v:groupContext="shape" transform="translate(130.51,-160.141)">
 			<title>Sheet.1003</title>
@@ -4789,18 +4789,18 @@
 					</g>
 				</g>
 			</g>
-			<g id="shape1084-612" v:mID="1084" v:groupContext="shape" transform="translate(-3.69279,-6.10455)">
+			<g id="shape1084-612" v:mID="1084" v:groupContext="shape" transform="translate(0.757172,-4.71797)">
 				<title>Sheet.1084</title>
 				<desc>Azure VMware Solution</desc>
 				<v:userDefs>
 					<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(70000):26"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-				<v:textRect cx="29.2603" cy="646.439" width="58.53" height="21.2598"/>
-				<rect x="0" y="635.809" width="58.5205" height="21.2598" class="st11"/>
-				<text x="16.59" y="638.94" class="st20" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Azure<tspan
-							class="st13" v:langID="1033"> </tspan><tspan x="11.15" dy="1em" class="st13" v:langID="1033">VMware<v:lf/></tspan><tspan
-							x="10.97" dy="1em" class="st13" v:langID="1033">Solution</tspan></text>			</g>
+				<v:textRect cx="27.4961" cy="645.746" width="55" height="22.6464"/>
+				<rect x="0" y="634.423" width="54.9921" height="22.6464" class="st11"/>
+				<text x="14.83" y="638.25" class="st20" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Azure<tspan
+							class="st13" v:langID="1033"> </tspan><tspan x="9.39" dy="1em" class="st13" v:langID="1033">VMware<v:lf/></tspan><tspan
+							x="9.2" dy="1em" class="st13" v:langID="1033">Solution</tspan></text>			</g>
 		</g>
 		<g id="group1110-618" transform="translate(41.079,-307.785)" v:mID="1110" v:groupContext="group">
 			<v:userDefs>
@@ -4814,7 +4814,7 @@
 				</v:userDefs>
 				<rect x="0" y="588.927" width="58.5205" height="68.1421" class="st48"/>
 			</g>
-			<g id="group239-621" transform="translate(13.3511,-36.577)" v:mID="239" v:groupContext="group">
+			<g id="group239-621" transform="translate(14.5183,-36.577)" v:mID="239" v:groupContext="group">
 				<v:userDefs>
 					<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(44000):26"/>
 				</v:userDefs>
@@ -4918,37 +4918,36 @@
 					</g>
 				</g>
 			</g>
-			<g id="shape1004-651" v:mID="1004" v:groupContext="shape" transform="translate(1.55719,-5.24068)">
+			<g id="shape1004-651" v:mID="1004" v:groupContext="shape" transform="translate(1.55719,-7.71103)">
 				<title>Sheet.1004</title>
 				<desc>Azure App Service</desc>
 				<v:userDefs>
 					<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(59000):26"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-				<v:textRect cx="26.9291" cy="646.439" width="53.86" height="21.2598"/>
-				<rect x="0" y="635.809" width="53.8583" height="21.2598" class="st11"/>
-				<text x="14.26" y="638.94" class="st20" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Azure<tspan
-							class="st13" v:langID="1033"> </tspan><tspan x="17.83" dy="1em" class="st13">App </tspan><tspan
-							x="11.39" dy="1em" class="st13">Service</tspan></text>			</g>
+				<v:textRect cx="28.7437" cy="646.439" width="57.49" height="21.2598"/>
+				<rect x="0" y="635.809" width="57.4874" height="21.2598" class="st11"/>
+				<text x="5.6" y="643.94" class="st20" v:langID="2057"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Azure<tspan
+							class="st13" v:langID="1033"> </tspan>App <tspan x="13.2" dy="1em" class="st13">Service</tspan></text>			</g>
 		</g>
-		<g id="group1111-657" transform="translate(208.456,-307.785)" v:mID="1111" v:groupContext="group">
+		<g id="group1111-656" transform="translate(208.456,-307.785)" v:mID="1111" v:groupContext="group">
 			<v:userDefs>
 				<v:ud v:nameU="visNavOrder" v:val="VT0(89000):26"/>
 			</v:userDefs>
 			<title>Sheet.1111</title>
-			<g id="shape1087-658" v:mID="1087" v:groupContext="shape">
+			<g id="shape1087-657" v:mID="1087" v:groupContext="shape">
 				<title>Sheet.1087</title>
 				<v:userDefs>
 					<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(72000):26"/>
 				</v:userDefs>
 				<rect x="0" y="588.927" width="58.5205" height="68.1421" class="st48"/>
 			</g>
-			<g id="group1091-660" transform="translate(14.8187,-33.2148)" v:mID="1091" v:groupContext="group">
+			<g id="group1091-659" transform="translate(14.8187,-33.2148)" v:mID="1091" v:groupContext="group">
 				<v:userDefs>
 					<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(76000):26"/>
 				</v:userDefs>
 				<title>Virtual Machine.213</title>
-				<g id="shape1092-661" v:mID="1092" v:groupContext="shape" transform="translate(0,-7.76524)">
+				<g id="shape1092-660" v:mID="1092" v:groupContext="shape" transform="translate(0,-7.76524)">
 					<title>Sheet.1092</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
@@ -4957,42 +4956,42 @@
 								 -1.00629 L27.89 637.95 a0.929726 1.00632 -180 0 0 -0.929704 -1.00629 L0.93 636.94 a0.929726 1.00632
 								 -180 0 0 -0.929704 1.00629 L0 656.06 Z" class="st15"/>
 				</g>
-				<g id="shape1093-664" v:mID="1093" v:groupContext="shape" transform="translate(13.9456,-11.9581)">
+				<g id="shape1093-663" v:mID="1093" v:groupContext="shape" transform="translate(13.9456,-11.9581)">
 					<title>Sheet.1093</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
 					</v:userDefs>
 					<path d="M4.65 648.26 L4.65 654.12 L0 657.07 L0 651.2 L4.65 648.26 Z" class="st16"/>
 				</g>
-				<g id="shape1094-666" v:mID="1094" v:groupContext="shape" transform="translate(9.29704,-17.8114)">
+				<g id="shape1094-665" v:mID="1094" v:groupContext="shape" transform="translate(9.29704,-17.8114)">
 					<title>Sheet.1094</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
 					</v:userDefs>
 					<path d="M9.3 654.12 L4.65 657.07 L0 654.12 L4.65 651.18 L9.3 654.12 Z" class="st17"/>
 				</g>
-				<g id="shape1095-668" v:mID="1095" v:groupContext="shape" transform="translate(9.29704,-11.9581)">
+				<g id="shape1095-667" v:mID="1095" v:groupContext="shape" transform="translate(9.29704,-11.9581)">
 					<title>Sheet.1095</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
 					</v:userDefs>
 					<path d="M4.65 651.22 L4.65 657.07 L0 654.12 L0 648.26 L4.65 651.22 Z" class="st18"/>
 				</g>
-				<g id="shape1096-670" v:mID="1096" v:groupContext="shape" transform="translate(9.29704,-11.9581)">
+				<g id="shape1096-669" v:mID="1096" v:groupContext="shape" transform="translate(9.29704,-11.9581)">
 					<title>Sheet.1096</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
 					</v:userDefs>
 					<path d="M0 654.12 L4.65 651.2 L4.65 657.07 L0 654.12 Z" class="st17"/>
 				</g>
-				<g id="shape1097-672" v:mID="1097" v:groupContext="shape" transform="translate(13.9456,-11.9581)">
+				<g id="shape1097-671" v:mID="1097" v:groupContext="shape" transform="translate(13.9456,-11.9581)">
 					<title>Sheet.1097</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
 					</v:userDefs>
 					<path d="M4.65 654.12 L0 651.2 L0 657.07 L4.65 654.12 Z" class="st18"/>
 				</g>
-				<g id="shape1098-674" v:mID="1098" v:groupContext="shape" transform="translate(6.97278,0)">
+				<g id="shape1098-673" v:mID="1098" v:groupContext="shape" transform="translate(6.97278,0)">
 					<title>Sheet.1098</title>
 					<v:userDefs>
 						<v:ud v:nameU="msvDisableCustomConnectionPoints" v:prompt="" v:val="VT0(1):5"/>
@@ -5001,17 +5000,17 @@
 								 1.67716 -180 0 0 0 657.07 L13.95 657.07 A1.54951 1.67716 -180 0 0 12.57 655.39 Z" class="st19"/>
 				</g>
 			</g>
-			<g id="shape1099-677" v:mID="1099" v:groupContext="shape" transform="translate(2.84213,-1.71515)">
+			<g id="shape1099-676" v:mID="1099" v:groupContext="shape" transform="translate(-0.78696,-4.16774)">
 				<title>Sheet.1099</title>
-				<desc>Virtual Machines</desc>
+				<desc>Azure Virtual Machines</desc>
 				<v:userDefs>
 					<v:ud v:nameU="visNavOrder" v:prompt="" v:val="VT0(77000):26"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-				<v:textRect cx="26.9291" cy="646.439" width="53.86" height="21.2598"/>
-				<rect x="0" y="635.809" width="53.8583" height="21.2598" class="st11"/>
-				<text x="12.6" y="643.94" class="st20" v:langID="1033"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Virtual <tspan
-							x="5.98" dy="1em" class="st13">Machines</tspan></text>			</g>
+				<v:textRect cx="29.2603" cy="645.471" width="58.53" height="23.1967"/>
+				<rect x="0" y="633.872" width="58.5205" height="23.1967" class="st11"/>
+				<text x="16.59" y="637.97" class="st20" v:langID="1033"><v:paragraph v:spLine="-1" v:horizAlign="1"/><v:tabList/>Azure <tspan
+							x="14.93" dy="1em" class="st13">Virtual </tspan><tspan x="8.31" dy="1em" class="st13">Machines</tspan></text>			</g>
 		</g>
 		<g id="shape1116-681" v:mID="1116" v:groupContext="shape" transform="translate(508.118,-184.804)">
 			<title>Sheet.1116</title>
