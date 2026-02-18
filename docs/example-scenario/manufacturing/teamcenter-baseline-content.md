@@ -1,4 +1,5 @@
 This article defines the baseline architecture for implementing Siemens Teamcenter Product Lifecycle Management (PLM) on Azure. [Siemens Teamcenter PLM](https://plm.sw.siemens.com/en-US/teamcenter/) is a software suite for managing the entire lifecycle of a product. Consolidating Teamcenter on Azure provides a consistent and synchronized PLM experience across your enterprise.
+
 Many customers run multiple Teamcenter solutions across the enterprise, mixing multiple instances, multiple ISV vendors, and hybrid cloud and on-premises implementations. This fragmentation reduces the customer’s ability to uniformly access data. Consolidating Teamcenter on Azure provides a consistent and synchronized PLM experience across your enterprise.
 
 | Benefits of Teamcenter on Azure | Details |
@@ -27,7 +28,7 @@ Siemens Teamcenter PLM baseline architecture has four distributed tiers (client,
 1. The Web subnet in the Web tier runs the following Teamcenter components on virtual machines:
 
     - *Teamcenter Security services (TCSS)* enable role-based access control (RBAC) for end users and secure access to resources. With TCSS, users can navigate between different Teamcenter applications without encountering multiple authentication challenges. It offers a unified framework for integration with a site's single sign-on solution and simplifies the authentication process
-    - Teamcenter Web servers run third-party HTTP web servers,  JBOSS wildfly, Oracle Weblogic or Java-based servers, to support the Rich client or Active Workspace client. These web server virtual machines also host the Teamcenter servlet container. Network security groups (NSGs) secure inbound and outbound communication between the Application Gateway subnet, web subnet and enterprise subnets. NSGs ensure the necessary connectivity and security measures are in place for data transfer between the subnets.
+    - Teamcenter Web servers run third-party HTTP web servers, JBOSS wildfly, Oracle Weblogic, or Java-based servers, to support the Rich client or Active Workspace client. These web server virtual machines also host the Teamcenter servlet container. Network security groups (NSGs) secure inbound and outbound communication between the Application Gateway subnet, web subnet and enterprise subnets. NSGs ensure the necessary connectivity and security measures are in place for data transfer between the subnets.
     - *Active Workspace Gateway* provides the functionality for the Teamcenter Active Workspace client. It serves as the routing mechanism for static content, such as HTML, CSS, JavaScript, JSON, and dynamic content such as API routing. It directs these requests to the appropriate back-end services and microservices responsible for tasks such as Service-Oriented Architecture (SOA), File Management Services (FMS), Visualization, and GraphQL. This architecture ensures efficient delivery and processing of content within the Teamcenter Product Lifecycle Management application running on Azure.
 
 1. The Enterprise subnet runs the following core Teamcenter components:
@@ -42,7 +43,7 @@ Siemens Teamcenter PLM baseline architecture has four distributed tiers (client,
     - *License server virtual machine* runs a valid Teamcenter FlexPLM license.
 
 1. *Database subnet* runs a SQL Server database using an infrastructure-as-a-service deployment. It uses SQL Server Always On availability groups for asynchronous replication. The deployment could run an Oracle on this IaaS deployment.
-1. *Storage subnet* uses Azure Files Premium and Azure NetApp Files ot Nasuni storage.
+1. *Storage subnet* uses Azure Files Premium and Azure NetApp Files or Nasuni storage.
 1. *On-premises network* allows the customer support team and system administrators to connect to Azure via Azure VPN connection to gain access to any virtual machine instance via Remote Desktop Protocol (RDP) from a jump box (Bastion).
 
 ### Components
@@ -173,9 +174,8 @@ Other contributors:
 
 ## Next steps
 
->[!div class="nextstepaction"]
-> [Teamcenter PLM with Azure NetApp Files](teamcenter-plm-netapp-files.yml)
->[Teamcenter PLM with Nasuni Storage] https://learn.microsoft.com/en-us/industry/manufacturing/architecture/siemens-teamcenter-nasuni-azure
+- [Teamcenter PLM with Azure NetApp Files](teamcenter-plm-netapp-files.yml)
+- [Teamcenter PLM with Nasuni Storage](/industry/manufacturing/architecture/siemens-teamcenter-nasuni-azure)
 
 ## Related resources
 
