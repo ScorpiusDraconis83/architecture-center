@@ -153,13 +153,13 @@ Your application platform likely needs to interface with networks both as a serv
 | Service | Required skills | Operational overhead | Best for teams that have these characteristics |
 | :------ | :-------------- | :------------------- | :------------------ |
 | Virtual Machines | OS administration, networking, security patching | High: Full infrastructure management | Traditional IT operations experience |
-| App Service | Web development, application deployment | Low: platform handles infrastructure | Application developers focused on code |
-| Azure Functions | Event-driven programming, serverless patterns | Very low: serverless management | Developers who build event-driven solutions |
-| AKS | Kubernetes administration, container orchestration | High: cluster management, upgrades, security | DevOps teams that have Kubernetes expertise |
-| Container Apps | Container basics, cloud-native patterns | Low: abstracted Kubernetes management | Teams that want modern patterns without Kubernetes complexity |
-| Container Instances | Container basics | Very low: no orchestration | Teams that need simple container execution |
-| Azure Red Hat OpenShift | OpenShift or Kubernetes administration | High: cluster management | Teams that have OpenShift investment |
-| Batch | Job scheduling, parallel processing | Medium: job and pool management | Teams that run HPC or batch workloads |
+| App Service | Web development, application deployment | Low: Platform handles infrastructure | Application developers focused on code |
+| Azure Functions | Event-driven programming, serverless patterns | Very low: Serverless management | Developers who build event-driven solutions |
+| AKS | Kubernetes administration, container orchestration | High: Cluster management, upgrades, security | DevOps teams that have Kubernetes expertise |
+| Container Apps | Container basics, cloud-native patterns | Low: Abstracted Kubernetes management | Teams that want modern patterns without Kubernetes complexity |
+| Container Instances | Container basics | Very low: No orchestration | Teams that need simple container execution |
+| Azure Red Hat OpenShift | OpenShift or Kubernetes administration | High: Cluster management | Teams that have OpenShift investment |
+| Batch | Job scheduling, parallel processing | Medium: Job and pool management | Teams that run HPC or batch workloads |
 | Azure VMware Solution | VMware administration | Medium: VMware-managed infrastructure | Teams that have VMware platform requirements |
 
 ## Scalability
@@ -223,7 +223,7 @@ Review and understand the available security controls and visibility for each of
 
 | Service | Transport Layer Security (TLS) | Cost | Graphics processing unit (GPU) support | Suitable architecture styles |
 | :------ | :-- | :--- | :--- | :--------------------------- |
-| Virtual Machines | Set up in VM | [Windows][cost-windows-vm], [Linux][cost-linux-vm] | [Supported](/azure/virtual-machines/sizes/overview#gpu-accelerated) | [N-tier][n-tier], [big compute][big-compute] (HPC) |
+| Virtual Machines | Set up in VM | [Windows][cost-windows-vm], <br> [Linux][cost-linux-vm] | [Supported](/azure/virtual-machines/sizes/overview#gpu-accelerated) | [N-tier][n-tier], [big compute][big-compute] (HPC) |
 | App Service | Supported | [App Service pricing][cost-app-service] | Not supported | [Web-queue-worker][w-q-w] |
 | Azure Functions | Supported | [Azure Functions pricing][cost-functions] | Not supported | [Microservices][microservices], [event-driven architecture][event-driven] |
 | AKS | [Ingress controller](/azure/aks/ingress) | [AKS pricing][cost-acs] | [Supported](/azure/aks/use-nvidia-gpu) | [Microservices][microservices], [event-driven architecture][event-driven] |
