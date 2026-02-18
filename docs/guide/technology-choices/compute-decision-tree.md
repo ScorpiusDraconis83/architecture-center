@@ -158,7 +158,7 @@ Your application platform likely needs to interface with networks both as a serv
 | AKS | Kubernetes administration, container orchestration | High: cluster management, upgrades, security | DevOps teams that have Kubernetes expertise |
 | Container Apps | Container basics, cloud-native patterns | Low: abstracted Kubernetes management | Teams that want modern patterns without Kubernetes complexity |
 | Container Instances | Container basics | Very low: no orchestration | Teams that need simple container execution |
-| Azure Red Hat OpenShift | OpenShift/Kubernetes administration | High: cluster management | Teams that have OpenShift investment |
+| Azure Red Hat OpenShift | OpenShift or Kubernetes administration | High: cluster management | Teams that have OpenShift investment |
 | Batch | Job scheduling, parallel processing | Medium: job and pool management | Teams that run HPC or batch workloads |
 | Azure VMware Solution | VMware administration | Medium: VMware-managed infrastructure | Teams that have VMware platform requirements |
 
@@ -186,7 +186,7 @@ Quota and limits can affect scalability. Review the latest [Azure subscription a
 
 <sup>3</sup> <span id="note3d">See [Set scaling rules in Container Apps](/azure/container-apps/scale-app).</span>
 
-<sup>4</sup> <span id="note4d">See [Scale Azure VMware Solution](/azure/azure-vmware/tutorial-scale-private-cloud).</span>
+<sup>4</sup> <span id="note4d">See [Scale clusters in a private cloud](/azure/azure-vmware/tutorial-scale-private-cloud).</span>
 
 <sup>5</sup> <span id="note5d">See [VMware NSX](/azure/azure-vmware/configure-nsx-network-components-azure-portal).</span>
 
