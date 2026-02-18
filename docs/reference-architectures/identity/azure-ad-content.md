@@ -168,7 +168,7 @@ Reliability helps ensure that your application can meet the commitments that you
 The Microsoft Entra service is geo-distributed and runs in multiple datacenters spread around the world with automated failover. If a datacenter becomes unavailable, Microsoft Entra ID ensures that your directory data is available for instance access in a minimum of two more geographically distributed datacenters.
 
 > [!NOTE]
-> The service-level agreement (SLA) for the Microsoft 365 Apps AD tier and Premium services guarantees at least 99.9% availability. There's no SLA for the Free tier of Microsoft Entra ID. For more information, see [SLA for Microsoft Entra ID](https://azure.microsoft.com/support/legal/sla/active-directory).
+> The service-level agreement (SLA) for the Microsoft 365 Apps AD tier and Premium services guarantees at least 99.9% availability. There's no SLA for the Free tier of Microsoft Entra ID. For more information, see [SLA for Microsoft Entra ID](https://www.microsoft.com/licensing/docs/view/Service-Level-Agreements-SLA-for-Online-Services).
 
 Consider provisioning a second instance of Microsoft Entra Connect Sync server in staging mode to increase availability.
 
