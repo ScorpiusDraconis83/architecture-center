@@ -57,7 +57,7 @@ The following workflow corresponds to the previous diagram:
 
 - To trigger durable functions instances, you can use other messaging platforms, including [Azure Event Grid](/azure/event-grid/overview).
 
-- Instead of Semantic Kernel, you can use [Azure Machine Learning](/azure/machine-learning/overview-what-is-azure-machine-learning) or [Foundry Tools](/azure/ai-services/what-are-ai-services) to create embeddings.
+- Instead of Semantic Kernel, you can use [Azure Machine Learning](/azure/machine-learning/overview-what-is-azure-machine-learning) or [Foundry Models](/azure/ai-foundry/openai/how-to/embeddings) to create embeddings.
 
 - You can use the [Microsoft Agent Framework](/agent-framework/overview/agent-framework-overview) instead of Semantic Kernel to orchestrate the workflows.
 
