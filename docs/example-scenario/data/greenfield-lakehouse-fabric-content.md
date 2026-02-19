@@ -119,7 +119,7 @@ Power Automate is a low-code application platform that you can use to automate r
   
   For more information about data ingestion, table management, data preparation, statistics, and querying best practices in warehouses and SQL analytics endpoints, see [Performance guidelines in Data Warehouse](/fabric/data-warehouse/guidelines-warehouse-performance).
 
-  - [Real-Time Intelligence](/fabric/real-time-intelligence/overview) is a feature that provides stream ingestion and processing capabilities. In this architecture, it supports real-time analytics by capturing and analyzing data in motion through eventstreams and reflexes.
+  - [Real-Time Intelligence](/fabric/real-time-intelligence/overview) is a feature that provides stream ingestion and processing capabilities. In this architecture, it supports real-time analytics by capturing and analyzing data in motion through eventstreams and activators.
 
   - [Copilot in Fabric](/fabric/fundamentals/copilot-fabric-overview) is a natural language interface that generates insights and visualizations. In this architecture, it helps users interact with data in Fabric and Power BI.
 
