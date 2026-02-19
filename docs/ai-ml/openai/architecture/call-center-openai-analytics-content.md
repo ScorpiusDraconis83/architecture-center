@@ -103,7 +103,7 @@ Performance Efficiency refers to your workload's ability to scale to meet user d
 
 When high volumes of data are processed, it can expose performance bottlenecks. To ensure proper performance efficiency, understand and plan for the [scaling options](/azure/azure-functions/functions-scale#scale) to use with the [Foundry Tools autoscale feature](/azure/ai-services/autoscale).
 
-The batch speech API is designed for high volumes, but other Foundry Tool APIs might have request limits, depending on the subscription tier. Consider containerizing Foundry Tool APIs to avoid slowing down large-volume processing. Containers provide deployment flexibility in the cloud and on-premises. Mitigate side effects of new version rollouts by using containers. For more information, see [Container support in Foundry Tools](/azure/ai-services/cognitive-services-container-support).
+The batch speech API is designed for high volumes, but other Foundry Tools APIs might have request limits, depending on the subscription tier. Consider containerizing Foundry Tools APIs to avoid slowing down large-volume processing. Containers provide deployment flexibility in the cloud and on-premises. Mitigate side effects of new version rollouts by using containers. For more information, see [Container support in Foundry Tools](/azure/ai-services/cognitive-services-container-support).
 
 ## Contributors
 
