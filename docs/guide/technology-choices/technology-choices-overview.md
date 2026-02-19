@@ -97,7 +97,7 @@ Azure provides AI services, machine learning platforms, and model hosting option
 | Article | Summary |
 | :------ | :------ |
 | [Choose the right AI model for your workload](../../ai-ml/guide/choose-ai-model.md) | Learn strategies to help you select the best model for your AI workload, including key criteria and practical considerations for decision-making. |
-| [Choose an Azure AI services technology](../../data-guide/technology-choices/ai-services.md) | Learn about Azure AI services that you can use in AI applications and data flows. Choose the right service for your use case. |
+| [Choose an AI services technology](../../data-guide/technology-choices/ai-services.md) | Learn about services that you can use in AI applications and data flows. Choose the right service for your use case. |
 | [Choose an Azure service for vector search](vector-search.md) | Learn how to decide which Azure service for vector search best suits your application. |
 | [Choose a natural language processing technology](../../data-guide/technology-choices/natural-language-processing.md) | Choose a natural language processing service for sentiment analysis, topic and language detection, key phrase extraction, and document categorization. |
 | [Compare Microsoft machine learning products and technologies](../../ai-ml/guide/data-science-and-machine-learning.md) | Compare options for building, deploying, and managing your machine learning models. Decide which Microsoft products to use for your solution. |
