@@ -64,11 +64,11 @@ A `Contact` object in the sample service has the following structure:
         "companyName": "Contoso",
         "street": "Street",
         "houseNumber": "1a",
-        "postalCode": "092821",
+        "postalCode": "92821",
         "city": "Palo Alto",
         "country": "US"
     },
-    "createdAt": "2021-09-22T11:07:37.3022907+02:00",
+    "createdAt": "2026-02-09T11:07:37.3022907+02:00",
     "deleted": false
 }
 ```
@@ -82,7 +82,7 @@ As soon as a `Contact` is created or updated, it emits events that contain infor
 
 ### Transactional batches
 
-To implement this pattern, you need to ensure the `Contact` business object and the corresponding events are saved in the same database transaction. In Azure Cosmos DB, transactions work differently than they do in relational database systems. Azure Cosmos DB transactions, called *transactional batches*, operate on a single [logical partition](/azure/cosmos-db/partitioning-overview), so they guarantee Atomicity, Consistency, Isolation, and Durability (ACID) properties. You can't save two documents in a transactional batch operation in different containers or logical partitions. For the sample service, that means that both the business object and the event or events are put in the same container and logical partition.
+To implement this pattern, you need to ensure the `Contact` business object and the corresponding events are saved in the same database transaction. In Azure Cosmos DB, transactions work differently than they do in relational database systems. Azure Cosmos DB transactions, called *transactional batches*, operate on a single [logical partition](/azure/cosmos-db/partitioning), so they guarantee Atomicity, Consistency, Isolation, and Durability (ACID) properties. You can't save two documents in a transactional batch operation in different containers or logical partitions. For the sample service, that means that both the business object and the event or events are put in the same container and logical partition.
 
 ### Context, repositories, and UnitOfWork
 
@@ -366,11 +366,11 @@ Objects wrapped in a `DataObject` instance and saved to the database then look l
             "companyName": "Contoso",
             "street": "Street",
             "houseNumber": "1a",
-            "postalCode": "092821",
+            "postalCode": "92821",
             "city": "Palo Alto",
             "country": "US"
         },
-        "createdAt": "2021-09-22T11:07:37.3022907+02:00",
+        "createdAt": "2026-02-09T11:07:37.3022907+02:00",
         "deleted": false,
         "id": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2"
     },
@@ -392,7 +392,7 @@ Objects wrapped in a `DataObject` instance and saved to the database then look l
         "contactId": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2",
         "action": "ContactNameUpdatedEvent",
         "id": "d6a5f4b2-84c3-4ac7-ae22-6f4025ba9ca0",
-        "createdAt": "2021-09-22T11:37:37.3022907+02:00"
+        "createdAt": "2026-02-09T11:37:37.3022907+02:00"
     },
     "ttl": 120,
     "_etag": "\"18005bce-0000-1500-0000-614456b80000\"",
@@ -407,7 +407,7 @@ You can see that the `Contact` and `ContactNameUpdatedEvent` (type `domainEvent`
 
 To read the stream of events and send them to a message broker, the service uses the [Azure Cosmos DB change feed](https://devblogs.microsoft.com/cosmosdb/change-feed-unsung-hero-of-azure-cosmos-db/).
 
-The change feed is a persistent log of changes in your container. It operates in the background and tracks modifications. Within one logical partition, the order of the changes is guaranteed. The most convenient way to read the change feed is to use an [Azure function with an Azure Cosmos DB trigger](/azure/azure-functions/functions-create-cosmos-db-triggered-function). Another option is to use the [change feed processor library](/azure/cosmos-db/change-feed-processor). It lets you integrate change feed processing in your Web API as a background service (via the `IHostedService` interface). The sample here uses a simple console application that implements the abstract class [BackgroundService](/dotnet/api/microsoft.extensions.hosting.backgroundservice) to host long-running background tasks in .NET Core applications.
+The change feed is a persistent log of changes in your container. It operates in the background and tracks modifications. Within one logical partition, the order of the changes is guaranteed. The most convenient way to read the change feed is to use an [Azure function with an Azure Cosmos DB trigger](/azure/azure-functions/scenario-database-changes-azure-cosmosdb). Another option is to use the [change feed processor library](/azure/cosmos-db/change-feed-processor). It lets you integrate change feed processing in your Web API as a background service (via the `IHostedService` interface). The sample here uses a simple console application that implements the abstract class [BackgroundService](/dotnet/api/microsoft.extensions.hosting.backgroundservice) to host long-running background tasks in .NET Core applications.
 
 To receive the changes from the Azure Cosmos DB change feed, you need to instantiate a `ChangeFeedProcessor` object, register a handler method for message processing, and start listening for changes:
 
@@ -549,7 +549,7 @@ The advantages of this solution are:
 
 The sample application discussed in this article demonstrates how you can implement the Transactional Outbox pattern on Azure with Azure Cosmos DB and Service Bus. There are also other approaches that use NoSQL databases. To guarantee that the business object and events are reliably saved in the database, you can embed the list of events in the business object document. The downside of this approach is that the cleanup process needs to update each document that contains events. That's not ideal, especially in terms of Request Unit cost, as compared to using TTL.
 
-Keep in mind that you shouldn't consider the sample code provided here production-ready code. It has some limitations regarding multithreading, especially the way events are handled in the `DomainEntity` class and how objects are tracked in the `CosmosContainerContext` implementations. Use it as a starting point for your own implementations. Alternatively, consider using existing libraries that already have this functionality built into them like [NServiceBus](https://docs.particular.net/nservicebus/outbox) or [MassTransit](https://masstransit.massient.com/concepts/outbox#transactional-outbox).
+Keep in mind that you shouldn't consider the sample code provided here production-ready code. It has some limitations regarding multithreading, especially the way events are handled in the `DomainEntity` class and how objects are tracked in the `CosmosContainerContext` implementations. Use it as a starting point for your own implementations. Alternatively, consider using existing libraries that already have this functionality built into them like [NServiceBus](https://docs.particular.net/nservicebus/outbox) or [MassTransit](https://masstransit.io/documentation/configuration/middleware/outbox).
 
 ### Deploy this scenario
 
