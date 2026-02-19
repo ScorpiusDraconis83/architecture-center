@@ -17,7 +17,7 @@ All applications that communicate with remote services and resources must be sen
 
 ## Why do transient faults occur in the cloud?
 
-Transient faults can occur in any environment, on any platform or operating system, and in any kind of application. For solutions that run on on-premises infrastructure, redundant hardware typically maintains the performance and availability of the application and its components. Components and resources are also located close to each other. This approach makes failure less likely, but transient faults can still occur. Unforeseen events like external power supply or network problems or other disaster scenarios can cause outages. Redundant hardware can also be expensive and is often underused.
+Transient faults can occur in any environment, on any platform or operating system, and in any kind of application. For solutions that run on on-premises infrastructure, redundant hardware typically maintains the performance and availability of the application and its components. Components and resources are also located close to each other. This approach makes failure less probable, but transient faults can still occur. Unforeseen events like external power supply or network problems or other disaster scenarios can cause outages. Redundant hardware can also be expensive and is often underused.
 
 Cloud environments can provide higher overall availability because they distribute workloads across many servers and use redundancy, automatic failover, and dynamic resource allocation. However, the nature of cloud environments makes transient faults more likely for several reasons:
 
@@ -33,7 +33,7 @@ Cloud environments can provide higher overall availability because they distribu
 
 Transient faults can significantly affect the perceived availability of an application, even if you thoroughly tested it under all foreseeable circumstances. To ensure that cloud-hosted applications operate reliably, they must be able to respond to the following challenges:
 
-- The application must be able to detect faults when they occur and determine whether the faults are likely to be transient, are long-lasting, or are terminal failures. Different resources are likely to return different responses when a fault occurs. These responses can also vary depending on the context of the operation. For example, the response for an error when the application reads from storage might differ from the response for an error when it writes to storage. 
+- The application must be able to detect faults when they occur and determine whether the faults are transient, are long-lasting, or are terminal failures. Different resources typically return different responses when a fault occurs. These responses can also vary depending on the context of the operation. For example, the response for an error when the application reads from storage might differ from the response for an error when it writes to storage. 
 
    Many resources and services have well-documented transient-failure contracts. But when this information isn't available, it can be difficult to determine the nature of the fault and whether it's likely to be transient.
 
@@ -95,17 +95,23 @@ The following guidelines can help you design suitable transient fault handling m
 
 ### Avoid antipatterns
 
-- In most cases, avoid implementations that include duplicated layers of retry code. Avoid designs that include cascading retry mechanisms or that implement retry at every stage of an operation that involves a hierarchy of requests, unless you have specific requirements to do so. In these exceptional circumstances, use policies that prevent excessive numbers of retries and delay periods, and make sure you understand the consequences. For example, say one component makes a request to another, which then accesses the target service. If you implement retry with a count of three on both calls, there are nine retry attempts in total against the service. Many services and resources implement a built-in retry mechanism. Disable or modify these mechanisms if you need to implement retries at a higher level. For more information about the risks of uncoordinated retries, see [Retry storm antipattern](../antipatterns/retry-storm/index.md).
+- In most cases, avoid implementations that include duplicated layers of retry code. Avoid designs that include cascading retry mechanisms or that implement retry at every stage of an operation that involves a hierarchy of requests, unless you have specific requirements to do so. In these exceptional circumstances, use policies that prevent excessive numbers of retries and delay periods, and make sure that you understand the consequences. 
 
-- Never implement an endless retry mechanism. Doing so is likely to prevent the resource or service from recovering from overload situations and to cause throttling and refused connections to continue for a longer time. Use a finite number of retries, or implement a pattern like [Circuit Breaker](../patterns/circuit-breaker.md) to allow the service to recover.
+   For example, consider one component that makes a request to another, which then accesses the target service. A retry with a count of three on both calls adds up to nine retry attempts in total against the service. 
+   
+   Many services and resources implement a built-in retry mechanism. Turn off or modify these mechanisms if you need to implement retries at a higher level. For more information about the risks of uncoordinated retries, see [Retry Storm antipattern](../antipatterns/retry-storm/index.md).
 
-  Implement a retry budget to limit the total number of retries across all requests within a process or service, not just per individual request. For example, you might allow a process to do no more than 60 retries per minute against a specified dependency. If the budget is exhausted, fail the request immediately instead of retrying. Per-request retry limits alone can't prevent a scenario where many concurrent requests each retry a few times, collectively overwhelming a struggling downstream service. A retry budget caps the aggregate retry load and can be the difference between a localized capacity issue and a cascading failure.
+- Never implement an endless retry mechanism. This approach typically prevents the resource or service from recovering from overload situations and causes throttling and refused connections to continue for a longer time. Use a finite number of retries, or implement a pattern like [Circuit Breaker](../patterns/circuit-breaker.md) to allow the service to recover.
+
+  Implement a retry budget to limit the total number of retries across all requests within a process or service in addition to limits for each individual request. For example, you might allow a process to do no more than 60 retries per minute against a specified dependency. If you exhaust the budget, fail the request immediately instead of retrying. 
+  
+  Per-request retry limits alone can't prevent a scenario where many concurrent requests each retry a few times and collectively overwhelm a struggling downstream service. A retry budget caps the aggregate retry load and can be the difference between a localized capacity problem and a cascading failure.
 
 - Never perform an immediate retry more than once.
 
 - Avoid using a regular retry interval when you access services and resources on Azure, especially when you have a high number of retry attempts. The best approach in this scenario is an exponential backoff strategy with a circuit-breaking capability.
 
-- Prevent multiple instances of the same client, or multiple instances of different clients, from sending retries simultaneously. If this scenario is likely to occur, introduce randomization into the retry intervals.
+- Prevent multiple instances of the same client, or multiple instances of different clients, from sending retries simultaneously. If this scenario is probable, introduce randomization into the retry intervals.
 
 ### Test your retry strategy and implementation
 
@@ -119,7 +125,7 @@ The following guidelines can help you design suitable transient fault handling m
 
   - Consider using a fault injection service to run controlled experiments against your Azure resources. For example, [Azure Chaos Studio](/azure/chaos-studio/chaos-studio-overview) supports service-direct faults, like adding network latency or rebooting a cache cluster, and agent-based faults, like applying memory pressure or killing a process on a virtual machine. You can integrate fault injection experiments into your CI/CD pipelines to continuously validate resilience as part of your deployment process.
 
-  - For HTTP-based APIs, consider using a library in your automated tests to change the outcome of HTTP requests, either by adding extra roundtrip times or by changing the response (like the HTTP status code, headers, body, or other factors). Doing so enables deterministic testing of a subset of the failure conditions, for transient faults and other types of failures.
+  - For HTTP-based APIs, consider using a library in your automated tests to change the outcome of HTTP requests, either by adding extra roundtrip times or by changing the response (like the HTTP status code, headers, body, or other factors). This approach helps you do deterministic testing of a subset of the failure conditions, for transient faults and other types of failures.
 
   - Perform high-load-factor and concurrent tests to ensure that the retry mechanism and strategy work correctly under these conditions. These tests also help ensure that the retry doesn't have an adverse effect on the operation of the client or cause cross-contamination between requests.
 
