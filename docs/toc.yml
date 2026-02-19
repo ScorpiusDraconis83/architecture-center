@@ -163,7 +163,7 @@ items:
     - name: Choose an AI service
       items:
       - name: AI services
-        displayName: choose
+        displayName: choose, foundry tools
         href: data-guide/technology-choices/ai-services.md
       - name: Targeted language processing
         href: data-guide/ai-services/targeted-language-processing.md
@@ -261,7 +261,7 @@ items:
       href: guide/responsible-innovation/index.md
     - name: Understand potential harms
       href: guide/responsible-innovation/harms-modeling/index.md
-    - name: Implement AI responsibly when you use Azure AI services
+    - name: Implement AI responsibly when you use AI services
       href: /azure/ai-services/responsible-use-of-ai-overview
     - name: Measure Azure app sustainability
       href: example-scenario/apps/measure-azure-app-sustainability-sci-score.yml
