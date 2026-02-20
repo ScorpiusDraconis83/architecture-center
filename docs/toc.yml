@@ -43,7 +43,7 @@ items:
             href: microservices/ci-cd.yml
           - name: Domain modeling for microservices
             items:
-            - name: Domain analysis
+            - name: Use domain analysis to model microservices
               href: microservices/model/domain-analysis.md
             - name: Tactical DDD
               href: microservices/model/tactical-ddd.yml
