@@ -45,7 +45,7 @@ This approach works until an error occurs between saving the order object and pu
 
 Regardless of the error, the system can't publish the `OrderCreated` event to the message bus, and other services aren't notified that an order was created. The `Ordering` service must now handle concerns beyond its core business process. It must track which events need publishing when the message bus recovers. Lost events can cause data inconsistencies across the application.
 
-:::image type="complex" source="_images/event-handling-before-pattern.png" alt-text="Diagram that shows event handling without the Transactional Outbox pattern." border="false":::
+:::image type="complex" source="_images/event-handling-before-pattern.svg" alt-text="Diagram that shows event handling without the Transactional Outbox pattern." lightbox="_images/event-handling-before-pattern.svg" border="false":::
 Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order, and commits the transaction. After the transaction completes, an attempt to send an event to the message bus fails.
 :::image-end:::
 
@@ -53,7 +53,7 @@ Sequence diagram that shows how a client app sends a create order request to an 
 
 Use the *Transactional Outbox pattern* to avoid these situations. This pattern saves events in a datastore that's typically in an outbox table in your database before it pushes them to a message broker. When you save the business object and its events within the same database transaction, the system guarantees no data loss. The transaction either commits everything or rolls back everything if an error occurs. To publish the events, a separate service or worker process queries the outbox table for unhandled entries, publishes them, and marks them as processed. This pattern prevents event loss when you create or modify business objects.
 
-:::image type="complex" source="_images/outbox.png" alt-text="Diagram that shows event handling that uses the Transactional Outbox pattern and a relay service to publish events to the message broker." border="false":::
+:::image type="complex" source="_images/outbox-pattern.svg" alt-text="Diagram that shows event handling that uses the Transactional Outbox pattern and a relay service to publish events to the message broker." lightbox="_images/outbox-pattern.svg" border="false":::
 Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order and an OrderCreated event, commits the transaction, and returns the OrderID. A background worker then retrieves outbox entries from the data store, publishes the events to the message bus, and marks the events as processed in the data store.
 :::image-end:::
 
@@ -558,7 +558,7 @@ The Transactional Outbox pattern solves the problem of reliably publishing domai
 
 The following diagram summarizes the Azure components in this scenario.
 
-:::image type="complex" source="_images/components.jpg" alt-text="Diagram that shows the Azure components required to implement the Transactional Outbox pattern by using Azure Cosmos DB and Service Bus." border="false":::
+:::image type="complex" source="_images/components.svg" alt-text="Diagram that shows the Azure components required to implement the Transactional Outbox pattern by using Azure Cosmos DB and Service Bus." lightbox="_images/components.svg" border="false":::
 Architecture diagram that shows how a client application sends requests to a contacts service, which uses an Azure Cosmos DB transactional batch to save both the business object and domain events. A background worker processes the Azure Cosmos DB change feed and publishes events to Service Bus. Function apps subscribe to the Service Bus topic to receive the events.
 :::image-end:::
 
