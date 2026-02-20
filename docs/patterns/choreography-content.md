@@ -48,9 +48,9 @@ Decentralizing the orchestrator can cause issues while managing the workflow.
 
     ![A diagram of workflow in an messaging system that implements the choreography pattern in parallel and subsequently.](./_images/choreography-pattern-parallel-workflow.png)
 
-- The pattern becomes a challenge if the number of services grows rapidly. Given the high number of independent moving parts, the workflow between services tends to get complex. Also, [distributed tracing](/dotnet/core/diagnostics/distributed-tracing) becomes difficult, although tools like [ServiceInsight together with NServiceBus](https://docs.particular.net/serviceinsight/#sequence-diagram) can help reduce these challenges.
+- The pattern becomes a challenge if the number of services grows rapidly. Given the high number of independent moving parts, the workflow between services tends to get complex. [Distributed tracing](/dotnet/core/diagnostics/distributed-tracing) also becomes difficult, but tools like [ServiceInsight together with NServiceBus](https://docs.particular.net/serviceinsight/#sequence-diagram) can help reduce these challenges.
 
-- In an orchestrator-led design, the central component can partially participate and delegate resiliency logic to another component that retries transient, nontransient, and time-out failures, consistently. With the dissolution of the orchestrator in the choreography pattern, the downstream components shouldn't pick up those resiliency tasks. Those must still be handled by the resiliency handler. But now, the downstream components must directly communicate with the resiliency handler, increasing point-to-point communication.
+- In an orchestrator-led design, the central component can partially participate and delegate resiliency logic to another component that retries transient, nontransient, and time-out failures, consistently. With the dissolution of the orchestrator in the choreography pattern, the downstream components shouldn't pick up those resiliency tasks. The resiliency handler must handle those tasks. But now, the downstream components must directly communicate with the resiliency handler, which increases point-to-point communication.
 
 ## When to use this pattern
 
@@ -72,7 +72,7 @@ This pattern might not be useful when:
 
 - There are situations where point-to-point communication between the components is inevitable.
 
-- You need to consolidate all operations handled by downstream components, by using business logic.
+- You need to consolidate all operations that downstream components handle by using business logic.
 
 ## Workload design
 
