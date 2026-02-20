@@ -40,7 +40,7 @@ This article and the related [Tactical DDD](./tactical-ddd.yml) article present 
 
 1. Use the results from the previous step to identify the microservices in your application.
 
-This article covers the first two steps, which primarily concern strategic DDD. The article [Tactical DDD](./tactical-ddd.yml) covers step 3. The article [Identify microservice boundaries](microservice-boundaries.yml) covers step 4. DDD is an iterative, ongoing process, so service boundaries don't remain fixed. As an application evolves, you might decide to break apart a service into several smaller services.
+This article covers the first two steps, which primarily concern strategic DDD. The article [Tactical DDD](./tactical-ddd.yml) covers step 3. The article [Identify microservice boundaries](microservice-boundaries.yml) covers step 4. DDD is an iterative, ongoing process, so service boundaries don't remain fixed. As an application evolves, you might decide to separate a service into several smaller services.
 
 > [!NOTE]
 > This article doesn't show a complete and comprehensive domain analysis. The example is intentionally brief and focuses on the key ideas. For more background about DDD, read Eric Evans' *Domain-Driven Design*, the book that first introduced the term. Another good reference is *Learning Domain-Driven Design* by Vlad Khononov for a practical, modern treatment of the subject.
