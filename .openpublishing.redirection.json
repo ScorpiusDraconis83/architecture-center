@@ -4330,7 +4330,7 @@
     },
     {
       "source_path": "docs/best-practices/transactional-outbox-cosmos.yml",
-      "redirect_url": "/azure/architecture/databases/guide/transactional-out-box-cosmos",
+      "redirect_url": "/azure/architecture/databases/guide/transactional-outbox-cosmos",
       "redirect_document_id": true
     },
     {
@@ -4427,6 +4427,11 @@
       "source_path": "docs/solution-ideas/articles/loan-chargeoff-prediction-with-sql-server.yml",
       "redirect_url": "/azure/architecture/databases",
       "redirect_document_id": false
+    },
+    {
+      "source_path": "/docs/databases/guide/transactional-outbox-cosmos.md",
+      "redirect_url": "/azure/architecture/databases/guide/transactional-out-box-cosmos",
+      "redirect_document_id": true
     },
     {
       "source_path": "docs/solution-ideas/articles/loan-credit-risk-with-sql-server.yml",
