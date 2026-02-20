@@ -4429,7 +4429,7 @@
       "redirect_document_id": false
     },
     {
-      "source_path": "/docs/databases/guide/transactional-outbox-cosmos.md",
+      "source_path": "docs/databases/guide/transactional-outbox-cosmos.md",
       "redirect_url": "/azure/architecture/databases/guide/transactional-out-box-cosmos",
       "redirect_document_id": true
     },
