@@ -1,8 +1,6 @@
 [!INCLUDE [header_file](../../../includes/sol-idea-header.md)]
 
-
 This article describes how to extend an existing Azure Service Bus–based message broker architecture with near real-time analytics by using Azure Data Explorer. The solution allows operational systems to remain optimized for transactional workloads while analytics queries run independently with minimal latency. This architecture is intended for IT administrators, cloud architects, and operations and monitoring teams.
-
 
 ## Architecture
 
@@ -16,28 +14,20 @@ This article describes how to extend an existing Azure Service Bus–based messa
 
 The diagram shows two data paths: dotted and solid. The dotted line path represents the existing architecture of the Online Transaction Processing (OLTP) application, while the solid line path represents the new architecture that adds near real-time analytics capabilities to the existing OLTP application.
 
-### Dotted line path (OLTP application flow)
 
-The dotted line path has the following steps:
+1. The OLTP application (the data source), hosted in **Azure App Service**, sends data to **Azure Service Bus**. 
 
-1. The OLTP application (the data source), hosted in **Azure App Service**, sends data to **Azure Service Bus**. You can use Service Bus to implement a [Queue-Based Load Leveling](../../patterns/queue-based-load-leveling.yml) pattern for a transactional application.
+1. Data flows from Service Bus in two directions: 
 
-1. An **Azure Functions** app processes data flowing from Azure Service Bus.
+    a. In the existing OLAP application flow, it triggers an **Azure Functions** app that processes data flowing from Azure Service Bus. The Functions app then sends the processed data to an operational database, such as an **Azure SQL database** or **Azure Cosmos DB**. This flow is represented by the dotted line in the diagram.
 
-1. The result data is then stored in an **Azure SQL database**, **Azure Cosmos DB**, or a similar operational database. 
-
-
-### Solid line path (Near real-time analytics flow)
-
-The solid line path includes the following steps:
-
-1. The OLTP application (the data source), hosted in **Azure App Service**, sends data to **Azure Service Bus**. In the near real-time analytics flow, this action triggers an orchestration flow that routes events to analytics ingestion components.
+    b. In the near real-time analytics flow, data from Service Bus is sent to **Azure Data Explorer** for analytics. This flow is represented by the solid line in the diagram.
 
 1. The orchestration flow sends data to **Azure Data Explorer** for near real-time analytics by using one of the following approaches:
 
-   - An **Azure Functions** app that uses SDKs to send data in micro-batches or uses managed streaming ingestion when Azure Data Explorer is [configured for streaming ingestion](/azure/data-explorer/ingest-data-streaming).
+   - An **Azure Functions** app that uses SDKs to send data in micro batches or uses managed streaming ingestion when Azure Data Explorer is [configured for streaming ingestion](/azure/data-explorer/ingest-data-streaming).
    
-   - A polling service, such as an application hosted on **Azure Kubernetes Service (AKS)** or an **Azure VM**, that sends data to Azure Data Explorer in micro-batches. This option doesn’t require configuring streaming ingestion.
+   - A polling service, such as an application hosted on **Azure Kubernetes Service (AKS)** or an **Azure VM**, that sends data to Azure Data Explorer in micro batches. This option doesn’t require configuring streaming ingestion.
 
 1. Azure Data Explorer processes the data by using [schema mapping](/azure/data-explorer/kusto/management/mappings) and [update policies](/azure/data-explorer/kusto/management/updatepolicy). It makes the data available for interactive analytics and reporting through APIs, SDKs, or connectors. Optionally, Azure Data Explorer can also ingest or reference data from other sources, such as SQL Database or Azure Data Lake Storage.
 
@@ -50,7 +40,7 @@ The solid line path includes the following steps:
 
 - [Service Bus](/azure/well-architected/service-guides/service-bus/reliability) provides reliable cloud messaging as a service. In this architecture, Service Bus captures data generated at source and triggers the orchestration flow.
 
-- [SQL Database](/azure/well-architected/service-guides/azure-sql-database) is a fully managed SQL database that's built for the cloud. It provides automatic updates, provisioning, scaling, and backups. In this architecture, the SQL Database is an operational database that stores data output from the Function app.
+- [SQL Database](/azure/well-architected/service-guides/azure-sql-database) is a fully managed SQL database that's built for the cloud. It provides automatic updates, provisioning, scaling, and backups. In this architecture, the SQL Database is an operational database that stores data output from the Functions app.
 
 - [Azure Cosmos DB](/azure/well-architected/service-guides/cosmos-db) is a globally distributed, multimodel database for applications of any scale. Azure Cosmos DB, just like SQL Database, can also be used as an operational database to store data output from the Functions app.
 
