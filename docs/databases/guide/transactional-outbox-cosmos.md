@@ -1,23 +1,23 @@
 ---
-title: Transactional Outbox pattern with Azure Cosmos DB
+title: Implement the Transactional Outbox Pattern by Using Azure Cosmos DB
 description: Learn how to use Azure Cosmos DB, change feed, and Azure Service Bus for reliable messaging and guaranteed delivery of domain events in distributed applications.
 author: wueda
 ms.author: awild
-ms.date: 02/20/2026
+ms.date: 02/23/2026
 ms.topic: concept-article
 ms.subservice: architecture-guide
 ms.custom: arb-data
 ---
 
-# Transactional Outbox pattern with Azure Cosmos DB
+# Implement the Transactional Outbox pattern by using Azure Cosmos DB
 
-Implementing reliable messaging in distributed systems can be challenging. This article describes how to use the Transactional Outbox pattern for reliable messaging and guaranteed delivery of events, which is an important part of supporting [idempotent message processing](/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-data-platform#idempotent-message-processing). This pattern uses Azure Cosmos DB transactional batches and change feed in combination with Azure Service Bus.
+Implementing reliable messaging in distributed systems can be challenging. This article describes how to use the Transactional Outbox pattern for reliable messaging and guaranteed delivery of events, which is an important part of supporting [idempotent message processing](/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-data-platform#idempotent-message-processing). This pattern uses Azure Cosmos DB transactional batches and the change feed in combination with Azure Service Bus.
 
 ## Overview
 
-Microservice architectures address scalability, maintainability, and agility challenges in large applications. But this architectural pattern introduces data-handling challenges. In distributed applications, each service independently maintains its required data in a dedicated service-owned datastore. To support such a scenario, you typically use a messaging solution, like RabbitMQ, Kafka, or Azure Service Bus. These solutions distribute data, or *events*, from one service to other services through a messaging bus. Internal or external consumers subscribe to these messages and receive notifications when data changes.
+Microservice architectures address scalability, maintainability, and agility challenges in large applications. But this architectural pattern introduces data-handling challenges. In distributed applications, each service independently maintains its required data in a dedicated service-owned datastore. To support such a scenario, you typically use a messaging solution, like RabbitMQ, Kafka, or Service Bus. These solutions distribute data, or *events*, from one service to other services through a message bus. Internal or external consumers subscribe to these messages and receive notifications when data changes.
 
-Consider an ordering system. When a user creates an order, the `Ordering` service receives data from a client application via a REST endpoint. The service maps the payload to an internal representation of an `Order` object to validate the data. After the service commits the order to the database, it publishes an `OrderCreated` event to a message bus. Other services interested in new orders, like `Inventory` or `Invoicing` services, subscribe to `OrderCreated` messages, process them, and store them in their own databases.
+Consider an ordering system. When a user creates an order, the `Ordering` service receives data from a client application via a REST endpoint. The service maps the payload to an internal representation of an `Order` object to validate the data. After the service commits the order to the database, it publishes an `OrderCreated` event to a message bus. Other services that are interested in new orders, like `Inventory` or `Invoicing` services, subscribe to `OrderCreated` messages, process them, and store them in their own databases.
 
 The following pseudocode shows this process from the `Ordering` service perspective:
 
@@ -39,23 +39,27 @@ CreateNewOrder(CreateOrderDto order){
 
 This approach works until an error occurs between saving the order object and publishing the event. At this point, the event send can fail for several reasons:
 
-- Network errors
+- Network error
 - Message service outage
 - Host failure
 
 Regardless of the error, the system can't publish the `OrderCreated` event to the message bus, and other services aren't notified that an order was created. The `Ordering` service must now handle concerns beyond its core business process. It must track which events need publishing when the message bus recovers. Lost events can cause data inconsistencies across the application.
 
-:::image source="_images/event-handling-before-pattern.png" alt-text="Diagram that shows event handling without the Transactional Outbox pattern.":::
+:::image type="complex" source="_images/event-handling-before-pattern.png" alt-text="Diagram that shows event handling without the Transactional Outbox pattern." border="false":::
+Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order, and commits the transaction. After the transaction completes, an attempt to send an event to the message bus fails.
+:::image-end:::
 
 ## Solution
 
-Use the *Transactional Outbox pattern* to avoid these situations. This pattern saves events in a datastore that's typically in an Outbox table in your database before it pushes them to a message broker. When you save the business object and its events within the same database transaction, the system guarantees no data loss. The transaction either commits everything or rolls back everything if an error occurs. To publish the events, a separate service or worker process queries the Outbox table for unhandled entries, publishes them, and marks them as processed. This pattern prevents event loss when you create or modify business objects.
+Use the *Transactional Outbox pattern* to avoid these situations. This pattern saves events in a datastore that's typically in an outbox table in your database before it pushes them to a message broker. When you save the business object and its events within the same database transaction, the system guarantees no data loss. The transaction either commits everything or rolls back everything if an error occurs. To publish the events, a separate service or worker process queries the outbox table for unhandled entries, publishes them, and marks them as processed. This pattern prevents event loss when you create or modify business objects.
 
-:::image type="content" source="_images/outbox.png" alt-text="Diagram that shows event handling with the Transactional Outbox pattern and a relay service for publishing events to the message broker.":::
+:::image type="complex" source="_images/outbox.png" alt-text="Diagram that shows event handling that uses the Transactional Outbox pattern and a relay service to publish events to the message broker." border="false":::
+Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order and an OrderCreated event, commits the transaction, and returns the OrderID. A background worker then retrieves outbox entries from the data store, publishes the events to the message bus, and marks the events as processed in the data store.
+:::image-end:::
 
 *Download a [Visio file](https://arch-center.azureedge.net/TransactionalOutbox.vsdx) of this architecture.*
 
-In a relational database, the implementation of the pattern is straightforward. For example, when a service uses Entity Framework Core, it creates a database transaction by using an Entity Framework context, saves the business object and event, and commits the transaction or rolls it back. The worker service that processes events is also straightforward to implement. It periodically queries the Outbox table for new entries, publishes newly inserted events to the message bus, and marks these entries as processed.
+In a relational database, the implementation of the pattern is straightforward. For example, when a service uses Entity Framework Core, it creates a database transaction by using an Entity Framework context, saves the business object and event, and commits the transaction or rolls it back. The worker service that processes events is also straightforward to implement. It periodically queries the outbox table for new entries, publishes newly inserted events to the message bus, and marks these entries as processed.
 
 In practice, implementation becomes more complex. You must preserve event order so that the system publishes an `OrderCreated` event before an `OrderUpdated` event.
 
@@ -95,11 +99,11 @@ When the service creates or updates a `Contact`, the object emits events that co
 
 ### Transactional batches
 
-To implement this pattern, ensure the same database transaction saves both the `Contact` business object and its corresponding events. In Azure Cosmos DB, transactions work differently than in relational database systems. Azure Cosmos DB transactions, called *transactional batches*, operate on a single [logical partition](/azure/cosmos-db/partitioning) and guarantee Atomicity, Consistency, Isolation, and Durability (ACID) properties. You can't save two documents in a transactional batch operation in different containers or logical partitions. The sample service stores both the business object and its events in the same container and logical partition.
+To implement this pattern, ensure that the same database transaction saves both the `Contact` business object and its corresponding events. In Azure Cosmos DB, transactions work differently than in relational database systems. Azure Cosmos DB transactions, called *transactional batches*, operate on a single [logical partition](/azure/cosmos-db/partitioning) and guarantee Atomicity, Consistency, Isolation, and Durability (ACID) properties. You can't save two documents in a transactional batch operation in different containers or logical partitions. The sample service stores both the business object and its events in the same container and logical partition.
 
 ### Context, repositories, and UnitOfWork
 
-The core of the sample implementation is a *container context* that tracks objects saved in the same transactional batch. It maintains a list of created and modified objects and operates on a single Azure Cosmos DB container. The interface looks like this:
+The core of the sample implementation is a *container context* that tracks objects saved in the same transactional batch. It maintains a list of created and modified objects and operates on a single Azure Cosmos DB container. The following example defines the interface:
 
 ```csharp
 public interface IContainerContext
@@ -161,7 +165,7 @@ public class UnitOfWork : IUnitOfWork
 
 ### Event handling: Creation and publication
 
-Every time a `Contact` object is created, modified, or soft deleted, the service raises a corresponding event. This solution combines DDD with the Mediator pattern from [Jimmy Bogard](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/). Bogard suggests that implementations maintain a list of events from domain object modifications and publish these events before saving the object to the database.
+Every time a `Contact` object is created, modified, or soft deleted, the service raises a corresponding event. This solution combines DDD with the [Mediator pattern from Jimmy Bogard](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/). Bogard suggests that implementations maintain a list of events from domain object modifications and publish these events before saving the object to the database.
 
 The domain object stores the list of changes, so no other component can modify the event chain. An `IEventEmitter<IEvent>` interface defines the behavior for maintaining events (`IEvent` instances) in the domain object, and an abstract `DomainEntity` class implements the interface:
 
@@ -192,7 +196,7 @@ public abstract class DomainEntity : Entity, IEventEmitter<IEvent>
 }
 ```
 
-The `Contact` object raises domain events. The `Contact` entity follows basic DDD concepts and sets the domain properties' setters as private. No public setters exist in the class. Instead, the class provides methods to manipulate the internal state. In these methods, appropriate events for a certain modification, for example, `ContactNameUpdated` or `ContactEmailUpdated`, can be raised.
+The `Contact` object raises domain events. The `Contact` entity follows basic DDD concepts and sets the domain properties' setters as private. No public setters exist in the class. Instead, the class provides methods to manipulate the internal state. These methods raise events for specific modifications, like `ContactNameUpdated` or `ContactEmailUpdated`.
 
 The following example updates the name of a contact. The event is raised at the end of the method.
 
@@ -230,7 +234,7 @@ public class ContactNameUpdatedEvent : ContactDomainEvent
 }
 ```
 
-At this point, events are only logged in the domain object and nothing is saved to the database or published to a message broker. Following the previous recommendation, the list of events are processed right before the business object is saved to the data store. In this case, the processing occurs in the `SaveChangesAsync` method of the `IContainerContext` instance, which is implemented in a private `RaiseDomainEvents` method. The list of tracked entities of the container context is `dObjs`.
+At this point, events are only logged in the domain object and nothing is saved to the database or published to a message broker. The list of events are processed right before the business object is saved to the data store, which follows the previous recommendation. In this case, the processing occurs in the `SaveChangesAsync` method of the `IContainerContext` instance, which is implemented in a private `RaiseDomainEvents` method. The list of tracked entities of the container context is `dObjs`.
 
 ```csharp
 private void RaiseDomainEvents(List<IDataObject<Entity>> dObjs)
@@ -249,7 +253,7 @@ private void RaiseDomainEvents(List<IDataObject<Entity>> dObjs)
 }
 ```
 
-The [MediatR](https://github.com/LuckyPennySoftware/MediatR) package on the last line is an implementation of the mediator pattern in C#. It publishes an event within the application. You can publish events through MediatR because all events like `ContactNameUpdatedEvent` implement the `INotification` interface of the MediatR package.
+The [MediatR](https://github.com/LuckyPennySoftware/MediatR) package on the last line is an implementation of the Mediator pattern in C#. The package publishes an event within the application. You can publish events through MediatR because all events, like `ContactNameUpdatedEvent`, implement the `INotification` interface of the MediatR package.
 
 A corresponding handler must process these events. This part of the process uses the `IEventsRepository` implementation. The following example shows the `NameUpdated` event handler:
 
@@ -345,10 +349,10 @@ A `DataObject` instance wraps all objects saved to Azure Cosmos DB. This object 
 - `ID`.
 - `PartitionKey`.
 - `Type`.
-- `State`. Similar to `Created`, `Updated` isn't persisted in Azure Cosmos DB.
-- `Etag`. For [optimistic locking](/azure/cosmos-db/database-transactions-optimistic-concurrency#optimistic-concurrency-control).
-- `TTL`. [Time to live (TTL)](/azure/cosmos-db/time-to-live) property for automatic cleanup of old documents.
-- `Data`. Generic data object.
+- `State` has values like `Created` and `Updated`, which aren't persisted in Azure Cosmos DB.
+- `Etag` provides [optimistic locking](/azure/cosmos-db/database-transactions-optimistic-concurrency#optimistic-concurrency-control).
+- `TTL` provides automatic cleanup of old documents.
+- `Data` is a generic data object.
 
 The `IDataObject` generic interface defines these properties. Both the repositories and the container context use this interface:
 
@@ -367,7 +371,7 @@ public interface IDataObject<out T> where T : Entity
 
 ```
 
-The following example shows how objects like `Contact` and `ContactNameUpdatedEvent` appear when wrapped in a `DataObject` instance and saved to the database:
+The following example shows how objects like `Contact` and `ContactNameUpdatedEvent` appear when they're wrapped in a `DataObject` instance and saved to the database:
 
 ```json
 // The Contact document/object after creation.
@@ -452,7 +456,7 @@ private async Task<ChangeFeedProcessor> StartChangeFeedProcessorAsync()
 }
 ```
 
-A handler method (`HandleChangesAsync` in this implementation) processes the messages. In this sample, events are published to a Service Bus topic that's partitioned for scalability and has the [deduplication feature turned on](/azure/service-bus-messaging/duplicate-detection). Any service interested in changes to `Contact` objects can subscribe to that Service Bus topic and receive and process the changes for its own context.
+A handler method (`HandleChangesAsync` in this implementation) processes the messages. In this sample, events are published to a Service Bus topic that's partitioned for scalability and has the [deduplication feature turned on](/azure/service-bus-messaging/duplicate-detection). Any service that's interested in changes to `Contact` objects can subscribe to that Service Bus topic and receive and process the changes for its own context.
 
 Each Service Bus message includes a `SessionId` property. Service Bus sessions preserve message order ([first in, first out (FIFO)](/azure/service-bus-messaging/message-sessions)), which ensures that events are processed in the correct sequence.
 
@@ -534,11 +538,11 @@ private async Task HandleChangesAsync(IReadOnlyCollection<ExpandoObject> changes
 
 ### Error handling
 
-When an error occurs during change processing, the change feed library restarts reading messages from the position where it successfully processed the last batch. For example, if the application successfully processed 10,000 messages and encounters an error while processing batch 10,001 to 10,025, the library restarts at position 10,001. The library tracks processing progress by using information saved in a `Leases` container in Azure Cosmos DB.
+When an error occurs during change processing, the change feed library restarts reading messages from the position where it successfully processed the last batch. For example, if the application successfully processed 10,000 messages and encounters an error while it processes batch 10,001 to 10,025, the library restarts at position 10,001. The library tracks processing progress by using information saved in a `Leases` container in Azure Cosmos DB.
 
-When reprocessing occurs, the application might have already sent some messages to Service Bus, which would normally create duplicate message processing. To prevent this scenario, you can turn on duplicate message detection in Service Bus. Service Bus checks whether a message already exists in a topic (or queue) based on the application-controlled `MessageId` property of the message. That property is set to the `ID` of the event document. When Service Bus receives a duplicate message, it ignores and drops the message.
+When reprocessing occurs, the application might have sent some messages to Service Bus, which would normally create duplicate message processing. To prevent this scenario, you can turn on duplicate message detection in Service Bus. Service Bus checks whether a message already exists in a topic or queue based on the application-controlled `MessageId` property of the message. That property is set to the `ID` of the event document. When Service Bus receives a duplicate message, it ignores and drops the message.
 
-### Housekeeping
+### Cleanup and maintenance
 
 In a typical Transactional Outbox implementation, the service updates the handled events and sets a `Processed` property to `true`, which indicates that a message is successfully published. You can implement this behavior manually in the handler method. But this scenario doesn't require such a process. Azure Cosmos DB tracks events that were processed by using the change feed and the `Leases` container.
 
@@ -550,11 +554,13 @@ The primary consideration is to set an appropriate `TTL` value on the `DomainEve
 
 ## Summary
 
-The Transactional Outbox pattern solves the problem of reliably publishing domain events in distributed systems. The pattern commits the business object's state and its events in the same transactional batch, and a background processor relays these events as messages. This approach ensures that other internal or external services eventually receive the information that they depend on. This sample differs from traditional Transactional Outbox implementations. It uses features like the Azure Cosmos DB change feed for automatic event processing and TTL to simplify implementation.
+The Transactional Outbox pattern solves the problem of reliably publishing domain events in distributed systems. The pattern commits the business object's state and its events in the same transactional batch, and a background processor relays these events as messages. This approach ensures that other internal or external services receive the information that they depend on. This sample differs from traditional Transactional Outbox implementations. It uses features like the Azure Cosmos DB change feed for automatic event processing and TTL to simplify implementation.
 
 The following diagram summarizes the Azure components in this scenario.
 
-:::image type="content" source="_images/components.jpg" alt-text="Diagram that shows the Azure components to implement the Transactional Outbox pattern by using Azure Cosmos DB and Service Bus." border="false":::
+:::image type="complex" source="_images/components.jpg" alt-text="Diagram that shows the Azure components required to implement the Transactional Outbox pattern by using Azure Cosmos DB and Service Bus." border="false":::
+Architecture diagram that shows how a client application sends requests to a contacts service, which uses an Azure Cosmos DB transactional batch to save both the business object and domain events. A background worker processes the Azure Cosmos DB change feed and publishes events to Service Bus. Function apps subscribe to the Service Bus topic to receive the events.
+:::image-end:::
 
 *Download a [Visio file](https://arch-center.azureedge.net/AzureComponents.vsdx) of this architecture.*
 
@@ -570,11 +576,11 @@ This solution provides the following advantages:
 
 - Reliable message processing via `ChangeFeedProcessor` or an Azure function.
 
-- Optional: Multiple change feed processors, each maintaining its own pointer in the change feed.
+- Optional: Multiple change feed processors that each maintain their own pointer in the change feed.
 
 ### Considerations
 
-The sample application in this article demonstrates how to implement the Transactional Outbox pattern on Azure by using Azure Cosmos DB and Service Bus. There are also other approaches that use NoSQL databases. To reliably save the business object and events in the database, you can embed the list of events in the business object document. The downside of this approach is that the cleanup process must update each document that contains events, which increases request unit cost compared to using TTL.
+The sample application in this article demonstrates how to implement the Transactional Outbox pattern on Azure by using Azure Cosmos DB and Service Bus. Other approaches use NoSQL databases. To reliably save the business object and events in the database, you can embed the list of events in the business object document. The downside of this approach is that the cleanup process must update each document that contains events, which increases request unit cost compared to using TTL.
 
 The sample code in this article isn't production-ready code. It has limitations regarding multithreading, especially the way events are handled in the `DomainEntity` class and how objects are tracked in the `CosmosContainerContext` implementations. Use it as a starting point for your own implementations. Alternatively, consider using existing libraries that have this functionality built in, like [NServiceBus](https://docs.particular.net/nservicebus/outbox) or [MassTransit](https://masstransit.io/documentation/configuration/middleware/outbox).
 
@@ -595,14 +601,14 @@ Principal authors:
 
 ## Next steps
 
-- [Tackle business complexity in a microservice by using DDD and Command Query Responsibility Segregation (CQRS) patterns](/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns)
+- [Tackle business complexity in a microservice by using DDD and CQRS patterns](/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns)
 - [Message deduplication in Service Bus](/azure/service-bus-messaging/duplicate-detection)
 - [Change feed processor library](/azure/cosmos-db/change-feed-processor)
 - [Jimmy Bogard: A better domain events pattern](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern)
 
 ## Related resources
 
-- [Idempotent message processing](../../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.yml#idempotent-message-processing)
+- [Idempotent message processing](../../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing)
 - [Use tactical DDD to design microservices](../../microservices/model/tactical-ddd.yml)
-- [CQRS pattern](../../patterns/cqrs.yml)
+- [CQRS pattern](../../patterns/cqrs.md)
 - [Materialized View pattern](../../patterns/materialized-view.yml)
