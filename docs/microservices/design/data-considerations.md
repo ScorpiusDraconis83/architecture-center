@@ -33,7 +33,7 @@ Traditional data modeling follows the rule of *one fact in one place*. Every ent
 
 No single approach works for all cases. Consider the following general guidelines to manage data in a microservices architecture:
 
-- **Define the required consistency level for each component, and prefer eventual consistency where possible.** Identify areas in the system where you need strong consistency or atomicity, consistency, isolation, and durability (ACID) transactions. And identify areas where eventual consistency is acceptable. For more information, see [Use tactical domain-driven design (DDD) for microservices](../model/tactical-ddd.yml).
+- **Define the required consistency level for each component, and prefer eventual consistency where possible.** Identify areas in the system where you need strong consistency or atomicity, consistency, isolation, and durability (ACID) transactions. And identify areas where eventual consistency is acceptable. For more information, see [Use tactical domain-driven design (DDD) for microservices](../model/tactical-ddd.md).
 
 - **Use a single source of truth when you require strong consistency.** One service might represent the source of truth for a given entity and expose it through an API. Other services might hold their own copy of the data, or a subset of the data, that's eventually consistent with the primary data but not considered the source of truth. For example, in an e-commerce system that has a customer order service and a recommendation service, the recommendation service might listen to events from the order service. But if a customer requests a refund, the order service, not the recommendation service, has the complete transaction history.
 
