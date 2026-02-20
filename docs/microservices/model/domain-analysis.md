@@ -120,7 +120,7 @@ Creating a single model for both subsystems introduces unnecessary complexity. T
 The DDD concept of *bounded contexts* applies here. A bounded context defines the boundary within a domain where a specific domain model applies. In the previous diagram, you can group functionality based on whether different functions share the same domain model.
 
 :::image type="complex" border="false" source="../images/ddd2.svg" alt-text="Diagram that shows multiple bounded contexts." lightbox="../images/ddd2.svg":::
-   The diagram is an interconnected web that has multiple connecting lines and ovals that contain words. Dotted lines section off various ovals. Drone management is connected to video surveillance, shipping, and third-party transportation. Accounts is connected to drone sharing, shipping, and call center. The third-party transportation and call center sections are both labeled as external systems.
+   The diagram is an interconnected web that has multiple connecting lines and ovals that contain words. Dotted lines section off various ovals. Drone management connects to video surveillance, shipping, and third-party transportation. Accounts connects to drone sharing, shipping, and call center. The third-party transportation and call center sections are both labeled as external systems.
 :::image-end:::
 
 Bounded contexts don't necessarily isolate from one another. In this diagram, the solid lines that connect the bounded contexts represent places where two bounded contexts interact. For example, shipping depends on user accounts to retrieve customer information and on drone management to schedule drones from the fleet.
