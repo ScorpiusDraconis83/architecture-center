@@ -53,7 +53,7 @@ Sequence diagram that shows how a client app sends a create order request to an 
 
 Use the *Transactional Outbox pattern* to avoid these situations. This pattern saves events in a datastore that's typically in an outbox table in your database before it pushes them to a message broker. When you save the business object and its events within the same database transaction, the system guarantees no data loss. The transaction either commits everything or rolls back everything if an error occurs. To publish the events, a separate service or worker process queries the outbox table for unhandled entries, publishes them, and marks them as processed. This pattern prevents event loss when you create or modify business objects.
 
-:::image type="complex" source="_images/outbox-pattern.svg" alt-text="Diagram that shows event handling that uses the Transactional Outbox pattern and a relay service to publish events to the message broker." lightbox="_images/outbox-pattern.svg" border="false":::
+:::image type="complex" source="_images/out-box-pattern.svg" alt-text="Diagram that shows event handling that uses the Transactional Outbox pattern and a relay service to publish events to the message broker." lightbox="_images/out-box-pattern.svg" border="false":::
 Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order and an OrderCreated event, commits the transaction, and returns the OrderID. A background worker then retrieves outbox entries from the data store, publishes the events to the message bus, and marks the events as processed in the data store.
 :::image-end:::
 
