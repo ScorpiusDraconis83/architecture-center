@@ -98,7 +98,7 @@ After some initial domain analysis, the Fabrikam team creates a rough sketch tha
 
 DDD classifies subdomains into three categories, and this classification helps you prioritize where to invest the most design effort:
 
-- **Core subdomains** provide competitive advantage. Shipping and drone management form core subdomains for Fabrikam because they define the business. These subdomains require detailed modeling and substantial team investment.
+- **Core subdomains** provide a competitive advantage. Shipping and drone management form core subdomains for Fabrikam because they define the business. These subdomains require detailed modeling and substantial team investment.
 
 - **Supporting subdomains** keep the business operational but don't differentiate it from competitors. Invoicing falls into this category. It requires custom development but doesn't serve as the competitive advantage source.
 
@@ -107,7 +107,7 @@ DDD classifies subdomains into three categories, and this classification helps y
 At this point in the process, you haven't made any decisions about implementation or technologies. Some of the subsystems might involve external software systems or non-Microsoft services. But the application needs to interact with these systems and services, so include them in the domain model.
 
 > [!NOTE]
-> When an application depends on an external system, the external system's data schema or API might leak into the application. This leakage can compromise the architectural design. It's especially common in legacy systems that don't follow modern best practices and might use convoluted data schemas or outdated APIs. In these cases, establish a well-defined boundary between the external system and the application. Use the [Strangler Fig pattern](../../patterns/strangler-fig.md) or the [Anti-Corruption Layer pattern](../../patterns/anti-corruption-layer.yml) to enforce this boundary.
+> When an application depends on an external system, the external system's data schema or API might leak into the application. This leakage can compromise the architectural design. It's especially common in legacy systems that don't follow modern best practices and might use convoluted data schemas or outdated APIs. In these cases, establish a well-defined boundary between the external system and the application. Consider using the [Strangler Fig pattern](../../patterns/strangler-fig.md) or the [Anti-Corruption Layer pattern](../../patterns/anti-corruption-layer.yml) to enforce this boundary.
 
 ## Define bounded contexts
 
