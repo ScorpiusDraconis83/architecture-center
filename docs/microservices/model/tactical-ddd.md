@@ -38,7 +38,7 @@ An entity has the following characteristics:
 
 - An entity has a unique identifier in the system, which you can use to look up or retrieve the entity.
 
-  - Two entity instances that share the same identity represent the same domain concept, even if their attributes differ at a given point in time. For instance, a person's name or address might change, but they remain the same individual. Conversely, two instances with identical attributes but different identities are distinct entities.
+  - Two entity instances that share the same identity represent the same domain concept, even if their attributes differ at a given point in time. For instance, a person's name or address might change, but they remain the same individual. Conversely, two instances that have identical attributes but different identities are distinct entities.
 
   - The identifier isn't always exposed directly to users. It can be a GUID or a primary key in a database.
 
@@ -48,7 +48,7 @@ An entity has the following characteristics:
 
 ### Value objects
 
-A value object has no identity. It's defined only by the values of its attributes. Two value objects with the same attribute values are interchangeable. Common examples include colors, dates and times, currency amounts, and measurements.
+A value object has no identity. It's defined only by the values of its attributes. Two value objects that have the same attribute values are interchangeable. Common examples include colors, dates and times, currency amounts, and measurements.
 
 - Value objects are immutable. To update a value object, you create a new instance to replace the old instance. You can share immutable objects across threads, cache them without defensive copying, and reason about them more easily in distributed systems.
 
