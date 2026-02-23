@@ -165,7 +165,7 @@ Principal authors:
 
 ## Next steps
 
-- [Deploy ArcGIS Pro on Azure with Mission Landing Zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) - Automated deployment accelerator for SCCA-compliant environments
+- [Deploy ArcGIS Pro on Azure with mission landing zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) - Deployment guidance for SCCA-compliant environments
 - [Create a managed image of a generalized VM in Azure](/azure/virtual-machines/windows/capture-image-resource)
 - Prepare an Azure Virtual Desktop image with the [Virtual Desktop Optimization Tool (VDOT)](https://github.com/The-Virtual-Desktop-Team/Virtual-Desktop-Optimization-Tool)
 - [Download and install FSLogix](/FSLogix/install-ht)
