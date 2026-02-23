@@ -150,7 +150,7 @@ Principal authors:
 ## Next steps
 
 
-- You can use the [ArcGIS Pro Solution Accelerator for Mission Landing Zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) to deploy ArcGIS Pro on Azure Virtual Desktop with a single click. This accelerator includes
+- You can use the [ArcGIS Pro for Mission Landing Zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) to deploy ArcGIS Pro on Azure Virtual Desktop with a single click. This accelerator includes
  SCCA-compliant infrastructure, GPU-enabled VMs, Azure NetApp Files, and FSLogix pre-configured for rapid proof-of-concept deployments.
 - You can use [ArcGIS Enterprise Builder](https://enterprise.arcgis.com/en/get-started/latest/windows/arcgis-enterprise-builder.htm) to set up a base ArcGIS Enterprise deployment on a single machine or multiple machines.
 
