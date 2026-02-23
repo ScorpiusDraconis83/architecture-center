@@ -90,7 +90,7 @@ DDD defines the following two types of services:
 
 ### Domain events
 
-Domain events represent domain-significant changes. For example, *a record was inserted into a table* doesn't qualify as a domain event, but *a delivery was canceled* does. Aggregates raise domain events after they change state, and these events function as the primary way to coordinate work across aggregate boundaries.
+Domain events are domain-significant changes. For example, *a record was inserted into a table* doesn't qualify as a domain event, but *a delivery was canceled* does. Aggregates raise domain events after they change state, and these events function as the primary way to coordinate work across aggregate boundaries.
 
 In a microservices architecture, domain events must sometimes cross microservice boundaries. Internal domain events stay within a bounded context. The system publishes integration events asynchronously through a message broker after the transaction that originated them commits. For example, when the shipping bounded context completes a delivery, it publishes a `DeliveryCompleted` integration event that the accounts bounded context consumes to trigger invoices. For more information about asynchronous messages, see [Interservice communication](../design/interservice-communication.yml).
 
