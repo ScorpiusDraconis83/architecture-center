@@ -90,7 +90,7 @@ DDD defines the following two types of services:
 
 ### Domain events
 
-Domain events represent something meaningful that happens within the domain. For example, *a record was inserted into a table* doesn't qualify as a domain event, but *a delivery was canceled* does. Aggregates raise domain events after they change state, and these events function as the primary way to coordinate work across aggregate boundaries.
+Domain events represent domain-significant changes. For example, *a record was inserted into a table* doesn't qualify as a domain event, but *a delivery was canceled* does. Aggregates raise domain events after they change state, and these events function as the primary way to coordinate work across aggregate boundaries.
 
 In a microservices architecture, domain events must sometimes cross microservice boundaries. Internal domain events stay within a bounded context. The system publishes integration events asynchronously through a message broker after the transaction that originated them commits. For example, when the shipping bounded context completes a delivery, it publishes a `DeliveryCompleted` integration event that the accounts bounded context consumes to trigger invoices. For more information about asynchronous messages, see [Interservice communication](../design/interservice-communication.yml).
 
@@ -146,7 +146,7 @@ The design includes two domain events:
 
 - The `Delivery` entity sends `DeliveryTracking` events when the stage of a delivery changes. The `DeliveryTracking` events include `DeliveryCreated`, `DeliveryRescheduled`, `DeliveryHeadedToDropoff`, and `DeliveryCompleted`.
 
-These events describe things that matter in the domain model. They represent domain-level occurrences and don't depend on any specific programming language construct.
+These events describe meaningful domain occurrences that matter in the domain model. They represent domain-level occurrences and don't depend on any specific programming language construct.
 
 The development team identifies one area of functionality that doesn't fit within the entities described so far. A component must coordinate all steps to schedule or update a delivery. The team adds two domain services to the design: a `Scheduler` that coordinates the steps, and a `Supervisor` that monitors the status of each step to detect failures or timeouts. This approach is a variation of the [Scheduler Agent Supervisor pattern](../../patterns/scheduler-agent-supervisor.yml).
 
