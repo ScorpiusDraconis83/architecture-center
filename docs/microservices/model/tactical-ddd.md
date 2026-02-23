@@ -166,4 +166,4 @@ The next step is to define the boundaries for each microservice.
 - [Microservices architecture design](../../guide/architecture-styles/microservices.md)
 - [Design a microservices architecture](../../microservices/design/index.md)
 - [Use domain analysis to model microservices](domain-analysis.md)
-- [Choose a compute option for microservices](../../microservices/design/compute-options.md)
+- [Choose an Azure compute option for microservices](../../microservices/design/compute-options.md)
