@@ -165,8 +165,8 @@ Your application platform likely needs to interface with networks both as a serv
 ## Scalability
 
 | Service | Autoscaling | Load balancer | Scale limit<a href="#note3d"><sup>3</sup></a> |
-|---|---|---|---|
-| Virtual Machines | Virtual machine scale sets | Azure Load Balancer | Platform image: 1,000 nodes for each scale set. Custom image: 600 nodes for each scale set. |
+| :------ | :---------- | :------------ | :---------- |
+| Virtual Machines | Virtual machine scale sets | Azure Load Balancer | - Platform image: 1,000 nodes for each scale set <br><br> - Custom image: 600 nodes for each scale set |
 | App Service | Built-in service | Integrated | 30 instances, 100 with App Service Environment |
 | Azure Functions | Built-in service | Integrated | 200 instances for each function app |
 | AKS | Pod autoscaling<a href="#note1d"><sup>1</sup></a>, cluster autoscaling<a href="#note2d"><sup>2</sup></a> | Load Balancer or Azure Application Gateway | 5,000 nodes when you use [Standard or Premium tier][aks-pricing-tiers] |
