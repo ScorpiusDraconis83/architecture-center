@@ -111,7 +111,7 @@ At this point in the process, Fabrikam hasn't made any decisions about implement
 
 ## Define bounded contexts
 
-The domain model includes representations of real things in the world, like users, drones, packages, and other entities. But that doesn't mean that each part of the system needs to use the same representations for the same things.
+The domain model includes representations of real-world entities, like users, drones, packages, and other entities. But that doesn't mean that each part of the system needs to use the same representations for the same entities.
 
 For example, subsystems that handle drone repair and predictive analysis need to represent many physical characteristics of drones, like their maintenance history, mileage, age, model number, and performance characteristics. But when the time comes to schedule a delivery, those details become irrelevant. The scheduling subsystem only needs to know whether a drone is available and the ETA for pickup and delivery.
 
@@ -137,7 +137,7 @@ Fabrikam identifies these interactions and creates a *context map* that document
 
 In a microservices architecture, Open Host Service and Published Language are especially relevant because microservices communicate through well-defined APIs. The article [Design APIs for microservices](../design/api-design.md) describes how to use [OpenAPI specification](https://spec.openapis.org/oas/latest.html) to define language-agnostic interface descriptions for REST APIs, expressed in JSON or YAML format.
 
-The rest of this article focuses on the shipping bounded context.
+For the rest of this journey, we will focus on the shipping bounded context.
 
 ## Next step
 
@@ -151,4 +151,4 @@ After you complete a domain analysis, apply tactical DDD to define your domain m
 - [Microservices architecture design](../../guide/architecture-styles/microservices.md)
 - [Design a microservices architecture](../../microservices/design/index.md)
 - [Identify microservice boundaries](microservice-boundaries.yml)
-- [Choose a compute option for microservices](../../microservices/design/compute-options.md)
+- [Choose an Azure compute option for microservices](../../microservices/design/compute-options.md)
