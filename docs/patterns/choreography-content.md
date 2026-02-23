@@ -50,7 +50,7 @@ Decentralizing the orchestrator can cause issues while managing the workflow.
 
 - The pattern becomes a challenge if the number of services grows rapidly. Given the high number of independent moving parts, the workflow between services tends to get complex. [Distributed tracing](/dotnet/core/diagnostics/distributed-tracing) also becomes difficult, but tools like [ServiceInsight together with NServiceBus](https://docs.particular.net/serviceinsight/#sequence-diagram) can help reduce these challenges.
 
-- In an orchestrator-led design, the central component can partially participate and delegate resiliency logic to another component that retries transient, nontransient, and time-out failures, consistently. With the dissolution of the orchestrator in the choreography pattern, the downstream components shouldn't pick up those resiliency tasks. The resiliency handler must handle those tasks. But now, the downstream components must directly communicate with the resiliency handler, which increases point-to-point communication.
+- In an orchestrator-led design, the central component can partially participate and delegate resiliency logic to another component that retries transient, nontransient, and timeout failures, consistently. With the dissolution of the orchestrator in the choreography pattern, the downstream components shouldn't pick up those resiliency tasks. The resiliency handler must handle those tasks. But now, the downstream components must directly communicate with the resiliency handler, which increases point-to-point communication.
 
 ## When to use this pattern
 
@@ -60,9 +60,9 @@ Use this pattern when:
 
 - You expect the components to get updated and replaced frequently. The pattern enables the application to be modified with less effort and minimal disruption to existing services.
 
-- The pattern is a natural fit for serverless architectures that are appropriate for simple workflows. The components can be short-lived and event-driven. When an event occurs, components are spun up, perform their tasks, and removed once the task is completed.
+- You use serverless architectures for simple workflows. The components can be short-lived and event-driven. When an event occurs, components are spun up, perform their tasks, and removed once the task is completed.
 
-- This pattern is well suited for communications between bounded contexts, where loose coupling across domain boundaries is important. For communications inside a single bounded context, an orchestrator pattern is typically more appropriate.
+- Communication between bounded contexts requires loose coupling across domain boundaries. For communications inside a single bounded context, apply an orchestrator pattern instead.
 
 - There's performance bottleneck introduced by the central orchestrator.
 
