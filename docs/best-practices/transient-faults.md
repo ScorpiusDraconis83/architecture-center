@@ -51,7 +51,7 @@ Many services provide an SDK or client library that contains a transient fault h
 
 You should use the built-in retry mechanism when one is available, unless you have specific and well-understood requirements that make a different retry behavior more appropriate.
 
-Azure services each handle transient faults differently. Some provide SDK-level retry policies that have configurable backoff algorithms. Others provide platform features like health probes and visibility timeouts that complement application-level retry logic. Check the [reliability guide](/azure/reliability/overview-reliability-guidance) for each Azure service that you use. These guides include a dedicated section that provides service-specific recommendations for retry configuration, timeout tuning, and health monitoring.
+Azure services each handle transient faults differently. Some provide SDK-level retry policies that have configurable back-off algorithms. Others provide platform features like health probes and visibility timeouts that complement application-level retry logic. Check the [reliability guide](/azure/reliability/overview-reliability-guidance) for each Azure service that you use. These guides include a dedicated section that provides service-specific recommendations for retry configuration, timeout tuning, and health monitoring.
 
 ### Check whether retrying suits the operation
 
@@ -69,27 +69,27 @@ Adapt values for the time interval and the number of retry attempts to the type 
 
 Determining the appropriate intervals between retries is the most difficult part of designing a successful strategy. Typical strategies use the following types of retry interval:
 
-- **Exponential backoff:** The application waits a short time before the first retry and then exponentially increases the time between each subsequent retry. For example, it might retry the operation after two seconds, four seconds, eight seconds, and up to a set number of tries or total duration. Add jitter (a small random delay) to each retry interval to prevent multiple clients from synchronizing their retries and creating load spikes on the target service.
+- **Exponential back off:** The application waits a short time before the first retry and then exponentially increases the time between each subsequent retry. For example, it might retry the operation after two seconds, four seconds, eight seconds, and up to a set number of tries or total duration. Add jitter (a small random delay) to each retry interval to prevent multiple clients from synchronizing their retries and creating load spikes on the target service.
 
 - **Incremental intervals:** The application waits a short time before the first retry, and then incrementally increases the time between each subsequent retry. For example, it might retry the operation after 3 seconds, 7 seconds, and 11 seconds.
 
 - **Regular intervals:** The application waits for the same period of time between each attempt. For example, it might retry the operation every three seconds.
 
-- **Immediate retry:** Transient faults that events like a network packet collision or a spike in a hardware component cause are typically brief. In these scenarios, retrying the operation immediately is appropriate because it might succeed if the fault clears in the time that the application takes to assemble and send the next request. Don't attempt more than one immediate retry. If the immediate retry fails, switch to alternative strategies, like exponential backoff or fallback actions.
+- **Immediate retry:** Transient faults that events like a network packet collision or a spike in a hardware component cause are typically brief. In these scenarios, retrying the operation immediately is appropriate because it might succeed if the fault clears in the time that the application takes to assemble and send the next request. Don't attempt more than one immediate retry. If the immediate retry fails, switch to alternative strategies, like exponential back off or fallback actions.
 
 - **Randomization:** Any of the retry strategies listed previously can include randomization to prevent multiple instances of the client sending subsequent retry attempts at the same time. For example, one instance might retry the operation after 3 seconds, 11 seconds, or 28 seconds, while another instance might retry the operation after 4 seconds, 12 seconds, or 26 seconds. Randomization is a useful technique that you can combine with other strategies.
 
-Use an exponential backoff strategy with jitter for background operations, and use immediate or regular interval retry strategies for interactive operations. In both cases, choose the delay and the retry count so that the maximum latency for all retry attempts meets the end-to-end latency requirement.
+Use an exponential back off strategy with jitter for background operations, and use immediate or regular interval retry strategies for interactive operations. In both cases, choose the delay and the retry count so that the maximum latency for all retry attempts meets the end-to-end latency requirement.
 
 Consider the combination of all factors that contribute to the overall maximum timeout for a retried operation. These factors include the time that a failed connection takes to produce a response (typically set by a timeout value in the client), the delay between retry attempts, and the maximum number of retries. The total of these times can result in long overall operation times, especially when you use an exponential delay strategy where the interval between retries grows rapidly after each failure. If a process must meet a specific service-level agreement (SLA), the overall operation time, including all timeouts and delays, must be within the limits defined in the SLA.
 
 Account for the timeout of the operations when you choose retry intervals to avoid launching a subsequent attempt immediately (for example, if the timeout period is similar to the retry interval). Also, determine whether you need to keep the total possible period (the timeout plus the retry intervals) under a specific total time threshold. If an operation has an unusually short or long timeout, the timeout might influence how long to wait and how often to retry the operation.
 
-Set appropriate timeouts on every outbound call before you implement retry logic. Timeouts, retries, and backoff approaches work together. A retry strategy is only as effective as the timeouts that govern each individual attempt. Timeouts that are too long cause threads and connections to accumulate during outages. Timeouts that are too short cause premature failures on operations that would otherwise succeed.
+Set appropriate timeouts on every outbound call before you implement retry logic. Timeouts, retries, and back-off approaches work together. A retry strategy is only as effective as the timeouts that govern each individual attempt. Timeouts that are too long cause threads and connections to accumulate during outages. Timeouts that are too short cause premature failures on operations that would otherwise succeed.
 
 Don't implement overly aggressive retry strategies. These strategies have intervals that are too short or retries that are too frequent. They can adversely affect the target resource or service. These strategies might prevent the resource or service from recovering, so the resource or service continues to block or refuse requests. This scenario results in a cycle where more requests are sent to the resource or service, which further reduces its ability to recover.
 
-Use the type of exception and any data that it contains, or the error codes and messages returned from the service, to optimize the number of retries and the interval between them. For example, some exceptions or error codes, like HTTP 503, Service Unavailable, might indicate that the service failed and won't respond to any subsequent attempt. When a response includes a `Retry-After` header, honor it by waiting at least the indicated duration before the next attempt. This server-provided signal reflects the service's view of its own recovery timeline and takes precedence over your client-side backoff calculation.
+Use the type of exception and any data that it contains, or the error codes and messages returned from the service, to optimize the number of retries and the interval between them. For example, some exceptions or error codes, like HTTP 503, Service Unavailable, might indicate that the service failed and won't respond to any subsequent attempt. When a response includes a `Retry-After` header, honor it by waiting at least the indicated duration before the next attempt. This server-provided signal reflects the service's view of its own recovery timeline and takes precedence over your client-side back-off calculation.
 
 Use a [*dead-letter queue*](/azure/service-bus-messaging/service-bus-dead-letter-queues) approach so that the information from the incoming request isn't lost after you use all retry attempts. This technique lets you defer failed work for later processing rather than discarding it entirely.
 
@@ -109,7 +109,7 @@ Per-request retry limits alone can't prevent a scenario where many concurrent re
 
 Never do an immediate retry more than once.
 
-Avoid using a regular retry interval when you access services and resources on Azure, especially when you have a high number of retry attempts. The best approach in this scenario is an exponential backoff strategy with a circuit-breaking capability.
+Avoid using a regular retry interval when you access services and resources on Azure, especially when you have a high number of retry attempts. The best approach in this scenario is an exponential back-off strategy with a circuit-breaking capability.
 
 Prevent multiple instances of the same client, or multiple instances of different clients, from sending retries simultaneously. If this scenario is probable, introduce randomization into the retry intervals.
 
@@ -117,24 +117,24 @@ Prevent multiple instances of the same client, or multiple instances of differen
 
 Test your retry strategy across a broad range of circumstances, especially when both the application and its target resources or services are under extreme load. To check behavior during testing, you can take the following actions:
 
-Include transient faults in your [chaos engineering and fault injection](/azure/well-architected/reliability/testing-strategy#use-fault-injection-and-chaos-engineering) practices by purposely introducing them into your nonproduction and production environments. For example, send unsupported requests or add code that detects test requests and responds with different types of errors.
+- Include transient faults in your [chaos engineering and fault injection](/azure/well-architected/reliability/testing-strategy#use-fault-injection-and-chaos-engineering) practices by purposely introducing them into your nonproduction and production environments. For example, send unsupported requests or add code that detects test requests and responds with different types of errors.
 
-Create a mockup of the resource or service that returns a range of errors that the real service might return. Cover all the types of errors that you design your retry strategy to detect.
+- Create a mockup of the resource or service that returns a range of errors that the real service might return. Cover all the types of errors that you design your retry strategy to detect.
 
-For custom services that you create and deploy, force transient errors to occur by temporarily inactivating or overloading the service. Be careful not to attempt to overload any shared resources or shared services in Azure.
+- For custom services that you create and deploy, force transient errors to occur by temporarily inactivating or overloading the service. Be careful not to attempt to overload any shared resources or shared services in Azure.
 
-Consider using a fault injection service to run controlled experiments against your Azure resources. For example, [Azure Chaos Studio](/azure/chaos-studio/chaos-studio-overview) supports service-direct faults, like adding network latency or rebooting a cache cluster, and agent-based faults, like applying memory pressure or ending a process on a virtual machine (VM). You can integrate fault injection experiments into your continuous integration and continuous delivery (CI/CD) pipelines to continuously validate resilience as part of your deployment process.
+- Consider using a fault injection service to run controlled experiments against your Azure resources. For example, [Azure Chaos Studio](/azure/chaos-studio/chaos-studio-overview) supports service-direct faults, like adding network latency or rebooting a cache cluster, and agent-based faults, like applying memory pressure or ending a process on a virtual machine (VM). You can integrate fault injection experiments into your continuous integration and continuous delivery (CI/CD) pipelines to continuously validate resilience as part of your deployment process.
 
-For HTTP-based APIs, consider using a library in your automated tests to change the outcome of HTTP requests, either by adding extra roundtrip times or by changing the response, like the HTTP status code, headers, body, or other factors. This approach helps you do deterministic testing of a subset of the failure conditions for transient faults and other types of failures.
+- For HTTP-based APIs, consider using a library in your automated tests to change the outcome of HTTP requests, either by adding extra roundtrip times or by changing the response, like the HTTP status code, headers, body, or other factors. This approach helps you do deterministic testing of a subset of the failure conditions for transient faults and other types of failures.
 
-Do high-load-factor and concurrent tests to ensure that the retry mechanism and strategy work correctly under these conditions. These tests also help ensure that retry attempts don't adversely affect the operation of the client or cause cross-contamination between requests.
+- Do high-load-factor and concurrent tests to ensure that the retry mechanism and strategy work correctly under these conditions. These tests also help ensure that retry attempts don't adversely affect the operation of the client or cause cross-contamination between requests.
 
 ### Manage retry policy configurations
 
 A *retry policy* is a combination of all the elements of your retry strategy. It defines the detection mechanism that determines the following factors:
 
 - Whether a fault is likely to be transient
-- The type of interval, like regular, exponential backoff, or randomization, to use
+- The type of interval, like regular, exponential back off, or randomization, to use
 - The actual interval values
 - The number of times to retry
 

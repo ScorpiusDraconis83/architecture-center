@@ -6,9 +6,9 @@ Here are some of the main challenges arising from service-to-service communicati
 
 **Resiliency**. There might be dozens or even hundreds of instances of any given microservice. An instance can fail for any number of reasons. There can be a node-level failure, such as a hardware failure or a VM reboot. An instance might crash, or be overwhelmed with requests and unable to process any new requests. Any of these events can cause a network call to fail. There are two design patterns that can help make service-to-service network calls more resilient:
 
-- **[Retry](../../patterns/retry.yml)**. A network call might fail because of a transient fault that goes away by itself. Rather than fail outright, the caller should typically retry the operation a certain number of times, or until a configured time-out period elapses.
+- **[Retry](../../patterns/retry.yml)**. A network call might fail because of a transient fault that goes away by itself. Rather than fail outright, the caller should typically retry the operation a specified number of times or until a configured time-out period elapses.
 
-  However, if an operation isn't idempotent, retries can cause unintended side effects. The original call might succeed, but the caller never gets a response. If the caller retries, the operation might be invoked twice. Generally, it's not safe to retry POST or PATCH methods, because these aren't guaranteed to be idempotent. For more information, see [Transient fault handling](../../best-practices/transient-faults.md).
+  If an operation isn't idempotent, retries can cause unintended effects. The original call might succeed, but the caller never gets a response. If the caller retries, the operation might be invoked twice. Generally, it's not safe to retry POST or PATCH methods because these operations aren't guaranteed to be idempotent. For more information, see [Transient fault handling](../../best-practices/transient-faults.md).
 
 - **[Circuit Breaker](../../patterns/circuit-breaker.md)**. Too many failed requests can cause a bottleneck, as pending requests accumulate in the queue. These blocked requests might hold critical system resources such as memory, threads, and database connections, which can cause cascading failures. The Circuit Breaker pattern can prevent a service from repeatedly trying an operation that is likely to fail.
 

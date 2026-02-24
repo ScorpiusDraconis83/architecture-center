@@ -72,7 +72,7 @@ Without error handling, it can be tricky to implement retries, detect runtime ex
 
 ### Retries
 
-Implementing retry logic in an event streaming architecture can be complex. Supporting cancellation tokens, retry counts and exponential back off strategies are just a few of the considerations that make it challenging. Fortunately, Functions provides [retry policies](/azure/azure-functions/functions-bindings-error-pages#retry-policies-preview) that can make up for many of these tasks that you would typically code yourself. For general guidance on retry strategies, see [Recommendations for handling transient faults](/azure/well-architected/reliability/handle-transient-faults).
+Implementing retry logic in an event streaming architecture can be complex. Supporting cancellation tokens, retry counts, and exponential back-off strategies are just a few of the considerations that make it challenging. Fortunately, Functions provides [retry policies](/azure/azure-functions/functions-bindings-error-pages#retry-policies) for many of these tasks that you typically code yourself. For general guidance on retry strategies, see [Recommendations for handling transient faults](/azure/well-architected/design-guides/handle-transient-faults).
 
 Several important factors that must be considered when you use the retry policies with the Event Hub binding, include:
 
