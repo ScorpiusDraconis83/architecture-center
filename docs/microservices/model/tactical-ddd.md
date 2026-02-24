@@ -3,7 +3,7 @@ title: Use Tactical DDD to Design Microservices
 description: Use domain-driven design in a microservices architecture to identify the entity and aggregate patterns, which help identify natural boundaries for the services.
 author: claytonsiemens77
 ms.author: pnp
-ms.date: 02/12/2026
+ms.date: 02/24/2026
 ms.update-cycle: 1095-days
 ms.topic: concept-article
 ms.subservice: architecture-guide
@@ -16,7 +16,7 @@ products:
 
 # Use tactical DDD to design microservices
 
-Domain-driven design (DDD) rejects a single unified model for the entire system. It instead encourages you to divide the system into bounded contexts, each with its own model. The [domain analysis](domain-analysis.md) article covers the strategic phase of DDD. This article continues those steps and applies tactical DDD patterns to define domain models more precisely within their bounded contexts.
+Domain-driven design (DDD) rejects a single unified model for the entire system. It instead encourages you to divide the system into bounded contexts that each has its own model. The [domain analysis](domain-analysis.md) article covers the strategic phase of DDD. This article continues those steps and applies tactical DDD patterns to define domain models more precisely within their bounded contexts.
 
 In a microservices architecture, where each bounded context is a microservice candidate, the entity and aggregate patterns matter. Applying these patterns helps identify natural boundaries for the services in your application. For more information, see [Identify microservice boundaries](./microservice-boundaries.yml). As a general principle, design a microservice to be no smaller than an aggregate and no larger than a bounded context.
 
@@ -24,7 +24,7 @@ This article reviews the tactical patterns and then applies them to the shipping
 
 ## Overview of the tactical patterns
 
-This section summarizes the tactical DDD patterns. If you're familiar with DDD, you can move to the next section. These patterns appear in Eric Evans' *Domain-Driven Design*, the book that introduced the term. Another practical, modern reference is *Learning Domain-Driven Design* by Vlad Khononov.
+This section summarizes the tactical DDD patterns. If you're familiar with DDD, you can continue to the next section. These patterns appear in Eric Evans' *Domain-Driven Design*, the book that introduced the term. Another practical, modern reference is *Learning Domain-Driven Design* by Vlad Khononov.
 
 :::image type="complex" border="false" source="../images/ddd-patterns.png" alt-text="Diagram of tactical patterns in DDD." lightbox="../images/ddd-patterns.png":::
    The diagram has five key sections. An arrow points from application service to domain service. One arrow points from domain service to the aggregate section. Another arrow points from domain service to an aggregate section that contains root entity, entity, and value object. A line points from the first aggregate section to the domain event section.
@@ -40,11 +40,11 @@ An entity has the following characteristics:
 
   - Two entity instances that share the same identity represent the same domain concept, even if their attributes differ at a given point in time. For instance, a person's name or address might change, but they remain the same individual. Conversely, two instances that have identical attributes but different identities are distinct entities.
 
-  - The identifier isn't always exposed directly to users. It can be a GUID or a primary key in a database.
+  - The identifier isn't always exposed directly to users. It can be a globally unique identifier (GUID) or a primary key in a database.
 
    Choose your identity strategy intentionally. Natural keys, like an order number or a government-issued ID, convey business meaning and are recognized across systems. Surrogate keys, like GUIDs, lack business meaning but avoid coupling to external systems. In a microservices architecture, other services reference entities by their identifiers, so the identity must remain stable and meaningful across service boundaries. An identity can span multiple bounded contexts and might persist beyond the lifetime of the application.
 
-- Entities should encapsulate behavior, not only carry data. When business logic lives outside the entity in service classes, you create an *anemic domain model*. That anti-pattern undermines the benefit of DDD, which is to express business rules inside the domain model. Put validation, state transitions, and business rules inside the entity. For example, a `Delivery` entity should contain the logic to determine whether you can cancel it, rather than delegate that decision to an external service.
+- Entities should encapsulate behavior, not only carry data. When business logic lives outside the entity in service classes, you create an *anemic domain model*. That antipattern undermines the benefit of DDD, which is to express business rules inside the domain model. Put validation, state transitions, and business rules inside the entity. For example, a `Delivery` entity should contain the logic to determine whether you can cancel it, rather than delegate that decision to an external service.
 
 ### Value objects
 
@@ -62,7 +62,7 @@ An aggregate defines a consistency boundary around one or more entities. Exactly
 
 Use aggregates to model transactional invariants. Real-world domains contain complex relationships. Customers create orders, orders contain products, and products have suppliers. When the application modifies several related objects, it must enforce consistency and uphold the required invariants.
 
-Traditional applications often enforce consistency through database transactions. In a distributed application, that approach doesn't work across boundaries. A single business transaction might span multiple data stores, run for a long time, or involve third-party services. The application must enforce the invariants that the domain requires, not the data layer. Aggregates model that responsibility.
+Traditional applications typically enforce consistency through database transactions. In a distributed application, that approach doesn't work across boundaries. A single business transaction might span multiple data stores, run for a long time, or involve non-Microsoft services. The application must enforce the invariants that the domain, not the data layer, requires. Aggregates model that responsibility.
 
 > [!NOTE]
 > An aggregate can consist of a single entity without child entities. What makes it an aggregate is the transactional boundary.
@@ -86,11 +86,11 @@ DDD defines the following two types of services:
 
 - **Domain services** encapsulate business rules that span multiple entities or aggregates. In the shipping bounded context, the `Scheduler` functions as a domain service because the scheduling logic involves business rules about drone availability, delivery windows, and route optimization that don't belong to any single entity.
 
-- **Application services** orchestrate use cases. They coordinate calls to domain services and repositories, manage transactions, and handle concerns like user authentication or SMS notifications. They contain no business logic themselves. An API endpoint that receives a delivery request calls the `Scheduler` and returns the result is an application service.
+- **Application services** orchestrate use cases. They coordinate calls to domain services and repositories, manage transactions, and handle concerns like user authentication or SMS notifications. They contain no business logic themselves. An API endpoint that receives a delivery request, calls the `Scheduler`, and returns the result is an application service.
 
 ### Domain events
 
-Domain events represent something meaningful that happens within the domain. For example, *a record was inserted into a table* doesn't qualify as a domain event, but *a delivery was canceled* does. Aggregates raise domain events after they change state, and these events function as the primary way to coordinate work across aggregate boundaries.
+Domain events are domain-significant changes. For example, *a record was inserted into a table* doesn't qualify as a domain event, but *a delivery was canceled* does. Aggregates raise domain events after they change state, and these events function as the primary way to coordinate work across aggregate boundaries.
 
 In a microservices architecture, domain events must sometimes cross microservice boundaries. Internal domain events stay within a bounded context. The system publishes integration events asynchronously through a message broker after the transaction that originated them commits. For example, when the shipping bounded context completes a delivery, it publishes a `DeliveryCompleted` integration event that the accounts bounded context consumes to trigger invoices. For more information about asynchronous messages, see [Interservice communication](../design/interservice-communication.yml).
 
@@ -146,9 +146,15 @@ The design includes two domain events:
 
 - The `Delivery` entity sends `DeliveryTracking` events when the stage of a delivery changes. The `DeliveryTracking` events include `DeliveryCreated`, `DeliveryRescheduled`, `DeliveryHeadedToDropoff`, and `DeliveryCompleted`.
 
-These events describe things that matter in the domain model. They represent domain-level occurrences and don't depend on any specific programming language construct.
+These events describe meaningful domain occurrences that matter in the domain model. They represent domain-level occurrences and don't depend on any specific programming language construct.
 
-The development team identifies one area of functionality that doesn't fit within the entities described so far. A component must coordinate all steps to schedule or update a delivery. The team adds two domain services to the design: a `Scheduler` that coordinates the steps, and a `Supervisor` that monitors the status of each step to detect failures or timeouts. This approach is a variation of the [Scheduler Agent Supervisor pattern](../../patterns/scheduler-agent-supervisor.yml).
+The development team identifies one area of functionality that doesn't fit within the entities described so far. A component must coordinate all steps to schedule or update a delivery. The team adds the following two domain services to the design:
+
+- A `Scheduler` that coordinates the steps
+
+- A `Supervisor` that monitors the status of each step to detect failures or timeouts
+
+This approach is a variation of the [Scheduler Agent Supervisor pattern](../../patterns/scheduler-agent-supervisor.yml).
 
 :::image type="complex" border="false" source="../images/drone-ddd.png" alt-text="Diagram of the revised domain model." lightbox="../images/drone-ddd.png":::
    The image contains 11 key sections. An arrow labeled observes points from supervisor to scheduler. An arrow points from scheduler to drone. A double-sided arrow labeled coordinates points from account to delivery. An arrow points from coordinates to package. A smaller arrow points from package to tag. A dotted arrow labeled drone status points from drone to delivery. Two smaller arrows point from delivery to confirmation and notification. A dotted line connects delivery and delivery status.
@@ -166,4 +172,4 @@ The next step is to define the boundaries for each microservice.
 - [Microservices architecture design](../../guide/architecture-styles/microservices.md)
 - [Design a microservices architecture](../../microservices/design/index.md)
 - [Use domain analysis to model microservices](domain-analysis.md)
-- [Choose a compute option for microservices](../../microservices/design/compute-options.md)
+- [Choose an Azure compute option for microservices](../../microservices/design/compute-options.md)
