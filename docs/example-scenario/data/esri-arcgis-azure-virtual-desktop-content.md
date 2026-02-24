@@ -31,7 +31,7 @@ The following diagram presents a high-level architecture for deploying ArcGIS co
 - [Azure Monitor](/azure/azure-monitor/overview) is a collection of tools that provides visibility into the state of your system. In this architecture, Azure Monitor provides visibility into system performance and helps identify and resolve problems that affect your workload's components.
 - [Azure Policy](/azure/governance/policy/overview) is a governance tool that enforces rules and standards across Azure resources. In this architecture, it ensures compliance with workload policies, such as resource tagging, location restrictions, and security configurations. Through its compliance dashboard, it provides an aggregated view of the overall state of the environment and the ability to drill down to per-resource, per-policy granularity.
 - [Microsoft Entra ID](/entra/fundamentals/whatis) is an enterprise identity service that provides single sign-on, multifactor authentication, and other identity services to protect against cybersecurity threats. In this architecture, it secures user access to Azure Virtual Desktop and other services.
-- [Active Directory Domain Services (AD DS)](/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview) is a directory service that provides traditional domain-based identity services like group policies and Kerberos authentication. It stores directory data and makes that data available to network users and administrators. AD DS stores information about user accounts, like names, passwords, and phone numbers, and enables other authorized users on the same network to access that information. 
+- [Active Directory Domain Services (AD DS)](/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview) is a directory service that provides traditional domain-based identity services like group policies and Kerberos authentication. It stores directory data and makes that data available to network users and administrators. AD DS stores information about user accounts, like names, passwords, and phone numbers, and enables other authorized users on the same network to access that information.
 
 - [Azure Virtual Desktop](/azure/virtual-desktop/overview) is a desktop and application virtualization service that delivers Windows desktops and apps remotely. In this architecture, Azure Virtual Desktop hosts ArcGIS Pro on GPU-enabled VMs so that users can run intensive GIS workflows from anywhere.
 - [Azure SQL Managed Instance](/azure/well-architected/service-guides/azure-sql-managed-instance/reliability) is a managed SQL Server instance that includes built-in high availability and scalability. In this architecture, SQL Managed Instance stores the enterprise geodatabase, which enables ArcGIS Pro users to manage and edit spatial data in a secure and scalable environment.
@@ -41,16 +41,14 @@ The following diagram presents a high-level architecture for deploying ArcGIS co
   For more information about FSLogix Profile Container, Azure Files, and Azure NetApp Files best practices, see [FSLogix configuration examples](/fslogix/concepts-configuration-examples).
 - [Azure Virtual Network](/azure/well-architected/service-guides/virtual-network) is a private cloud-based network that you can use to build your own secure network infrastructure in Azure. It enables secure communication between Azure resources through private IP addresses. In this architecture, Virtual Network connects all components, such as virtual desktops, databases, and storage, within a secure and isolated network.
 - [ArcGIS Pro](https://www.esri.com/arcgis/products/arcgis-pro/overview) is Esri's professional desktop GIS application for spatial analysis, mapping, and data editing. In this architecture, it runs on GPU-enabled Azure Virtual Desktop VMs, which allows users to perform advanced 2D and 3D geospatial tasks and publish services. It runs best on Azure high-performance computing VMs, like the NV-Series. You can scale the use of ArcGIS by using Azure Virtual Desktop.
-- [ArcGIS Enterprise](https://enterprise.arcgis.com/en/get-started/latest/windows/what-is-arcgis-enterprise-.htm) is a comprehensive GIS platform for managing and sharing spatial data and services. In this architecture, you can add ArcGIS Enterprise to extend capabilities for hosting maps, apps, and spatial analytics across the organization, it works with ArcGIS Pro. 
+- [ArcGIS Enterprise](https://enterprise.arcgis.com/en/get-started/latest/windows/what-is-arcgis-enterprise-.htm) is a comprehensive GIS platform for managing and sharing spatial data and services. In this architecture, you can add ArcGIS Enterprise to extend capabilities for hosting maps, apps, and spatial analytics across the organization, it works with ArcGIS Pro.
 - [Portal for ArcGIS](https://enterprise.arcgis.com/en/portal) is a web-based interface for sharing and managing GIS content within ArcGIS Enterprise. In this architecture, it enables users to create, organize, and share maps, scenes, and apps securely within the organization. Portal for ArcGIS is part of the base deployment.
 - [ArcGIS Server](https://enterprise.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-for-server-.htm) is back-end server software that's deployed with ArcGIS Enterprise or in a standalone deployment with ArcGIS Enterprise. In this architecture, it handles requests from users and applications, such as to draw maps, run tools, or query data. Its configuration and data is stored in Azure NetApp Files. It also has a management plane that enables administrators to start, stop, and delete services.
 - [Enterprise geodatabase](https://enterprise.arcgis.com/en/server/latest/manage-data/windows/enterprise-geodatabases-and-arcgis-enterprise.htm) is a multi-user spatial database that supports versioning, replication, and advanced data models. You can deploy this database in many database management systems. In this architecture, it's hosted in SQL Managed Instance and serves as the authoritative data source for ArcGIS Pro and other GIS tools.
 
-
-
 ## Scenario details
 
-Esri's technology is a geographic information system (GIS) that contains capabilities for the visualization, analysis, and data management of geospatial data. Esri's core technology is called *the ArcGIS platform*. It includes capabilities for mapping, spatial analysis, 3D GIS, imagery and remote sensing, data collection and management, and field operations. 
+Esri's technology is a geographic information system (GIS) that contains capabilities for the visualization, analysis, and data management of geospatial data. Esri's core technology is called *the ArcGIS platform*. It includes capabilities for mapping, spatial analysis, 3D GIS, imagery and remote sensing, data collection and management, and field operations.
 
 A desktop app called *ArcGIS Pro* is a key part of the technology. It's a 64-bit professional desktop GIS. GIS analysts can use it to perform spatial analysis and edit spatial data. GIS administrators can use it to create and publish geospatial services.
 
@@ -83,10 +81,10 @@ Cost Optimization focuses on ways to reduce unnecessary expenses and improve ope
 GPU-enabled VMs are the largest cost driver in this architecture. Match VM SKUs to actual workload requirements:
 
 | Workload | Recommended approach |
-|----------|---------------------|
+| :------- | :------------------- |
 | Light (2D viewing) | Use smaller GPU SKUs like NV4ads_V710_v5 or consider multi-session pooling |
-| Medium (editing) | Use mid-tier SKUs like NC8as_T4_v3; pool 4 users per VM in multi-session |
-| Heavy (3D visualization) | Use larger SKUs like NV18ads_A10_v5; limit to 3 users per VM |
+| Medium (editing) | Use mid-tier SKUs like NC8as_T4_v3; pool four users per VM in multi-session |
+| Heavy (3D visualization) | Use larger SKUs like NV18ads_A10_v5; limit to three users per VM |
 
 #### Scaling and automation
 
@@ -118,16 +116,15 @@ Performance Efficiency refers to your workload's ability to scale to meet user d
 
 When you use a remote Windows session, your network's available bandwidth greatly affects the quality of your experience. The following table lists the minimum recommended bandwidths for a smooth user experience. These recommendations are based on the guidelines in [Remote Desktop workloads](/windows-server/remote/remote-desktop-services/remote-desktop-workloads).
 
-|Workload type  |Recommended bandwidth  |
-|---------|---------|
-|Light     |1.5 Mbps         |
-|Medium     |3 Mbps         |
-|Heavy     | 5 Mbps        |
-
+| Workload type | Recommended bandwidth |
+| :------------ | :-------------------- |
+| Light         | 1.5 Mbps              |
+| Medium        | 3 Mbps                |
+| Heavy         | 5 Mbps                |
 
 Keep in mind that the stress put on your network depends on both your app workload's output frame rate and your display resolution. If either the frame rate or display resolution increases, the bandwidth requirement also rises. For example, a light workload with a high-resolution display requires more available bandwidth than a light workload with regular or low resolution. Ideally, the latency between the end user and the RDP session needs to be around 200 ms or less. This latency helps to ensure that, when ArcGIS Pro users interact with maps and perform measurements or edits, the interactive edits and the tooltips appear quickly enough.
 
-Another significant benefit of this architecture is that the latency between it and Esri's SaaS offerings, like ArcGIS Velocity and ArcGIS Image, is also reduced for ArcGIS Pro users and web browser users. All components of the ArcGIS SaaS platform ArcGIS Online are in the cloud. 
+Another significant benefit of this architecture is that the latency between it and Esri's SaaS offerings, like ArcGIS Velocity and ArcGIS Image, is also reduced for ArcGIS Pro users and web browser users. All components of the ArcGIS SaaS platform ArcGIS Online are in the cloud.
 
 #### Scalability
 
@@ -135,7 +132,7 @@ You can scale this architecture in many ways. You can scale the VMs for the back
 
 #### Testing
 
-You can test your system's latency by using the [Connection Experience Indicator](https://bramwolfs.com/2020/03/11/connection-experience-indicator-for-rds-wvd). You can use [Esri's ArcGIS Pro Performance Assessment Tool](https://pro.arcgis.com/en/pro-app/latest/get-started/pro-performance-tool-overview.htm) to test the performance. Esri also recommends [tools for testing ArcGIS Enterprise](https://community.esri.com/t5/implementing-arcgis-blog/performance-engineering-load-testing-arcgis/ba-p/1070106#:~:text=Performance%20Engineering%20is%20the%20practice%20of%20proactively%20testing%2C,components%20%28e.g.%20map%20service%20composition%29%20of%20a%20Site.). [Azure Load Testing](https://azure.microsoft.com/services/load-testing) can also be helpful.
+You can test your system's latency by using the [Connection Experience Indicator](https://bramwolfs.com/2023/11/10/connection-experience-indicator-for-rds-wvd/). You can use [Esri's ArcGIS Pro Performance Assessment Tool](https://pro.arcgis.com/en/pro-app/latest/get-started/pro-performance-tool-overview.htm) to test the performance. Esri also recommends [tools for testing ArcGIS Enterprise](https://community.esri.com/t5/implementing-arcgis-blog/performance-engineering-load-testing-arcgis/ba-p/1070106). [Azure Load Testing](/azure/app-testing/load-testing/overview-what-is-azure-load-testing) can also be helpful.
 
 ### ArcGIS Pro virtual machine sizing guidelines for Azure Virtual Desktop and Remote Desktop Services
 
@@ -150,10 +147,10 @@ Users can run different types of workloads on the session host virtual machines.
 The following table describes each ArcGIS workload. *Example users* are the types of users that might find each workload most helpful.
 
 | Workload type | Example user workflows | Activity |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | Light | Simple 2-D map display, navigation, and querying. Combining and presenting data prepared by others. | Viewing |
-| Medium |2-D and 3-D map display, navigation, querying, and editing. Moderate use of GP tools. Compilation of presentation of data from multiple sources into a simple map layout. | Editing |
-| Heavy |2-D and 3-D map display, navigation, querying, and editing. Advanced use of symbology including transparency, and dynamic labeling. Heavy 2-D and 3-D analysis involving visibility, and line of sight. | Visualizing |
+| Medium | 2-D and 3-D map display, navigation, querying, and editing. Moderate use of GP tools. Compilation of presentation of data from multiple sources into a simple map layout. | Editing |
+| Heavy | 2-D and 3-D map display, navigation, querying, and editing. Advanced use of symbology including transparency, and dynamic labeling. Heavy 2-D and 3-D analysis involving visibility, and line of sight. | Visualizing |
 
 ### Single-session recommendations
 
@@ -162,7 +159,7 @@ The following table describes each ArcGIS workload. *Example users* are the type
 The following table provides examples for single-session ArcGIS Pro scenarios:
 
 | Workload type | Example Azure virtual machine SKU | Activity |
-|--|--|--|
+| :--- | :--- | :--- |
 | Light | NV4ads_V710_v5, NV8ads_V710_v5 | Viewing |
 | Medium | NV12ads_V710_v5, NC4as_T4_v3, NC8as_T4_v3, NV6ads_A10_v5 | Editing |
 | Heavy | NC16as_T4_v3, NV12ads_A10_v5, NV18ads_A10_v5 | Visualizing |
@@ -174,7 +171,7 @@ The following table provides examples for single-session ArcGIS Pro scenarios:
 The following table provides examples for multi-session ArcGIS Pro scenarios:
 
 | Workload type | Example Azure virtual machine SKU | Maximum users per VM | Activity |
-|--|--|--|--|
+| :--- | :--- | :--- | :--- |
 | Light | NV18ads_A10_v5, NC16as_T4_v3, NV24ads_V710_v5 | 6 | Viewing |
 | Medium | NV18ads_A10_v5, NC16as_T4_v3, NV24ads_V710_v5 | 4 | Editing |
 | Heavy | NV18ads_A10_v5, NC16as_T4_v3, NV24ads_V710_v5 | 3 | Visualizing |
@@ -185,18 +182,16 @@ The following table provides examples for multi-session ArcGIS Pro scenarios:
 
 Principal authors:
 
-- [Matt Hallenborg](https://www.linkedin.com/in/matt-hallenborg) | (Senior Cloud Solution Architect)
-- [Ron Vincent](https://www.linkedin.com/in/ron-vincent-8958145) | (Senior Program Manager)
+- [Matt Hallenborg](https://www.linkedin.com/in/matt-hallenborg/) | Senior Cloud Solution Architect
+- [Ron Vincent](https://www.linkedin.com/in/ron-vincent-8958145/) | Senior Program Manager
 
 *To see non-public LinkedIn profiles, sign in to LinkedIn.*
 
 ## Next steps
 
-
 - You can use the [ArcGIS Pro for Mission Landing Zone](https://github.com/Azure/missionlz/tree/main/src/add-ons/arcgis-pro) to deploy ArcGIS Pro on Azure Virtual Desktop. The implementation in the repository includes SCCA-compliant infrastructure, GPU-enabled VMs, Azure NetApp Files, and FSLogix pre-configured for rapid proof-of-concept deployments.
 - You can use [ArcGIS Enterprise Builder](https://enterprise.arcgis.com/en/get-started/latest/windows/arcgis-enterprise-builder.htm) to set up a base ArcGIS Enterprise deployment on a single machine or multiple machines.
 
-  
 ## Related resource
 
 - [Azure Virtual Desktop landing zone design guide](../../landing-zones/azure-virtual-desktop/design-guide.md)
