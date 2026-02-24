@@ -73,10 +73,6 @@ These considerations implement the pillars of the Azure Well-Architected Framewo
 
 Cost Optimization focuses on ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
 
-### Cost Optimization
-
-Cost Optimization focuses on ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
-
 #### Azure Virtual Desktop pooled vs. personal desktops
 
 - **Pooled host pools** are ideal for users with similar workloads who don't need persistent desktops. Multiple users share VMs, which reduces the total number of VMs required and lowers costs.
