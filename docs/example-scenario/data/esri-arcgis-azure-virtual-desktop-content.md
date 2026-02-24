@@ -41,7 +41,7 @@ The following diagram presents a high-level architecture for deploying ArcGIS co
   For more information about FSLogix Profile Container, Azure Files, and Azure NetApp Files best practices, see [FSLogix configuration examples](/fslogix/concepts-configuration-examples).
 - [Azure Virtual Network](/azure/well-architected/service-guides/virtual-network) is a private cloud-based network that you can use to build your own secure network infrastructure in Azure. It enables secure communication between Azure resources through private IP addresses. In this architecture, Virtual Network connects all components, such as virtual desktops, databases, and storage, within a secure and isolated network.
 - [ArcGIS Pro](https://www.esri.com/arcgis/products/arcgis-pro/overview) is Esri's professional desktop GIS application for spatial analysis, mapping, and data editing. In this architecture, it runs on GPU-enabled Azure Virtual Desktop VMs, which allows users to perform advanced 2D and 3D geospatial tasks and publish services. It runs best on Azure high-performance computing VMs, like the NV-Series. You can scale the use of ArcGIS by using Azure Virtual Desktop.
-- [ArcGIS Enterprise](https://enterprise.arcgis.com/en/get-started/latest/windows/what-is-arcgis-enterprise-.htm) is a comprehensive GIS platform for managing and sharing spatial data and services. In this architecture, you can add ArcGIS Enterprise to extend capabilities for hosting maps, apps, and spatial analytics across the organization. It works with ArcGIS Pro or ArcGIS Desktop (not included here because ArcGIS Pro replaces it).
+- [ArcGIS Enterprise](https://enterprise.arcgis.com/en/get-started/latest/windows/what-is-arcgis-enterprise-.htm) is a comprehensive GIS platform for managing and sharing spatial data and services. In this architecture, you can add ArcGIS Enterprise to extend capabilities for hosting maps, apps, and spatial analytics across the organization, it works with ArcGIS Pro. 
 - [Portal for ArcGIS](https://enterprise.arcgis.com/en/portal) is a web-based interface for sharing and managing GIS content within ArcGIS Enterprise. In this architecture, it enables users to create, organize, and share maps, scenes, and apps securely within the organization. Portal for ArcGIS is part of the base deployment.
 - [ArcGIS Server](https://enterprise.arcgis.com/en/server/latest/get-started/windows/what-is-arcgis-for-server-.htm) is back-end server software that's deployed with ArcGIS Enterprise or in a standalone deployment with ArcGIS Enterprise. In this architecture, it handles requests from users and applications, such as to draw maps, run tools, or query data. Its configuration and data is stored in Azure NetApp Files. It also has a management plane that enables administrators to start, stop, and delete services.
 - [Enterprise geodatabase](https://enterprise.arcgis.com/en/server/latest/manage-data/windows/enterprise-geodatabases-and-arcgis-enterprise.htm) is a multi-user spatial database that supports versioning, replication, and advanced data models. You can deploy this database in many database management systems. In this architecture, it's hosted in SQL Managed Instance and serves as the authoritative data source for ArcGIS Pro and other GIS tools.
@@ -69,6 +69,53 @@ Although GIS has been implemented in Azure for many years, it has typically incl
 
 These considerations implement the pillars of the Azure Well-Architected Framework, which is a set of guiding tenets that you can use to improve the quality of a workload. For more information, see [Well-Architected Framework](/azure/well-architected/).
 
+### Cost Optimization
+
+Cost Optimization focuses on ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
+
+### Cost Optimization
+
+Cost Optimization focuses on ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
+
+#### Azure Virtual Desktop pooled vs. personal desktops
+
+- **Pooled host pools** are ideal for users with similar workloads who don't need persistent desktops. Multiple users share VMs, which reduces the total number of VMs required and lowers costs.
+- **Personal host pools** assign dedicated VMs to individual users. Use this option for users who require persistent environments or have specialized software needs.
+
+#### Right-size GPU-enabled VMs
+
+GPU-enabled VMs are the largest cost driver in this architecture. Match VM SKUs to actual workload requirements:
+
+| Workload | Recommended approach |
+|----------|---------------------|
+| Light (2D viewing) | Use smaller GPU SKUs like NV4ads_V710_v5 or consider multi-session pooling |
+| Medium (editing) | Use mid-tier SKUs like NC8as_T4_v3; pool 4 users per VM in multi-session |
+| Heavy (3D visualization) | Use larger SKUs like NV18ads_A10_v5; limit to 3 users per VM |
+
+#### Scaling and automation
+
+- **Start VM on Connect**: Enable this feature to start session host VMs only when users need them, rather than running them continuously.
+- **Autoscale**: Configure [Azure Virtual Desktop autoscaling](/azure/virtual-desktop/autoscale-scaling-plan) to automatically scale the number of session hosts based on demand, reducing costs during off-peak hours.
+- **Scheduled scaling**: Define scaling schedules that align with business hours to shut down or deallocate VMs during nights and weekends.
+
+#### Storage optimization
+
+- **Azure NetApp Files**: For large deployments with high I/O requirements, Azure NetApp Files can be more cost-effective than Azure Files Premium. Evaluate your storage needs and choose the appropriate tier (Standard, Premium, or Ultra).
+- **FSLogix profile containers**: Store user profiles in Azure NetApp Files or Azure Files to reduce the need for larger OS disks on session hosts.
+
+#### Reserved instances and savings plans
+
+- Use [Azure Reserved Virtual Machine Instances](/azure/cost-management-billing/reservations/save-compute-costs-reservations) for predictable, always-on workloads to save up to 72% compared to pay-as-you-go pricing.
+- Consider [Azure Savings Plans](/azure/cost-management-billing/savings-plan/savings-plan-compute-overview) for flexible compute commitments across VM families.
+
+#### Monitoring and optimization
+
+- Use [Azure Cost Management](/azure/cost-management-billing/costs/overview-cost-management) to track spending and set budgets.
+- Monitor VM utilization with [Azure Monitor](/azure/azure-monitor/vm/vminsights-overview) to identify underutilized or oversized resources.
+- Review [Azure Advisor cost recommendations](/azure/advisor/advisor-cost-recommendations) regularly to identify optimization opportunities.
+
+For a cost estimate based on your specific requirements, use the [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/).
+
 ### Performance Efficiency
 
 Performance Efficiency refers to your workload's ability to scale to meet user demands efficiently. For more information, see [Design review checklist for Performance Efficiency](/azure/well-architected/performance-efficiency/checklist).
@@ -82,9 +129,9 @@ When you use a remote Windows session, your network's available bandwidth greatl
 |Heavy     | 5 Mbps        |
 
 
-Keep in mind that the stress put on your network depends on both your app workload's output frame rate and your display resolution. If either the frame rate or display resolution increases, the bandwidth requirement also rises. For example, a light workload with a high-resolution display requires more available bandwidth than a light workload with regular or low resolution.
+Keep in mind that the stress put on your network depends on both your app workload's output frame rate and your display resolution. If either the frame rate or display resolution increases, the bandwidth requirement also rises. For example, a light workload with a high-resolution display requires more available bandwidth than a light workload with regular or low resolution. Ideally, the latency between the end user and the RDP session needs to be around 200 ms or less. This latency helps to ensure that, when ArcGIS Pro users interact with maps and perform measurements or edits, the interactive edits and the tooltips appear quickly enough.
 
-Another significant benefit of this architecture is that the latency between it and Esri's SaaS offerings, like ArcGIS Velocity and ArcGIS Image, is also reduced for ArcGIS Pro users and web browser users. All components of the ArcGIS SaaS platform ArcGIS Online are in the cloud.
+Another significant benefit of this architecture is that the latency between it and Esri's SaaS offerings, like ArcGIS Velocity and ArcGIS Image, is also reduced for ArcGIS Pro users and web browser users. All components of the ArcGIS SaaS platform ArcGIS Online are in the cloud. 
 
 #### Scalability
 
