@@ -47,7 +47,7 @@ This article covers the first two steps, which primarily concern strategic DDD. 
 
 ## Scenario: Drone delivery
 
-Fabrikam, Inc. starts a drone delivery service. The company manages a fleet of drone aircraft. Businesses register with the service, and users request a drone to pick up goods for delivery. When a customer schedules a pickup, a back-end system assigns a drone and notifies the user with an estimated delivery time. While the delivery progresses, the customer tracks the drone location, with a continuously updated estimated time of arrival (ETA).
+Fabrikam, Inc., starts a drone delivery service. The company manages a fleet of drone aircraft. Businesses register with the service, and users request a drone to pick up goods for delivery. When a customer schedules a pickup, a back-end system assigns a drone and notifies the user with an estimated delivery time. While the delivery progresses, the customer tracks the drone location, with a continuously updated estimated time of arrival (ETA).
 
 This scenario involves a complex domain. Key business concerns include how to schedule drones, track packages, manage user accounts, and store and analyze historical data. Fabrikam also aims to reach market quickly and iterate rapidly to add new functionality and capabilities. The application must operate at cloud scale and meet a high service-level objective (SLO). Fabrikam also expects different parts of the system to have different requirements for data storage and query operations. These considerations lead Fabrikam to adopt a microservices architecture for the drone delivery application.
 
