@@ -46,7 +46,7 @@ items:
             - name: Domain analysis
               href: microservices/model/domain-analysis.md
             - name: Use tactical DDD to design microservices
-              href: microservices/model/tactical-ddd.md
+              href: microservices/model/tactical-domain-driven-design.md
             - name: Identify microservice boundaries
               href: microservices/model/microservice-boundaries.yml
           - name: Design a microservices architecture
