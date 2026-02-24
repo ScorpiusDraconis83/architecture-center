@@ -256,7 +256,7 @@ Separate the databases for each tenant to gain the following benefits:
 
 You can often deploy IoT Hub Device Provisioning Service, IoT Hub, and Azure IoT Central applications as horizontally partitioned components. In this approach, you need another service to redirect devices to the right IoT Hub Device Provisioning Service instance for that tenant's management, control, and telemetry plane.
 
-This approach is often used when customers need to manage and control their own device fleets, which remain directly and fully isolated.
+This approach is often used when tenants need to manage and control their own device fleets, which remain directly and fully isolated.
 
 If the device communications plane uses horizontal partitioning, telemetry data must include information that identifies the source tenant. This information lets the stream processor determine which tenant-specific rules apply to the data stream. For example, if a telemetry message generates a notification, the processor must determine the correct notification path for the associated tenant.
 
