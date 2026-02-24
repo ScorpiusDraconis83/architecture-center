@@ -35,10 +35,20 @@ APIOps is a methodology that applies the concepts of GitOps and [DevOps](/devops
   - [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) is a cloud-based service that enables continuous integration and continuous delivery (CI/CD). In this architecture, it automates testing, building, and deploying API changes to the API Management instance.
 
   - [Azure Repos](/azure/devops/repos/get-started) is a set of version control tools, including standard Git, that you can use to manage your code. In this architecture, it stores API definitions, policies, and configurations. It serves as the single source of truth for all changes and enables auditability and collaboration through pull requests.
+ 
+- [GitHub](https://docs.github.com/en) is a developer platform that allows developers to create, store, manage, and share their code. In this architecture, it serves as the primary collaboration platform for managing API definitions, documentation, and infrastructure code.
+
+  - [GitHub Actions](https://docs.github.com/en/actions) is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. In this architecture, it automates the deployment of API configurations and policies to Azure API Management environments.
+
+  - [GitHub Repositories](https://docs.github.com/en/repositories) are the storage locations for your project's files and each file's revision history. In this architecture, they act as the single source of truth for all API-related assets, enabling version control, auditability, and collaborative workflows through pull requests.
 
 ### Alternatives
 
-This solution uses [Azure Repos](/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) provides the pipelines. You can use any comparable technologies.
+This solution supports [Azure Repos](https://learn.microsoft.com/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](https://learn.microsoft.com/azure/devops/pipelines/get-started/what-is-azure-pipelines) for CI/CD workflows. 
+
+It also supports [GitHub](https://docs.github.com/) for source control and collaboration, along with [GitHub Actions](https://docs.github.com/actions) to automate build, test, and deployment pipelines.
+
+You can use any comparable technologies that provide similar version control and CI/CD capabilities.
 
 ## Scenario details
 
@@ -46,7 +56,11 @@ APIOps uses version control to manage APIs and create an audit trail of changes 
 
 API developers who use an APIOps methodology review and audit APIs earlier and more frequently, catching and resolving deviations from API standards faster to improve specifications and API quality. The more APIs that you build and deploy with an APIOps approach, the greater the consistency between APIs.
 
-This APIOps architecture uses [Azure API Management](/azure/api-management) as the API management platform. [Azure DevOps](https://azure.microsoft.com/solutions/devops) organizes API management. [Azure Repos](/azure/devops/repos/) provides Git functionality, and [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) creates the CI/CD pipeline.
+This APIOps architecture uses [Azure API Management](https://learn.microsoft.com/azure/api-management/) as the API management platform. 
+
+API management processes can be organized using [Azure DevOps](https://learn.microsoft.com/azure/devops/) or [GitHub](https://docs.github.com/) for collaboration and workflow management. Source control can be provided by [Azure Repos](https://learn.microsoft.com/azure/devops/repos/) or GitHub repositories, while CI/CD pipelines can be implemented using [Azure Pipelines](https://learn.microsoft.com/azure/devops/pipelines/get-started/what-is-azure-pipelines) or [GitHub Actions](https://docs.github.com/actions).
+
+You can use any comparable technologies that provide similar API management, version control, and CI/CD capabilities.
 
 ### Potential use cases
 
@@ -162,9 +176,10 @@ Deploying this solution involves these steps:
 
 *This article is maintained by Microsoft. It was originally written by the following contributors.*
 
-Principal author:
+Principal authors:
 
-- [Rishabh Saha](https://www.linkedin.com/in/rishabhsaha) | Principal Solution Architect
+- [Wael Kdouh](https://www.linkedin.com/in/waelkdouh) | Sr. Principal Solution Architect
+- [Rishabh Saha](https://www.linkedin.com/in/rishabhsaha) | Sr. Principal Solution Architect
 
 *To see non-public LinkedIn profiles, sign in to LinkedIn.*
 
