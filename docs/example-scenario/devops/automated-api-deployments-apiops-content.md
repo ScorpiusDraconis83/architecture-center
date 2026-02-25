@@ -98,10 +98,6 @@ API operators often manage multiple environments for the same set of APIs. It's 
 
 When someone makes a PR in the Git repository, the API operator knows they have new code to review. For example, when a developer takes the OpenAPI Specification and builds the API implementation, they add this new code to the repository. The operators can review the PR and make sure that the API that's been submitted for review meets best practices and standards.
 
-### Performance Efficiency
-
-Performance Efficiency refers to your workload's ability to scale to meet user demands efficiently. For more information, see [Design review checklist for Performance Efficiency](/azure/well-architected/performance-efficiency/checklist).
-
 APIOps has many benefits, but as API Management landscapes grow, so does the complexity of managing them. This solution helps meet challenges like:
 
 - Keeping an overview of all environments and API Management instances.
