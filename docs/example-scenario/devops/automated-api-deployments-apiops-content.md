@@ -84,7 +84,7 @@ Cost Optimization focuses on ways to reduce unnecessary expenses and improve ope
 
 - Use the [Azure pricing calculator](https://azure.microsoft.com/pricing/calculator) to estimate costs.
 
-- API Management offers the following tiers: Consumption, Developer, Basic, Standard, and Premium.
+- API Management offers the following tiers: Consumption, Developer, Basic, Standard, Premium, Basic v2, Standard v2, and Premium v2.
 
 - Azure DevOps (AzDO) licensing costs should be considered for teams implementing APIOps. All users participating in the APIOps process must have an appropriate Azure DevOps license. Azure DevOps offers a free tier with limited users and capabilities, while larger teams or those requiring advanced features may need Basic or higher access levels. For details, see [Azure DevOps pricing](https://azure.microsoft.com/pricing/details/devops/azure-devops-services/).
   
