@@ -35,10 +35,10 @@ APIOps is a methodology that applies the concepts of GitOps and [DevOps](/devops
   - [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) is a cloud-based service that enables continuous integration and continuous delivery (CI/CD). In this architecture, it automates testing, building, and deploying API changes to the API Management instance.
 
   - [Azure Repos](/azure/devops/repos/get-started) is a set of version control tools, including standard Git, that you can use to manage your code. In this architecture, it stores API definitions, policies, and configurations. It serves as the single source of truth for all changes and enables auditability and collaboration through pull requests.
- 
+
 ### Alternatives
 
-This solution supports [Azure Repos](https://learn.microsoft.com/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](https://learn.microsoft.com/azure/devops/pipelines/get-started/what-is-azure-pipelines) for CI/CD workflows. 
+This solution supports [Azure Repos](/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) for CI/CD workflows. 
 
 It also supports [GitHub](https://docs.github.com/) for source control and collaboration, along with [GitHub Actions](https://docs.github.com/actions) to automate build, test, and deployment pipelines.
 
@@ -50,9 +50,9 @@ APIOps uses version control to manage APIs and create an audit trail of changes 
 
 API developers who use an APIOps methodology review and audit APIs earlier and more frequently, catching and resolving deviations from API standards faster to improve specifications and API quality. The more APIs that you build and deploy with an APIOps approach, the greater the consistency between APIs.
 
-This APIOps architecture uses [Azure API Management](https://learn.microsoft.com/azure/api-management/) as the API management platform. 
+This APIOps architecture uses [Azure API Management](/azure/api-management) as the API management platform. 
 
-API management processes can be organized using [Azure DevOps](https://learn.microsoft.com/azure/devops/) or [GitHub](https://docs.github.com/) for collaboration and workflow management. Source control can be provided by [Azure Repos](https://learn.microsoft.com/azure/devops/repos/) or GitHub repositories, while CI/CD pipelines can be implemented using [Azure Pipelines](https://learn.microsoft.com/azure/devops/pipelines/get-started/what-is-azure-pipelines) or [GitHub Actions](https://docs.github.com/actions).
+API management processes can be organized using [Azure DevOps](/azure/devops/) or [GitHub](https://docs.github.com/) for collaboration and workflow management. Source control can be provided by [Azure Repos](/azure/devops/repos/) or GitHub repositories, while CI/CD pipelines can be implemented using [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) or [GitHub Actions](https://docs.github.com/actions).
 
 You can use any comparable technologies that provide similar API management, version control, and CI/CD capabilities.
 
@@ -94,7 +94,7 @@ Cost Optimization focuses on ways to reduce unnecessary expenses and improve ope
 
 Operational Excellence covers the operations processes that deploy an application and keep it running in production. For more information, see [Design review checklist for Operational Excellence](/azure/well-architected/operational-excellence/checklist).
 
-APIOps can increase DevOps productivity for API development and deployments. One of the most useful features is the ability to use Git operations to quickly roll back changes that behave unexpectedly. The commit graph contains all commits, so it can help with the post-mortem analysis.
+APIOps can increase DevOps productivity for API development and deployments. One of the most useful features is the ability to use Git operations to roll back changes that behave unexpectedly. The commit graph contains all commits, so it can help with the post-mortem analysis.
 
 API operators often manage multiple environments for the same set of APIs. It's typical to have several stages of an API deployed to different API Management instances or in a shared API Management instance. The Git repository, which is the single source of truth, shows which versions of applications are currently deployed to a cluster.
 
@@ -172,8 +172,8 @@ Deploying this solution involves these steps:
 
 Principal authors:
 
-- [Wael Kdouh](https://www.linkedin.com/in/waelkdouh) | Sr. Principal Solution Architect
-- [Rishabh Saha](https://www.linkedin.com/in/rishabhsaha) | Sr. Principal Solution Architect
+- [Wael Kdouh](https://www.linkedin.com/in/waelkdouh/) | Sr. Principal Solution Architect
+- [Rishabh Saha](https://www.linkedin.com/in/rishabhsaha/) | Sr. Principal Solution Architect
 
 *To see non-public LinkedIn profiles, sign in to LinkedIn.*
 
@@ -183,7 +183,7 @@ Principal authors:
 - [APIOps for Azure API Management](https://azure.github.io/apiops/)
 - [CI/CD for API Management using Azure Resource Manager templates](/azure/api-management/devops-api-development-templates)
 - [GitOps Overview](https://www.gitops.tech)
-- [Weave GitOps](https://gitops.weave.works/)
+- [Weave GitOps](https://docs.gitops.weaveworks.org/)
 - [Tutorial: Deploy configurations using GitOps on an Azure Arc-enabled Kubernetes cluster](/azure/azure-arc/kubernetes/tutorial-use-gitops-connected-cluster)
 
 ## Related resources
