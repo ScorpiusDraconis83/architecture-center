@@ -15,7 +15,7 @@ Implementing reliable messaging in distributed systems can be challenging. This 
 
 ## Overview
 
-Microservice architectures address scalability, maintainability, and agility challenges in large applications. But this architectural pattern introduces data-handling challenges. In distributed applications, each service independently maintains its required data in a dedicated service-owned datastore. To support such a scenario, you typically use a messaging solution, like RabbitMQ, Kafka, or Service Bus. These solutions distribute data, or *events*, from one service to other services through a message bus. Internal or external consumers subscribe to these messages and receive notifications when data changes.
+Microservice architectures address scalability, maintainability, and agility challenges in large applications, but this architectural pattern also introduces data-handling challenges. In distributed applications, each service independently maintains its required data in a dedicated service-owned data store. To support this scenario, you typically use a messaging solution, like RabbitMQ, Kafka, or Service Bus. These solutions distribute data, or *events*, from one service to other services through a message bus. Internal or external consumers subscribe to these messages and receive notifications when data changes.
 
 Consider an ordering system. When a user creates an order, the `Ordering` service receives data from a client application via a REST endpoint. The service maps the payload to an internal representation of an `Order` object to validate the data. After the service commits the order to the database, it publishes an `OrderCreated` event to a message bus. Other services that need to respond to new orders, like `Inventory` or `Invoicing` services, subscribe to `OrderCreated` messages, process them, and store them in their own databases.
 
@@ -456,7 +456,7 @@ private async Task<ChangeFeedProcessor> StartChangeFeedProcessorAsync()
 }
 ```
 
-A handler method (`HandleChangesAsync` in this implementation) processes the messages. In this sample, events are published to a Service Bus topic that's partitioned for scalability and has the [deduplication feature turned on](/azure/service-bus-messaging/duplicate-detection). Any service that's interested in changes to `Contact` objects can subscribe to that Service Bus topic and receive and process the changes for its own context.
+A handler method (`HandleChangesAsync` in this implementation) processes the messages. In this sample, events are published to a Service Bus topic that's partitioned for scalability and has the [deduplication feature turned on](/azure/service-bus-messaging/duplicate-detection). Any service that needs to respond to changes in `Contact` objects can subscribe to that Service Bus topic and receive and process the changes for its own context.
 
 Each Service Bus message includes a `SessionId` property. Service Bus sessions preserve message order ([first in, first out (FIFO)](/azure/service-bus-messaging/message-sessions)), which ensures that events are processed in the correct sequence.
 
@@ -544,7 +544,7 @@ When reprocessing occurs, the application might have sent some messages to Servi
 
 ### Cleanup and maintenance
 
-In a typical Transactional Outbox implementation, the service updates the handled events and sets a `Processed` property to `true`, which indicates that a message is successfully published. You can implement this behavior manually in the handler method. But this scenario doesn't require such a process. Azure Cosmos DB tracks events that were processed by using the change feed and the `Leases` container.
+In a typical Transactional Outbox implementation, the service updates the handled events and sets a `Processed` property to `true`, which indicates that a message is successfully published. You can implement this behavior manually in the handler method. But you don't need to manually update events in this scenario. Azure Cosmos DB tracks processed events by using the change feed and the `Leases` container.
 
 As a last step, you occasionally need to delete older events from the container so that only the most recent records and documents remain. To support this cleanup, the implementation applies the Azure Cosmos DB TTL feature on documents. Azure Cosmos DB can automatically delete documents based on a `TTL` property added to a document that specifies a time span in seconds. Azure Cosmos DB continuously checks the container for documents that have a `TTL` property and automatically removes expired documents from the database.
 
