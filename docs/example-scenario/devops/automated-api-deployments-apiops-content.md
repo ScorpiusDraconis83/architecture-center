@@ -88,7 +88,7 @@ Cost Optimization focuses on ways to reduce unnecessary expenses and improve ope
 
 - Azure DevOps (AzDO) licensing costs should be considered for teams implementing APIOps. All users participating in the APIOps process must have an appropriate Azure DevOps license. Azure DevOps offers a free tier with limited users and capabilities, while larger teams or those requiring advanced features may need Basic or higher access levels. For details, see [Azure DevOps pricing](https://azure.microsoft.com/pricing/details/devops/azure-devops-services/).
   
-- GitHub offers a free service. However, to use advanced security-related features, such as code owners or required reviewers, you need the Team plan. For more information, see [GitHub pricing](https://github.com/pricing).
+- [GitHub](https://github.com) offers a free service for individual and small-team use. However, enterprise implementations of this architecture are typically deployed using **GitHub Enterprise**, either as [GitHub Enterprise Cloud](https://github.com/enterprise/cloud) or [GitHub Enterprise Server](https://github.com/enterprise/server), which provide advanced security, compliance, and administrative controls. Features such as code owners, required reviewers, and advanced security capabilities may require **GitHub Team** or **GitHub Enterprise** licensing. For pricing and licensing details, see [GitHub pricing](https://github.com/pricing) and [GitHub Enterprise licensing](https://docs.github.com/enterprise-cloud@latest/admin/overview/about-github-enterprise-licensing).
 
 ### Operational Excellence
 
