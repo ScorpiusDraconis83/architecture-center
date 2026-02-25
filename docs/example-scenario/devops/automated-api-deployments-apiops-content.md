@@ -54,8 +54,6 @@ This APIOps architecture uses [Azure API Management](/azure/api-management) as t
 
 API management processes can be organized using [Azure DevOps](/azure/devops/) or [GitHub](https://docs.github.com/) for collaboration and workflow management. Source control can be provided by [Azure Repos](/azure/devops/repos/) or GitHub repositories, while CI/CD pipelines can be implemented using [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) or [GitHub Actions](https://docs.github.com/actions).
 
-You can use any comparable technologies that provide similar API management, version control, and CI/CD capabilities.
-
 ### Potential use cases
 
 - Any organization developing and managing APIs
