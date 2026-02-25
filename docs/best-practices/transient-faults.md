@@ -186,7 +186,7 @@ When you determine the values for the number of retries and the retry intervals 
 
 Consider whether retrying the same operation might cause data inconsistencies. If an application repeats parts of a multistep process and the operations aren't idempotent, inconsistencies can occur. For example, if an operation that increments a value repeats, it produces an incorrect result. A repeated operation that sends a message to a queue can also cause problems for a consumer that can't detect duplicate messages. To prevent these scenarios, design each step as an idempotent operation. For more information, see [Idempotency patterns](../reference-architectures/containers/aks-mission-critical/mission-critical-data-platform.md#idempotent-message-processing).
 
-Be intentional about the scope of operations that the application retries. For example, it might be easier to implement retry code at a level that includes several operations and retry all of them if one fails. But this approach might lead to idempotency problems or unnecessary rollback operations.
+Be intentional about the scope of operations that the application retries. For example, it might be easier to implement retry logic at a level that includes several operations and retry all of them if one fails. But this approach might lead to idempotency problems or unnecessary rollback operations.
 
 If you choose a retry scope that includes several operations, account for the total latency of all of them when you determine retry intervals, when you monitor the elapsed time of the operation, and before you raise alerts for failures.
 
