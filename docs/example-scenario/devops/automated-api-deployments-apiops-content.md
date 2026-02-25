@@ -86,6 +86,8 @@ Cost Optimization focuses on ways to reduce unnecessary expenses and improve ope
 
 - API Management offers the following tiers: Consumption, Developer, Basic, Standard, and Premium.
 
+- Azure DevOps (AzDO) licensing costs should be considered for teams implementing APIOps. All users participating in the APIOps process must have an appropriate Azure DevOps license. Azure DevOps offers a free tier with limited users and capabilities, while larger teams or those requiring advanced features may need Basic or higher access levels. For details, see [Azure DevOps pricing](https://azure.microsoft.com/pricing/details/devops/azure-devops-services/).
+  
 - GitHub offers a free service. However, to use advanced security-related features, such as code owners or required reviewers, you need the Team plan. For more information, see [GitHub pricing](https://github.com/pricing).
 
 ### Operational Excellence
