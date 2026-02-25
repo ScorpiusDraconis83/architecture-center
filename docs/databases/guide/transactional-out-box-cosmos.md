@@ -1,6 +1,6 @@
 ---
 title: Implement the Transactional Outbox Pattern by Using Azure Cosmos DB
-description: Learn how to use Azure Cosmos DB, change feed, and Azure Service Bus for reliable messaging and guaranteed delivery of domain events in distributed applications.
+description: Learn how to use the Azure Cosmos DB change feed feature and Azure Service Bus for reliable messaging and guaranteed delivery of domain events in distributed applications.
 author: wueda
 ms.author: awild
 ms.date: 02/23/2026
@@ -11,13 +11,13 @@ ms.custom: arb-data
 
 # Implement the Transactional Outbox pattern by using Azure Cosmos DB
 
-Implementing reliable messaging in distributed systems can be challenging. This article describes how to use the Transactional Outbox pattern for reliable messaging and guaranteed delivery of events, which is an important part of supporting [idempotent message processing](/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-data-platform#idempotent-message-processing). This pattern uses Azure Cosmos DB transactional batches and the change feed in combination with Azure Service Bus.
+Implementing reliable messaging in distributed systems can be challenging. This article describes how to use the Transactional Outbox pattern for reliable messaging and guaranteed delivery of events, which is an important part of supporting [idempotent message processing](/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-data-platform#idempotent-message-processing). This pattern uses Azure Cosmos DB transactional batches, the change feed, and Azure Service Bus.
 
 ## Overview
 
 Microservice architectures address scalability, maintainability, and agility challenges in large applications. But this architectural pattern introduces data-handling challenges. In distributed applications, each service independently maintains its required data in a dedicated service-owned datastore. To support such a scenario, you typically use a messaging solution, like RabbitMQ, Kafka, or Service Bus. These solutions distribute data, or *events*, from one service to other services through a message bus. Internal or external consumers subscribe to these messages and receive notifications when data changes.
 
-Consider an ordering system. When a user creates an order, the `Ordering` service receives data from a client application via a REST endpoint. The service maps the payload to an internal representation of an `Order` object to validate the data. After the service commits the order to the database, it publishes an `OrderCreated` event to a message bus. Other services that are interested in new orders, like `Inventory` or `Invoicing` services, subscribe to `OrderCreated` messages, process them, and store them in their own databases.
+Consider an ordering system. When a user creates an order, the `Ordering` service receives data from a client application via a REST endpoint. The service maps the payload to an internal representation of an `Order` object to validate the data. After the service commits the order to the database, it publishes an `OrderCreated` event to a message bus. Other services that need to respond to new orders, like `Inventory` or `Invoicing` services, subscribe to `OrderCreated` messages, process them, and store them in their own databases.
 
 The following pseudocode shows this process from the `Ordering` service perspective:
 
@@ -28,7 +28,7 @@ CreateNewOrder(CreateOrderDto order){
   // Apply business logic.
   ...
   // Save the object to the database.
-  var result = _orderRespository.Create(order);
+  var result = _orderRepository.Create(order);
 
   // Publish the respective event.
   _messagingService.Publish(new OrderCreatedEvent(result));
@@ -46,15 +46,15 @@ This approach works until an error occurs between saving the order object and pu
 Regardless of the error, the system can't publish the `OrderCreated` event to the message bus, and other services aren't notified that an order was created. The `Ordering` service must now handle concerns beyond its core business process. It must track which events need publishing when the message bus recovers. Lost events can cause data inconsistencies across the application.
 
 :::image type="complex" source="_images/event-handling-before-pattern.svg" alt-text="Diagram that shows event handling without the Transactional Outbox pattern." lightbox="_images/event-handling-before-pattern.svg" border="false":::
-Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order, and commits the transaction. After the transaction completes, an attempt to send an event to the message bus fails.
+Sequence diagram that shows how a client app sends a create order request to an ordering service. The service begins a transaction, inserts the order, and commits the transaction. After the transaction completes, an attempt to send an event to the message bus fails.
 :::image-end:::
 
 ## Solution
 
-Use the *Transactional Outbox pattern* to avoid these situations. This pattern saves events in a datastore that's typically in an outbox table in your database before it pushes them to a message broker. When you save the business object and its events within the same database transaction, the system guarantees no data loss. The transaction either commits everything or rolls back everything if an error occurs. To publish the events, a separate service or worker process queries the outbox table for unhandled entries, publishes them, and marks them as processed. This pattern prevents event loss when you create or modify business objects.
+Use the *Transactional Outbox pattern* to avoid these situations. This pattern saves events in a data store that's typically in an outbox table in your database before it pushes them to a message broker. When you save the business object and its events within the same database transaction, the system guarantees no data loss. The transaction either commits everything or rolls back everything if an error occurs. To publish the events, a separate service or worker process queries the outbox table for unhandled entries, publishes them, and marks them as processed. This pattern prevents event loss when you create or modify business objects.
 
 :::image type="complex" source="_images/out-box-pattern.svg" alt-text="Diagram that shows event handling that uses the Transactional Outbox pattern and a relay service to publish events to the message broker." lightbox="_images/out-box-pattern.svg" border="false":::
-Sequence diagram that shows how a client app sends a create order request to an ordering service, which begins a transaction, inserts the order and an OrderCreated event, commits the transaction, and returns the OrderID. A background worker then retrieves outbox entries from the data store, publishes the events to the message bus, and marks the events as processed in the data store.
+Sequence diagram that shows how a client app sends a create order request to an ordering service. The service begins a transaction, inserts the order and an OrderCreated event, commits the transaction, and returns the OrderID. A background worker then retrieves outbox entries from the data store, publishes the events to the message bus, and marks the events as processed in the data store.
 :::image-end:::
 
 *Download a [Visio file](https://arch-center.azureedge.net/TransactionalOutbox.vsdx) of this architecture.*
@@ -350,7 +350,7 @@ A `DataObject` instance wraps all objects saved to Azure Cosmos DB. This object 
 - `PartitionKey`.
 - `Type`.
 - `State` has values like `Created` and `Updated`, which aren't persisted in Azure Cosmos DB.
-- `Etag` provides [optimistic locking](/azure/cosmos-db/database-transactions-optimistic-concurrency#optimistic-concurrency-control).
+- `Etag` provides [optimistic concurrency control (OCC)](/azure/cosmos-db/database-transactions-optimistic-concurrency#optimistic-concurrency-control).
 - `TTL` provides automatic cleanup of old documents.
 - `Data` is a generic data object.
 
@@ -433,7 +433,7 @@ To read the stream of events and send them to a message broker, the service uses
 
 The change feed is a persistent log of changes in your container. It operates in the background and tracks modifications. Within one logical partition, the order of the changes is guaranteed. The most convenient way to read the change feed is to use an [Azure function with an Azure Cosmos DB trigger](/azure/azure-functions/scenario-database-changes-azure-cosmosdb). You can also use the [change feed processor library](/azure/cosmos-db/change-feed-processor). You can integrate change feed processing into your web API as a background service via the `IHostedService` interface. This sample implementation uses a simple console application that implements the abstract class [BackgroundService](/dotnet/api/microsoft.extensions.hosting.backgroundservice) to host long-running background tasks in .NET applications.
 
-To receive the changes from the Azure Cosmos DB change feed, you need to instantiate a `ChangeFeedProcessor` object, register a handler method for message processing, and start listening for changes:
+To receive the changes from the Azure Cosmos DB change feed, you need to instantiate a `ChangeFeedProcessor` object, register a handler method for message processing, and begin monitoring for changes:
 
 ```csharp
 private async Task<ChangeFeedProcessor> StartChangeFeedProcessorAsync()
@@ -540,17 +540,17 @@ private async Task HandleChangesAsync(IReadOnlyCollection<ExpandoObject> changes
 
 When an error occurs during change processing, the change feed library restarts reading messages from the position where it successfully processed the last batch. For example, if the application successfully processed 10,000 messages and encounters an error while it processes batch 10,001 to 10,025, the library restarts at position 10,001. The library tracks processing progress by using information saved in a `Leases` container in Azure Cosmos DB.
 
-When reprocessing occurs, the application might have sent some messages to Service Bus, which would normally create duplicate message processing. To prevent this scenario, you can turn on duplicate message detection in Service Bus. Service Bus checks whether a message already exists in a topic or queue based on the application-controlled `MessageId` property of the message. That property is set to the `ID` of the event document. When Service Bus receives a duplicate message, it ignores and drops the message.
+When reprocessing occurs, the application might have sent some messages to Service Bus, which normally creates duplicate message processing. To prevent this scenario, you can turn on duplicate message detection in Service Bus. Service Bus checks whether a message already exists in a topic or queue based on the application-controlled `MessageId` property of the message. That property is set to the `ID` of the event document. When Service Bus receives a duplicate message, it ignores and drops the message.
 
 ### Cleanup and maintenance
 
 In a typical Transactional Outbox implementation, the service updates the handled events and sets a `Processed` property to `true`, which indicates that a message is successfully published. You can implement this behavior manually in the handler method. But this scenario doesn't require such a process. Azure Cosmos DB tracks events that were processed by using the change feed and the `Leases` container.
 
-As a last step, you occasionally need to delete the events from the container so that you keep only the most recent records and documents. To periodically do a cleanup, the implementation applies the Azure Cosmos DB TTL feature on documents. Azure Cosmos DB can automatically delete documents based on a `TTL` property added to a document that specifies a time span in seconds. Azure Cosmos DB continuously checks the container for documents that have a `TTL` property and automatically removes expired documents from the database.
+As a last step, you occasionally need to delete older events from the container so that only the most recent records and documents remain. To support this cleanup, the implementation applies the Azure Cosmos DB TTL feature on documents. Azure Cosmos DB can automatically delete documents based on a `TTL` property added to a document that specifies a time span in seconds. Azure Cosmos DB continuously checks the container for documents that have a `TTL` property and automatically removes expired documents from the database.
 
 When all the components work as expected, events are processed and published within seconds. If an error occurs in Azure Cosmos DB, events aren't sent to the message bus because both the business object and the corresponding events can't be saved to the database. 
 
-The primary consideration is to set an appropriate `TTL` value on the `DomainEvent` documents when the background worker (change feed processor) or the service bus are unavailable. In a production environment, set a time span of multiple days, like 10 days. This duration ensures that all components have sufficient time to process and publish changes within the application.
+The primary consideration is to set a suitable `TTL` value on the `DomainEvent` documents when the background worker (change feed processor) or the service bus are unavailable. In a production environment, set a time span of multiple days, like 10 days. This duration ensures that all components have sufficient time to process and publish changes within the application.
 
 ## Summary
 
@@ -576,7 +576,7 @@ This solution provides the following advantages:
 
 - Reliable message processing via `ChangeFeedProcessor` or an Azure function.
 
-- Optional: Multiple change feed processors that each maintain their own pointer in the change feed.
+- Optional support for multiple change feed processors that each maintain their own pointer in the change feed.
 
 ### Considerations
 
