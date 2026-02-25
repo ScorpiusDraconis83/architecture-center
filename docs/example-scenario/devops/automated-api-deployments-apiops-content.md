@@ -82,13 +82,11 @@ Apart from the task of setting up repository permissions, consider implementing 
 
 Cost Optimization focuses on ways to reduce unnecessary expenses and improve operational efficiencies. For more information, see [Design review checklist for Cost Optimization](/azure/well-architected/cost-optimization/checklist).
 
-- Use the [Azure pricing calculator](https://azure.microsoft.com/pricing/calculator) to estimate costs.
+- Use the [Azure pricing calculator](https://azure.microsoft.com/pricing/calculator) to estimate costs of the Azure components in this architecture.
 
-- API Management offers the following tiers: Consumption, Developer, Basic, Standard, Premium, Basic v2, Standard v2, and Premium v2.
-
-- Azure DevOps (AzDO) licensing costs should be considered for teams implementing APIOps. All users participating in the APIOps process must have an appropriate Azure DevOps license. Azure DevOps offers a free tier with limited users and capabilities, while larger teams or those requiring advanced features may need Basic or higher access levels. For details, see [Azure DevOps pricing](https://azure.microsoft.com/pricing/details/devops/azure-devops-services/).
+- Azure DevOps licensing costs should be considered for teams implementing APIOps. All users participating in the APIOps process must have an appropriate Azure DevOps license. For details, see [Azure DevOps pricing](https://azure.microsoft.com/pricing/details/devops/azure-devops-services/).
   
-- [GitHub](https://github.com) offers a free service for individual and small-team use. However, enterprise implementations of this architecture are typically deployed using **GitHub Enterprise**, either as [GitHub Enterprise Cloud](https://github.com/enterprise/cloud) or [GitHub Enterprise Server](https://github.com/enterprise/server), which provide advanced security, compliance, and administrative controls. Features such as code owners, required reviewers, and advanced security capabilities may require **GitHub Team** or **GitHub Enterprise** licensing. For pricing and licensing details, see [GitHub pricing](https://github.com/pricing) and [GitHub Enterprise licensing](https://docs.github.com/enterprise-cloud@latest/admin/overview/about-github-enterprise-licensing).
+  For pricing and licensing details when using GitHub, see [GitHub pricing](https://github.com/pricing) and [GitHub Enterprise licensing](https://docs.github.com/enterprise-cloud@latest/admin/overview/about-github-enterprise-licensing).
 
 ### Operational Excellence
 
@@ -108,13 +106,10 @@ APIOps has many benefits, but as API Management landscapes grow, so does the com
 
 ## Deploy this scenario
 
-This solution uses APIOps pipelines to extract, review, and publish API configurations through pull requests.
-
-For step-by-step guidance on configuring extractor and publisher pipelines, see the official APIOps documentation:
-
-- https://azure.github.io/apiops/
+For step-by-step guidance on configuring extractor and publisher pipelines, see the [APIOps for Azure API Management](https://azure.github.io/apiops/) documentation.
 
 The deployment workflow includes:
+
 - Extracting API configurations from API Management.
 - Creating pull requests for review.
 - Publishing approved changes through CI/CD pipelines.
