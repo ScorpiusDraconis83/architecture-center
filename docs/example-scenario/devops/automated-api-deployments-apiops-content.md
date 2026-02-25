@@ -177,11 +177,9 @@ Principal authors:
 
 ## Next steps
 
-- [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines)
 - [APIOps for Azure API Management](https://azure.github.io/apiops/)
 - [CI/CD for API Management using Azure Resource Manager templates](/azure/api-management/devops-api-development-templates)
 - [GitOps Overview](https://www.gitops.tech)
-- [Weave GitOps](https://docs.gitops.weaveworks.org/)
 - [Tutorial: Deploy configurations using GitOps on an Azure Arc-enabled Kubernetes cluster](/azure/azure-arc/kubernetes/tutorial-use-gitops-connected-cluster)
 
 ## Related resources
