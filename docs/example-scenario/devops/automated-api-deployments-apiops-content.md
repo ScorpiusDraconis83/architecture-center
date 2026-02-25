@@ -108,59 +108,16 @@ APIOps has many benefits, but as API Management landscapes grow, so does the com
 
 ## Deploy this scenario
 
-Deploying this solution involves these steps:
+This solution uses APIOps pipelines to extract, review, and publish API configurations through pull requests.
 
-- Develop the API in the portal or make changes to the OpenAPI Specification by using a tool of your choice.
-  - If you make changes in the portal, you can run the extractor to automatically extract all the APIs and other relevant policies, operations, and configurations from API Management. You can synchronize this information to the Git repository.
+For step-by-step guidance on configuring extractor and publisher pipelines, see the official APIOps documentation:
 
-  - Optionally, use the Azure DevOps CLI to [create a new pull request](/azure/devops/repos/Git/pull-requests?tabs=azure-devops-cli#create-a-pull-request).
+- https://azure.github.io/apiops/
 
-- The extractor workflow includes the following steps that you take:
-
-  - Run a pipeline that downloads changes in the portal to the API Management instance.
-      <!--Pipeline named _APIM-download-portal-changes_ in the scenario.-->
-
-  - [Enter the names of the branch, your APIM artifacts repository, the API Management instance, and the resource group](https://azure.github.io/apiops/apiops/4-extractApimArtifacts/apiops-azdo-3-1.html#extract-apim-artifacts-in-azure-devops-from-extractor-tool).
-
-      :::image type="content" alt-text="Screenshot of 'Run pipeline', where you enter the names of the API Management instance and the resource group." source="media/automated-api-deployments-run-pipeline.png":::
-
-- In our scenario, the pipeline that downloads changes in the portal to the API Management instance has the following stages: *Build extractor*, *Create artifacts from portal*, and *Create template branch*.
-
-  - *Build extractor*
-
-      This stage builds the extractor code.
-
-  - *Create artifacts from portal*
-
-      This stage runs the extractor and creates artifacts that resemble a Git repository structure like that shown in the following screenshot:
-
-      :::image type="content" alt-text="Screenshot of 'APIM-automation' that shows 'apim-instances' and a folder hierarchy." source="media/automated-api-deployment-api-management-automation-instances.png":::
-
-    - *Create template branch*
-
-      After generating the artifact, this stage creates a PR with the changes extracted for the platform team to review.
-
-      The first time you run the extractor, it pulls everything from the Git repository. The PR that's created will have all the APIs, policies, and artifacts.
-
-      Later extractions have only changes made before the extraction in the PR. Sometimes changes might be only to the specification of an API, which is the case in the following example of a PR.
-
-      :::image type="content" alt-text="Screenshot of an example pull request after an extraction that shows proposed changes to a file named 'specification.yml'." source="media/automated-api-deployment-subsequent-extraction-pr.png" lightbox="media/automated-api-deployment-subsequent-extraction-pr.png":::
-
-- A reviewer goes to **Pull Requests** to view the updated pull requests. You can also configure automatic approvals to automate this step.
-
-  :::image type="content" alt-text="Screenshot of an example pull request that shows changes to content in 'policy.xml' and changes only to whitespace in other files." source="media/automated-api-deployment-merging-artifacts-pr.png" lightbox="media/automated-api-deployment-merging-artifacts-pr.png":::
-
-- After approving the PR, it triggers another pipeline that publishes from API Management to the portal. In our example, <!--we named this pipeline _apim-publish-to-portal_, and--> it has the following stages: *build creator*, *build terminator*, and *publish APIM instances*.
-
-  :::image type="content" alt-text="Screenshot of the stages in APIM-publish-to-portal, a pipeline." source="media/automated-api-deployment-stages-of-api-management-publish.png":::
-
-  - The *build creator* stage handles creation of new APIs.
-  - The *build terminator* stage handles any deletions.
-  - The *publish APIM instances* stage publishes changes to the API Management instance.
-
-  :::image type="content" alt-text="Screenshot that shows the jobs in an example run of APIM-publish-to-portal, a pipeline." source="media/automated-api-deployment-jobs-in-api-management-publish.png" lightbox="media/automated-api-deployment-jobs-in-api-management-publish.png":::
-
-  After this pipeline runs successfully, it publishes the changes in the API Management instance.
+The deployment workflow includes:
+- Extracting API configurations from API Management.
+- Creating pull requests for review.
+- Publishing approved changes through CI/CD pipelines.
 
 ## Contributors
 
