@@ -104,7 +104,7 @@ GPU-enabled VMs are the largest cost driver in this architecture. Match VM SKUs 
 
 #### Monitoring and optimization
 
-- Use [Azure Cost Management](/azure/cost-management-billing/costs/overview-cost-management) to track spending and set budgets.
+- Use [Microsoft Cost Management](/azure/cost-management-billing/costs/overview-cost-management) to track spending and set budgets.
 - Monitor VM utilization with [Azure Monitor](/azure/azure-monitor/vm/vminsights-overview) to identify underutilized or oversized resources.
 - Review [Azure Advisor cost recommendations](/azure/advisor/advisor-cost-recommendations) regularly to identify optimization opportunities.
 
