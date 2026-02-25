@@ -36,12 +36,6 @@ APIOps is a methodology that applies the concepts of GitOps and [DevOps](/devops
 
   - [Azure Repos](/azure/devops/repos/get-started) is a set of version control tools, including standard Git, that you can use to manage your code. In this architecture, it stores API definitions, policies, and configurations. It serves as the single source of truth for all changes and enables auditability and collaboration through pull requests.
  
-- [GitHub](https://docs.github.com/en) is a developer platform that allows developers to create, store, manage, and share their code. In this architecture, it serves as the primary collaboration platform for managing API definitions, documentation, and infrastructure code.
-
-  - [GitHub Actions](https://docs.github.com/en/actions) is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. In this architecture, it automates the deployment of API configurations and policies to Azure API Management environments.
-
-  - [GitHub Repositories](https://docs.github.com/en/repositories) are the storage locations for your project's files and each file's revision history. In this architecture, they act as the single source of truth for all API-related assets, enabling version control, auditability, and collaborative workflows through pull requests.
-
 ### Alternatives
 
 This solution supports [Azure Repos](https://learn.microsoft.com/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](https://learn.microsoft.com/azure/devops/pipelines/get-started/what-is-azure-pipelines) for CI/CD workflows. 
