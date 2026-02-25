@@ -135,7 +135,6 @@ Principal authors:
 - [APIOps for Azure API Management](https://azure.github.io/apiops/)
 - [CI/CD for API Management using Azure Resource Manager templates](/azure/api-management/devops-api-development-templates)
 - [GitOps Overview](https://www.gitops.tech)
-- [Tutorial: Deploy configurations using GitOps on an Azure Arc-enabled Kubernetes cluster](/azure/azure-arc/kubernetes/tutorial-use-gitops-connected-cluster)
 
 ## Related resources
 
