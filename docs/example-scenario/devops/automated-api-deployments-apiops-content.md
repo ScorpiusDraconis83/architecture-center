@@ -52,7 +52,7 @@ API developers who use an APIOps methodology review and audit APIs earlier and m
 
 ### Potential use cases
 
-- Any organization developing and managing APIs
+- Any organization developing and managing APIs. You can start using APIOps even with a single API exposed in API Management.
 - Highly regulated industries: insurance, banking, finance, government
 
 ## Considerations
