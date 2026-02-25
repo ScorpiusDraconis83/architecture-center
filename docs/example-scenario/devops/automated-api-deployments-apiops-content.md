@@ -38,7 +38,7 @@ APIOps is a methodology that applies the concepts of GitOps and [DevOps](/devops
 
 ### Alternatives
 
-This solution supports [Azure Repos](/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) for CI/CD workflows. 
+This solution supports [Azure Repos](/azure/devops/repos/) to provide Git functionality and [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) for CI/CD workflows.
 
 It also supports [GitHub](https://docs.github.com/) for source control and collaboration, along with [GitHub Actions](https://docs.github.com/actions) to automate build, test, and deployment pipelines.
 
@@ -49,10 +49,6 @@ You can use any comparable technologies that provide similar version control and
 APIOps uses version control to manage APIs and create an audit trail of changes to APIs, policies, and operations.
 
 API developers who use an APIOps methodology review and audit APIs earlier and more frequently, catching and resolving deviations from API standards faster to improve specifications and API quality. The more APIs that you build and deploy with an APIOps approach, the greater the consistency between APIs.
-
-This APIOps architecture uses [Azure API Management](/azure/api-management) as the API management platform. 
-
-API management processes can be organized using [Azure DevOps](/azure/devops/) or [GitHub](https://docs.github.com/) for collaboration and workflow management. Source control can be provided by [Azure Repos](/azure/devops/repos/) or GitHub repositories, while CI/CD pipelines can be implemented using [Azure Pipelines](/azure/devops/pipelines/get-started/what-is-azure-pipelines) or [GitHub Actions](https://docs.github.com/actions).
 
 ### Potential use cases
 
