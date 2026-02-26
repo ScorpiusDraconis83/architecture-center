@@ -65,7 +65,7 @@ Security provides assurances against deliberate attacks and the misuse of your v
 
 This solution provides several security-related benefits. Individual developers—and even operators—don't directly access the API Management instance to apply changes or updates. Instead, users push changes to a Git repository, and the extractor and publishing pipelines read and apply them to the API Management instance. This approach follows the security best practice of *least privilege* by not giving teams write permissions to the API Management service instance. In diagnostic or troubleshooting scenarios, you can grant elevated permissions for a limited time on a case-by-case basis.
 
-To make sure the API Management instances are using best practices for security, you can extend this solution to enforce API best practices by using third-party tools and unit testing. Teams can provide early feedback via PR review if the proposed changes to an API or policy violate standards.
+To make sure the API Management instances are using best practices for security, you can extend this solution to enforce API best practices by using non-Microsoft tools and unit testing. Teams can provide early feedback via PR review if the proposed changes to an API or policy violate standards.
 
 Apart from the task of setting up repository permissions, consider implementing the following security measures in Git repositories that synchronize to API Management instances:
 
