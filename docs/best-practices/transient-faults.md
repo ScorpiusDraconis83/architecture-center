@@ -3,7 +3,7 @@ title: Transient Fault Handling
 description: Learn how to handle transient faults that the loss of network connectivity, temporary unavailability, or timeouts can cause.
 ms.author: pnp
 author: claytonsiemens77
-ms.date: 02/11/2026
+ms.date: 02/26/2026
 ms.update-cycle: 1095-days
 ms.topic: best-practice
 ms.subservice: best-practice
