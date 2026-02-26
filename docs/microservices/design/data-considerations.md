@@ -71,11 +71,11 @@ Users frequently check the status of a delivery while they wait for their packag
 
 The delivery history service listens for delivery status events from the delivery service. It stores this data in long-term storage. This historical data supports two scenarios, each with different storage requirements.
 
-The first scenario aggregates data for data analytics to optimize the business or improve service quality. The delivery history service doesn't do the actual data analysis. It only ingests and stores the data. For this scenario, the storage must be optimized for data analysis over large datasets and use a schema-on-read approach to accommodate various data sources. [Azure Data Lake Storage](/azure/data-lake-store/) is a good fit for this scenario because it's an Apache Hadoop file system compatible with Hadoop Distributed File System (HDFS). It's also tuned for performance for data analytics scenarios.
+The first scenario aggregates data for data analytics to optimize the business or improve service quality. The delivery history service doesn't do the actual data analysis. It only ingests and stores the data. For this scenario, the storage must be optimized for data analysis over large datasets and use a schema-on-read approach to accommodate various data sources. [Azure Data Lake Storage](/azure/storage/blobs/data-lake-storage-introduction) is a good fit for this scenario because it's an Apache Hadoop file system compatible with Hadoop Distributed File System (HDFS). It's also tuned for performance for data analytics scenarios.
 
 The second scenario lets users look up the history of a delivery after the delivery finishes. Data Lake Storage doesn't support this scenario. For optimal performance, store time-series data in Data Lake Storage in folders partitioned by date. But this structure makes individual ID-based lookups inefficient. Unless you also know the timestamp, an ID lookup requires you to scan the entire collection. To address this problem, the delivery history service also stores a subset of the historical data in Azure Cosmos DB for quicker lookup. The records don't need to stay in Azure Cosmos DB indefinitely. You can archive older deliveries after a specific time period, like a month, by running an occasional batch process. Archiving data can reduce costs for Azure Cosmos DB and keep the data available for historical reporting from Data Lake Storage.
 
-For more information, see [Tune Data Lake Storage for performance](/azure/data-lake-store/data-lake-store-performance-tuning-guidance).
+For more information, see [Tune Data Lake Storage for performance](/azure/storage/blobs/data-lake-storage-best-practices).
 
 ### Package service
 
