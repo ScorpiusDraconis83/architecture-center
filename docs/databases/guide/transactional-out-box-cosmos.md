@@ -376,7 +376,7 @@ The following example shows how objects like `Contact` and `ContactNameUpdatedEv
 ```json
 // The Contact document/object after creation.
 {
-    "id": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2",
+    "id": "aaaaaaaa-0000-1111-2222-bbbbbbbbbbbb",
     "partitionKey": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2",
     "type": "contact",
     "data": {
@@ -396,7 +396,7 @@ The following example shows how objects like `Contact` and `ContactNameUpdatedEv
         },
         "createdAt": "2026-02-09T11:07:37.3022907+02:00",
         "deleted": false,
-        "id": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2"
+        "id": "aaaaaaaa-0000-1111-2222-bbbbbbbbbbbb"
     },
     "ttl": -1,
     "_etag": "\"180014cc-0000-1500-0000-614455330000\"",
@@ -405,7 +405,7 @@ The following example shows how objects like `Contact` and `ContactNameUpdatedEv
 
 // An event document after a name update.
 {
-    "id": "d6a5f4b2-84c3-4ac7-ae22-6f4025ba9ca0",
+    "id": "bbbbbbbb-7777-8888-9999-cccccccccccc",
     "partitionKey": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2",
     "type": "domainEvent",
     "data": {
@@ -413,7 +413,7 @@ The following example shows how objects like `Contact` and `ContactNameUpdatedEv
             "firstName": "Jane",
             "lastName": "Doe"
         },
-        "contactId": "b5e2e7aa-4982-4735-9422-c39a7c4af5c2",
+        "contactId": "aaaaaaaa-0000-1111-2222-bbbbbbbbbbbb",
         "action": "ContactNameUpdatedEvent",
         "id": "d6a5f4b2-84c3-4ac7-ae22-6f4025ba9ca0",
         "createdAt": "2026-02-09T11:37:37.3022907+02:00"
