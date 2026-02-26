@@ -577,6 +577,6 @@ Review these articles to learn more:
 ## Related resources
 
 - [Idempotent message processing](/azure/architecture/reference-architectures/containers/aks-mission-critical/mission-critical-data-platform#idempotent-message-processing)
-- [Use tactical DDD to design microservices](/azure/architecture/microservices/model/tactical-ddd)
+- [Use tactical DDD to design microservices](../../microservices/model/tactical-domain-driven-design.md)
 - [CQRS pattern](/azure/architecture/patterns/cqrs)
 - [Materialized View pattern](/azure/architecture/patterns/materialized-view)
