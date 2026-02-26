@@ -458,7 +458,7 @@ private async Task<ChangeFeedProcessor> StartChangeFeedProcessorAsync()
 
 A handler method (`HandleChangesAsync` in this implementation) processes the messages. In this sample, events are published to a Service Bus topic that's partitioned for scalability and has the [deduplication feature turned on](/azure/service-bus-messaging/duplicate-detection). Any service that needs to respond to changes in `Contact` objects can subscribe to that Service Bus topic and receive and process the changes for its own context.
 
-Each Service Bus message includes a `SessionId` property. Service Bus sessions preserve message order ([first in, first out (FIFO)](/azure/service-bus-messaging/message-sessions)), which ensures that events are processed in the correct sequence.
+Each Service Bus message includes a `SessionId` property. Service Bus sessions preserve message order ([first in, first out (FIFO)](/azure/service-bus-messaging/message-sessions), which ensures that events are processed in the correct sequence.
 
 The following code handles messages from the change feed:
 
