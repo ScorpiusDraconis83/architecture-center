@@ -181,7 +181,7 @@ If your workload exceeds the maximum virtual machine size, use multi-node HANA s
 
 #### Storage
 
-This architecture uses [Azure Managed Disks](/azure/virtual-machines/windows/managed-disks-overview) for storage on the virtual machines or Azure NetApp Files. Guidelines for storage deployment with managed disks are in detail within the [SAP HANA Azure virtual machine storage configurations document](/azure/virtual-machines/workloads/sap/hana-vm-operations-storage). Alternatively to managed disks, [Azure NetApp Files NFS](/azure/virtual-machines/workloads/sap/hana-vm-operations-netapp) volumes can be used as storage solution for SAP HANA.
+This architecture uses [Azure Managed Disks](/azure/virtual-machines/managed-disks-overview) for storage on the virtual machines or Azure NetApp Files. Guidelines for storage deployment with managed disks are in detail within the [SAP HANA Azure virtual machine storage configurations document](/azure/sap/workloads/hana-vm-operations-storage). As an alternative to Managed Disks, [Azure NetApp Files NFS](/azure/sap/workloads/hana-vm-operations-netapp) volumes can be used as storage solution for SAP HANA.
 
 To achieve high input/output operations per second (IOPS) and disk storage throughput, the common practices in storage volume [performance optimization](/azure/virtual-machines/linux/premium-storage-performance) also apply to Azure storage layout. For example, combining multiple disks together with LVM to create a striped disk volume improves IO performance. Azure disk caching also plays a significant role in achieving required IO performance. 
 

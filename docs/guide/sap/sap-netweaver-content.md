@@ -143,7 +143,7 @@ For the backup data store, we recommend Azure [cool and archive access tiers](/a
 
 [Premium SSD v2](https://azure.microsoft.com/updates/general-availability-azure-premium-ssd-v2-disk-storage/) is designed for performance-critical workloads like online transaction processing systems that consistently need sub-millisecond latency combined with high IOPS and throughput.
 
-[Ultra Disk Storage](/azure/virtual-machines/linux/disks-enable-ultra-ssd) greatly reduces disk latency. As a result, it benefits performance-critical applications like the SAP database servers. To compare block storage options in Azure, see [Azure Managed Disk types](/azure/virtual-machines/windows/disks-types).
+[Ultra Disk Storage](/azure/virtual-machines/linux/disks-enable-ultra-ssd) greatly reduces disk latency. As a result, it benefits performance-critical applications like the SAP database servers. To compare block storage options in Azure, see [Azure Managed Disk types](/azure/virtual-machines/disks-types).
 
 For a high-availability, high-performance shared data store, use [Azure NetApp Files](/azure/azure-netapp-files/azure-netapp-files-introduction). This technology is particularly useful for the database tier when you use [Oracle](/azure/azure-netapp-files/performance-oracle-single-volumes), and also when you [host application data](/azure/virtual-machines/workloads/sap/high-availability-guide-windows-netapp-files-smb).
 

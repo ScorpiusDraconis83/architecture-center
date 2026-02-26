@@ -78,7 +78,7 @@ Standard Load Balancer also supports multiple-system identifier (multi-SID) SAP 
 
 **Application security groups.** To define fine-grained network security policies that are based on workloads and centered on applications, use [application security groups](/azure/virtual-network/security-overview#application-security-groups) instead of explicit IP addresses. You can group VMs by name and secure applications by filtering traffic from trusted segments of your network.
 
-**Azure Storage.** Storage provides data persistence for a VM in the form of a virtual hard disk. We recommend that you use [Azure Managed Disks](/azure/virtual-machines/windows/managed-disks-overview).
+**Azure Storage.** Storage provides data persistence for a VM in the form of a virtual hard disk. We recommend that you use [Azure Managed Disks](/azure/virtual-machines/managed-disks-overview).
 
 ## Recommendations
 
@@ -199,7 +199,7 @@ To achieve high input/output operations per second (IOPS) and disk bandwidth thr
 
 Premium SSD v2 is designed for performance-critical workloads like SAP. For more information about its benefits, limitations, and optimal use scenarios, see [Azure Managed Disk types](/azure/virtual-machines/disks-types#premium-ssd-v2).
 
-[Ultra Disk Storage](/azure/virtual-machines/linux/disks-enable-ultra-ssd) is a new generation of storage that meets intensive IOPS and the transfer bandwidth demands of applications such as SAP HANA. You can dynamically change the performance of Ultra Disks and independently configure metrics like IOPS and MBps without rebooting your VM. We recommend that you use Ultra Disk Storage instead of Write Accelerator when possible.
+[Ultra Disk Storage](/azure/virtual-machines/disks-enable-ultra-ssd) is a storage solution that meets intensive IOPS and the transfer bandwidth demands of applications such as SAP HANA. You can dynamically change the performance of Ultra Disks and independently configure metrics like IOPS and MBps without rebooting your VM. We recommend that you use Ultra Disk Storage instead of Write Accelerator when possible.
 
 Some SAP applications require frequent communication with the database. Because of distance, network latency between the application and database layers can negatively affect application performance. Azure [proximity placement groups](/azure/virtual-machines/workloads/sap/sap-proximity-placement-scenarios) set a placement constraint for VMs that are deployed in availability sets. Within the logical construct of a group, colocation and performance are favored over scalability, availability, and cost. Proximity placement groups can greatly improve the user experience for most SAP applications.
 
