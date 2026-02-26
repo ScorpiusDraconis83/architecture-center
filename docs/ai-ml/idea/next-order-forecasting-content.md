@@ -179,7 +179,7 @@ Follow [machine learning operations guidelines](/azure/machine-learning/concept-
 For more information, see the following resources:
 
 - [Machine learning operations v2](../guide/machine-learning-operations-v2.md)
-- [Azure machine learning operations v2 GitHub repository](https://github.com/Azure/mlops-v2)
+- [Azure Machine Learning operations v2 GitHub repository](https://github.com/Azure/mlops-v2)
 
 ### Performance Efficiency
 

@@ -167,7 +167,7 @@ Common types of processing include:
 
 - Writing event data to cold storage for archiving or batch analytics.
 
-- Hot path analytics. Analyze the event stream in near real time to detect anomalies, recognize patterns over rolling time windows, or trigger alerts when a specific condition occurs in the stream.
+- Hot path analytics. Analyze the eventstream in near real time to detect anomalies, recognize patterns over rolling time windows, or trigger alerts when a specific condition occurs in the stream.
 
 - Handling special types of nontelemetry messages from devices, such as notifications and alarms.
 
@@ -189,7 +189,7 @@ IoT architectures use machine learning for intelligent edge computing and cloud-
 
 - [IoT Hub](/azure/iot-hub/)
 - [Azure Data Explorer](/azure/data-explorer/)
-- [Microsoft Fabric decision guide: Choos a Data store](/fabric/fundamentals/decision-guide-data-store)
+- [Microsoft Fabric decision guide: Choose a Data store](/fabric/fundamentals/decision-guide-data-store)
 - [Azure Databricks](/azure/databricks/)
 - [Azure Machine Learning](/azure/machine-learning/)
 - [Fabric Data Science](/fabric/data-science/)
