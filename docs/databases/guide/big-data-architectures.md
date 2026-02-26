@@ -46,7 +46,7 @@ Most big data architectures include some or all of the following components:
   - Static files that applications produce, such as web server log files.
   - Real-time data sources, such as Internet of Things (IoT) devices.
 
-- **Data storage:** Data for batch processing operations is typically stored in a distributed file store that can hold high volumes of large files in various formats. This kind of store is often called a *data lake*. Options for implementing this storage include Azure Data Lake Store, blob containers in Azure Storage, or OneLake in Microsoft Fabric.
+- **Data storage:** Data for batch processing operations is typically stored in a distributed file store that can hold high volumes of large files in various formats. This kind of store is often called a *data lake*. Options for implementing this storage include Azure Data Lake Storage, blob containers in Azure Storage, or OneLake in Microsoft Fabric.
 
 - **Batch processing:** The datasets are large, so a big data solution often processes data files by using long-running batch jobs to filter, aggregate, and otherwise prepare data for analysis. Usually these jobs involve reading source files, processing them, and writing the output to new files. You can use the following options:
 
