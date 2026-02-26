@@ -271,7 +271,7 @@ Other contributors:
 - [Use Azure Key Vault Provider for Secrets Store CSI Driver on Azure Red Hat OpenShift](/azure/openshift/howto-use-key-vault-secrets)
 - [IBM MQ in Containers](https://www.ibm.com/docs/en/ibm-mq/9.1?topic=mq-in-containers)
 - [Azure Red Hat OpenShift](/azure/openshift/intro-openshift)
-- [What is Azure Database for PostgreSQL?](/azure/postgresql/single-server/overview)
+- [What is Azure Database for PostgreSQL?](/azure/postgresql/overview)
 - [Introduction to Red Hat on Azure](/training/modules/introduction-to-red-hat-azure)
 - [Work with Azure Database for PostgreSQL](/training/paths/microsoft-learn-azure-database-for-postgresql)
 
@@ -279,4 +279,3 @@ Other contributors:
 
 - [Deploy IBM Maximo Application Suite on Azure](../../example-scenario/apps/deploy-ibm-maximo-application-suite.yml)
 - [Deploy a Java application with JBoss EAP on an ARO cluster](/azure/developer/java/ee/jboss-eap-on-aro)
-

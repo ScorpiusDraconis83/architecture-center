@@ -341,9 +341,9 @@ Applications can access the data on the object storage via [Blobfuse2](https://g
 
 To create an AKS cluster that has CSI drivers support, see [CSI drivers on AKS](/azure/aks/csi-storage-drivers). For more information, see [Compare access to Azure Files, Blob Storage, and Azure NetApp Files with NFS](/azure/storage/common/nfs-comparison).
 
-### Azure HPC Cache
+### Azure Managed Lustre
 
-[HPC Cache](/azure/hpc-cache/hpc-cache-overview) accelerates access to your data for high-perforance computing tasks and provides the scalability of cloud solutions. If you choose this storage solution, make sure to deploy your AKS cluster in a [region that supports HPC Cache](https://azure.microsoft.com/global-infrastructure/services/).
+[Azure Managed Lustre](/azure/azure-managed-lustre/amlfs-overview#use-azure-managed-lustre-with-kubernetes) is a managed parallel file system that accelerates access to your data for high-performance computing tasks and provides the scalability of cloud solutions.
 
 ### NFS server
 
@@ -413,7 +413,7 @@ Different services support storage classes that have different access modes.
 | Azure Files         |      X        |      X       |       X       |
 | Azure NetApp Files |      X        |       X      |       X       |
 | NFS server         |      X        |       X      |       X       |
-| HPC Cache    |      X        |       X      |       X       |
+| Azure Managed Lustre    |      X        |       X      |       X       |
 
 ### Dynamic vs. static provisioning
 
