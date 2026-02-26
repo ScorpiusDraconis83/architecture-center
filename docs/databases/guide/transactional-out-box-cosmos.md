@@ -540,7 +540,7 @@ private async Task HandleChangesAsync(IReadOnlyCollection<ExpandoObject> changes
 
 When an error occurs during change processing, the change feed library restarts reading messages from the position where it successfully processed the last batch. For example, if the application successfully processed 10,000 messages and encounters an error while it processes batch 10,001 to 10,025, the library restarts at position 10,001. The library tracks processing progress by using information saved in a `Leases` container in Azure Cosmos DB.
 
-When reprocessing occurs, the application might have sent some messages to Service Bus, which normally creates duplicate message processing. To prevent this scenario, you can turn on duplicate message detection in Service Bus. Service Bus checks whether a message already exists in a topic or queue based on the application-controlled `MessageId` property of the message. That property is set to the `ID` of the event document. When Service Bus receives a duplicate message, it ignores and drops the message.
+When reprocessing occurs, the application might have already sent some messages to Service Bus, which normally creates duplicate message processing. To prevent this scenario, you can turn on duplicate message detection in Service Bus. Service Bus checks whether a message already exists in a topic or queue based on the application-controlled `MessageId` property of the message. That property is set to the `ID` of the event document. When Service Bus receives a duplicate message, it ignores and drops the message.
 
 ### Cleanup and maintenance
 
@@ -554,7 +554,7 @@ The primary consideration is to set a suitable `TTL` value on the `DomainEvent` 
 
 ## Summary
 
-The Transactional Outbox pattern solves the problem of reliably publishing domain events in distributed systems. The pattern commits the business object's state and its events in the same transactional batch, and a background processor relays these events as messages. This approach ensures that other internal or external services receive the information that they depend on. This sample differs from traditional Transactional Outbox implementations. It uses features like the Azure Cosmos DB change feed for automatic event processing and TTL to simplify implementation.
+The Transactional Outbox pattern solves the problem of reliably publishing domain events in distributed systems. The pattern commits the business object's state and its events in the same transactional batch, and a background processor relays these events as messages. This approach ensures that other internal or external services eventually receive the information that they depend on. This sample differs from traditional Transactional Outbox implementations. It uses features like the Azure Cosmos DB change feed for automatic event processing and TTL to simplify implementation.
 
 The following diagram summarizes the Azure components in this scenario.
 
