@@ -80,15 +80,15 @@ As with any design decision, consider any tradeoffs against the goals of the oth
 
 ## Example
 
-A web application that implements an ecommerce system has been deployed on Microsoft Azure. Users can run this application to browse the available products and to place orders. The user interface runs as a web role, and the order processing elements of the application are implemented as a set of worker roles. Part of the order processing logic involves accessing a remote service, and this aspect of the system could be prone to transient or more long-lasting faults. For this reason, the designers used the Scheduler Agent Supervisor pattern to implement the order processing elements of the system.
+A web application that implements an ecommerce system has been deployed on Microsoft Azure. Users can run this application to browse the available products and to place orders. The user interface runs as a web frontend, and the order processing elements of the application are implemented as a set of background workers. Part of the order processing logic involves accessing a remote service, and this aspect of the system could be prone to transient or more long-lasting faults. For this reason, the designers used the Scheduler Agent Supervisor pattern to implement the order processing elements of the system.
 
-When a customer places an order, the application constructs a message that describes the order and posts this message to a queue. A separate submission process, running in a worker role, retrieves the message, inserts the order details into the orders database, and creates a record for the order process in the state store. The inserts into the orders database and the state store are performed as part of the same operation. The submission process is designed to ensure that both inserts complete together.
+When a customer places an order, the application constructs a message that describes the order and posts this message to a queue. A separate submission process, running as a background worker, retrieves the message, inserts the order details into the orders database, and creates a record for the order process in the state store. The inserts into the orders database and the state store are performed as part of the same operation. The submission process is designed to ensure that both inserts complete together.
 
 The state information that the submission process creates for the order includes:
 
 - **OrderID**. The ID of the order in the orders database.
 
-- **LockedBy**. The instance ID of the worker role handling the order. There might be multiple current instances of the worker role running the Scheduler, but each order should only be handled by a single instance.
+- **LockedBy**. The instance ID of the worker handling the order. There might be multiple current instances of the worker running the Scheduler, but each order should only be handled by a single instance.
 
 - **CompleteBy**. The time the order should be processed by.
 
@@ -106,7 +106,7 @@ In this state information, the `OrderID` field is copied from the order ID of th
 > [!NOTE]
 > In this example, the order handling logic is relatively simple and only has a single step that invokes a remote service. In a more complex multistep scenario, the submission process would likely involve several steps, and so several records would be created in the state store &mdash; each one describing the state of an individual step.
 
-The Scheduler also runs as part of a worker role and implements the business logic that handles the order. An instance of the Scheduler polling for new orders examines the state store for records where the `LockedBy` field is null and the `ProcessState` field is pending. When the Scheduler finds a new order, it immediately populates the `LockedBy` field with its own instance ID, sets the `CompleteBy` field to an appropriate time, and sets the `ProcessState` field to processing. The code is designed to be exclusive and atomic to ensure that two concurrent instances of the Scheduler can't try to handle the same order simultaneously.
+The Scheduler also runs as a background worker and implements the business logic that handles the order. An instance of the Scheduler polling for new orders examines the state store for records where the `LockedBy` field is null and the `ProcessState` field is pending. When the Scheduler finds a new order, it immediately populates the `LockedBy` field with its own instance ID, sets the `CompleteBy` field to an appropriate time, and sets the `ProcessState` field to processing. The code is designed to be exclusive and atomic to ensure that two concurrent instances of the Scheduler can't try to handle the same order simultaneously.
 
 The Scheduler then runs the business workflow to process the order asynchronously, passing it the value in the `OrderID` field from the state store. The workflow handling the order retrieves the details of the order from the orders database and performs its work. When a step in the order processing workflow needs to invoke the remote service, it uses an Agent. The workflow step communicates with the Agent using a pair of Azure Service Bus message queues acting as a request/response channel. The figure shows a high-level view of the solution.
 
@@ -120,7 +120,7 @@ If the Agent detects an unrecoverable, nontransient fault while it's trying to c
 
 The Supervisor periodically examines the state store looking for orders with an expired complete-by value. If the Supervisor finds a record, it increments the `FailureCount` field. If the failure count value is below a specified threshold value, the Supervisor resets the `LockedBy` field to null, updates the `CompleteBy` field with a new expiration time, and sets the `ProcessState` field to pending. An instance of the Scheduler can pick up this order and perform its processing as before. If the failure count value exceeds a specified threshold, the reason for the failure is assumed to be nontransient. The Supervisor sets the status of the order to error and raises an event that alerts an operator.
 
-> In this example, the Supervisor is implemented in a separate worker role. You can use various strategies to arrange for the Supervisor task to be run, including using the Azure Scheduler service (not to be confused with the Scheduler component in this pattern). For more information about the Azure Scheduler service, visit the [Scheduler](https://azure.microsoft.com/services/scheduler/) page.
+> In this example, the Supervisor is implemented as a separate background worker. You can use various strategies to arrange for the Supervisor task to be run, such as using timer-triggered functions in Azure Functions or a scheduled job in Azure Container Apps.
 
 Although it isn't shown in this example, the Scheduler might need to keep the application that submitted the order informed about the progress and status of the order. The application and the Scheduler are isolated from each other to eliminate any dependencies between them. The application has no knowledge of which instance of the Scheduler is handling the order, and the Scheduler is unaware of which specific application instance posted the order.
 
